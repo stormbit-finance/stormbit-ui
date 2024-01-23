@@ -1,23 +1,24 @@
+import { ParticleNetwork } from "@particle-network/auth";
+import { particleWallet } from "@particle-network/rainbowkit-ext";
 import { connectorsForWallets } from "@rainbow-me/rainbowkit";
 import {
-  braveWallet,
-  coinbaseWallet,
-  ledgerWallet,
-  metaMaskWallet,
-  rainbowWallet,
-  safeWallet,
-  walletConnectWallet,
+  metaMaskWallet, // rainbowWallet,
+  // safeWallet,
+  // walletConnectWallet,
+  // braveWallet,
+  // coinbaseWallet,
+  // ledgerWallet,
 } from "@rainbow-me/rainbowkit/wallets";
 import * as chains from "viem/chains";
 import { configureChains } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 import scaffoldConfig from "~~/scaffold.config";
-import { burnerWalletConfig } from "~~/services/web3/wagmi-burner/burnerWalletConfig";
+// import { burnerWalletConfig } from "~~/services/web3/wagmi-burner/burnerWalletConfig";
 import { getTargetNetworks } from "~~/utils/scaffold-eth";
 
 const targetNetworks = getTargetNetworks();
-const { onlyLocalBurnerWallet } = scaffoldConfig;
+// const { onlyLocalBurnerWallet } = scaffoldConfig;
 
 // We always want to have mainnet enabled (ENS resolution, ETH price, etc). But only once.
 const enabledChains = targetNetworks.find(network => network.id === 1)
@@ -46,23 +47,32 @@ export const appChains = configureChains(
       : {}),
   },
 );
+// replace config 'xxx'
+new ParticleNetwork({
+  appId: "147f57c2-a737-4328-a9fc-25033ff658c8",
+  clientKey: "c7RkqHEleufxJf4kjFrNQHAgkQcQYX709SV8VWUI",
+  projectId: "0c94fbb2-0c2e-45cb-af22-af2fe814b3c1",
+});
+const particleWalletCustom = particleWallet({ chains: appChains.chains });
 
 const walletsOptions = { chains: appChains.chains, projectId: scaffoldConfig.walletConnectProjectId };
+
 const wallets = [
   metaMaskWallet({ ...walletsOptions, shimDisconnect: true }),
-  walletConnectWallet(walletsOptions),
-  ledgerWallet(walletsOptions),
-  braveWallet(walletsOptions),
-  coinbaseWallet({ ...walletsOptions, appName: "scaffold-eth-2" }),
-  rainbowWallet(walletsOptions),
-  ...(!targetNetworks.some(network => network.id !== chains.hardhat.id) || !onlyLocalBurnerWallet
-    ? [
-        burnerWalletConfig({
-          chains: appChains.chains.filter(chain => targetNetworks.map(({ id }) => id).includes(chain.id)),
-        }),
-      ]
-    : []),
-  safeWallet({ ...walletsOptions }),
+  particleWalletCustom,
+  // walletConnectWallet(walletsOptions),
+  // ledgerWallet(walletsOptions),
+  // braveWallet(walletsOptions),
+  // coinbaseWallet({ ...walletsOptions, appName: "scaffold-eth-2" }),
+  // rainbowWallet(walletsOptions),
+  // ...(!targetNetworks.some(network => network.id !== chains.hardhat.id) || !onlyLocalBurnerWallet
+  //   ? [
+  //       burnerWalletConfig({
+  //         chains: appChains.chains.filter(chain => targetNetworks.map(({ id }) => id).includes(chain.id)),
+  //       }),
+  //     ]
+  //   : []),
+  // safeWallet({ ...walletsOptions }),
 ];
 
 /**
