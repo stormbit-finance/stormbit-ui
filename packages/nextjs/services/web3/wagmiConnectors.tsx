@@ -52,6 +52,9 @@ new ParticleNetwork({
   appId: "147f57c2-a737-4328-a9fc-25033ff658c8",
   clientKey: "c7RkqHEleufxJf4kjFrNQHAgkQcQYX709SV8VWUI",
   projectId: "0c94fbb2-0c2e-45cb-af22-af2fe814b3c1",
+  wallet: {
+    displayWalletEntry: true,
+  },
 });
 const particleWalletCustom = particleWallet({ chains: appChains.chains });
 
