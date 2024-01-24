@@ -23,10 +23,17 @@ p {
   margin: 1rem 0;
 }
 
-.btn {
-  @apply shadow-md;
+
+main{
+  background: var(--grandient1, linear-gradient(115deg, #EEEAFF -26.21%, #FFF7FE 20.87%, #EBF8FE 94.52%));
 }
 
-.btn.btn-ghost {
-  @apply shadow-none;
+input{
+  border-radius: 5px;
+  border: 1px solid #EAEBEF;
+}
+
+.container-market{
+  margin-block: 2rem;
+  width: 80%;
 }
