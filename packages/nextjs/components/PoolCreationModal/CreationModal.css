@@ -15,13 +15,39 @@
 .content-modal {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 3rem;
-    width: 50%;
-    height: 40%;
-    border-radius: 19px;
-    background: rgba(26, 26, 26, 0.72);
-    backdrop-filter: blur(30px);
+    width: 70%;
+    height: 80%;
+    border-radius: 5px;
+    background: white;
+    padding-block: 2rem;
+    padding-inline: 3rem;
     z-index: 100000;
 }
+
+.info-icon-container {
+    position: relative;
+    cursor: pointer;
+}
+
+.info-tooltip {
+    display: flex;
+    flex-direction:column ;
+    width: 200px;
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    display: none;
+  }
+  
+  .info-icon-container:hover .info-tooltip {
+    display: block;
+  }
+
+  input[type="checkbox"]:checked {
+    background-color: #4A5056; 
+  }
