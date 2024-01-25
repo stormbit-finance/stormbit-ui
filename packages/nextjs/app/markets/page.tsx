@@ -7,6 +7,7 @@ import Button from "~~/components/Button/Button";
 import CreationModal from "~~/components/PoolCreationModal/CreationModal";
 import Tabla from "~~/components/Table/table";
 import { data } from "~~/data/data";
+import Strategy from "~~/components/Strategy/Strategy";
 
 const BlockExplorer: NextPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,6 +45,7 @@ const BlockExplorer: NextPage = () => {
           <CreationModal setIsModalOpen={() => setIsModalOpen(false)} handleSubmit={handleSubmit}></CreationModal>
         )}
       </div>
+      <Strategy></Strategy>
     </>
   );
 };
