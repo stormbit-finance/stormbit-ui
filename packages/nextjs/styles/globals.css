@@ -25,7 +25,7 @@ p {
 
 
 main{
-  background: var(--grandient1, linear-gradient(115deg, #EEEAFF -26.21%, #FFF7FE 20.87%, #EBF8FE 94.52%));
+  background: radial-gradient(136.07% 90.79% at 10.34% 118.9%, rgba(197, 255, 253, 0.46) 0%, rgba(246, 248, 251, 0.46) 100%), radial-gradient(90.3% 61.32% at 83.83% 95.17%, #EEE4FE 0%, #F6F8FB 100%);
 }
 
 input{

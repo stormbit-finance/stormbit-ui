@@ -3,9 +3,11 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import type { NextPage } from "next";
+// import Cheap from "~~/components/Cheap/Cheap";
 import MyIons from "~~/components/My Ioans/MyIons";
 import MyPools from "~~/components/MyPools/MyPools";
 import Profile from "~~/components/Profile/Profile";
+
 
 const Portfolio: NextPage = () => {
   const [activeButton, setActiveButton] = useState("My loans");

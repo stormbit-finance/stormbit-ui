@@ -1,4 +1,10 @@
+// import { useRouter } from 'next/router';
 function MyPools() {
+  // const router = useRouter();
+
+  const handleDetailsClick = () => {
+    // router.push('/pools/1');
+  };
   return (
     <div className="w-[1200px] flex flex-col">
       <div className="flex gap-4 h-[95px] items-center p-8 border border-solid border-[#EAEBEF]">
@@ -17,7 +23,9 @@ function MyPools() {
         <p className="w-[160px] text-center">10%</p>
         <p className="w-[160px] text-center"></p>
 
-        <button className="border border-solid border-[#4A5056] rounded-[7px] py-4 px-10">Details</button>
+        <button onClick={handleDetailsClick} className="border border-solid border-[#4A5056] rounded-[7px] py-4 px-10">
+          Details
+        </button>
       </div>
     </div>
   );

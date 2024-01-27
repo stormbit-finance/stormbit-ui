@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-const Tabla = () => {
+const Table = () => {
   return (
     <div className="w-[1450px] flex flex-col">
       <div className="flex gap-4 h-[95px] items-center p-8 border border-solid border-[#EAEBEF]">
@@ -30,4 +30,4 @@ const Tabla = () => {
   );
 };
 
-export default Tabla;
+export default Table;
