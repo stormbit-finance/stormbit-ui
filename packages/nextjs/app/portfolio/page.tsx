@@ -3,11 +3,10 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import type { NextPage } from "next";
-// import Cheap from "~~/components/Cheap/Cheap";
-import MyIons from "~~/components/My Ioans/MyIons";
-import MyPools from "~~/components/MyPools/MyPools";
+import Cheap from "~~/components/Cheap/Cheap";
+import MyIons from "~~/components/MyLoans/MyIons";
+// import MyPools from "~~/components/MyPools/MyPools";
 import Profile from "~~/components/Profile/Profile";
-
 
 const Portfolio: NextPage = () => {
   const [activeButton, setActiveButton] = useState("My loans");
@@ -29,7 +28,8 @@ const Portfolio: NextPage = () => {
         return (
           <div className="flex flex-col gap-8">
             <h1 className="text-4xl text-[#4A5056] font-bold">My pools</h1>
-            <MyPools></MyPools>
+            {/* <MyPools></MyPools> */}
+            <Cheap></Cheap>
           </div>
         );
       case "Profile":

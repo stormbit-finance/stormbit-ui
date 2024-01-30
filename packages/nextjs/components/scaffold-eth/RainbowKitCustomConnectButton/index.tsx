@@ -32,7 +32,11 @@ export const RainbowKitCustomConnectButton = () => {
             {(() => {
               if (!connected) {
                 return (
-                  <button className="btn btn-primary btn-sm" onClick={openConnectModal} type="button">
+                  <button
+                    className="text-[#4A5056] py-3 px-6 border border-solid border-[#4A5056] rounded-[7px]"
+                    onClick={openConnectModal}
+                    type="button"
+                  >
                     Connect Wallet
                   </button>
                 );
@@ -45,7 +49,7 @@ export const RainbowKitCustomConnectButton = () => {
               return (
                 <>
                   <div className="flex flex-col items-center mr-1">
-                    <Balance address={account.address as Address} className="min-h-0 h-auto" />
+                    <Balance address={account.address as Address} className="h-auto min-h-0" />
                     <span className="text-xs" style={{ color: networkColor }}>
                       {chain.name}
                     </span>

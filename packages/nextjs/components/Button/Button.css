@@ -5,6 +5,8 @@
 }
 
 .base_button__large {
+    width: 490px;
     padding: 16px 33px;
     border: none;
+    border-radius: 8px;
 }

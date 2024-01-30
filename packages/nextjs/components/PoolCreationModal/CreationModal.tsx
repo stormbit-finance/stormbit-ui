@@ -34,7 +34,7 @@ function CreationModal(props: Modalprops) {
               <label htmlFor="campo1">Owner</label>
               <input type="text" id="campo1" name="campo1" className="w-full p-2 border" />
             </div>
-            <div className="flex">
+            <div className="flex gap-16">
               <div className="flex-1">
                 <label htmlFor="campo1">Min Credit Score</label>
                 <input type="text" id="campo1" name="campo1" className="w-full p-2 border" />
@@ -44,7 +44,7 @@ function CreationModal(props: Modalprops) {
                 <input type="text" id="campo2" name="campo2" className="w-full p-2 border" />
               </div>
             </div>
-            <div className="flex">
+            <div className="flex gap-16">
               <div className="flex-1">
                 <label htmlFor="campo1">Min Quorum</label>
                 <input type="text" id="campo1" name="campo1" className="w-full p-2 border" />
@@ -63,7 +63,7 @@ function CreationModal(props: Modalprops) {
               <input type="text" id="campo1" name="campo1" className="w-full p-2 border" />
             </div>
             <span>Agreement supported</span>
-            <div className="flex gap-2">
+            <div className="flex gap-16">
               <div className="flex gap-4">
                 <input type="checkbox"></input>
                 <div className="flex items-center gap-2">
@@ -127,8 +127,10 @@ function CreationModal(props: Modalprops) {
             </div>
           </form>
         </div>
-        <div>
-          <Button onClick={handleSubmit}>Create Pool</Button>
+        <div className="flex items-center justify-center">
+          <Button onClick={handleSubmit} size="large">
+            Create Pool
+          </Button>
         </div>
       </div>
     </div>

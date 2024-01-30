@@ -35,5 +35,12 @@ input{
 
 .container-market{
   margin-block: 2rem;
-  width: 95%;
+  width: 90%;
+}
+
+.bg-letter{
+  background: var(--gradient2, linear-gradient(89deg, #AD92F5 -10.93%, #61BEFF 121.88%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

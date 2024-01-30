@@ -1,5 +1,39 @@
-export const data = [
-  ["Dato 1", "Dato 2", "Dato 3", "Dato 4", "Dato 5", "Dato 6"],
-  ["Dato 8", "Dato 9", "Dato 10", "Dato 11", "Dato 12", "Dato 13"],
-  ["Dato 15", "Dato 16", "Dato 17", "Dato 18", "Dato 19", "Dato 20"],
+export interface Data {
+  pool: string;
+  agreement: string[];
+  date: string;
+  amount: string;
+  penalty: string;
+  interest: string;
+  status: string;
+}
+
+export const data: Data[] = [
+  {
+    pool: "Cheap Local Lending",
+    agreement: ["Base", "NFT", "FT"],
+    date: "10-01-2024",
+    amount: "$10.01",
+    penalty: "11.8",
+    interest: "11.8",
+    status: "Pending",
+  },
+  {
+    pool: "Cheap Local Lending",
+    agreement: ["NFT"],
+    date: "10-01-2024",
+    amount: "$10.01",
+    penalty: "11.8",
+    interest: "11.8",
+    status: "Active",
+  },
+  {
+    pool: "Cheap Local Lending",
+    agreement: ["Base", "FT"],
+    date: "10-01-2024",
+    amount: "$10.01",
+    penalty: "11.8",
+    interest: "11.8",
+    status: "Rejected",
+  },
 ];
