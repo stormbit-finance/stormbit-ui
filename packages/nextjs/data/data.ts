@@ -1,4 +1,5 @@
 export interface Data {
+  id: string;
   pool: string;
   agreement: string[];
   date: string;
@@ -10,6 +11,7 @@ export interface Data {
 
 export const data: Data[] = [
   {
+    id: "1",
     pool: "Cheap Local Lending",
     agreement: ["Base", "NFT", "FT"],
     date: "10-01-2024",
@@ -19,6 +21,7 @@ export const data: Data[] = [
     status: "Pending",
   },
   {
+    id: "2",
     pool: "Cheap Local Lending",
     agreement: ["NFT"],
     date: "10-01-2024",
@@ -28,6 +31,7 @@ export const data: Data[] = [
     status: "Active",
   },
   {
+    id: "3",
     pool: "Cheap Local Lending",
     agreement: ["Base", "FT"],
     date: "10-01-2024",

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Image from "next/image";
+import Button from "../Button/Button";
 
 function Cheap() {
   const [activeTab, setActiveTab] = useState("Overview");
@@ -49,7 +50,57 @@ function Cheap() {
           </div>
         );
       case "Exit Pool":
-        return <div>do</div>;
+        return (
+          <div className="flex gap-16">
+            <div className="flex flex-col items-center justify-center">
+              <div className="flex flex-col gap-4 w-[760px]">
+                <div className="flex items-center justify-between">
+                  <span>Pool Amount</span>
+                  <span className="text-[#865AEF] text-xs">Max</span>
+                </div>
+                <div className="flex justify-between border border-solid border-[#EAEBEF] p-4 rounded-[5px]">
+                  <input
+                    type="text"
+                    className="border-none w-[650px] focus:outline-none focus:border-none"
+                    placeholder="0.01"
+                  ></input>
+                  <div className="flex gap-2">
+                    <Image src="/ether.png" alt="ether" width={17} height={17}></Image>
+                    <span>ETH</span>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col gap-4 w-[760px]">
+                <div className="flex items-center justify-between">
+                  <span>Estimated Output</span>
+                </div>
+                <div className="flex justify-between border border-solid border-[#EAEBEF] p-4 rounded-[5px]">
+                  <input
+                    type="text"
+                    className="border-none w-[650px] focus:outline-none focus:border-none"
+                    placeholder="0.01"
+                  ></input>
+                  <div className="flex gap-2">
+                    <Image src="/ether.png" alt="ether" width={17} height={17}></Image>
+                    <span>ETH</span>
+                  </div>
+                </div>
+              </div>
+              <Button size="large">Exit Pool</Button>
+            </div>
+            <div className="bg-[#F3F7F9] rounded-[5px] p-6 w-[600px] h-[160px] flex flex-col gap-5">
+              <span className="font-bold text-[#17344F]">Transaction information</span>
+              <div className="flex justify-between">
+                <span>Exchange Rate</span>
+                <span>1 ETH = 0.05 BTC</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Accumulate Interest</span>
+                <span>0.03 %</span>
+              </div>
+            </div>
+          </div>
+        );
       case "Loan Applicant List":
         return (
           <div className="w-[1350px] flex flex-col">

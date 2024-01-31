@@ -5,6 +5,7 @@ import Image from "next/image";
 function Profile() {
   return (
     <>
+      <h1 className="text-4xl text-[#4A5056] font-bold">Profile and Settings</h1>
       <div className="flex flex-col gap-2">
         <span className="text-[#4A5056] font-bold text-xl">Account number</span>
         <div className="flex gap-2">

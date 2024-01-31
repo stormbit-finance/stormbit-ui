@@ -5,14 +5,16 @@ import Image from "next/image";
 import type { NextPage } from "next";
 import Cheap from "~~/components/Cheap/Cheap";
 import MyIons from "~~/components/MyLoans/MyIons";
-// import MyPools from "~~/components/MyPools/MyPools";
+import MyPools from "~~/components/MyPools/MyPools";
 import Profile from "~~/components/Profile/Profile";
 
 const Portfolio: NextPage = () => {
-  const [activeButton, setActiveButton] = useState("My loans");
+  const [activeButton, setActiveButton] = useState<string>("My loans");
+  const [showMyPools, setShowMyPools] = useState(true);
 
   const handleButtonClick = (buttonText: string) => {
     setActiveButton(buttonText);
+    setShowMyPools(buttonText !== "My pools");
   };
 
   const renderContent = () => {
@@ -20,22 +22,14 @@ const Portfolio: NextPage = () => {
       case "My loans":
         return (
           <div className="flex flex-col gap-8">
-            <h1 className="text-4xl text-[#4A5056] font-bold">My loans</h1>
             <MyIons></MyIons>
           </div>
         );
       case "My pools":
-        return (
-          <div className="flex flex-col gap-8">
-            <h1 className="text-4xl text-[#4A5056] font-bold">My pools</h1>
-            {/* <MyPools></MyPools> */}
-            <Cheap></Cheap>
-          </div>
-        );
+        return <div className="flex flex-col gap-8">{showMyPools ? <MyPools /> : <Cheap />}</div>;
       case "Profile":
         return (
           <div className="flex flex-col gap-8">
-            <h1 className="text-4xl text-[#4A5056] font-bold">Profile and Settings</h1>
             <Profile></Profile>
           </div>
         );
