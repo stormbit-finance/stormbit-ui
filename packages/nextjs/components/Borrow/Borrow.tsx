@@ -28,19 +28,19 @@ function Borrow() {
         <div className="flex gap-4">
           <button
             onClick={() => handleAgreementClick("baseChain")}
-            className={`bg-${selectedAgreement === "baseChain" ? "gray-300" : "white"} py-2 px-4 rounded-[8px]`}
+            className={`bg-${selectedAgreement === "baseChain" ? " bg-[#F1F3F4]" : "white"} py-2 px-4 rounded-[8px]`}
           >
             Base Chain Agreement
           </button>
           <button
             onClick={() => handleAgreementClick("nft")}
-            className={`bg-${selectedAgreement === "nft" ? "gray-300" : "white"} py-2 px-4 rounded-[8px]`}
+            className={`bg-${selectedAgreement === "nft" ? " bg-[#F1F3F4]" : "white"} py-2 px-4 rounded-[8px]`}
           >
             NFT Agreement
           </button>
           <button
             onClick={() => handleAgreementClick("ft")}
-            className={`bg-${selectedAgreement === "ft" ? "gray-300" : "white"} py-2 px-4 rounded-[8px]`}
+            className={`bg-${selectedAgreement === "ft" ? " bg-[#F1F3F4]" : "white"} py-2 px-4 rounded-[8px]`}
           >
             FT Agreement
           </button>

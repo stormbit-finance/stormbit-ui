@@ -1,7 +1,7 @@
 import React from "react";
 import { data } from "~~/data/data";
 
-function MyIons() {
+function MyLoans() {
   const getStatusColorClass = (status: any) => {
     switch (status) {
       case "Pending":
@@ -63,4 +63,4 @@ function MyIons() {
   );
 }
 
-export default MyIons;
+export default MyLoans;

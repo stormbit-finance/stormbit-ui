@@ -1,8 +1,12 @@
+"use client";
+
 import { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import Button from "../Button/Button";
 
 function Cheap() {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState("Overview");
 
   const renderContent = () => {
@@ -128,10 +132,14 @@ function Cheap() {
     }
   };
 
+  const handleGoBack = () => {
+    router.back();
+  };
+
   return (
     <>
       <div>
-        <div className="flex gap-3 my-8">
+        <div className="flex gap-3 my-8 " onClick={handleGoBack} style={{ cursor: "pointer" }}>
           <Image src="/arrow-left.png" alt="arrow" width={20} height={16}></Image>
           <span>Go back</span>
         </div>
