@@ -1,4 +1,5 @@
-'use client'
+"use client";
+
 import { useState } from "react";
 import Cheap from "~~/components/Cheap/Cheap";
 import { data } from "~~/data/data";

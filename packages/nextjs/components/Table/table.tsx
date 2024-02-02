@@ -21,7 +21,9 @@ const Table = () => {
         <p className="w-[160px] text-center">11.8 %</p>
         <p className="w-[160px] text-center">100.18K</p>
         <p className="w-[160px] text-center">11.8 %</p>
-        <button className="border border-solid border-[#4A5056] rounded-[7px] py-4 px-10">Trade</button>
+        <Link href="/pool">
+          <button className="border border-solid border-[#4A5056] rounded-[7px] py-4 px-10">Trade</button>
+        </Link>
         <Link href="/pool">
           <Image src="/chevron-right.png" alt="chevron" width={24} height={24}></Image>
         </Link>
