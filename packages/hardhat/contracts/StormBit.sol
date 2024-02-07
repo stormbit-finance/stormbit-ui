@@ -39,6 +39,8 @@ contract StormBit {
         pools[poolIds] = pool;
         poolConfigs[poolIds] = _config;
         poolIds++;
+
+        emit PoolCreated(msg.sender, poolIds - 1, _name);
     }
 
     function getPoolData(uint256 _poolId) public view returns (StormPool memory, PoolConfig memory, address[] memory) {
