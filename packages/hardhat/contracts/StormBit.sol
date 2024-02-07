@@ -3,6 +3,8 @@ pragma solidity ^0.8.21;
 contract StormBit {
 
     event PoolCreated(address indexed creator, uint256 poolId, string name);
+    event AgreementCreated(address indexed aggreement, uint256 agreementId, string name);
+
     struct PoolConfig {
         uint256 minCreditScore;
         uint256 quorum;
@@ -25,6 +27,13 @@ contract StormBit {
     // poolId => (agreementId => YEs/NO)
     mapping(uint256 => mapping(uint256 => bool)) public poolAgreements;
 
+    constructor() {
+        _createAgreement("Base Agreement", address(1));
+        _createAgreement("NFT Agreement", address(2));
+        _createAgreement("FT Agreement", address(3));
+
+    }
+
     function createPool(string memory _name, PoolConfig memory _config) public {
         StormPool memory pool = StormPool(msg.sender, 1, _name);
         pools[poolIds] = pool;
@@ -46,14 +55,23 @@ contract StormBit {
         return _agreements;
     }
 
+    function createAgreement(string memory _name, address _agreement) public returns (uint256) {
+        return _createAgreement(_name, _agreement);
+    }
+
+    function supportAgreement(uint256 _poolId, uint256 _agreementId) public {
+        _supportAgreement(_poolId, _agreementId);
+    }
+
     function _supportAgreement(uint256 _poolId, uint256 _agreementId) internal {
         poolAgreements[_poolId][_agreementId] = true;
     }
 
-    function _addAgreement(address _agreement) internal returns (uint256) {
+    function _createAgreement(string memory _name, address _agreement) internal returns (uint256) {
         uint256 agreementId = aggreementIds;
-        agreements[aggreementIds] = _agreement;
+        agreements[agreementId] = _agreement;
         aggreementIds++;
+        emit AgreementCreated(_agreement, agreementId, _name);
         return agreementId;
     }
 
