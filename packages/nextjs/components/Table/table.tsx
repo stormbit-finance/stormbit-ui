@@ -1,8 +1,23 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
 const Table = () => {
+  const poolId = 2;
+
+  const { data } = useScaffoldContractRead({
+    contractName: "StormBit",
+    functionName: "getPoolData",
+    args: [BigInt(poolId)],
+  });
+
+  if (!data) {
+    return console.log("geg");
+  }
+
+  console.log(data, "gab");
+
   return (
     <div className="w-[1450px] flex flex-col">
       <div className="flex gap-4 h-[95px] items-center p-8 border border-solid border-[#EAEBEF]">
@@ -14,20 +29,22 @@ const Table = () => {
         <span className="w-[160px] text-center">Borrow APY</span>
         <span className="w-[160px] text-center"></span>
       </div>
-      <div className="flex gap-4 h-[95px] items-center p-8 border border-solid border-[#EAEBEF]">
-        <p className="w-[160px] text-center">Cheap Local Lending</p>
-        <p className="w-[160px] text-center">100.18K</p>
-        <p className="w-[160px] text-center">100.18K</p>
-        <p className="w-[160px] text-center">11.8 %</p>
-        <p className="w-[160px] text-center">100.18K</p>
-        <p className="w-[160px] text-center">11.8 %</p>
-        <Link href="/pool">
-          <button className="border border-solid border-[#4A5056] rounded-[7px] py-4 px-10">Trade</button>
-        </Link>
-        <Link href="/pool">
-          <Image src="/chevron-right.png" alt="chevron" width={24} height={24}></Image>
-        </Link>
-      </div>
+      {data.map((poolData, index) => (
+        <div key={index} className="flex gap-4 h-[95px] items-center p-8 border border-solid border-[#EAEBEF]">
+          <p className="w-[160px] text-center">{poolData.name}</p>
+          <p className="w-[160px] text-center">{poolData.minCreditScore}</p>
+          <p className="w-[160px] text-center">{/* Usar el valor correspondiente de Total Supplied */}</p>
+          <p className="w-[160px] text-center">{/* Usar el valor correspondiente de Supply APY */}</p>
+          <p className="w-[160px] text-center">{/* Usar el valor correspondiente de Total Borrowed */}</p>
+          <p className="w-[160px] text-center">{/* Usar el valor correspondiente de Borrow APY */}</p>
+          <Link href="/pool">
+            <button className="border border-solid border-[#4A5056] rounded-[7px] py-4 px-10">Trade</button>
+          </Link>
+          <Link href="/pool">
+            <Image src="/chevron-right.png" alt="chevron" width={24} height={24}></Image>
+          </Link>
+        </div>
+      ))}
     </div>
   );
 };
