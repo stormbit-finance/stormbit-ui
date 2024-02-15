@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Button from "../Button/Button";
+import toast from "react-hot-toast";
 import "./CreationModal.css";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
@@ -53,13 +54,11 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
     ],
     value: BigInt(0),
     onBlockConfirmation: txReceipt => {
-      console.log(txReceipt);
+      toast.success(`Pool created successfully with hash ${txReceipt.transactionHash as string}`);
+      setIsModalOpen();
     },
     blockConfirmations: 0,
   });
-
-  console.log(data);
-  console.log(createPoolLoading);
 
   const handleSubmit = () => {
     setIsModalOpen();
@@ -189,10 +188,7 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
         </div>
         <div className="flex items-center justify-center">
           <Button
-            onClick={() => {
-              createPool;
-              setIsModalOpen();
-            }}
+            onClick={createPool}
             size="large"
           >
             Create Pool
