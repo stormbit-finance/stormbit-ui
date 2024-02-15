@@ -1,22 +1,23 @@
 import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
-const Table = () => {
-  const poolId = 2;
+// import Image from "next/image";
+// import Link from "next/link";
+// import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
-  const { data } = useScaffoldContractRead({
-    contractName: "StormBit",
-    functionName: "getPoolData",
-    args: [BigInt(poolId)],
-  });
+function Table() {
+  // const poolId = 1;
 
-  if (!data) {
-    return console.log("geg");
-  }
+  // const { data } = useScaffoldContractRead({
+  //   contractName: "StormBit",
+  //   functionName: "getPoolData",
+  //   args: [BigInt(poolId)],
+  // });
 
-  console.log(data, "gab");
+  // if (!data) {
+  //   return console.log("geg");
+  // }
+
+  // console.log(data, "gab");
 
   return (
     <div className="w-[1450px] flex flex-col">
@@ -29,14 +30,14 @@ const Table = () => {
         <span className="w-[160px] text-center">Borrow APY</span>
         <span className="w-[160px] text-center"></span>
       </div>
-      {data.map((poolData, index) => (
+      {/* {data.map((poolData, index) => (
         <div key={index} className="flex gap-4 h-[95px] items-center p-8 border border-solid border-[#EAEBEF]">
           <p className="w-[160px] text-center">{poolData.name}</p>
           <p className="w-[160px] text-center">{poolData.minCreditScore}</p>
-          <p className="w-[160px] text-center">{/* Usar el valor correspondiente de Total Supplied */}</p>
-          <p className="w-[160px] text-center">{/* Usar el valor correspondiente de Supply APY */}</p>
-          <p className="w-[160px] text-center">{/* Usar el valor correspondiente de Total Borrowed */}</p>
-          <p className="w-[160px] text-center">{/* Usar el valor correspondiente de Borrow APY */}</p>
+          <p className="w-[160px] text-center">{}</p>
+          <p className="w-[160px] text-center">{}</p>
+          <p className="w-[160px] text-center">{}</p>
+          <p className="w-[160px] text-center">{}</p>
           <Link href="/pool">
             <button className="border border-solid border-[#4A5056] rounded-[7px] py-4 px-10">Trade</button>
           </Link>
@@ -44,9 +45,9 @@ const Table = () => {
             <Image src="/chevron-right.png" alt="chevron" width={24} height={24}></Image>
           </Link>
         </div>
-      ))}
+      ))} */}
     </div>
   );
-};
+}
 
 export default Table;

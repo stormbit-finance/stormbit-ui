@@ -5,14 +5,14 @@ import Image from "next/image";
 import type { NextPage } from "next";
 import Button from "~~/components/Button/Button";
 import CreationModal from "~~/components/PoolCreationModal/CreationModal";
-import Tabla from "~~/components/Table/table";
+import Table from "~~/components/Table/table";
 
 const BlockExplorer: NextPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleSubmit = () => {
-    setIsModalOpen(false);
-  };
+  // const handleSubmit = () => {
+  //   setIsModalOpen(false);
+  // };
 
   return (
     <>
@@ -36,11 +36,9 @@ const BlockExplorer: NextPage = () => {
           </div>
         </div>
         <div className="flex justify-center">
-          <Tabla></Tabla>
+          <Table></Table>
         </div>
-        {isModalOpen && (
-          <CreationModal setIsModalOpen={() => setIsModalOpen(false)} handleSubmit={handleSubmit}></CreationModal>
-        )}
+        {isModalOpen && <CreationModal setIsModalOpen={() => setIsModalOpen(false)}></CreationModal>}
       </div>
     </>
   );

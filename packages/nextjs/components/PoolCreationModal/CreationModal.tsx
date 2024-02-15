@@ -57,8 +57,10 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
     },
     blockConfirmations: 0,
   });
-  console.log(data, "gab");
+
+  console.log(data);
   console.log(createPoolLoading);
+
   const handleSubmit = () => {
     setIsModalOpen();
   };

@@ -1,7 +1,12 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
+import ModalPay from "../modalPay/modalPay";
 import { data } from "~~/data/data";
 
 function MyLoans() {
+  const [modalPay, setModalPay] = useState(false);
+
   const getStatusColorClass = (status: any) => {
     switch (status) {
       case "Pending":
@@ -54,7 +59,13 @@ function MyLoans() {
               <p className={`w-[160px] text-center ${getStatusColorClass(element.status)} font-bold`}>
                 {element.status}
               </p>
-              <button className="border border-solid border-[#4A5056] rounded-[7px] py-4 px-10">Details</button>
+              <button
+                className="border border-solid border-[#4A5056] rounded-[7px] py-4 px-10"
+                onClick={() => setModalPay(true)}
+              >
+                Pay
+              </button>
+              {modalPay && <ModalPay setModalPay={() => setModalPay(false)}></ModalPay>}
             </div>
           </>
         ))}

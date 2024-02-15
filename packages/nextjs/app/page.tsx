@@ -58,17 +58,17 @@ const Home: NextPage = () => {
   ];
   return (
     <>
-      <div className="flex flex-col pt-10">
+      <div className="flex flex-col items-center justify-center pt-10">
         <div className="flex gap-24">
-          <div className="w-[640px] m-24">
+          <div className="w-[640px] my-24">
             <span className="font-bold text-8xl text-gradient">STORMBIT</span>
             <p className="text-4xl font-bold text-[#4A5056]">A marketplace that connects lenders to borrowers</p>
           </div>
-          <Image src="/icon2.png" alt="icon2" width={680} height={490}></Image>
+          <Image src="/icon2.png" alt="icon2" width={600} height={800}></Image>
         </div>
         <div className="flex flex-col items-center justify-center gap-6">
           <h1 className="font-bold text-[#17344F] text-4xl">Lending pool</h1>
-          <div className="flex flex-wrap justify-center gap-8">
+          <div className="flex flex-wrap justify-center gap-8 w-[1650px]">
             {data.map(element => (
               <>
                 <div className="rounded-[15px] bg-white w-[500px] text-[#4A5056] p-8 flex-col gap-6 flex">
@@ -76,7 +76,7 @@ const Home: NextPage = () => {
                     <Image src="/icon3.png" alt="icon" width={100} height={50}></Image>
                     <span className="text-[26px] font-medium">{element.name}</span>
                   </div>
-                  <div className="flex gap-28">
+                  <div className="flex text-2xl gap-28">
                     <div className="flex flex-col gap-2">
                       <span>Supply APY</span>
                       <span>{element.amount}</span>
@@ -97,13 +97,41 @@ const Home: NextPage = () => {
           <div className="flex gap-6">
             {lending.map(element => (
               <>
-                <div className="flex flex-col bg-white w-[383px] text-[#4A5056] p-8 gap-4 rounded-[15px]">
+                <div className="shadow-lending flex flex-col bg-white w-[383px] text-[#4A5056] p-8 gap-4 rounded-[15px] h-[490px]">
                   <Image src={element.icon} alt="icon" width={72} height={72}></Image>
-                  <span className="text-2xl">{element.name}</span>
+                  <span className="mt-12 text-2xl">{element.name}</span>
                   <span>{element.description}</span>
                 </div>
               </>
             ))}
+          </div>
+        </div>
+        <div className="flex flex-col items-center gap-12 my-52">
+          <h2 className="text-[#17344F] text-4xl font-bold">Market Stats</h2>
+          <div className="flex gap-24 px-20 py-24 container-stats rounded-[5px]">
+            <Image src="/stats.png" alt="stats" width={703} height={551}></Image>
+            <div className="flex flex-col justify-center w-[530px] px-7 gap-20">
+              <div className="flex gap-36">
+                <div className="flex flex-col items-center gap-6">
+                  <span className="text-4xl text-gradient">$ 12M</span>
+                  <span className="text-2xl">Total Borrow</span>
+                </div>
+                <div className="flex flex-col items-center gap-6">
+                  <span className="text-4xl text-gradient">$ 12M</span>
+                  <span className="text-2xl">Total Supply</span>
+                </div>
+              </div>
+              <div className="flex gap-20">
+                <div className="flex flex-col items-center gap-6">
+                  <span className="text-4xl text-gradient">0.29%</span>
+                  <span className="text-2xl">Average Supply APY</span>
+                </div>
+                <div className="flex flex-col items-center gap-6">
+                  <span className="text-4xl text-gradient">0.29%</span>
+                  <span className="text-2xl">Average Borrow APR</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

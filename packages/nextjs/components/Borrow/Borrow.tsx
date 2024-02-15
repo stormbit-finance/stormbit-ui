@@ -17,30 +17,53 @@ function Borrow() {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col text-[#4A5056]">
       <div className="flex flex-col">
         <span className="text-[#4A5056] font-bold my-2">Amount to Borrow</span>
         <input type="text" />
         <span className="text-xs">Balance 0.001 ETH</span>
       </div>
-      <div className="flex flex-col gap-4 my-4">
+      <div className="flex flex-col gap-4 my-6">
         <span className="text-[#4A5056] font-bold">Supported Agreement</span>
+        <div className="flex gap-8">
+          <div className="flex gap-4">
+            <input type="checkbox" className="bg-red-700 rounded-full"/>
+            <span>Base Agreement</span>
+          </div>
+          <div className="flex gap-4">
+            <input type="checkbox" />
+            <span>NFT Agreement</span>
+          </div>
+          <div className="flex gap-4">
+            <input type="checkbox" />
+            <span>FT Agreement</span>
+          </div>
+        </div>
+      </div>
+      <div className="flex flex-col gap-4 my-4">
+        <span className="text-[#4A5056] font-bold">Aggreement Settings</span>
         <div className="flex gap-4">
           <button
             onClick={() => handleAgreementClick("baseChain")}
-            className={`bg-${selectedAgreement === "baseChain" ? " bg-[#F1F3F4]" : "white"} py-2 px-4 rounded-[8px]`}
+            className={`bg-${
+              selectedAgreement === "baseChain" ? " bg-[#17344F] text-white text-sm" : "white"
+            } py-2 px-4 rounded-[8px]`}
           >
             Base Chain Agreement
           </button>
           <button
             onClick={() => handleAgreementClick("nft")}
-            className={`bg-${selectedAgreement === "nft" ? " bg-[#F1F3F4]" : "white"} py-2 px-4 rounded-[8px]`}
+            className={`bg-${
+              selectedAgreement === "nft" ? " bg-[#17344F] text-white text-sm" : "white"
+            } py-2 px-4 rounded-[8px]`}
           >
             NFT Agreement
           </button>
           <button
             onClick={() => handleAgreementClick("ft")}
-            className={`bg-${selectedAgreement === "ft" ? " bg-[#F1F3F4]" : "white"} py-2 px-4 rounded-[8px]`}
+            className={`bg-${
+              selectedAgreement === "ft" ? " bg-[#17344F] text-white text-sm" : "white"
+            } py-2 px-4 rounded-[8px]`}
           >
             FT Agreement
           </button>

@@ -1,0 +1,25 @@
+.container-modalPay{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(56, 61, 81, 0.23);
+    padding: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100000;
+}
+
+.content-modalPay {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 5px;
+    background: white;
+    padding-block: 2rem;
+    padding-inline: 3rem;
+    z-index: 100000;
+}
