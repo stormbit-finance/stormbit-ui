@@ -16,6 +16,7 @@ function Table() {
   const { data: poolAddresses, isLoading: poolAddressesLoading } = useScaffoldContractRead({
     contractName: "StormBitCore",
     functionName: "getPools",
+    watch: true,
   });
 
   const { data: LendingContract } = useScaffoldContract({

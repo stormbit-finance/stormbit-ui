@@ -10,10 +10,6 @@ import Table from "~~/components/Table/table";
 const BlockExplorer: NextPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // const handleSubmit = () => {
-  //   setIsModalOpen(false);
-  // };
-
   return (
     <>
       <div className="flex flex-col gap-6 rounded-[5px] w-[1800px] h-[700px] bg-white p-10">

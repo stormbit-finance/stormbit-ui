@@ -9,12 +9,12 @@ import { useScaffoldContract, useScaffoldContractWrite } from "~~/hooks/scaffold
 interface PoolConfig {
   name: string;
   owner: string;
-  minCreditScore: number;
-  maxAmountOfStakers: number;
-  minQuorum: number;
-  maxPoolUsage: number;
-  votingPowerCooldown: number;
-  amount: number;
+  minCreditScore: bigint;
+  maxAmountOfStakers: bigint;
+  quorum: bigint;
+  maxPoolUsage: bigint;
+  votingPowerCooldown: bigint;
+  amount: bigint;
   agreements: boolean[];
 }
 
@@ -27,12 +27,12 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
   const [poolConfig, setPoolConfig] = useState<PoolConfig>({
     name: "",
     owner: "",
-    minCreditScore: 0,
-    maxAmountOfStakers: 0,
-    minQuorum: 0,
-    maxPoolUsage: 0,
-    votingPowerCooldown: 0,
-    amount: 0,
+    minCreditScore: BigInt(0),
+    maxAmountOfStakers: BigInt(0),
+    quorum: BigInt(0),
+    maxPoolUsage: BigInt(0),
+    votingPowerCooldown: BigInt(0),
+    amount: BigInt(0),
     agreements: [false, false, false],
   });
   const { data: tokenContract } = useScaffoldContract({
@@ -84,8 +84,10 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
   });
 
   const handleSubmit = () => {
+    createPool();
     setIsModalOpen();
   };
+
   return (
     <div className="container-modal">
       <div className="gap-4 content-modal">
@@ -119,26 +121,61 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
             <div className="flex gap-16">
               <div className="flex-1">
                 <label htmlFor="campo1">Min Credit Score</label>
-                <input type="text" id="campo1" name="campo1" className="w-full p-2 border" />
+                <input
+                  type="text"
+                  id="campo1"
+                  name="campo1"
+                  className="w-full p-2 border"
+                  value={String(poolConfig.minCreditScore)}
+                  onChange={e => setPoolConfig({ ...poolConfig, minCreditScore: BigInt(e.target.value ?? 0) })}
+                />
               </div>
               <div className="flex-1">
                 <label htmlFor="campo2">Max Amount Of Stakers</label>
-                <input type="text" id="campo2" name="campo2" className="w-full p-2 border" />
+                <input
+                  type="number"
+                  id="campo2"
+                  name="campo2"
+                  className="w-full p-2 border"
+                  value={String(poolConfig.maxAmountOfStakers)}
+                  onChange={e => setPoolConfig({ ...poolConfig, maxAmountOfStakers: BigInt(e.target.value ?? 0) })}
+                />
               </div>
             </div>
             <div className="flex gap-16">
               <div className="flex-1">
                 <label htmlFor="campo1">Min Quorum</label>
-                <input type="text" id="campo1" name="campo1" className="w-full p-2 border" />
+                <input
+                  type="number"
+                  id="campo1"
+                  name="campo1"
+                  className="w-full p-2 border"
+                  value={String(poolConfig.quorum)}
+                  onChange={e => setPoolConfig({ ...poolConfig, quorum: BigInt(e.target.value ?? 0) })}
+                />
               </div>
               <div className="flex-1">
                 <label htmlFor="campo2">Max Pool Usage</label>
-                <input type="text" id="campo2" name="campo2" className="w-full p-2 border" />
+                <input
+                  type="number"
+                  id="campo2"
+                  name="campo2"
+                  className="w-full p-2 border"
+                  value={String(poolConfig.maxPoolUsage)}
+                  onChange={e => setPoolConfig({ ...poolConfig, maxPoolUsage: BigInt(e.target.value ?? 0) })}
+                />
               </div>
             </div>
             <div className="flex-1">
               <label htmlFor="campo1">Voting Power Cooldown</label>
-              <input type="text" id="campo1" name="campo1" className="w-full p-2 border" />
+              <input
+                type="number"
+                id="campo1"
+                name="campo1"
+                className="w-full p-2 border"
+                value={String(poolConfig.votingPowerCooldown)}
+                onChange={e => setPoolConfig({ ...poolConfig, votingPowerCooldown: BigInt(e.target.value ?? 0) })}
+              />
             </div>
             <div className="flex-1">
               <label htmlFor="campo1">Amount</label>
