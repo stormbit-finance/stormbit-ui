@@ -1,9 +1,10 @@
 import { useState } from "react";
 import Image from "next/image";
 import Button from "../Button/Button";
-import toast from "react-hot-toast";
 import "./CreationModal.css";
-import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
+import toast from "react-hot-toast";
+import { parseEther } from "viem";
+import { useScaffoldContract, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 interface PoolConfig {
   name: string;
@@ -34,28 +35,50 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
     amount: 0,
     agreements: [false, false, false],
   });
+  const { data: tokenContract } = useScaffoldContract({
+    contractName: "MockToken",
+  });
 
-  const {
-    writeAsync: createPool,
-    isLoading: createPoolLoading,
-    data,
-  } = useScaffoldContractWrite({
-    contractName: "StormBit",
+  const { data: simpleAgreementContract } = useScaffoldContract({
+    contractName: "SimpleAgreement",
+  });
+
+  const { data: stormBitCoreContract } = useScaffoldContract({
+    contractName: "StormBitCore",
+  });
+  const { writeAsync: createPool, isLoading: createPoolLoading } = useScaffoldContractWrite({
+    contractName: "StormBitCore",
     functionName: "createPool",
     args: [
-      poolConfig.name,
       {
-        minCreditScore: BigInt(poolConfig.minCreditScore),
-        quorum: BigInt(1),
-        votingPowerCooldown: BigInt(1),
-        maxAmountOfStakers: BigInt(1),
-        maxPoolUsage: BigInt(1),
+        name: "First Pool",
+        creditScore: BigInt(0),
+        maxAmountOfStakers: BigInt(10),
+        votingQuorum: BigInt(50),
+        maxPoolUsage: BigInt(100),
+        votingPowerCoolDown: BigInt(86400),
+        initAmount: parseEther("5000"),
+        initToken: tokenContract ? tokenContract.address : "",
+        supportedAssets: [tokenContract ? tokenContract.address : ""],
+        supportedAgreements: [simpleAgreementContract ? simpleAgreementContract.address : ""],
       },
     ],
     value: BigInt(0),
     onBlockConfirmation: txReceipt => {
       toast.success(`Pool created successfully with hash ${txReceipt.transactionHash as string}`);
       setIsModalOpen();
+    },
+    blockConfirmations: 0,
+  });
+
+  const { writeAsync: approveTokens, isSuccess: approveTokensSuccess } = useScaffoldContractWrite({
+    contractName: "MockToken",
+    functionName: "approve",
+    args: [stormBitCoreContract ? stormBitCoreContract.address : "", parseEther("5000")],
+    value: BigInt(0),
+    onBlockConfirmation: txReceipt => {
+      toast.success(`Tokens approved successfully with hash ${txReceipt.transactionHash as string}`);
+      createPool();
     },
     blockConfirmations: 0,
   });
@@ -187,10 +210,7 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
           </form>
         </div>
         <div className="flex items-center justify-center">
-          <Button
-            onClick={createPool}
-            size="large"
-          >
+          <Button onClick={approveTokens} size="large">
             Create Pool
           </Button>
         </div>

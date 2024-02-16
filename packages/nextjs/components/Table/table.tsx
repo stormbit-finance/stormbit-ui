@@ -1,23 +1,51 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { useContractReads } from "wagmi";
+import { useScaffoldContract, useScaffoldContractRead, useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
 
-// import Image from "next/image";
-// import Link from "next/link";
-// import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
+interface PoolData {
+  name: string;
+}
 
 function Table() {
-  // const poolId = 1;
+  const [poolList, setPoolList] = useState([] as PoolData[]);
 
-  // const { data } = useScaffoldContractRead({
-  //   contractName: "StormBit",
-  //   functionName: "getPoolData",
-  //   args: [BigInt(poolId)],
-  // });
+  // get the events from the contract
+  const { data: poolAddresses, isLoading: poolAddressesLoading } = useScaffoldContractRead({
+    contractName: "StormBitCore",
+    functionName: "getPools",
+  });
 
-  // if (!data) {
-  //   return console.log("geg");
-  // }
+  const { data: LendingContract } = useScaffoldContract({
+    contractName: "StormBitLending",
+  });
 
-  // console.log(data, "gab");
+  const { data: pools, isLoading: poolsLoading } = useContractReads({
+    contracts:
+      LendingContract && poolAddresses
+        ? poolAddresses.map(pool => {
+            return {
+              address: pool,
+              abi: LendingContract.abi,
+              functionName: "getPoolData",
+            };
+          })
+        : [],
+  });
+
+  useEffect(() => {
+    if (pools && pools.length > 0) {
+      setPoolList(
+        pools.map(pool => {
+          return {
+            name: pool.result ? pool.result.name : "",
+          };
+        }),
+      );
+    }
+  }, [pools]);
 
   return (
     <div className="w-[1450px] flex flex-col">
@@ -30,10 +58,10 @@ function Table() {
         <span className="w-[160px] text-center">Borrow APY</span>
         <span className="w-[160px] text-center"></span>
       </div>
-      {/* {data.map((poolData, index) => (
+      {poolList.map((pool, index) => (
         <div key={index} className="flex gap-4 h-[95px] items-center p-8 border border-solid border-[#EAEBEF]">
-          <p className="w-[160px] text-center">{poolData.name}</p>
-          <p className="w-[160px] text-center">{poolData.minCreditScore}</p>
+          <p className="w-[160px] text-center">{pool.name}</p>
+          <p className="w-[160px] text-center">{}</p>
           <p className="w-[160px] text-center">{}</p>
           <p className="w-[160px] text-center">{}</p>
           <p className="w-[160px] text-center">{}</p>
@@ -45,7 +73,7 @@ function Table() {
             <Image src="/chevron-right.png" alt="chevron" width={24} height={24}></Image>
           </Link>
         </div>
-      ))} */}
+      ))}
     </div>
   );
 }
