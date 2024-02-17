@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import Button from "../Button/Button";
 
 function Borrow() {
   const [selectedAgreement, setSelectedAgreement] = useState<string>("baseChain");
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!isDropdownOpen);
+  };
 
   const handleAgreementClick = (agreement: string) => {
     setSelectedAgreement(agreement);
@@ -20,14 +26,36 @@ function Borrow() {
     <div className="flex flex-col text-[#4A5056]">
       <div className="flex flex-col">
         <span className="text-[#4A5056] font-bold my-2">Amount to Borrow</span>
-        <input type="text" />
+        <div className="flex border border-solid border-[#EAEBEF] rounded-[5px] justify-between">
+          <input type="text" className="p-1 focus:outline-none"></input>
+          <div className="flex items-center justify-center px-1">
+            <ul className="main-menu">
+              <li className="relative main-menu-item">
+                <button onClick={toggleDropdown} className="flex items-center justify-center gap-1 dropdown-trigger">
+                  <Image src="/USDT.png" alt="ether" width={17} height={17}></Image>
+                  USDT<span className="arrow-down">&#9662;</span>
+                </button>
+                {isDropdownOpen && (
+                  <ul className="dropdown-menu">
+                    <li>
+                      <a href="#"> USDT</a>
+                    </li>
+                    <li>
+                      <a href="#"> USDT</a>
+                    </li>
+                  </ul>
+                )}
+              </li>
+            </ul>
+          </div>
+        </div>
         <span className="text-xs">Balance 0.001 ETH</span>
       </div>
       <div className="flex flex-col gap-4 my-6">
         <span className="text-[#4A5056] font-bold">Supported Agreement</span>
         <div className="flex gap-8">
           <div className="flex gap-4">
-            <input type="checkbox" className="bg-red-700 rounded-full"/>
+            <input type="checkbox" className="bg-red-700 rounded-full" />
             <span>Base Agreement</span>
           </div>
           <div className="flex gap-4">
@@ -72,7 +100,31 @@ function Borrow() {
           {selectedAgreement === "baseChain" && (
             <div className="flex flex-col">
               <span>Payment Schedule</span>
-              <input type="text" />
+              <div className="flex border border-solid border-[#EAEBEF] rounded-[5px] justify-between">
+                <input type="text" className="p-1 focus:outline-none"></input>
+                <div className="flex items-center justify-center px-1">
+                  <ul className="main-menu">
+                    <li className="relative main-menu-item">
+                      <button
+                        onClick={toggleDropdown}
+                        className="flex items-center justify-center gap-1 dropdown-trigger"
+                      >
+                        month<span className="arrow-down">&#9662;</span>
+                      </button>
+                      {isDropdownOpen && (
+                        <ul className="dropdown-menu">
+                          <li>
+                            <a href="#"> quater</a>
+                          </li>
+                          <li>
+                            <a href="#"> year</a>
+                          </li>
+                        </ul>
+                      )}
+                    </li>
+                  </ul>
+                </div>
+              </div>
               <span>Penalty</span>
               <input type="text" />
             </div>
@@ -82,13 +134,63 @@ function Borrow() {
               <span>NFT Address</span>
               <input type="text" />
               <span>Token</span>
-              <input type="text" />
+              <div className="flex border border-solid border-[#EAEBEF] rounded-[5px] justify-between">
+                <input type="text" className="p-1 focus:outline-none"></input>
+                <div className="flex items-center justify-center px-1">
+                  <ul className="main-menu">
+                    <li className="relative main-menu-item">
+                      <button
+                        onClick={toggleDropdown}
+                        className="flex items-center justify-center gap-1 dropdown-trigger"
+                      >
+                        <Image src="/DAI.png" alt="ether" width={17} height={17}></Image>
+                        DAI<span className="arrow-down">&#9662;</span>
+                      </button>
+                      {isDropdownOpen && (
+                        <ul className="dropdown-menu">
+                          <li>
+                            <a href="#"> USDT</a>
+                          </li>
+                          <li>
+                            <a href="#"> USDT</a>
+                          </li>
+                        </ul>
+                      )}
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
           )}
           {selectedAgreement === "ft" && (
             <div className="flex flex-col">
               <span>Token</span>
-              <input type="text" />
+              <div className="flex border border-solid border-[#EAEBEF] rounded-[5px] justify-between">
+                <input type="text" className="p-1 focus:outline-none"></input>
+                <div className="flex items-center justify-center px-1">
+                  <ul className="main-menu">
+                    <li className="relative main-menu-item">
+                      <button
+                        onClick={toggleDropdown}
+                        className="flex items-center justify-center gap-1 dropdown-trigger"
+                      >
+                        <Image src="/DAI.png" alt="ether" width={17} height={17}></Image>
+                        DAI<span className="arrow-down">&#9662;</span>
+                      </button>
+                      {isDropdownOpen && (
+                        <ul className="dropdown-menu">
+                          <li>
+                            <a href="#">DAI</a>
+                          </li>
+                          <li>
+                            <a href="#">DAI</a>
+                          </li>
+                        </ul>
+                      )}
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
           )}
         </div>

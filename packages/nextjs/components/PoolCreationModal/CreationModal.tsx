@@ -46,17 +46,21 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
   const { data: stormBitCoreContract } = useScaffoldContract({
     contractName: "StormBitCore",
   });
-  const { writeAsync: createPool, isLoading: createPoolLoading } = useScaffoldContractWrite({
+  const {
+    writeAsync: createPool,
+    isLoading: createPoolLoading,
+    data,
+  } = useScaffoldContractWrite({
     contractName: "StormBitCore",
     functionName: "createPool",
     args: [
       {
-        name: "First Pool",
-        creditScore: BigInt(0),
-        maxAmountOfStakers: BigInt(10),
-        votingQuorum: BigInt(50),
-        maxPoolUsage: BigInt(100),
-        votingPowerCoolDown: BigInt(86400),
+        name: poolConfig.name,
+        creditScore: BigInt(poolConfig.minCreditScore),
+        maxAmountOfStakers: BigInt(poolConfig.maxAmountOfStakers),
+        votingQuorum: BigInt(poolConfig.quorum),
+        maxPoolUsage: BigInt(poolConfig.maxPoolUsage),
+        votingPowerCoolDown: BigInt(poolConfig.votingPowerCooldown),
         initAmount: parseEther("5000"),
         initToken: tokenContract ? tokenContract.address : "",
         supportedAssets: [tokenContract ? tokenContract.address : ""],
@@ -71,6 +75,9 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
     blockConfirmations: 0,
   });
 
+  console.log(createPoolLoading);
+  console.log(data);
+
   const { writeAsync: approveTokens, isSuccess: approveTokensSuccess } = useScaffoldContractWrite({
     contractName: "MockToken",
     functionName: "approve",
@@ -82,6 +89,8 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
     },
     blockConfirmations: 0,
   });
+
+  console.log(approveTokens);
 
   const handleSubmit = () => {
     createPool();
@@ -247,7 +256,7 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
           </form>
         </div>
         <div className="flex items-center justify-center">
-          <Button onClick={approveTokens} size="large">
+          <Button onClick={() => approveTokens()} size="large">
             Create Pool
           </Button>
         </div>

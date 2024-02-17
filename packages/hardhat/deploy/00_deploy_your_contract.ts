@@ -31,12 +31,16 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   });
 
   // this is for testing purposes
-  const devTeamAddress = ["0xDe3089d40F3491De794fBb1ECA109fAc36F889d0", "0x70997970C51812dc3A010C7d01b50e0d17dc79C8", deployer]
+  const devTeamAddress = [
+    "0xDe3089d40F3491De794fBb1ECA109fAc36F889d0",
+    "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+    deployer,
+  ];
 
   const MockToken = await hre.ethers.getContract<Contract>("MockToken", deployer);
-  
+
   let tx;
-  for(let i = 0; i < devTeamAddress.length; i++) {
+  for (let i = 0; i < devTeamAddress.length; i++) {
     tx = await MockToken.mint(devTeamAddress[i], parseEther("1000000"));
     await tx.wait();
   }
@@ -75,25 +79,20 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
 
   const StormBitCore = await hre.ethers.getContract<Contract>("StormBitCore", deployer);
   await MockToken.approve(StormBitCore.target, parseEther("1000000"));
-  
-  await StormBitCore.createPool(
-    {
-      name : "First Pool",
-      creditScore: 0,
-      maxAmountOfStakers: 10,
-      votingQuorum: 50,
-      maxPoolUsage: 100,
-      votingPowerCoolDown: VOTING_POWER_COOLDOWN,
-      initAmount: parseEther("5000"),
-      initToken: MockToken.target,
-      supportedAssets: [MockToken.target],
-      supportedAgreements: [dSimpleAgreement.address]
-    },
-  )
+
+  await StormBitCore.createPool({
+    name: "First Pool",
+    creditScore: 0,
+    maxAmountOfStakers: 10,
+    votingQuorum: 50,
+    maxPoolUsage: 100,
+    votingPowerCoolDown: VOTING_POWER_COOLDOWN,
+    initAmount: parseEther("5000"),
+    initToken: MockToken.target,
+    supportedAssets: [MockToken.target],
+    supportedAgreements: [dSimpleAgreement.address],
+  });
 };
-
-
-
 
 export default deployYourContract;
 
