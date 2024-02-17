@@ -57,12 +57,18 @@ new ParticleNetwork({
   },
 });
 const particleWalletCustom = particleWallet({ chains: appChains.chains });
+const particleGoogle = particleWallet({ chains: appChains.chains, authType: "google" });
+const particleFacebook = particleWallet({ chains: appChains.chains, authType: "facebook" });
+const particleApple = particleWallet({ chains: appChains.chains, authType: "apple" });
 
 const walletsOptions = { chains: appChains.chains, projectId: scaffoldConfig.walletConnectProjectId };
 
 const wallets = [
   metaMaskWallet({ ...walletsOptions, shimDisconnect: true }),
   particleWalletCustom,
+  particleGoogle,
+  particleFacebook,
+  particleApple,
   // walletConnectWallet(walletsOptions),
   // ledgerWallet(walletsOptions),
   // braveWallet(walletsOptions),
