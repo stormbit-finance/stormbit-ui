@@ -19,10 +19,6 @@ function Table() {
     watch: true,
   });
 
-  console.log(poolAddresses);
-
-  console.log(poolAddressesLoading);
-
   const { data: LendingContract } = useScaffoldContract({
     contractName: "StormBitLending",
   });
@@ -40,14 +36,11 @@ function Table() {
         : [],
   });
 
-  console.log(pools);
-  console.log(poolsLoading);
-
   useEffect(() => {
     if (pools && pools.length > 0) {
       setPoolList(
         pools.map(pool => {
-          console.log(pool.result)
+          console.log(pool.result);
           return {
             name: pool.result ? pool.result.name : "",
           };
