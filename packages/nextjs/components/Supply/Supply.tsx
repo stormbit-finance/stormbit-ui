@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Button from "../Button/Button";
-import './supply.css'
 import Image from "next/image";
+import Button from "../Button/Button";
+import "./supply.css";
 
 function Supply() {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
