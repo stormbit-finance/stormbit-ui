@@ -1534,6 +1534,126 @@ const deployedContracts = {
         {
           inputs: [
             {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "_loanDetails",
+          outputs: [
+            {
+              internalType: "address",
+              name: "token",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "agreement",
+              type: "address",
+            },
+            {
+              internalType: "bytes",
+              name: "agreementCalldata",
+              type: "bytes",
+            },
+            {
+              internalType: "uint256",
+              name: "loanId",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "borrower",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "_loanRequests",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "_stakers",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "_supportedAgreements",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "_supportedAssets",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
               internalType: "address",
               name: "",
               type: "address",
@@ -1956,6 +2076,67 @@ const deployedContracts = {
           type: "function",
         },
         {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "loanRequestId",
+              type: "uint256",
+            },
+          ],
+          name: "getLoanData",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "address",
+                  name: "token",
+                  type: "address",
+                },
+                {
+                  internalType: "uint256",
+                  name: "amount",
+                  type: "uint256",
+                },
+                {
+                  internalType: "address",
+                  name: "agreement",
+                  type: "address",
+                },
+                {
+                  internalType: "bytes",
+                  name: "agreementCalldata",
+                  type: "bytes",
+                },
+                {
+                  internalType: "uint256",
+                  name: "loanId",
+                  type: "uint256",
+                },
+                {
+                  internalType: "address",
+                  name: "borrower",
+                  type: "address",
+                },
+              ],
+              internalType: "struct IStormBitLending.LoanDetails",
+              name: "",
+              type: "tuple",
+            },
+            {
+              internalType: "enum IGovernor.ProposalState",
+              name: "",
+              type: "uint8",
+            },
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
           inputs: [],
           name: "getPoolData",
           outputs: [
@@ -1985,6 +2166,36 @@ const deployedContracts = {
                   internalType: "uint256",
                   name: "maxPoolUsage",
                   type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "totalBorrowed",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "totalSupplied",
+                  type: "uint256",
+                },
+                {
+                  internalType: "address[]",
+                  name: "stakers",
+                  type: "address[]",
+                },
+                {
+                  internalType: "address[]",
+                  name: "supportedAssets",
+                  type: "address[]",
+                },
+                {
+                  internalType: "address[]",
+                  name: "supportedAgreements",
+                  type: "address[]",
+                },
+                {
+                  internalType: "uint256[]",
+                  name: "loanRequests",
+                  type: "uint256[]",
                 },
               ],
               internalType: "struct IStormBitLending.PoolData",
@@ -2057,6 +2268,25 @@ const deployedContracts = {
             },
           ],
           name: "getVotesWithParams",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "staker",
+              type: "address",
+            },
+          ],
+          name: "getVotingPower",
           outputs: [
             {
               internalType: "uint256",
