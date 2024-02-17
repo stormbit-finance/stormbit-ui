@@ -71,7 +71,7 @@ const Home: NextPage = () => {
           <div className="flex flex-wrap justify-center gap-8 w-[1650px]">
             {data.map(element => (
               <>
-                <div className="rounded-[15px] bg-white w-[500px] text-[#4A5056] p-8 flex-col gap-6 flex">
+                <div className="rounded-[15px] shadow-lending bg-white w-[500px] text-[#4A5056] p-8 flex-col gap-6 flex">
                   <div className="flex items-center gap-4">
                     <Image src="/icon3.png" alt="icon" width={100} height={50}></Image>
                     <span className="text-[26px] font-medium">{element.name}</span>

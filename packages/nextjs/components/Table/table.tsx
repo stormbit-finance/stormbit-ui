@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
@@ -14,6 +13,8 @@ function Table() {
     functionName: "getPoolData",
     args: [BigInt(poolId)],
   });
+
+
 
   // const dd = [];
   // for (let cont = 1; cont <= 5; cont++) {
@@ -34,12 +35,12 @@ function Table() {
         <span className="w-[160px] text-center"></span>
       </div>
       <div className="flex gap-4 h-[95px] items-center p-8 border border-solid border-[#EAEBEF]">
-        <p className="w-[160px] text-center"></p>
-        <p className="w-[160px] text-center"></p>
-        <p className="w-[160px] text-center"></p>
-        <p className="w-[160px] text-center"></p>
-        <p className="w-[160px] text-center"></p>
-        <p className="w-[160px] text-center"></p>
+        <p className="w-[160px] text-center">Cheap Local Lending</p>
+        <p className="w-[160px] text-center">100.18K</p>
+        <p className="w-[160px] text-center">100.18K</p>
+        <p className="w-[160px] text-center">11.8 %</p>
+        <p className="w-[160px] text-center">11.8 %</p>
+        <p className="w-[160px] text-center">11.8 %</p>
         <Link href="/pool">
           <button className="border border-solid border-[#4A5056] rounded-[7px] py-4 px-10">Trade</button>
         </Link>
