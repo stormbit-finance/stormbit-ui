@@ -5,19 +5,10 @@ import Link from "next/link";
 import { formatUnits } from "viem";
 import { useContractReads } from "wagmi";
 import { useScaffoldContract, useScaffoldContractRead, useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
-
-interface PoolData {
-  name: string;
-  marketSize: string;
-  suppliedAPY: string;
-  borrowedAPY: string;
-  totalSupplied: string;
-  totalBorrowed: string;
-}
+import { Pools } from "~~/types/Pools";
 
 function Table() {
-  const [poolList, setPoolList] = useState([] as PoolData[]);
-
+  const [poolList, setPoolList] = useState([] as Pools[]);
   // get the events from the contract
   const { data: poolAddresses, isLoading: poolAddressesLoading } = useScaffoldContractRead({
     contractName: "StormBitCore",
@@ -25,6 +16,7 @@ function Table() {
     watch: true,
   });
 
+  console.log("poolAddresses", poolAddresses);
   const { data: LendingContract } = useScaffoldContract({
     contractName: "StormBitLending",
   });
@@ -43,11 +35,13 @@ function Table() {
   });
 
   useEffect(() => {
-    if (pools && pools.length > 0) {
+    if (pools && pools.length > 0 && poolAddresses) {
       setPoolList(
-        pools.map(pool => {
-          console.log(pool.result);
+        pools.map((pool, index) => {
+          const poolAddr = poolAddresses?.[index];
+
           return {
+            address: poolAddr || "",
             name: pool.result ? pool.result.name : "",
             borrowedAPY: "0%",
             suppliedAPY: "0%",
@@ -79,7 +73,7 @@ function Table() {
           <p className="w-[160px] text-center">{pool.suppliedAPY}</p>
           <p className="w-[160px] text-center">{pool.totalBorrowed}</p>
           <p className="w-[160px] text-center">{pool.borrowedAPY}</p>
-          <Link href="/pool">
+          <Link href={`/pool/${pool.address}`}>
             <button className="border border-solid border-[#4A5056] rounded-[7px] py-4 px-10">Trade</button>
           </Link>
           <Link href="/pool">
