@@ -75,9 +75,6 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
     blockConfirmations: 0,
   });
 
-  console.log(createPoolLoading);
-  console.log(data);
-
   const { writeAsync: approveTokens, isSuccess: approveTokensSuccess } = useScaffoldContractWrite({
     contractName: "MockToken",
     functionName: "approve",
@@ -89,8 +86,6 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
     },
     blockConfirmations: 0,
   });
-
-  console.log(approveTokens);
 
   const handleSubmit = () => {
     createPool();

@@ -12,7 +12,6 @@ function Page() {
   const params = useParams();
 
   const poolAddress: string = params.id;
-  console.log("params", params);
   const handleGoBack = () => {
     window.history.back();
   };
@@ -30,7 +29,6 @@ function Page() {
         ]
       : [],
   });
-  console.log(poolData);
 
   return (
     <div className="mx-12 my-10 ">

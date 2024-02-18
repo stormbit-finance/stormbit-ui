@@ -2138,6 +2138,61 @@ const deployedContracts = {
         },
         {
           inputs: [],
+          name: "getLoansDatas",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "address",
+                  name: "token",
+                  type: "address",
+                },
+                {
+                  internalType: "uint256",
+                  name: "amount",
+                  type: "uint256",
+                },
+                {
+                  internalType: "address",
+                  name: "agreement",
+                  type: "address",
+                },
+                {
+                  internalType: "bytes",
+                  name: "agreementCalldata",
+                  type: "bytes",
+                },
+                {
+                  internalType: "uint256",
+                  name: "loanId",
+                  type: "uint256",
+                },
+                {
+                  internalType: "address",
+                  name: "borrower",
+                  type: "address",
+                },
+              ],
+              internalType: "struct IStormBitLending.LoanDetails[]",
+              name: "",
+              type: "tuple[]",
+            },
+            {
+              internalType: "enum IGovernor.ProposalState[]",
+              name: "",
+              type: "uint8[]",
+            },
+            {
+              internalType: "address[]",
+              name: "",
+              type: "address[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
           name: "getPoolData",
           outputs: [
             {
@@ -2428,25 +2483,6 @@ const deployedContracts = {
           name: "initializeLending",
           outputs: [],
           stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "agreement",
-              type: "address",
-            },
-          ],
-          name: "isSupportedAgreement",
-          outputs: [
-            {
-              internalType: "bool",
-              name: "",
-              type: "bool",
-            },
-          ],
-          stateMutability: "view",
           type: "function",
         },
         {
