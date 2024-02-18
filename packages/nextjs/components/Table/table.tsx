@@ -2,11 +2,17 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { formatUnits } from "viem";
 import { useContractReads } from "wagmi";
 import { useScaffoldContract, useScaffoldContractRead, useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
 
 interface PoolData {
   name: string;
+  marketSize: string;
+  suppliedAPY: string;
+  borrowedAPY: string;
+  totalSupplied: string;
+  totalBorrowed: string;
 }
 
 function Table() {
@@ -43,6 +49,11 @@ function Table() {
           console.log(pool.result);
           return {
             name: pool.result ? pool.result.name : "",
+            borrowedAPY: "0%",
+            suppliedAPY: "0%",
+            totalBorrowed: pool.result ? formatUnits(pool.result.totalBorrowed, 18) : "0",
+            totalSupplied: pool.result ? formatUnits(pool.result.totalSupplied, 18) : "0",
+            marketSize: pool.result ? formatUnits(pool.result.totalBorrowed + pool.result.totalSupplied, 18) : "0",
           };
         }),
       );
@@ -63,11 +74,11 @@ function Table() {
       {poolList.map((pool, index) => (
         <div key={index} className="flex gap-4 h-[95px] items-center p-8 border border-solid border-[#EAEBEF]">
           <p className="w-[160px] text-center">{pool.name}</p>
-          <p className="w-[160px] text-center">{}</p>
-          <p className="w-[160px] text-center">{}</p>
-          <p className="w-[160px] text-center">{}</p>
-          <p className="w-[160px] text-center">{}</p>
-          <p className="w-[160px] text-center">{}</p>
+          <p className="w-[160px] text-center">{pool.marketSize}</p>
+          <p className="w-[160px] text-center">{pool.totalSupplied}</p>
+          <p className="w-[160px] text-center">{pool.suppliedAPY}</p>
+          <p className="w-[160px] text-center">{pool.totalBorrowed}</p>
+          <p className="w-[160px] text-center">{pool.borrowedAPY}</p>
           <Link href="/pool">
             <button className="border border-solid border-[#4A5056] rounded-[7px] py-4 px-10">Trade</button>
           </Link>
