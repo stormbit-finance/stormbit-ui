@@ -27,7 +27,7 @@ function Borrow() {
       <div className="flex flex-col">
         <span className="text-[#4A5056] font-bold my-2">Amount to Borrow</span>
         <div className="flex border border-solid border-[#EAEBEF] rounded-[5px] justify-between">
-          <input type="text" className="p-1 focus:outline-none"></input>
+          <input type="text" className="p-1 focus:outline-none w-[500px] border-none"></input>
           <div className="flex items-center justify-center px-1">
             <ul className="main-menu">
               <li className="relative main-menu-item">
@@ -51,11 +51,11 @@ function Borrow() {
         </div>
         <span className="text-xs">Balance 0.001 ETH</span>
       </div>
-      <div className="flex flex-col gap-4 my-6">
+      <div className="flex flex-col gap-4 mt-6">
         <span className="text-[#4A5056] font-bold">Supported Agreement</span>
         <div className="flex gap-8">
           <div className="flex gap-4">
-            <input type="checkbox" className="bg-red-700 rounded-full" />
+            <input type="checkbox" className="rounded-full" />
             <span>Base Agreement</span>
           </div>
           <div className="flex gap-4">
@@ -101,7 +101,7 @@ function Borrow() {
             <div className="flex flex-col">
               <span>Payment Schedule</span>
               <div className="flex border border-solid border-[#EAEBEF] rounded-[5px] justify-between">
-                <input type="text" className="p-1 focus:outline-none"></input>
+                <input type="text" className="p-1 focus:outline-none w-[500px] border-none"></input>
                 <div className="flex items-center justify-center px-1">
                   <ul className="main-menu">
                     <li className="relative main-menu-item">
@@ -126,16 +126,16 @@ function Borrow() {
                 </div>
               </div>
               <span>Penalty</span>
-              <input type="text" />
+              <input type="text" className="p-1 focus:outline-none border border-solid border-[#EAEBEF] rounded-[5px]"/>
             </div>
           )}
           {selectedAgreement === "nft" && (
             <div className="flex flex-col">
               <span>NFT Address</span>
-              <input type="text" />
+              <input type="text" className="focus:outline-none"/>
               <span>Token</span>
               <div className="flex border border-solid border-[#EAEBEF] rounded-[5px] justify-between">
-                <input type="text" className="p-1 focus:outline-none"></input>
+                <input type="text" className="p-1 w-[500px] focus:outline-none border-none"></input>
                 <div className="flex items-center justify-center px-1">
                   <ul className="main-menu">
                     <li className="relative main-menu-item">
@@ -166,7 +166,7 @@ function Borrow() {
             <div className="flex flex-col">
               <span>Token</span>
               <div className="flex border border-solid border-[#EAEBEF] rounded-[5px] justify-between">
-                <input type="text" className="p-1 focus:outline-none"></input>
+                <input type="text" className="p-1 w-[500px] focus:outline-none border-none"></input>
                 <div className="flex items-center justify-center px-1">
                   <ul className="main-menu">
                     <li className="relative main-menu-item">

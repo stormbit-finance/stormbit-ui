@@ -31,7 +31,7 @@ function Page() {
   });
 
   return (
-    <div className="mx-12 my-10 ">
+    <div className="mx-12 mb-8">
       <div className="flex gap-3 my-8" onClick={handleGoBack} style={{ cursor: "pointer" }}>
         <Image src="/arrow-left.png" alt="arrow" width={20} height={16}></Image>
         <span>Go back</span>
