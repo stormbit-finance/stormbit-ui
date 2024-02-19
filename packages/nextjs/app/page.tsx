@@ -58,13 +58,13 @@ const Home: NextPage = () => {
   ];
   return (
     <>
-      <div className="flex flex-col items-center justify-center pt-10">
-        <div className="flex gap-24">
+      <div className="flex flex-col items-stretch justify-center pt-10">
+        <div className="flex justify-between gap-28">
           <div className="w-[640px] my-24">
             <span className="font-bold text-8xl text-gradient">STORMBIT</span>
             <p className="text-4xl font-bold text-[#4A5056]">A marketplace that connects lenders to borrowers</p>
           </div>
-          <Image src="/icon2.png" alt="icon2" width={600} height={800}></Image>
+          <Image src="/icon2.png" alt="icon2" width={400} height={800}></Image>
         </div>
         <div className="flex flex-col items-center justify-center gap-6">
           <h1 className="font-bold text-[#17344F] text-4xl">Lending pool</h1>
