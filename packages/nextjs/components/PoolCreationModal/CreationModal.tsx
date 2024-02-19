@@ -4,6 +4,7 @@ import Button from "../Button/Button";
 import "./CreationModal.css";
 import toast from "react-hot-toast";
 import { parseEther } from "viem";
+import { useAccount } from "wagmi";
 import { useScaffoldContract, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 interface PoolConfig {
@@ -21,12 +22,12 @@ interface PoolConfig {
 interface ModalProps {
   setIsModalOpen: () => void;
 }
-
 const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
+  const { address } = useAccount();
   const [showInfo, setShowInfo] = useState(false);
   const [poolConfig, setPoolConfig] = useState<PoolConfig>({
     name: "",
-    owner: "",
+    owner: address ? address : "",
     minCreditScore: BigInt(0),
     maxAmountOfStakers: BigInt(0),
     quorum: BigInt(0),
@@ -35,6 +36,7 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
     amount: BigInt(0),
     agreements: [false, false, false],
   });
+
   const { data: tokenContract } = useScaffoldContract({
     contractName: "MockToken",
   });
@@ -123,7 +125,14 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
             </div>
             <div className="flex-1">
               <label htmlFor="campo1">Owner</label>
-              <input type="text" id="campo1" name="campo1" className="w-full p-2 border" />
+              <input
+                value={poolConfig.owner}
+                onChange={e => setPoolConfig({ ...poolConfig, owner: e.target.value })}
+                type="text"
+                id="campo1"
+                name="campo1"
+                className="w-full p-2 border"
+              />
             </div>
             <div className="flex gap-16">
               <div className="flex-1">

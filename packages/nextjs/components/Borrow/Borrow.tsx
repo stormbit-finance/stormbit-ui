@@ -6,12 +6,30 @@ import { encodeAbiParameters, parseEther } from "viem";
 import { useAccount, useContractWrite } from "wagmi";
 import { useScaffoldContract, useScaffoldContractRead, useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
 
+interface baseAgreementConfig {
+  paymentSchedule: bigint;
+  penalty: bigint;
+}
+interface borrowConfig {
+  amount: bigint;
+  agreements: boolean[];
+  baseAgreementSettings: baseAgreementConfig;
+}
 interface BorrowProps {
   poolAddress: string;
 }
 function Borrow({ poolAddress }: BorrowProps) {
   const [selectedAgreement, setSelectedAgreement] = useState<string>("baseChain");
+  const [timeUnit, setTimeUnit] = useState<string>("month");
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [borrowConfig, setBorrowConfig] = useState<borrowConfig>({
+    amount: BigInt(0),
+    agreements: [false, false, false],
+    baseAgreementSettings: {
+      paymentSchedule: BigInt(0),
+      penalty: BigInt(0),
+    },
+  });
   const { address } = useAccount();
   const { data: LendingContract } = useScaffoldContract({
     contractName: "StormBitLending",
@@ -22,8 +40,13 @@ function Borrow({ poolAddress }: BorrowProps) {
   const { data: simpleAgreementContract } = useScaffoldContract({
     contractName: "SimpleAgreement",
   });
-  const amounts = [parseEther("550"), parseEther("550")];
-  const times = [parseEther((30 * 24 * 60 * 60).toString()), parseEther((60 * 24 * 60 * 60).toString())];
+
+  const timeMap = {
+    month: 30 * 24 * 60 * 60,
+    quater: 90 * 24 * 60 * 60,
+    year: 365 * 24 * 60 * 60,
+  };
+
   const { data: requestLoanData, write: submitRequestLoan } = useContractWrite(
     tokenContract && address
       ? {
@@ -43,7 +66,22 @@ function Borrow({ poolAddress }: BorrowProps) {
                   { name: "amounts", type: "uint256[]" },
                   { name: "times", type: "uint256[]" },
                 ],
-                [parseEther("1000"), address, tokenContract?.address, amounts, times],
+                [
+                  //TODO：add interest to amount
+                  parseEther(borrowConfig.amount.toString()),
+                  address,
+                  tokenContract?.address,
+                  Array.from({ length: Number(borrowConfig.baseAgreementSettings.paymentSchedule) }, () =>
+                    parseEther(
+                      (
+                        Number(borrowConfig.amount) / Number(borrowConfig.baseAgreementSettings.paymentSchedule)
+                      ).toString(),
+                    ),
+                  ),
+                  Array.from({ length: Number(borrowConfig.baseAgreementSettings.paymentSchedule) }, (_, index) =>
+                    BigInt((timeMap as { [key: string]: number })[timeUnit] * index),
+                  ),
+                ],
               ),
             },
           ],
@@ -74,7 +112,12 @@ function Borrow({ poolAddress }: BorrowProps) {
       <div className="flex flex-col">
         <span className="text-[#4A5056] font-bold my-2">Amount to Borrow</span>
         <div className="flex border border-solid border-[#EAEBEF] rounded-[5px] justify-between">
-          <input type="text" className="p-1 focus:outline-none w-[500px] border-none"></input>
+          <input
+            value={borrowConfig.amount.toString()}
+            onChange={e => setBorrowConfig({ ...borrowConfig, amount: BigInt(e.target.value) })}
+            type="number"
+            className="p-1 focus:outline-none w-[500px] border-none"
+          ></input>
           <div className="flex items-center justify-center px-1">
             <ul className="main-menu">
               <li className="relative main-menu-item">
@@ -148,23 +191,63 @@ function Borrow({ poolAddress }: BorrowProps) {
             <div className="flex flex-col">
               <span>Payment Schedule</span>
               <div className="flex border border-solid border-[#EAEBEF] rounded-[5px] justify-between">
-                <input type="text" className="p-1 focus:outline-none w-[500px] border-none"></input>
+                <input
+                  value={borrowConfig.baseAgreementSettings.paymentSchedule.toString()}
+                  onChange={e =>
+                    setBorrowConfig({
+                      ...borrowConfig,
+                      baseAgreementSettings: {
+                        ...borrowConfig.baseAgreementSettings,
+                        paymentSchedule: BigInt(parseInt(e.target.value || "0")),
+                      },
+                    })
+                  }
+                  type="text"
+                  className="p-1 focus:outline-none w-[500px] border-none"
+                ></input>
                 <div className="flex items-center justify-center px-1">
                   <ul className="main-menu">
                     <li className="relative main-menu-item">
                       <button
-                        onClick={toggleDropdown}
+                        onClick={() => {
+                          toggleDropdown();
+                        }}
                         className="flex items-center justify-center gap-1 dropdown-trigger"
                       >
-                        month<span className="arrow-down">&#9662;</span>
+                        {timeUnit}
+                        <span className="arrow-down">&#9662;</span>
                       </button>
                       {isDropdownOpen && (
                         <ul className="dropdown-menu">
                           <li>
-                            <a href="#"> quater</a>
+                            <a
+                              onClick={() => {
+                                setTimeUnit("month");
+                              }}
+                              href="#"
+                            >
+                              month
+                            </a>
                           </li>
                           <li>
-                            <a href="#"> year</a>
+                            <a
+                              onClick={() => {
+                                setTimeUnit("quater");
+                              }}
+                              href="#"
+                            >
+                              quater
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              onClick={() => {
+                                setTimeUnit("year");
+                              }}
+                              href="#"
+                            >
+                              year
+                            </a>
                           </li>
                         </ul>
                       )}
@@ -173,13 +256,16 @@ function Borrow({ poolAddress }: BorrowProps) {
                 </div>
               </div>
               <span>Penalty</span>
-              <input type="text" className="p-1 focus:outline-none border border-solid border-[#EAEBEF] rounded-[5px]"/>
+              <input
+                type="text"
+                className="p-1 focus:outline-none border border-solid border-[#EAEBEF] rounded-[5px]"
+              />
             </div>
           )}
           {selectedAgreement === "nft" && (
             <div className="flex flex-col">
               <span>NFT Address</span>
-              <input type="text" className="focus:outline-none"/>
+              <input type="text" className="focus:outline-none" />
               <span>Token</span>
               <div className="flex border border-solid border-[#EAEBEF] rounded-[5px] justify-between">
                 <input type="text" className="p-1 w-[500px] focus:outline-none border-none"></input>
