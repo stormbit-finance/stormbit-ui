@@ -20,7 +20,7 @@ function Layout({ children }: { children: React.ReactNode }) {
   };
   return (
     <div>
-      <div className="flex flex-col gap-6 rounded-[5px] w-[1800px] h-[700px] bg-white p-10">
+      <div className="flex flex-col gap-6 rounded-[5px] w-[1800px] height-market bg-white p-10">
         <div className="flex justify-between">
           <div className="flex items-center gap-2">
             <div>

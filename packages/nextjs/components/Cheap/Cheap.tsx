@@ -59,7 +59,7 @@ function Cheap({ address }: ModalProps) {
         );
       case "Exit Pool":
         return (
-          <div className="flex gap-16">
+          <div className="flex gap-16 mb-12">
             <div className="flex flex-col items-center justify-center">
               <div className="flex flex-col gap-4 w-[760px]">
                 <div className="flex items-center justify-between">
@@ -143,7 +143,7 @@ function Cheap({ address }: ModalProps) {
   return (
     <>
       <div>
-        <div className="flex gap-3 my-8 " onClick={handleGoBack} style={{ cursor: "pointer" }}>
+        <div className="flex gap-3 mb-8 " onClick={handleGoBack} style={{ cursor: "pointer" }}>
           <Image src="/arrow-left.png" alt="arrow" width={20} height={16}></Image>
           <span>Go back</span>
         </div>
