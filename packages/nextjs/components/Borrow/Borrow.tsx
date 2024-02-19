@@ -1,11 +1,58 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Button from "../Button/Button";
+import toast from "react-hot-toast";
+import { encodeAbiParameters, parseEther } from "viem";
+import { useAccount, useContractWrite } from "wagmi";
+import { useScaffoldContract, useScaffoldContractRead, useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
 
-function Borrow() {
+interface BorrowProps {
+  poolAddress: string;
+}
+function Borrow({ poolAddress }: BorrowProps) {
   const [selectedAgreement, setSelectedAgreement] = useState<string>("baseChain");
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-
+  const { address } = useAccount();
+  const { data: LendingContract } = useScaffoldContract({
+    contractName: "StormBitLending",
+  });
+  const { data: tokenContract } = useScaffoldContract({
+    contractName: "MockToken",
+  });
+  const { data: simpleAgreementContract } = useScaffoldContract({
+    contractName: "SimpleAgreement",
+  });
+  const amounts = [parseEther("550"), parseEther("550")];
+  const times = [parseEther((30 * 24 * 60 * 60).toString()), parseEther((60 * 24 * 60 * 60).toString())];
+  const { data: requestLoanData, write: submitRequestLoan } = useContractWrite(
+    tokenContract && address
+      ? {
+          address: poolAddress,
+          abi: LendingContract?.abi,
+          functionName: "requestLoan",
+          args: [
+            {
+              amount: parseEther("1000"),
+              token: tokenContract ? tokenContract.address : "",
+              agreement: simpleAgreementContract ? simpleAgreementContract.address : "",
+              agreementCalldata: encodeAbiParameters(
+                [
+                  { name: "borrowAmount", type: "uint256" },
+                  { name: "borrower", type: "address" },
+                  { name: "token", type: "address" },
+                  { name: "amounts", type: "uint256[]" },
+                  { name: "times", type: "uint256[]" },
+                ],
+                [parseEther("1000"), address, tokenContract?.address, amounts, times],
+              ),
+            },
+          ],
+          onSuccess: txReceipt => {
+            toast.success(`Deposit loan successfully with hash ${txReceipt.hash as string}`);
+          },
+        }
+      : {},
+  );
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
   };
@@ -206,7 +253,7 @@ function Borrow() {
           <span>0.001 ETH</span>
         </div>
       </div>
-      <Button>Deposit</Button>
+      <Button onClick={() => submitRequestLoan()}> Request Loan</Button>
     </div>
   );
 }

@@ -92,7 +92,7 @@ function Page() {
             </ul>
           </div>
         </div>
-        <Strategy></Strategy>
+        <Strategy poolAddress={poolAddress}></Strategy>
       </div>
       <div className="flex flex-col gap-6">
         <span className="text-[#17344F] font-bold">Supported Tokens</span>

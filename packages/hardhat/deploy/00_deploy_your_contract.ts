@@ -34,8 +34,8 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
 
   // this is for testing purposes
   const devTeamAddress = [
-    "0xDe3089d40F3491De794fBb1ECA109fAc36F889d0",
-    "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+    "0x2B7E4B80A1C217cCe8f749d5c4fF226AEB1c79DC",
+    "0x4F429734435d52a3932FdaddBd302196b9dad139",
     deployer,
     lender,
     borrower,
