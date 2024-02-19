@@ -25,17 +25,18 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   const { deploy } = hre.deployments;
   const VOTING_POWER_COOLDOWN = 10;
 
-  await deploy("MockToken", {
-    from: deployer,
-    args: [],
-    log: true,
-    autoMine: true,
-  });
+  // await deploy("MockToken", {
+  //   from: deployer,
+  //   args: [],
+  //   log: true,
+  //   autoMine: true,
+  // });
 
   // this is for testing purposes
   const devTeamAddress = [
     "0x2B7E4B80A1C217cCe8f749d5c4fF226AEB1c79DC",
     "0x4F429734435d52a3932FdaddBd302196b9dad139",
+    "0xFF0A137c33cf8C135477952A803168242778F6A5",
     deployer,
     lender,
     borrower,
@@ -43,11 +44,11 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
 
   let MockToken = await hre.ethers.getContract<Contract>("MockToken", deployer);
 
-  let tx;
-  for (let i = 0; i < devTeamAddress.length; i++) {
-    tx = await MockToken.mint(devTeamAddress[i], parseEther("1000000"));
-    await tx.wait();
-  }
+  // let tx;
+  // for (let i = 0; i < devTeamAddress.length; i++) {
+  //   tx = await MockToken.mint(devTeamAddress[i], parseEther("1000000"));
+  //   await tx.wait();
+  // }
 
   const dSimpleAgreement = await deploy("SimpleAgreement", {
     from: deployer,
@@ -57,44 +58,44 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   });
 
   // deploy StormBit lending implementation
-  await deploy("StormBitLending", {
-    from: deployer,
-    args: [],
-    log: true,
-    autoMine: true,
-  });
+  // await deploy("StormBitLending", {
+  //   from: deployer,
+  //   args: [],
+  //   log: true,
+  //   autoMine: true,
+  // });
   const StormBitLendingImplementation = await hre.ethers.getContract<Contract>("StormBitLending", deployer);
 
-  await deploy("StormBitLendingVotes", {
-    from: deployer,
-    args: [],
-    log: true,
-    autoMine: true,
-  });
+  // await deploy("StormBitLendingVotes", {
+  //   from: deployer,
+  //   args: [],
+  //   log: true,
+  //   autoMine: true,
+  // });
   const StormBitLendingVotesImplementation = await hre.ethers.getContract<Contract>("StormBitLendingVotes", deployer);
 
-  // // deploy StormBit Core
-  await deploy("StormBitCore", {
-    from: deployer,
-    args: [deployer, StormBitLendingImplementation.target, StormBitLendingVotesImplementation.target],
-    log: true,
-    autoMine: true,
-  });
+  // deploy StormBit Core
+  // await deploy("StormBitCore", {
+  //   from: deployer,
+  //   args: [deployer, StormBitLendingImplementation.target, StormBitLendingVotesImplementation.target],
+  //   log: true,
+  //   autoMine: true,
+  // });
 
   const StormBitCore = await hre.ethers.getContract<Contract>("StormBitCore", deployer);
-  await MockToken.approve(StormBitCore.target, parseEther("5000"));
-  await StormBitCore.createPool({
-    name: "Cheap Lending Q3 Labs Pool",
-    creditScore: 0,
-    maxAmountOfStakers: 10,
-    votingQuorum: 75,
-    maxPoolUsage: 100,
-    votingPowerCoolDown: VOTING_POWER_COOLDOWN,
-    initAmount: parseEther("5000"),
-    initToken: MockToken.target,
-    supportedAssets: [MockToken.target],
-    supportedAgreements: [dSimpleAgreement.address],
-  });
+  // await MockToken.approve(StormBitCore.target, parseEther("5000"));
+  // await StormBitCore.createPool({
+  //   name: "Cheap Lending Q3 Labs Pool",
+  //   creditScore: 0,
+  //   maxAmountOfStakers: 10,
+  //   votingQuorum: 75,
+  //   maxPoolUsage: 100,
+  //   votingPowerCoolDown: VOTING_POWER_COOLDOWN,
+  //   initAmount: parseEther("5000"),
+  //   initToken: MockToken.target,
+  //   supportedAssets: [MockToken.target],
+  //   supportedAgreements: [dSimpleAgreement.address],
+  // });
 
   console.log("Created pool");
 

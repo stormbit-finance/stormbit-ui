@@ -2,15 +2,18 @@
 
 import React, { useEffect, useState } from "react";
 import ModalPay from "../modalPay/modalPay";
-import { useAccount, useContractReads } from "wagmi";
+import { getPublicClient, writeContract } from "@wagmi/core";
+import toast from "react-hot-toast";
+import { keccak256, parseAbiItem, toBytes } from "viem";
+import { useAccount, useChainId, useContractReads } from "wagmi";
 import { data } from "~~/data/data";
 import { useScaffoldContract, useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
 function MyLoans() {
   const [modalPay, setModalPay] = useState(false);
   const [loanList, setLoanList] = useState([] as any[]);
-
   const account = useAccount();
+  const chainId = useChainId();
   const { data: poolAddresses, isLoading: poolAddressesLoading } = useScaffoldContractRead({
     contractName: "StormBitCore",
     functionName: "getPools",
@@ -56,6 +59,7 @@ function MyLoans() {
             uniqueLoans.push({
               borrower: loan.borrower,
               poolName: pools[index].result.name,
+              pool: poolAddresses![index],
               agreements: ["Base"],
               nextDate: 0,
               nextAmount: 0,
@@ -72,7 +76,48 @@ function MyLoans() {
     }
   }, [loans]);
 
-  console.log(loans);
+  const executeLoanAndWithdraw = async (loanId: string, pool: string) => {
+    console.log(loanId, pool, chainId);
+    if (chainId) {
+      const publicClient = getPublicClient({ chainId });
+      const blockNow = await publicClient.getBlockNumber();
+      const events = await publicClient.getLogs({
+        address: pool,
+        event: parseAbiItem(
+          "event ProposalCreated(uint256 proposalId, address proposer, address[] targets, uint256[] values, string[] signatures, bytes[] calldatas, uint256 voteStart, uint256 voteEnd, string description)",
+        ),
+        fromBlock: blockNow - BigInt(2000),
+        toBlock: "latest",
+      });
+
+      // filter the one with id loanId
+      const proposal = events.filter(event => event.args.proposalId == loanId);
+      if (proposal.length == 0) {
+        toast.error("No proposal found for this loan");
+        return;
+      } else {
+        try {
+          const result = await writeContract({
+            abi: LendingContract!.abi,
+            address: pool,
+            functionName: "execute",
+            args: [
+              proposal[0].args.targets,
+              proposal[0].args.values,
+              proposal[0].args.calldatas,
+              keccak256(proposal[0].args.description),
+            ],
+          });
+          toast.success(`successfully executed with tx hash : ${result.hash} `);
+        } catch (e) {
+          console.log(e);
+          toast.error("Failed to execute");
+        }
+      }
+    } else {
+      toast.error("Please connect to a network");
+    }
+  };
 
   const getStatusColorClass = (status: any) => {
     switch (status) {
@@ -134,9 +179,15 @@ function MyLoans() {
               </p>
               <button
                 className="border border-solid border-[#4A5056] rounded-[7px] py-4 px-10"
-                onClick={() => setModalPay(true)}
+                onClick={() => {
+                  if (loan.status != 7) {
+                    executeLoanAndWithdraw(loan.id, loan.pool);
+                  } else {
+                    setModalPay(true);
+                  }
+                }}
               >
-                Pay
+                {loan.status == 4 ? "Execute & Withdraw" : "Pay"}
               </button>
               {modalPay && <ModalPay setModalPay={() => setModalPay(false)}></ModalPay>}
             </div>

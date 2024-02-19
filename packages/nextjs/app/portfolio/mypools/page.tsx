@@ -89,13 +89,14 @@ function MyPools() {
     }
   }, [pools]);
 
+  console.log(pools);
+
   const handleDetailsClick = (poolAddress: string) => {
     setSelectedPool(poolAddress);
     setShowCheap(true);
   };
 
   if (showCheap) {
-    console.log("selectedPool", showCheap);
     return <Cheap address={selectedPool} setShowCheap={setShowCheap} />;
   }
 

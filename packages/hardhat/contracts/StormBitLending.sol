@@ -41,7 +41,7 @@ contract StormBitLending is
     uint256 _maxAmountOfStakers;
     uint256 _votingQuorum;
     uint256 _maxPoolUsage;
-    uint256 _votingPowerCoolDown;
+    uint256 public _votingPowerCoolDown;
     uint256 _loanRequestNonce = 0;
     address internal _lendingVotes;
 
@@ -164,9 +164,7 @@ contract StormBitLending is
         address[] memory targets = new address[](1);
         uint256[] memory values = new uint256[](1);
         bytes[] memory calldatas = new bytes[](1);
-        string memory description = string(
-            abi.encode("Request Loan at ", _loanRequestNonce)
-        );
+        string memory description = "Loan Request";
         targets[0] = address(this);
         values[0] = 0;
         calldatas[0] = abi.encodeWithSelector(
@@ -207,8 +205,10 @@ contract StormBitLending is
         public
         payable
         override(GovernorUpgradeable)
-        onlyStormBit
-        returns (uint256)
+        returns (
+            // onlyStormBit - for demo purposes we wont be using this
+            uint256
+        )
     {
         return super.execute(targets, values, calldatas, descriptionHash);
     }
