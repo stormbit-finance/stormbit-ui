@@ -10,6 +10,7 @@ import { useScaffoldContract, useScaffoldContractRead } from "~~/hooks/scaffold-
 function MyPools() {
   const [showCheap, setShowCheap] = useState(false);
   const [poolList, setPoolList] = useState([] as any[]);
+  const [selectedPool, setSelectedPool] = useState("");
 
   const account = useAccount();
   const { data: poolAddresses, isLoading: poolAddressesLoading } = useScaffoldContractRead({
@@ -88,12 +89,13 @@ function MyPools() {
     }
   }, [pools]);
 
-  const handleDetailsClick = () => {
+  const handleDetailsClick = (poolAddress: string) => {
+    setSelectedPool(poolAddress);
     setShowCheap(true);
   };
 
   if (showCheap) {
-    return <Cheap />;
+    return <Cheap address={selectedPool} />;
   }
 
   return (
@@ -117,7 +119,7 @@ function MyPools() {
             <p className="w-[160px] text-center">{formatUnits(pool.votingPower, 0)} %</p>
             <p className="w-[160px] text-center"></p>
             <button
-              onClick={handleDetailsClick}
+              onClick={handleDetailsClick(pool.address)}
               className="border border-solid border-[#4A5056] rounded-[7px] py-4 px-10"
             >
               Details

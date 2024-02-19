@@ -46,28 +46,23 @@ function MyLoans() {
         : [],
   });
 
-  // useEffect(() => {
-  //   if (loans && loans.length > 0 && poolAddresses && LendingContract) {
-  //     const
-  //   }
-  // }, [loans]);
-
   useEffect(() => {
     if (loans && pools && account.address && loans.length > 0) {
-      const filteredLoans = loans.map((loan, index) => {
-        return {
-          borrower: loan.result[0][0].borrower,
-          poolName: pools[index].result.name,
-          agreements: ["Base"],
-          nextDate: 0,
-          nextAmount: 0,
-          penalty: 0,
-          interest: 0,
-          status: loan.result[1][0],
-          id: loan.result[0][0].loanId,
-        };
-      });
-
+      const filteredLoans = loans
+        .filter(loan => loan && loan.result[0].length > 0)
+        .map((loan, index) => {
+          return {
+            borrower: loan.result[0][0].borrower,
+            poolName: pools[index].result.name,
+            agreements: ["Base"],
+            nextDate: 0,
+            nextAmount: 0,
+            penalty: 0,
+            interest: 0,
+            status: loan.result[1][0],
+            id: loan.result[0][0].loanId,
+          };
+        });
       const poolsOfBorrower = filteredLoans.filter(
         loan => loan.borrower.toLowerCase() === account.address.toLowerCase(),
       );

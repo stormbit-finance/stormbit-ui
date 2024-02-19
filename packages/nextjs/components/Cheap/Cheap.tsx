@@ -5,7 +5,11 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Button from "../Button/Button";
 
-function Cheap() {
+interface ModalProps {
+  address: string;
+}
+
+function Cheap({ address }: ModalProps) {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("Overview");
 
