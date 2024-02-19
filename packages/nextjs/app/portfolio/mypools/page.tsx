@@ -81,8 +81,8 @@ function MyPools() {
             depositValue: depositValue ? formatUnits(depositValue, 18) : 0,
             // borrowedAPY: "0%",
             // suppliedAPY: "0%",
-            // totalBorrowed: pool.result ? formatUnits(pool.result.totalBorrowed, 18) : "0",
-            // totalSupplied: pool.result ? formatUnits(pool.result.totalSupplied, 18) : "0",
+            totalBorrowed: pool.result ? formatUnits(pool.result.totalBorrowed, 18) : "0",
+            totalSupplied: pool.result ? formatUnits(pool.result.totalSupplied, 18) : "0",
           };
         }),
       );
@@ -95,7 +95,8 @@ function MyPools() {
   };
 
   if (showCheap) {
-    return <Cheap address={selectedPool} />;
+    console.log("selectedPool", showCheap);
+    return <Cheap address={selectedPool} setShowCheap={setShowCheap} />;
   }
 
   return (
@@ -119,7 +120,9 @@ function MyPools() {
             <p className="w-[160px] text-center">{formatUnits(pool.votingPower, 0)} %</p>
             <p className="w-[160px] text-center"></p>
             <button
-              onClick={handleDetailsClick(pool.address)}
+              onClick={() => {
+                handleDetailsClick(pool.address);
+              }}
               className="border border-solid border-[#4A5056] rounded-[7px] py-4 px-10"
             >
               Details

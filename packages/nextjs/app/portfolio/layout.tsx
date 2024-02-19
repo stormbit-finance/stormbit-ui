@@ -9,7 +9,6 @@ function Layout({ children }: { children: React.ReactNode }) {
   const [activeButton, setActiveButton] = useState("");
 
   useEffect(() => {
-    // Extraer la última parte de la ruta como el botón activo inicial
     const currentRoute = window.location.pathname.split("/").pop();
     setActiveButton(currentRoute || "myloans");
   }, []);

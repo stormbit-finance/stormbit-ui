@@ -284,7 +284,9 @@ contract StormBitLending is
     }
 
     function votingPeriod() public pure override returns (uint256) {
-        return 7 days; // 1 week
+        // return 7 days; // 1 week
+        // for demo purposes we will use 5 minutes
+        return 5 * 60;
     }
 
     function name()

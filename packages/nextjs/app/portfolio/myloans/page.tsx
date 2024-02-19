@@ -44,31 +44,35 @@ function MyLoans() {
             };
           })
         : [],
+    watch: true,
   });
 
   useEffect(() => {
     if (loans && pools && account.address && loans.length > 0) {
-      const filteredLoans = loans
-        .filter(loan => loan && loan.result[0].length > 0)
-        .map((loan, index) => {
-          return {
-            borrower: loan.result[0][0].borrower,
-            poolName: pools[index].result.name,
-            agreements: ["Base"],
-            nextDate: 0,
-            nextAmount: 0,
-            penalty: 0,
-            interest: 0,
-            status: loan.result[1][0],
-            id: loan.result[0][0].loanId,
-          };
-        });
-      const poolsOfBorrower = filteredLoans.filter(
-        loan => loan.borrower.toLowerCase() === account.address.toLowerCase(),
-      );
-      setLoanList(poolsOfBorrower);
+      const uniqueLoans = [];
+      loans.forEach((loansOfPool, index) => {
+        if (loansOfPool.result && loansOfPool.result[0].length > 0) {
+          loansOfPool.result[0].forEach((loan, i) => {
+            uniqueLoans.push({
+              borrower: loan.borrower,
+              poolName: pools[index].result.name,
+              agreements: ["Base"],
+              nextDate: 0,
+              nextAmount: 0,
+              penalty: 0,
+              interest: 0,
+              status: loansOfPool.result[1][i],
+              id: loan.loanId,
+            });
+          });
+        }
+      });
+      const loansOfBorrower = uniqueLoans.filter(loan => loan.borrower.toLowerCase() === account.address.toLowerCase());
+      setLoanList(loansOfBorrower);
     }
-  }, [loans, pools, account]);
+  }, [loans]);
+
+  console.log(loans);
 
   const getStatusColorClass = (status: any) => {
     switch (status) {
@@ -120,7 +124,13 @@ function MyLoans() {
               <p className="w-[160px] text-center">{loan.penalty} %</p>
               <p className="w-[160px] text-center"> -{loan.interest} %</p>
               <p className={`w-[160px] text-center ${getStatusColorClass(loan.status)} font-bold`}>
-                {loan.status == 1 ? "Pending" : loan.status == 3 ? "Rejected" : "Active"}
+                {loan.status == 1
+                  ? "Pending"
+                  : loan.status == 3
+                  ? "Rejected"
+                  : loan.status == 7
+                  ? "Active"
+                  : "To Execute"}
               </p>
               <button
                 className="border border-solid border-[#4A5056] rounded-[7px] py-4 px-10"

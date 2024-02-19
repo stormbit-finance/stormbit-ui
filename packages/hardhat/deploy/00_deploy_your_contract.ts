@@ -119,7 +119,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
 
   const abiCoder = AbiCoder.defaultAbiCoder();
 
-  // get block timestamp
+  // // get block timestamp
   const block = await hre.ethers.provider.getBlock("latest");
   const thirtydaysInSeconds = 30 * 24 * 60 * 60;
   const sixtydaysInSeconds = 60 * 24 * 60 * 60;
@@ -140,6 +140,12 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   if (network.name === "localhost") {
     await time.increase(VOTING_POWER_COOLDOWN + 2);
 
+    const votingPowerDeployer = lendingPool.getVotingPower(deployer);
+    const votingPowerLender = lendingPool.getVotingPower(lender);
+
+    console.log("Voting power deployer", (await votingPowerDeployer).toString());
+    console.log("Voting power lender", (await votingPowerLender).toString());
+  } else {
     const votingPowerDeployer = lendingPool.getVotingPower(deployer);
     const votingPowerLender = lendingPool.getVotingPower(lender);
 
