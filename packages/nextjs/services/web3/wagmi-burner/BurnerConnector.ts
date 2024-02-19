@@ -86,7 +86,6 @@ export class BurnerConnector extends Connector<StaticJsonRpcProvider, BurnerConn
   }
 
   disconnect(): Promise<void> {
-    console.log("disconnect from burnerwallet");
     return Promise.resolve();
   }
 

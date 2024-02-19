@@ -1,13 +1,93 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Button from "../Button/Button";
+import { writeContract } from "@wagmi/core";
+import toast from "react-hot-toast";
+import { formatUnits } from "viem";
+import { useContractRead, useContractWrite, useFeeData } from "wagmi";
+import { useScaffoldContract, useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
-function Cheap() {
+interface ModalProps {
+  address: string;
+  setShowCheap: () => void;
+}
+
+function Cheap({ address, setShowCheap }: ModalProps) {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("Overview");
+  const [loansDetails, setLoansDetails] = useState([]);
+
+  const { data: LendingContract } = useScaffoldContract({
+    contractName: "StormBitLending",
+  });
+
+  // const { writeAsync: approveLoan } = writecon({
+  //   address: address,
+  //   abi: LendingContract && LendingContract.abi,
+  //   functionName: "castVote",
+  //   args: [selectedLoanId, 1],
+  // });
+
+  const { data: poolData, isLoading: poolsLoading } = useContractRead({
+    address: address,
+    abi: LendingContract && LendingContract.abi,
+    functionName: "getPoolData",
+  });
+
+  const { data: loans, isLoading: loansLoading } = useContractRead({
+    address: address,
+    abi: LendingContract && LendingContract.abi,
+    functionName: "getLoansDatas",
+  });
+
+  useEffect(() => {
+    if (loans && loans.length > 0) {
+      const loanDetails = loans[0].map((loan, index) => {
+        return {
+          borrower: loan.borrower,
+          loanId: loan.loanId,
+          poolName: formatUnits(loan.amount, 18),
+          status: loans[1][index] == 1 ? "Pending" : loans[1][index] == 3 ? "Rejected" : "Approved",
+        };
+      });
+      setLoansDetails(loanDetails);
+    }
+  }, [loans]);
+
+  console.log(loans);
+
+  const approveLoan = async (loanId: bigint) => {
+    try {
+      const result = await writeContract({
+        abi: LendingContract!.abi,
+        address: address as string,
+        functionName: "castVote",
+        args: [loanId, 1],
+      });
+      toast.success("successfully casted a vote");
+    } catch (e) {
+      console.log(e);
+      toast.error("Already voted or Out Of voting period");
+    }
+  };
+
+  const rejectLoan = async (loanId: bigint) => {
+    try {
+      const result = await writeContract({
+        abi: LendingContract!.abi,
+        address: address as string,
+        functionName: "castVote",
+        args: [loanId, 0],
+      });
+      toast.success("successfully casted a vote");
+    } catch (e) {
+      console.log(e);
+      toast.error("Already voted or Out Of voting period");
+    }
+  };
 
   const renderContent = () => {
     switch (activeTab) {
@@ -19,15 +99,17 @@ function Cheap() {
               <div className="flex gap-4 text-[#17344F]">
                 <div className="border border-solid border-[#EAEBEF] flex flex-col p-4 w-[260px]">
                   <span>Available liquidity</span>
-                  <span className="font-bold">$23.08M</span>
+                  <span className="font-bold">
+                    {poolData && formatUnits(poolData.totalSupplied - poolData.totalBorrowed, 18)}
+                  </span>
                 </div>
                 <div className="border border-solid border-[#EAEBEF] flex flex-col p-4 w-[260px]">
                   <span>Total Supply</span>
-                  <span className="font-bold">$23.08M</span>
+                  <span className="font-bold">{poolData && formatUnits(poolData.totalSupplied, 18)}</span>
                 </div>
                 <div className="border border-solid border-[#EAEBEF] flex flex-col p-4 w-[260px]">
                   <span>Total borrowed</span>
-                  <span className="font-bold">$23.08M</span>
+                  <span className="font-bold">{poolData && formatUnits(poolData.totalBorrowed, 18)}</span>
                 </div>
               </div>
             </div>
@@ -55,7 +137,7 @@ function Cheap() {
         );
       case "Exit Pool":
         return (
-          <div className="flex gap-16">
+          <div className="flex gap-16 mb-12">
             <div className="flex flex-col items-center justify-center">
               <div className="flex flex-col gap-4 w-[760px]">
                 <div className="flex items-center justify-between">
@@ -115,16 +197,36 @@ function Cheap() {
               <span className="w-[160px] text-center">Remarks</span>
               <span className="w-[160px] text-center"></span>
             </div>
-            <div className="flex gap-20 h-[95px] items-center p-8 border border-solid border-[#EAEBEF]">
-              <p className="w-[160px] text-center">0x123...23123</p>
-              <p className="w-[160px] text-center">10.01 ETH</p>
-              <p className="w-[160px] text-center text-[#FFA876]">Pending</p>
-              <p className="w-[160px] text-center">Remaining 3/10 voters</p>
-              <div className="flex gap-4">
-                <button className="border border-solid border-[#4A5056] rounded-[7px] py-4 px-10">Reject</button>
-                <button className="border border-solid border-[#4A5056] rounded-[7px] py-4 px-10">Approve</button>
-              </div>
-            </div>
+            {loansDetails.map((loan, index) => {
+              return (
+                <div className="flex gap-20 h-[95px] items-center p-8 border border-solid border-[#EAEBEF]" key={index}>
+                  <p className="w-[160px] text-center">{loan.borrower}</p>
+                  <p className="w-[160px] text-center">{loan.amount}</p>
+                  <p className="w-[160px] text-center text-[#FFA876]">{loan.status}</p>
+                  <p className="w-[160px] text-center">
+                    {loan.status == "Pending" ? "Voting in progress" : "No Remarks"}
+                  </p>
+                  <div className="flex gap-4">
+                    <button
+                      className="border border-solid border-[#4A5056] rounded-[7px] py-4 px-10"
+                      onClick={() => {
+                        rejectLoan(loan.loanId);
+                      }}
+                    >
+                      Reject
+                    </button>
+                    <button
+                      className="border border-solid border-[#4A5056] rounded-[7px] py-4 px-10"
+                      onClick={() => {
+                        approveLoan(loan.loanId);
+                      }}
+                    >
+                      Approve
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         );
       default:
@@ -139,7 +241,13 @@ function Cheap() {
   return (
     <>
       <div>
-        <div className="flex gap-3 my-8 " onClick={handleGoBack} style={{ cursor: "pointer" }}>
+        <div
+          className="flex gap-3 mb-8 "
+          onClick={() => {
+            setShowCheap(false);
+          }}
+          style={{ cursor: "pointer" }}
+        >
           <Image src="/arrow-left.png" alt="arrow" width={20} height={16}></Image>
           <span>Go back</span>
         </div>

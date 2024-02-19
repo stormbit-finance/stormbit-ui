@@ -16,6 +16,11 @@ const providerApiKey = process.env.ALCHEMY_API_KEY || "oKxs-03sij-U_N0iOlrSsZFr2
 // If not set, it uses the hardhat account 0 private key.
 const deployerPrivateKey =
   process.env.DEPLOYER_PRIVATE_KEY ?? "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
+
+const lenderPrivateKey =
+  process.env.LENDER_PRIVATE_KEY ?? "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
+const borrowerPrivateKey =
+  process.env.BORROWER_PRIVATE_KEY ?? "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
 // If not set, it uses ours Etherscan default API key.
 const etherscanApiKey = process.env.ETHERSCAN_API_KEY || "DNXJA8RX2Q3VZ4URQIWP7Z68CJXQZSC6AW";
 
@@ -30,7 +35,7 @@ const config: HardhatUserConfig = {
         settings: {
           optimizer: {
             enabled: true,
-            runs: 10,
+            runs: 5,
           },
         },
       },
@@ -44,6 +49,12 @@ const config: HardhatUserConfig = {
     deployer: {
       // By default, it will take the first Hardhat account as the deployer
       default: 0,
+    },
+    lender: {
+      default: 1,
+    },
+    borrower: {
+      default: 2,
     },
   },
   networks: {
@@ -133,12 +144,14 @@ const config: HardhatUserConfig = {
     },
     avalancheFuji: {
       url: "https://avalanche-fuji-c-chain.publicnode.com",
-      accounts: [deployerPrivateKey],
+      accounts: [deployerPrivateKey, lenderPrivateKey, borrowerPrivateKey],
     },
   },
   // configuration for harhdat-verify plugin
   etherscan: {
-    apiKey: `${etherscanApiKey}`,
+    apiKey: {
+      avalancheFuji: "snowtrace", // apiKey is not required, just set a placeholder
+    },
   },
   // configuration for etherscan-verify from hardhat-deploy plugin
   verify: {

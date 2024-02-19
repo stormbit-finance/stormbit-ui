@@ -15,7 +15,7 @@ function Supply() {
         <span className="font-bold">Amount to Supply</span>
 
         <div className="flex border border-solid border-[#EAEBEF] rounded-[5px] justify-between">
-          <input type="text" className="p-1 focus:outline-none"></input>
+          <input type="text" className="p-1 w-[500px] focus:outline-none border-none"></input>
           <div className="flex items-center justify-center">
             <ul className="main-menu">
               <li className="relative main-menu-item">

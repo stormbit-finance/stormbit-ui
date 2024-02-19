@@ -41,7 +41,7 @@ contract StormBitLending is
     uint256 _maxAmountOfStakers;
     uint256 _votingQuorum;
     uint256 _maxPoolUsage;
-    uint256 _votingPowerCoolDown;
+    uint256 public _votingPowerCoolDown;
     uint256 _loanRequestNonce = 0;
     address internal _lendingVotes;
 
@@ -164,9 +164,7 @@ contract StormBitLending is
         address[] memory targets = new address[](1);
         uint256[] memory values = new uint256[](1);
         bytes[] memory calldatas = new bytes[](1);
-        string memory description = string(
-            abi.encode("Request Loan at ", _loanRequestNonce)
-        );
+        string memory description = "Loan Request";
         targets[0] = address(this);
         values[0] = 0;
         calldatas[0] = abi.encodeWithSelector(
@@ -207,8 +205,10 @@ contract StormBitLending is
         public
         payable
         override(GovernorUpgradeable)
-        onlyStormBit
-        returns (uint256)
+        returns (
+            // onlyStormBit - for demo purposes we wont be using this
+            uint256
+        )
     {
         return super.execute(targets, values, calldatas, descriptionHash);
     }
@@ -284,7 +284,9 @@ contract StormBitLending is
     }
 
     function votingPeriod() public pure override returns (uint256) {
-        return 7 days; // 1 week
+        // return 7 days; // 1 week
+        // for demo purposes we will use 5 minutes
+        return 5 * 60;
     }
 
     function name()
@@ -340,6 +342,24 @@ contract StormBitLending is
             });
     }
 
+    function getLoansDatas()
+        public
+        view
+        returns (LoanDetails[] memory, ProposalState[] memory, address[] memory)
+    {
+        LoanDetails[] memory loans = new LoanDetails[](_loanRequests.length);
+        ProposalState[] memory states = new ProposalState[](
+            _loanRequests.length
+        );
+        address[] memory agreements = new address[](_loanRequests.length);
+        for (uint256 i = 0; i < _loanRequests.length; i++) {
+            (loans[i], states[i], agreements[i]) = getLoanData(
+                _loanRequests[i]
+            );
+        }
+        return (loans, states, agreements);
+    }
+
     function getLoanData(
         uint256 loanRequestId
     ) public view returns (LoanDetails memory, ProposalState, address) {
@@ -356,12 +376,6 @@ contract StormBitLending is
         uint256 tokenSupply = IERC20(_lendingVotes).totalSupply();
         uint256 stakerValidVotes = getValidVotes(staker);
         return (stakerValidVotes * 100) / tokenSupply;
-    }
-
-    function isSupportedAgreement(
-        address agreement
-    ) public view returns (bool) {
-        return _isSupportedAgreement[agreement];
     }
 
     function userAgreement(address user) public view returns (address) {

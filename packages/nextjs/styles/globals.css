@@ -55,10 +55,18 @@ input{
     }
   }
 
-  .container-stats{
-    box-shadow: 0px 0px 21.1px -15px #181C20;
-  }
+.container-stats{
+  box-shadow: 0px 0px 21.1px -15px #181C20;
+}
 
 .shadow-lending{
   box-shadow: 0px 0px 21.6px -1px #E1ECF9;
+}
+
+.margin-top{
+  margin-top: 50px;
+}
+
+.height-market{
+  height: fit-content;
 }
