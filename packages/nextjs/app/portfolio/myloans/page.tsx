@@ -77,7 +77,6 @@ function MyLoans() {
   }, [loans]);
 
   const executeLoanAndWithdraw = async (loanId: string, pool: string) => {
-    console.log(loanId, pool, chainId);
     if (chainId) {
       const publicClient = getPublicClient({ chainId });
       const blockNow = await publicClient.getBlockNumber();

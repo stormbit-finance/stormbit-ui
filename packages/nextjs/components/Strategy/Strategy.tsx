@@ -17,7 +17,7 @@ function Strategy({ poolAddress }: StrategyProps) {
   const renderContent = () => {
     switch (selectedView) {
       case "supply":
-        return <Supply />;
+        return <Supply poolAddress={poolAddress} />;
       case "borrow":
         return <Borrow poolAddress={poolAddress} />;
       default:

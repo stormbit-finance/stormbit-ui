@@ -86,7 +86,7 @@ function Borrow({ poolAddress }: BorrowProps) {
             },
           ],
           onSuccess: txReceipt => {
-            toast.success(`Deposit loan successfully with hash ${txReceipt.hash as string}`);
+            toast.success(`loan requested successfully with hash ${txReceipt.hash as string}`);
           },
         }
       : {},

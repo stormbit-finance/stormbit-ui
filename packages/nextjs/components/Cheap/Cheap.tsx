@@ -57,8 +57,6 @@ function Cheap({ address, setShowCheap }: ModalProps) {
     }
   }, [loans]);
 
-  console.log(loans);
-
   const approveLoan = async (loanId: bigint) => {
     try {
       const result = await writeContract({

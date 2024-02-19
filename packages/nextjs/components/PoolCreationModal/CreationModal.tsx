@@ -90,8 +90,6 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
     blockConfirmations: 0,
   });
 
-  console.log(poolConfig);
-
   const handleSubmit = () => {
     // createPool();
     // setIsModalOpen();

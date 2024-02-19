@@ -33,8 +33,6 @@ function Table() {
         : [],
   });
 
-  console.log(pools);
-
   useEffect(() => {
     if (pools && pools.length > 0 && poolAddresses) {
       setPoolList(
