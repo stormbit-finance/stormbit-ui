@@ -16,7 +16,6 @@ function Table() {
     watch: true,
   });
 
-  console.log("poolAddresses", poolAddresses);
   const { data: LendingContract } = useScaffoldContract({
     contractName: "StormBitLending",
   });

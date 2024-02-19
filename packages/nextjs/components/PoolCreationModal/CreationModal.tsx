@@ -61,7 +61,7 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
         votingQuorum: BigInt(poolConfig.quorum),
         maxPoolUsage: BigInt(poolConfig.maxPoolUsage),
         votingPowerCoolDown: BigInt(poolConfig.votingPowerCooldown),
-        initAmount: parseEther("5000"),
+        initAmount: parseEther(poolConfig.amount.toString()),
         initToken: tokenContract ? tokenContract.address : "",
         supportedAssets: [tokenContract ? tokenContract.address : ""],
         supportedAgreements: [simpleAgreementContract ? simpleAgreementContract.address : ""],
@@ -75,9 +75,6 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
     blockConfirmations: 0,
   });
 
-  console.log(createPoolLoading);
-  console.log(data);
-
   const { writeAsync: approveTokens, isSuccess: approveTokensSuccess } = useScaffoldContractWrite({
     contractName: "MockToken",
     functionName: "approve",
@@ -86,15 +83,14 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
     onBlockConfirmation: txReceipt => {
       toast.success(`Tokens approved successfully with hash ${txReceipt.transactionHash as string}`);
       createPool();
+      setIsModalOpen();
     },
     blockConfirmations: 0,
   });
 
-  console.log(approveTokens);
-
   const handleSubmit = () => {
-    createPool();
-    setIsModalOpen();
+    // createPool();
+    // setIsModalOpen();
   };
 
   return (
@@ -111,7 +107,7 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
               X
             </button>
           </div>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <form className="flex flex-col gap-4">
             <div className="flex-1">
               <label htmlFor="campo1">Pool name</label>
               <input
@@ -188,7 +184,14 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
             </div>
             <div className="flex-1">
               <label htmlFor="campo1">Amount</label>
-              <input type="text" id="campo1" name="campo1" className="w-full p-2 border" />
+              <input
+                type="text"
+                id="campo1"
+                name="campo1"
+                className="w-full p-2 border"
+                value={String(poolConfig.amount)}
+                onChange={e => setPoolConfig({ ...poolConfig, amount: BigInt(e.target.value ?? 0) })}
+              />
             </div>
             <span>Agreement supported</span>
             <div className="flex gap-16">

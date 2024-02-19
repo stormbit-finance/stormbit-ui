@@ -12,7 +12,6 @@ function Page() {
   const params = useParams();
 
   const poolAddress: string = params.id;
-  console.log("params", params);
   const handleGoBack = () => {
     window.history.back();
   };
