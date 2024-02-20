@@ -4,10 +4,32 @@ import React, { useEffect, useState } from "react";
 import ModalPay from "../modalPay/modalPay";
 import { getPublicClient, writeContract } from "@wagmi/core";
 import toast from "react-hot-toast";
-import { keccak256, parseAbiItem, toBytes } from "viem";
+import { keccak256, parseAbiItem } from "viem";
 import { useAccount, useChainId, useContractReads } from "wagmi";
-import { data } from "~~/data/data";
 import { useScaffoldContract, useScaffoldContractRead } from "~~/hooks/scaffold-eth";
+
+interface Loan {
+  borrower: string;
+  poolName: unknown;
+  pool: string | undefined;
+  agreements: string[];
+  nextDate: number;
+  nextAmount: number;
+  penalty: number;
+  interest: number;
+  status: unknown;
+  id: string;
+}
+interface Event {
+  [x: string]: any;
+  args: {
+    proposalId?: bigint | undefined;
+    targets: any[];
+    values: any[];
+    calldatas: any[];
+    description: string;
+  };
+}
 
 function MyLoans() {
   const [modalPay, setModalPay] = useState(false);
@@ -52,10 +74,10 @@ function MyLoans() {
 
   useEffect(() => {
     if (loans && pools && account.address && loans.length > 0) {
-      const uniqueLoans = [];
+      const uniqueLoans: Loan[] = [];
       loans.forEach((loansOfPool, index) => {
-        if (loansOfPool.result && loansOfPool.result[0].length > 0) {
-          loansOfPool.result[0].forEach((loan, i) => {
+        if (loansOfPool.result && loansOfPool.result[0] && loansOfPool.result[0].length > 0) {
+          loansOfPool.result[0].forEach((loan: { borrower: any; loanId: any }, i: number) => {
             uniqueLoans.push({
               borrower: loan.borrower,
               poolName: pools[index].result.name,
@@ -76,11 +98,12 @@ function MyLoans() {
     }
   }, [loans]);
 
+
   const executeLoanAndWithdraw = async (loanId: string, pool: string) => {
     if (chainId) {
       const publicClient = getPublicClient({ chainId });
-      const blockNow = await publicClient.getBlockNumber();
-      const events = await publicClient.getLogs({
+      const blockNow: bigint = await publicClient.getBlockNumber();
+      const events: Event = await publicClient.getLogs({
         address: pool,
         event: parseAbiItem(
           "event ProposalCreated(uint256 proposalId, address proposer, address[] targets, uint256[] values, string[] signatures, bytes[] calldatas, uint256 voteStart, uint256 voteEnd, string description)",
@@ -90,8 +113,8 @@ function MyLoans() {
       });
 
       // filter the one with id loanId
-      const proposal = events.filter(event => event.args.proposalId == loanId);
-      if (proposal.length == 0) {
+      const proposal = events.filter((event: { args: { proposalId: string } }) => event.args.proposalId == loanId);
+      if (proposal.length == 0 || proposal[0].args.proposalId === undefined) {
         toast.error("No proposal found for this loan");
         return;
       } else {
@@ -146,22 +169,27 @@ function MyLoans() {
             <div className="flex gap-4 h-[95px] items-center p-8 border border-solid border-[#EAEBEF]" key={index}>
               <p className="w-[160px] text-center">{loan.poolName}</p>
               <div className="w-[160px] text-center flex gap-1 items-center justify-center">
-                {loan.agreements.map((agreement, agreementIndex) => (
-                  <span
-                    key={agreementIndex}
-                    className={`rounded-[8px] p-2 ${
-                      agreement === "Base"
-                        ? "bg-[#F1F3F4]"
-                        : agreement === "NFT"
-                        ? "bg-[#F1F8FF]"
-                        : agreement === "FT"
-                        ? "bg-[#E8F5F4]"
-                        : ""
-                    }`}
-                  >
-                    {agreement}
-                  </span>
-                ))}
+                {loan.agreements.map(
+                  (
+                    agreement: string | number | boolean | null | undefined,
+                    agreementIndex: React.Key | null | undefined,
+                  ) => (
+                    <span
+                      key={agreementIndex}
+                      className={`rounded-[8px] p-2 ${
+                        agreement === "Base"
+                          ? "bg-[#F1F3F4]"
+                          : agreement === "NFT"
+                          ? "bg-[#F1F8FF]"
+                          : agreement === "FT"
+                          ? "bg-[#E8F5F4]"
+                          : ""
+                      }`}
+                    >
+                      {agreement}
+                    </span>
+                  ),
+                )}
               </div>
               <p className="w-[160px] text-center">{loan.nextDate}</p>
               <p className="w-[160px] text-center">{loan.nextAmount}</p>

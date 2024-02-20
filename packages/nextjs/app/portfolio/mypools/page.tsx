@@ -4,8 +4,17 @@ import { useEffect, useState } from "react";
 import { formatUnits } from "viem";
 import { Address, useAccount, useContractReads } from "wagmi";
 import Cheap from "~~/components/Cheap/Cheap";
-import { data } from "~~/data/data";
 import { useScaffoldContract, useScaffoldContractRead } from "~~/hooks/scaffold-eth";
+
+interface Pool {
+  address: string;
+  result: {
+    totalSupplied: number;
+    totalBorrowed: number;
+    name: string;
+  };
+  votingPower: number;
+}
 
 function MyPools() {
   const [showCheap, setShowCheap] = useState(false);
@@ -69,20 +78,27 @@ function MyPools() {
       });
 
       setPoolList(
-        filteredPools.map(pool => {
+        filteredPools.map((pool: Pool) => {
           const poolAddr = pool.address;
-          const availableLiquidity: bigint = pool.result.totalSupplied - pool.result.totalBorrowed;
-          const depositValue: bigint = (pool.votingPower * BigInt(pool.result.totalSupplied)) / BigInt(100);
+
+          const totalSupplied: bigint =
+            typeof pool.result.totalSupplied === "number" ? BigInt(pool.result.totalSupplied) : BigInt(0);
+          const totalBorrowed: bigint =
+            typeof pool.result.totalBorrowed === "number" ? BigInt(pool.result.totalBorrowed) : BigInt(0);
+          const votingPower: bigint = typeof pool.votingPower === "number" ? BigInt(pool.votingPower) : BigInt(0);
+
+          const availableLiquidity: bigint = BigInt(pool.result.totalSupplied) - BigInt(pool.result.totalBorrowed);
+          const depositValue: bigint = (BigInt(pool.votingPower) * BigInt(pool.result.totalSupplied)) / BigInt(100);
           return {
             address: poolAddr || "",
             name: pool.result ? pool.result.name : "",
             availableLiquidity: availableLiquidity ? formatUnits(availableLiquidity, 18) : 0,
-            votingPower: pool.votingPower,
+            votingPower: votingPower,
             depositValue: depositValue ? formatUnits(depositValue, 18) : 0,
             // borrowedAPY: "0%",
             // suppliedAPY: "0%",
-            totalBorrowed: pool.result ? formatUnits(pool.result.totalBorrowed, 18) : "0",
-            totalSupplied: pool.result ? formatUnits(pool.result.totalSupplied, 18) : "0",
+            totalBorrowed: totalBorrowed ? formatUnits(totalBorrowed, 18) : "0",
+            totalSupplied: totalSupplied ? formatUnits(totalSupplied, 18) : "0",
           };
         }),
       );
@@ -95,7 +111,7 @@ function MyPools() {
   };
 
   if (showCheap) {
-    return <Cheap address={selectedPool} setShowCheap={setShowCheap} />;
+    return <Cheap address={selectedPool} setShowCheap={() => setShowCheap} />;
   }
 
   return (
