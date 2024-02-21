@@ -7,6 +7,12 @@ import { useContractReads } from "wagmi";
 import { useScaffoldContract, useScaffoldContractRead, useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
 import { Pools } from "~~/types/Pools";
 
+interface PoolResult {
+  name: string;
+  totalBorrowed: bigint;
+  totalSupplied: bigint;
+}
+
 function Table() {
   const [poolList, setPoolList] = useState([] as Pools[]);
   // get the events from the contract
@@ -39,14 +45,16 @@ function Table() {
         pools.map((pool, index) => {
           const poolAddr = poolAddresses?.[index];
 
+          const poolResult: PoolResult = pool.result as PoolResult;
+
           return {
             address: poolAddr || "",
-            name: pool.result ? pool.result.name : "",
+            name: poolResult ? poolResult.name : "",
             borrowedAPY: "0%",
             suppliedAPY: "0%",
-            totalBorrowed: pool.result ? formatUnits(pool.result.totalBorrowed, 18) : "0",
-            totalSupplied: pool.result ? formatUnits(pool.result.totalSupplied, 18) : "0",
-            marketSize: pool.result ? formatUnits(pool.result.totalBorrowed + pool.result.totalSupplied, 18) : "0",
+            totalBorrowed: poolResult ? formatUnits(poolResult.totalBorrowed, 18) : "0",
+            totalSupplied: poolResult ? formatUnits(poolResult.totalSupplied, 18) : "0",
+            marketSize: poolResult ? formatUnits(poolResult.totalBorrowed + poolResult.totalSupplied, 18) : "0",
           };
         }),
       );
