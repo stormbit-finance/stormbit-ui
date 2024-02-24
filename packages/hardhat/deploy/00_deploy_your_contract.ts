@@ -82,6 +82,13 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
     autoMine: true,
   });
 
+  await deploy("StormBitCore", {
+    from: deployer,
+    args: [deployer, StormBitLendingImplementation.target, StormBitLendingVotesImplementation.target],
+    log: true,
+    autoMine: true,
+  });
+
   const StormBitCore = await hre.ethers.getContract<Contract>("StormBitCore", deployer);
   await MockToken.approve(StormBitCore.target, parseEther("5000"));
   await StormBitCore.createPool({
