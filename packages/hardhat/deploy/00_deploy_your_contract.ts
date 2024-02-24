@@ -1,8 +1,12 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
-import { DeployFunction } from "hardhat-deploy/types";
+import { Address, DeployFunction } from "hardhat-deploy/types";
 import { AbiCoder, Contract, parseEther } from "ethers";
 import { time } from "@nomicfoundation/hardhat-network-helpers";
-import { ethers, network } from "hardhat";
+import { network } from "hardhat";
+
+function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 /**
  * Deploys a contract named "YourContract" using the deployer account and
@@ -23,32 +27,44 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   */
   const { deployer, lender, borrower } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
-  const VOTING_POWER_COOLDOWN = 10;
+  const VOTING_POWER_COOLDOWN = 1;
 
-  await deploy("MockToken", {
+  await deploy("tDAI", {
     from: deployer,
+    contract: "MockToken",
+    args: [],
+    log: true,
+    autoMine: true,
+  });
+
+  await deploy("tBTC", {
+    from: deployer,
+    contract: "MockToken",
+    args: [],
+    log: true,
+    autoMine: true,
+  });
+
+  await deploy("tETH", {
+    from: deployer,
+    contract: "MockToken",
     args: [],
     log: true,
     autoMine: true,
   });
 
   // this is for testing purposes
-  const devTeamAddress = [
-    "0x2B7E4B80A1C217cCe8f749d5c4fF226AEB1c79DC",
-    "0x4F429734435d52a3932FdaddBd302196b9dad139",
-    "0xFF0A137c33cf8C135477952A803168242778F6A5",
-    deployer,
-    lender,
-    borrower,
-  ];
+  const devTeamAddress = [deployer, lender, borrower];
+  let MockToken = await hre.ethers.getContract<Contract>("tDAI", deployer);
 
-  let MockToken = await hre.ethers.getContract<Contract>("MockToken", deployer);
-
+  console.log("minting tokens to devTeam adddresses : ", devTeamAddress);
   let tx;
   for (let i = 0; i < devTeamAddress.length; i++) {
     tx = await MockToken.mint(devTeamAddress[i], parseEther("1000000"));
     await tx.wait();
   }
+
+  console.log("tokens minted");
 
   const dSimpleAgreement = await deploy("SimpleAgreement", {
     from: deployer,
@@ -91,7 +107,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
 
   const StormBitCore = await hre.ethers.getContract<Contract>("StormBitCore", deployer);
   await MockToken.approve(StormBitCore.target, parseEther("5000"));
-  await StormBitCore.createPool({
+  tx = await StormBitCore.createPool({
     name: "Cheap Lending Q3 Labs Pool",
     creditScore: 0,
     maxAmountOfStakers: 10,
@@ -103,32 +119,44 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
     supportedAssets: [MockToken.target],
     supportedAgreements: [dSimpleAgreement.address],
   });
+  const receipt = await tx.wait();
+  const logs = receipt.logs;
+  const poolAddr = `0x${logs[logs.length - 1].topics[1].slice(26)}`;
+  console.log("created pool at : ", poolAddr);
 
   console.log("Created pool");
 
+  // wait for one block to be mined
+  console.log("waiting for new block");
+  let block = await hre.ethers.provider.getBlock("latest");
+  let newBlock = block;
+  while (block?.number == newBlock?.number) {
+    await sleep(1000);
+    newBlock = await hre.ethers.provider.getBlock("latest");
+  }
+  console.log("new block mined");
   // a user supplies account
-  MockToken = await hre.ethers.getContract<Contract>("MockToken", lender);
-  const deployedLendingPools = await StormBitCore.getPools();
   let lendingPool = await hre.ethers.getContractAtWithSignerAddress<Contract>(
     "StormBitLending",
-    deployedLendingPools[0],
+    poolAddr as Address,
     lender,
   );
 
+  MockToken = await hre.ethers.getContract<Contract>("tDAI", lender);
   await MockToken.approve(lendingPool.target, parseEther("1000"));
   await lendingPool.stake(MockToken.target, parseEther("1000"));
+  console.log("Lender staked on pool");
 
   lendingPool = await hre.ethers.getContractAtWithSignerAddress<Contract>(
     "StormBitLending",
-    deployedLendingPools[0],
+    poolAddr as Address,
     borrower,
   );
-  console.log("Lender staked on pool");
 
   const abiCoder = AbiCoder.defaultAbiCoder();
 
   // // get block timestamp
-  const block = await hre.ethers.provider.getBlock("latest");
+  block = await hre.ethers.provider.getBlock("latest");
   const thirtydaysInSeconds = 30 * 24 * 60 * 60;
   const sixtydaysInSeconds = 60 * 24 * 60 * 60;
 
@@ -144,6 +172,17 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
       [parseEther("1000"), borrower, MockToken.target, amounts, times],
     ),
   });
+
+  console.log("Loan requested");
+
+  console.log("waiting for new block");
+  block = await hre.ethers.provider.getBlock("latest");
+  newBlock = block;
+  while (block?.number == newBlock?.number) {
+    await sleep(2000);
+    newBlock = await hre.ethers.provider.getBlock("latest");
+  }
+  console.log("new block mined");
 
   if (network.name === "localhost") {
     await time.increase(VOTING_POWER_COOLDOWN + 2);
