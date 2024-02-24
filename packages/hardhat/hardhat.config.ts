@@ -150,7 +150,7 @@ const config: HardhatUserConfig = {
   // configuration for harhdat-verify plugin
   etherscan: {
     apiKey: {
-      avalancheFuji: "snowtrace", // apiKey is not required, just set a placeholder
+      avalancheFuji: "snowtrace",
     },
   },
   // configuration for etherscan-verify from hardhat-deploy plugin
