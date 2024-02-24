@@ -76,7 +76,7 @@ function Supply({ poolAddress }: SupplyProps) {
             <ul className="main-menu">
               <li className="relative main-menu-item">
                 <button onClick={toggleDropdown} className="flex items-center justify-center dropdown-trigger">
-                  <Image src="/ether.png" alt="ether" width={17} height={17}></Image>
+                  <Image src="/DAI.png" alt="ether" width={17} height={17} className="mx-2 w-17 h-17"></Image>
                   DAI<span className="arrow-down">&#9662;</span>
                 </button>
                 {isDropdownOpen && (
@@ -93,7 +93,11 @@ function Supply({ poolAddress }: SupplyProps) {
             </ul>
           </div>
         </div>
-        <span>Balance {(balance && parseFloat(formatUnits(balance, 18)).toFixed(5)) || 0} DAI</span>
+        <span>
+          {balanceLoading
+            ? "Loading balance..."
+            : `Balance ${(balance && parseFloat(formatUnits(balance, 18)).toFixed(5)) || 0} DAI`}
+        </span>
       </div>
       <div className="my-8 bg-[#F3F7F9] p-5 text-[#17344F;]">
         <span className="font-bold">Order information</span>

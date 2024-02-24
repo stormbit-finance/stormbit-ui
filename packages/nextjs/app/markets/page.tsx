@@ -16,14 +16,14 @@ const BlockExplorer: NextPage = () => {
         <div className="flex justify-between">
           <div className="flex items-center gap-2">
             <div>
-              <Image src="/home.png" alt="home" width={24} height={24}></Image>
+              <Image src="/home.png" alt="home" width={24} height={24} className="w-auto h-auto"></Image>
             </div>
             <span className="text-2xl text-[#4A5056] font-bold">/Markets</span>
           </div>
           <div className="flex items-center justify-center gap-2">
             <div className="flex rounded-[5px] border border-solid border-[#EAEBEF] px-4 justify-center items-center">
               <div>
-                <Image src="/search.png" alt="search" width={20} height={20}></Image>
+                <Image src="/search.png" alt="search" width={20} height={20} className="w-auto h-auto"></Image>
               </div>
               <input placeholder="search pool name" className="px-4 py-2 border-none focus:outline-none"></input>
             </div>

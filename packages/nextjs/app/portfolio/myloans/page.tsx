@@ -98,7 +98,6 @@ function MyLoans() {
     }
   }, [loans]);
 
-
   const executeLoanAndWithdraw = async (loanId: string, pool: string) => {
     if (chainId) {
       const publicClient = getPublicClient({ chainId });

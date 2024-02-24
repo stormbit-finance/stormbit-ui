@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { formatUnits } from "viem";
 import { Address, useAccount, useContractReads } from "wagmi";
-import Cheap from "~~/components/Cheap/Cheap";
+import LocalLendingPanel from "~~/components/LocalLendingPanel/LocalLendingPanel";
 import { useScaffoldContract, useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
 interface Pool {
@@ -111,39 +112,53 @@ function MyPools() {
   };
 
   if (showCheap) {
-    return <Cheap address={selectedPool} setShowCheap={() => setShowCheap} />;
+    return <LocalLendingPanel address={selectedPool} setShowCheap={() => setShowCheap} />;
   }
 
   return (
     <>
       <h1 className="text-4xl text-[#4A5056] font-bold">My pools</h1>
       <div className="w-[1200px] flex flex-col">
-        <div className="flex gap-4 h-[95px] items-center p-8 border border-solid border-[#EAEBEF]">
-          <span className="w-[160px] text-center">Pool</span>
-          <span className="w-[160px] text-center">Available liquidity</span>
-          <span className="w-[160px] text-center">Deposit Value</span>
-          <span className="w-[160px] text-center">Voting Power</span>
-          <span className="w-[160px] text-center"></span>
-        </div>
-        {poolList.map(pool => (
-          <div key={pool.name} className="flex gap-4 h-[95px] items-center p-8 border border-solid border-[#EAEBEF]">
-            <p className="w-[160px] text-center">{pool.name}</p>
-            <div className="w-[160px] text-center flex gap-1 items-center justify-center">
-              <span className="">{pool.availableLiquidity}</span>
+        {poolsLoading ? (
+          <>
+            <div className="flex flex-col items-center justify-center gap-16 my-7">
+              <Image src="/loading.png" alt="loading" width={150} height={150}></Image>
+              <span className="text-3xl text-[#4A5056] font-semibold"> Loading </span>
             </div>
-            <p className="w-[160px] text-center">{pool.depositValue}</p>
-            <p className="w-[160px] text-center">{formatUnits(pool.votingPower, 0)} %</p>
-            <p className="w-[160px] text-center"></p>
-            <button
-              onClick={() => {
-                handleDetailsClick(pool.address);
-              }}
-              className="border border-solid border-[#4A5056] rounded-[7px] py-4 px-10"
-            >
-              Details
-            </button>
-          </div>
-        ))}
+          </>
+        ) : (
+          <>
+            <div className="flex gap-4 h-[95px] items-center p-8 border border-solid border-[#EAEBEF]">
+              <span className="w-[160px] text-center">Pool</span>
+              <span className="w-[160px] text-center">Available liquidity</span>
+              <span className="w-[160px] text-center">Deposit Value</span>
+              <span className="w-[160px] text-center">Voting Power</span>
+              <span className="w-[160px] text-center"></span>
+            </div>
+            {poolList.map(pool => (
+              <div
+                key={pool.name}
+                className="flex gap-4 h-[95px] items-center p-8 border border-solid border-[#EAEBEF]"
+              >
+                <p className="w-[160px] text-center">{pool.name}</p>
+                <div className="w-[160px] text-center flex gap-1 items-center justify-center">
+                  <span className="">{pool.availableLiquidity}</span>
+                </div>
+                <p className="w-[160px] text-center">{pool.depositValue}</p>
+                <p className="w-[160px] text-center">{formatUnits(pool.votingPower, 0)} %</p>
+                <p className="w-[160px] text-center"></p>
+                <button
+                  onClick={() => {
+                    handleDetailsClick(pool.address);
+                  }}
+                  className="border border-solid border-[#4A5056] rounded-[7px] py-4 px-10"
+                >
+                  {poolAddressesLoading ? "Loading" : "Details"}
+                </button>
+              </div>
+            ))}
+          </>
+        )}
       </div>
     </>
   );

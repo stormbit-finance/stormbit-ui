@@ -30,7 +30,7 @@ function Strategy({ poolAddress }: StrategyProps) {
   }, []);
 
   return (
-    <div className="w-[577px] h-[678px] bg-white p-11">
+    <div className="w-[577px] h-[678px] bg-white p-11 height-market">
       <p className="text-[#17344F] text-xl">Set up strategy</p>
       <div className="my-4">
         <button

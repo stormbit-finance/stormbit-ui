@@ -48,11 +48,7 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
   const { data: stormBitCoreContract } = useScaffoldContract({
     contractName: "StormBitCore",
   });
-  const {
-    writeAsync: createPool,
-    isLoading: createPoolLoading,
-    data,
-  } = useScaffoldContractWrite({
+  const { writeAsync: createPool, isLoading: createPoolLoading } = useScaffoldContractWrite({
     contractName: "StormBitCore",
     functionName: "createPool",
     args: [
@@ -77,7 +73,7 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
     blockConfirmations: 0,
   });
 
-  const { writeAsync: approveTokens, isSuccess: approveTokensSuccess } = useScaffoldContractWrite({
+  const { writeAsync: approveTokens } = useScaffoldContractWrite({
     contractName: "MockToken",
     functionName: "approve",
     args: [stormBitCoreContract ? stormBitCoreContract.address : "", parseEther("5000")],
@@ -89,11 +85,6 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
     },
     blockConfirmations: 0,
   });
-
-  const handleSubmit = () => {
-    // createPool();
-    // setIsModalOpen();
-  };
 
   return (
     <div className="container-modal">
@@ -269,7 +260,7 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
         </div>
         <div className="flex items-center justify-center">
           <Button onClick={() => approveTokens()} size="large">
-            Create Pool
+            {createPoolLoading ? "Creating Pool" : "Create Pool"}
           </Button>
         </div>
       </div>

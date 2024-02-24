@@ -7,15 +7,15 @@ import Button from "../Button/Button";
 import { writeContract } from "@wagmi/core";
 import toast from "react-hot-toast";
 import { formatUnits } from "viem";
-import { useContractRead, useContractWrite, useFeeData } from "wagmi";
-import { useScaffoldContract, useScaffoldContractRead } from "~~/hooks/scaffold-eth";
+import { useContractRead } from "wagmi";
+import { useScaffoldContract } from "~~/hooks/scaffold-eth";
 
 interface ModalProps {
   address: string;
   setShowCheap: () => void;
 }
 
-function Cheap({ address, setShowCheap }: ModalProps) {
+function LocalLendingPanel({ address, setShowCheap }: ModalProps) {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("Overview");
   const [loansDetails, setLoansDetails] = useState([]);
@@ -232,9 +232,9 @@ function Cheap({ address, setShowCheap }: ModalProps) {
     }
   };
 
-  const handleGoBack = () => {
-    router.back();
-  };
+  // const handleGoBack = () => {
+  //   router.back();
+  // };
 
   return (
     <>
@@ -242,7 +242,7 @@ function Cheap({ address, setShowCheap }: ModalProps) {
         <div
           className="flex gap-3 mb-8 "
           onClick={() => {
-            setShowCheap(false);
+            setShowCheap();
           }}
           style={{ cursor: "pointer" }}
         >
@@ -276,4 +276,4 @@ function Cheap({ address, setShowCheap }: ModalProps) {
   );
 }
 
-export default Cheap;
+export default LocalLendingPanel;
