@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { formatEther, parseEther } from "viem";
 import { useAccount } from "wagmi";
 import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
-import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
+import { useScaffoldContractRead, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 type HeaderMenuLink = {
   label: string;
@@ -49,13 +49,17 @@ export const HeaderMenuLinks = () => {
 export const Header = () => {
   const account = useAccount();
 
-  const { data: bmint } = useScaffoldContractRead({
-    contractName: "MockToken",
+  const {
+    data: bmint,
+    writeAsync: mint,
+    write: mint1,
+  } = useScaffoldContractWrite({
+    contractName: "tDAI",
     functionName: "mint",
-    args: [account.address, 1000],
+    args: [account.address, parseEther("1000")],
   });
 
-  console.log(bmint);
+  console.log(mint1);
 
   const { data: balance } = useScaffoldContractRead({
     contractName: "tDAI",
@@ -90,7 +94,14 @@ export const Header = () => {
           </ul>
         </div>
         <div className="">
-          <button className="border border-red-300 border-solid">MINT</button>
+          <button
+            className="border border-red-300 border-solid"
+            onClick={() => {
+              mint();
+            }}
+          >
+            MINT
+          </button>
           <span>Balance DAI: </span>
           <span></span>
         </div>
