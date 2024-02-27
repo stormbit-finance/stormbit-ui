@@ -100,9 +100,10 @@ export const Header = () => {
       args: [account.address],
       watch: true,
     });
-
     return balanceData !== undefined ? formatEther(balanceData) : "Cargando...";
   };
+
+
 
   const balanceDai = getFormattedBalance("tDAI", account);
   const balanceBtc = getFormattedBalance("tBTC", account);
@@ -121,41 +122,52 @@ export const Header = () => {
             <HeaderMenuLinks />
           </ul>
         </div>
-        <div className="">
-          <button
-            className="border border-red-300 border-solid"
-            onClick={() => {
-              mintDAI();
-            }}
-          >
-            Mint DAI
-          </button>
-          <button
-            className="border border-red-300 border-solid"
-            onClick={() => {
-              mintETH();
-            }}
-          >
-            Mint ETH
-          </button>
-          <button
-            className="border border-red-300 border-solid"
-            onClick={() => {
-              mintBTC();
-            }}
-          >
-            Mint BTC
-          </button>
-          <span>Balance DAI: </span>
-          <span>{balanceDai}</span>
-          <span>Balance ETH: </span>
-          <span>{balanceEth}</span>
-          <span>Balance BTC: </span>
-          <span>{balanceBtc}</span>
+        <div className="flex gap-[10px] ">
+          <div className="flex gap-[10px]">
+            <button
+              className="border border-red-300 border-solid min-w-[70px] w-full rounded-sm "
+              onClick={() => {
+                mintDAI();
+              }}
+            >
+              Mint DAI
+            </button>
+            <button
+              className="border border-red-300 border-solid min-w-[70px] w-full rounded-sm"
+              onClick={() => {
+                mintETH();
+              }}
+            >
+              Mint ETH
+            </button>
+            <button
+              className="border border-red-300 border-solid min-w-[70px] w-full rounded-sm"
+              onClick={() => {
+                mintBTC();
+              }}
+            >
+              Mint BTC
+            </button>
+          </div>
+          <div className="flex gap-[20px]">
+            <div className="flex items-center gap-[5px]">
+              <span>Balance DAI: </span>
+              <span>{balanceDai}</span>
+            </div>
+            <div className="flex items-center gap-[5px]">
+              <span>Balance ETH: </span>
+              <span>{balanceEth}</span>
+            </div>
+            <div className="flex items-center gap-[5px]">
+              <span>Balance BTC: </span>
+              <span>{balanceBtc}</span>
+            </div>
+          </div>
+
         </div>
         <div className="flex-grow mr-4 navbar-end">
-          <RainbowKitCustomConnectButton />
-          <FaucetButton />
+          <RainbowKitCustomConnectButton/>
+          <FaucetButton/>
         </div>
       </div>
     </>
