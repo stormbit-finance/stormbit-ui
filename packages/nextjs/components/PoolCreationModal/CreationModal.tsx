@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Button from "../Button/Button";
+import DropdownButton from "../DropdownButton/DropdownButton";
 import "./CreationModal.css";
 import toast from "react-hot-toast";
 import { parseEther } from "viem";
@@ -184,14 +185,17 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
             </div>
             <div className="flex-1">
               <label htmlFor="campo1">Amount</label>
-              <input
-                type="text"
-                id="campo1"
-                name="campo1"
-                className="w-full p-2 border"
-                value={String(poolConfig.amount)}
-                onChange={e => setPoolConfig({ ...poolConfig, amount: BigInt(e.target.value ?? 0) })}
-              />
+              <div className="flex items-center border">
+                <input
+                  type="text"
+                  id="campo1"
+                  name="campo1"
+                  className="w-full p-2 border focus:outline-none"
+                  value={String(poolConfig.amount)}
+                  onChange={e => setPoolConfig({ ...poolConfig, amount: BigInt(e.target.value ?? 0) })}
+                />
+                <DropdownButton></DropdownButton>
+              </div>
             </div>
             <span>Agreement supported</span>
             <div className="flex gap-16">

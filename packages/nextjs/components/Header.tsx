@@ -3,7 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { formatEther, parseEther } from "viem";
+import { useAccount } from "wagmi";
 import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
+import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
 type HeaderMenuLink = {
   label: string;
@@ -44,6 +47,35 @@ export const HeaderMenuLinks = () => {
  * Site header
  */
 export const Header = () => {
+  const account = useAccount();
+
+  const { data: bmint } = useScaffoldContractRead({
+    contractName: "MockToken",
+    functionName: "mint",
+    args: [account.address, 1000],
+  });
+
+  console.log(bmint);
+
+  const { data: balance } = useScaffoldContractRead({
+    contractName: "tDAI",
+    functionName: "balanceOf",
+    args: [account.address],
+    watch: true,
+  });
+
+  // const balanceDAI = formatEther(balance);
+  console.log(balance);
+
+  const { data: data } = useScaffoldContractRead({
+    contractName: "tETH",
+    functionName: "balanceOf",
+    args: [account.address],
+    watch: true,
+  });
+
+  console.log(data);
+
   return (
     <>
       <div className="sticky top-0 z-20 justify-between flex-shrink-0 min-h-0 p-6 shadow-md lg:static navbar bg-base-100 sm:px-2">
@@ -56,6 +88,11 @@ export const Header = () => {
           <ul className="hidden gap-8 px-1 text-xl lg:flex lg:flex-nowrap">
             <HeaderMenuLinks />
           </ul>
+        </div>
+        <div className="">
+          <button className="border border-red-300 border-solid">MINT</button>
+          <span>Balance DAI: </span>
+          <span></span>
         </div>
         <div className="flex-grow mr-4 navbar-end">
           <RainbowKitCustomConnectButton />
