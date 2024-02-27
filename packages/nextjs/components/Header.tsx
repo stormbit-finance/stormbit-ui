@@ -4,7 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { formatEther, parseEther } from "viem";
-import { useAccount } from "wagmi";
+import { PublicClient, useAccount } from "wagmi";
+import { GetAccountResult } from "wagmi/dist/actions";
 import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useScaffoldContractRead, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
@@ -49,36 +50,63 @@ export const HeaderMenuLinks = () => {
 export const Header = () => {
   const account = useAccount();
 
-  const {
-    data: bmint,
-    writeAsync: mint,
-    write: mint1,
-  } = useScaffoldContractWrite({
+  const { writeAsync: mintDAI } = useScaffoldContractWrite({
     contractName: "tDAI",
     functionName: "mint",
     args: [account.address, parseEther("1000")],
   });
 
-  console.log(mint1);
-
-  const { data: balance } = useScaffoldContractRead({
-    contractName: "tDAI",
-    functionName: "balanceOf",
-    args: [account.address],
-    watch: true,
-  });
-
-  // const balanceDAI = formatEther(balance);
-  console.log(balance);
-
-  const { data: data } = useScaffoldContractRead({
+  const { writeAsync: mintETH } = useScaffoldContractWrite({
     contractName: "tETH",
-    functionName: "balanceOf",
-    args: [account.address],
-    watch: true,
+    functionName: "mint",
+    args: [account.address, parseEther("1000")],
   });
 
-  console.log(data);
+  const { writeAsync: mintBTC } = useScaffoldContractWrite({
+    contractName: "tBTC",
+    functionName: "mint",
+    args: [account.address, parseEther("1000")],
+  });
+
+  // const { data: balanceDAI } = useScaffoldContractRead({
+  //   contractName: "tDAI",
+  //   functionName: "balanceOf",
+  //   args: [account.address],
+  //   watch: true,
+  // });
+
+  // const { data: balanceETH } = useScaffoldContractRead({
+  //   contractName: "tETH",
+  //   functionName: "balanceOf",
+  //   args: [account.address],
+  //   watch: true,
+  // });
+
+  // const { data: balanceBTC } = useScaffoldContractRead({
+  //   contractName: "tBTC",
+  //   functionName: "balanceOf",
+  //   args: [account.address],
+  //   watch: true,
+  // });
+
+  // const balanceDai = balanceDAI !== undefined ? formatEther(balanceDAI) : "Cargando...";
+  // const balanceBtc = balanceBTC !== undefined ? formatEther(balanceBTC) : "Cargando...";
+  // const balanceEth = balanceETH !== undefined ? formatEther(balanceETH) : "Cargando...";
+
+  const getFormattedBalance = (contractName: string, account: GetAccountResult<PublicClient>) => {
+    const { data: balanceData } = useScaffoldContractRead({
+      contractName,
+      functionName: "balanceOf",
+      args: [account.address],
+      watch: true,
+    });
+
+    return balanceData !== undefined ? formatEther(balanceData) : "Cargando...";
+  };
+
+  const balanceDai = getFormattedBalance("tDAI", account);
+  const balanceBtc = getFormattedBalance("tBTC", account);
+  const balanceEth = getFormattedBalance("tETH", account);
 
   return (
     <>
@@ -97,13 +125,33 @@ export const Header = () => {
           <button
             className="border border-red-300 border-solid"
             onClick={() => {
-              mint();
+              mintDAI();
             }}
           >
-            MINT
+            Mint DAI
+          </button>
+          <button
+            className="border border-red-300 border-solid"
+            onClick={() => {
+              mintETH();
+            }}
+          >
+            Mint ETH
+          </button>
+          <button
+            className="border border-red-300 border-solid"
+            onClick={() => {
+              mintBTC();
+            }}
+          >
+            Mint BTC
           </button>
           <span>Balance DAI: </span>
-          <span></span>
+          <span>{balanceDai}</span>
+          <span>Balance ETH: </span>
+          <span>{balanceEth}</span>
+          <span>Balance BTC: </span>
+          <span>{balanceBtc}</span>
         </div>
         <div className="flex-grow mr-4 navbar-end">
           <RainbowKitCustomConnectButton />
