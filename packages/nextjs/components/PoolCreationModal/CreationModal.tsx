@@ -38,13 +38,21 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
     agreements: [false, false, false],
   });
 
-  const { data: tokenContract } = useScaffoldContract({
-    contractName: "MockToken",
+  const { data: tokenContractDAI } = useScaffoldContract({
+    contractName: "tDAI",
+  });
+
+  const { data: tokenContractETH } = useScaffoldContract({
+    contractName: "tETH",
+  });
+  const { data: tokenContractBTC } = useScaffoldContract({
+    contractName: "tBTC",
   });
 
   const { data: simpleAgreementContract } = useScaffoldContract({
     contractName: "SimpleAgreement",
   });
+
 
   const { data: stormBitCoreContract } = useScaffoldContract({
     contractName: "StormBitCore",
@@ -61,8 +69,8 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
         maxPoolUsage: BigInt(poolConfig.maxPoolUsage),
         votingPowerCoolDown: BigInt(poolConfig.votingPowerCooldown),
         initAmount: parseEther(poolConfig.amount.toString()),
-        initToken: tokenContract ? tokenContract.address : "",
-        supportedAssets: [tokenContract ? tokenContract.address : ""],
+        initToken: tokenContractDAI ? tokenContractDAI.address : "",
+        supportedAssets: [tokenContractDAI ? tokenContractDAI.address : ""],
         supportedAgreements: [simpleAgreementContract ? simpleAgreementContract.address : ""],
       },
     ],
@@ -74,10 +82,11 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
     blockConfirmations: 0,
   });
 
+
   const { writeAsync: approveTokens } = useScaffoldContractWrite({
-    contractName: "MockToken",
+    contractName: "tDAI",
     functionName: "approve",
-    args: [stormBitCoreContract ? stormBitCoreContract.address : "", parseEther("5000")],
+    args: [stormBitCoreContract ? stormBitCoreContract.address : "", parseEther("1000")],
     value: BigInt(0),
     onBlockConfirmation: txReceipt => {
       toast.success(`Tokens approved successfully with hash ${txReceipt.transactionHash as string}`);

@@ -68,26 +68,6 @@ export const Header = () => {
     args: [account.address, parseEther("1000")],
   });
 
-  // const { data: balanceDAI } = useScaffoldContractRead({
-  //   contractName: "tDAI",
-  //   functionName: "balanceOf",
-  //   args: [account.address],
-  //   watch: true,
-  // });
-
-  // const { data: balanceETH } = useScaffoldContractRead({
-  //   contractName: "tETH",
-  //   functionName: "balanceOf",
-  //   args: [account.address],
-  //   watch: true,
-  // });
-
-  // const { data: balanceBTC } = useScaffoldContractRead({
-  //   contractName: "tBTC",
-  //   functionName: "balanceOf",
-  //   args: [account.address],
-  //   watch: true,
-  // });
 
   // const balanceDai = balanceDAI !== undefined ? formatEther(balanceDAI) : "Cargando...";
   // const balanceBtc = balanceBTC !== undefined ? formatEther(balanceBTC) : "Cargando...";
@@ -108,6 +88,8 @@ export const Header = () => {
   const balanceDai = getFormattedBalance("tDAI", account);
   const balanceBtc = getFormattedBalance("tBTC", account);
   const balanceEth = getFormattedBalance("tETH", account);
+
+  // console.log(balanceDai,balanceBtc,balanceEth)
 
   return (
     <>
