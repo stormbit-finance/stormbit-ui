@@ -103,13 +103,13 @@ function Page() {
               <div className="flex flex-col gap-6">
                 <span className="text-[#17344F] font-bold">Supported Tokens</span>
                 <div className="flex gap-7">
+                  {/*<div className="flex flex-col">*/}
+                  {/*  <Image src="/DAI.png" alt="dai" width={32} height={32} />*/}
+                  {/*  <span className="text-[#17344F]">DAI</span>*/}
+                  {/*</div>*/}
                   <div className="flex flex-col">
-                    <Image src="/DAI.png" alt="dai" width={32} height={32} />
-                    <span className="text-[#17344F]">DAI</span>
-                  </div>
-                  <div className="flex flex-col">
-                    <Image src="/USDT.png" alt="usdt" width={32} height={32} />
-                    <span className="text-[#17344F]">USDT</span>
+                    <Image src="/ZBUtoken.png" alt="zbu" width={32} height={32} />
+                    <span className="text-[#17344F]">ZBU</span>
                   </div>
                 </div>
               </div>
