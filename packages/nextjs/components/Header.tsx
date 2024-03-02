@@ -62,7 +62,7 @@ export const Header = () => {
     watch: true,
   });
 
-  const balanceDai = balance !== undefined ? formatEther(balance) : "Cargando...";
+  const balanceDai = balance !== undefined ? formatEther(balance) : "0";
 
   return (
     <>
@@ -80,8 +80,8 @@ export const Header = () => {
         <div className="flex-grow mr-4 navbar-end gap-7">
           <div className="flex gap-5">
             <div className="flex items-center gap-1">
-              <span className="font-bold text-white">Balance:</span>
-              <span className="text-white"> {balanceDai}</span>
+              <span className="font-bold text-[#4A5056]">$ZBU:</span>
+              <span> {parseFloat(balanceDai).toFixed(3)}</span>
             </div>
             <button
               className="border border-white border-solid min-w-[70px] w-full rounded-[13px] py-1 px-4 text-white"

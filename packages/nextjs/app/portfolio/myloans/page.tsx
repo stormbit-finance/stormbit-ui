@@ -2,10 +2,10 @@
 
 import React, { useEffect, useState } from "react";
 import ModalPay from "../modalPay/modalPay";
-import { getPublicClient, writeContract } from "@wagmi/core";
+import { getPublicClient, waitForTransaction, writeContract } from "@wagmi/core";
 import toast from "react-hot-toast";
 import { keccak256, parseAbiItem } from "viem";
-import { useAccount, useChainId, useContractReads } from "wagmi";
+import { useAccount, useChainId, useContractEvent, useContractReads } from "wagmi";
 import { useScaffoldContract, useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
 interface Loan {
@@ -203,19 +203,21 @@ function MyLoans() {
                   ? "Active"
                   : "To Execute"}
               </p>
-              <button
-                className="border border-solid border-[#4A5056] rounded-[7px] py-4 px-10"
-                onClick={() => {
-                  if (loan.status != 7) {
-                    executeLoanAndWithdraw(loan.id, loan.pool);
-                  } else {
-                    setModalPay(true);
-                  }
-                }}
-              >
-                {loan.status == 4 ? "Execute & Withdraw" : "Pay"}
-              </button>
-              {modalPay && <ModalPay setModalPay={() => setModalPay(false)}></ModalPay>}
+              {loan.status && (loan.status == 4 || loan.status == 7) && (
+                <button
+                  className="border border-solid border-[#4A5056] rounded-[7px] py-4 px-10"
+                  onClick={() => {
+                    if (loan.status != 7) {
+                      executeLoanAndWithdraw(loan.id, loan.pool);
+                    } else {
+                      setModalPay(true);
+                    }
+                  }}
+                >
+                  {loan.status == 4 ? "Execute" : "Pay / Withdraw"}
+                </button>
+              )}
+              {modalPay && <ModalPay setModalPay={() => setModalPay(false)} pool={loan.pool}></ModalPay>}
             </div>
           </>
         ))}
