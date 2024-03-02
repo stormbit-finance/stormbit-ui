@@ -116,7 +116,7 @@ function Borrow({ poolAddress }: BorrowProps) {
             value={borrowConfig.amount.toString()}
             onChange={e => setBorrowConfig({ ...borrowConfig, amount: BigInt(e.target.value) })}
             type="number"
-            className="p-1 focus:outline-none w-[500px] border-none"
+            className="p-1 focus:outline-none w-[500px] border-none bg-transparent"
           ></input>
           <div className="flex items-center justify-center px-1">
             <ul className="main-menu">
@@ -164,7 +164,7 @@ function Borrow({ poolAddress }: BorrowProps) {
           <button
             onClick={() => handleAgreementClick("baseChain")}
             className={`bg-${
-              selectedAgreement === "baseChain" ? " bg-[#17344F] text-white text-sm" : "white"
+              selectedAgreement === "baseChain" ? " bg-[#9135F5] text-white text-sm" : "bg-transparent"
             } py-2 px-4 rounded-[8px]`}
           >
             Base Chain Agreement
@@ -172,7 +172,7 @@ function Borrow({ poolAddress }: BorrowProps) {
           <button
             onClick={() => handleAgreementClick("nft")}
             className={`bg-${
-              selectedAgreement === "nft" ? " bg-[#17344F] text-white text-sm" : "white"
+              selectedAgreement === "nft" ? " bg-[#9135F5] text-white text-sm" : "bg-transparent"
             } py-2 px-4 rounded-[8px]`}
           >
             NFT Agreement
@@ -180,7 +180,7 @@ function Borrow({ poolAddress }: BorrowProps) {
           <button
             onClick={() => handleAgreementClick("ft")}
             className={`bg-${
-              selectedAgreement === "ft" ? " bg-[#17344F] text-white text-sm" : "white"
+              selectedAgreement === "ft" ? " bg-[#9135F5] text-white text-sm" : "bg-transparent"
             } py-2 px-4 rounded-[8px]`}
           >
             FT Agreement
@@ -203,7 +203,7 @@ function Borrow({ poolAddress }: BorrowProps) {
                     })
                   }
                   type="text"
-                  className="p-1 focus:outline-none w-[500px] border-none"
+                  className="p-1 focus:outline-none w-[500px] border-none bg-transparent"
                 ></input>
                 <div className="flex items-center justify-center px-1">
                   <ul className="main-menu">
@@ -258,17 +258,17 @@ function Borrow({ poolAddress }: BorrowProps) {
               <span>Penalty</span>
               <input
                 type="text"
-                className="p-1 focus:outline-none border border-solid border-[#EAEBEF] rounded-[5px]"
+                className="p-1 focus:outline-none border border-solid border-[#EAEBEF] rounded-[5px] bg-transparent"
               />
             </div>
           )}
           {selectedAgreement === "nft" && (
             <div className="flex flex-col">
               <span>NFT Address</span>
-              <input type="text" className="focus:outline-none" />
+              <input type="text" className="bg-transparent focus:outline-none" />
               <span>Token</span>
               <div className="flex border border-solid border-[#EAEBEF] rounded-[5px] justify-between">
-                <input type="text" className="p-1 w-[500px] focus:outline-none border-none"></input>
+                <input type="text" className="p-1 w-[500px] focus:outline-none border-none bg-transparent"></input>
                 <div className="flex items-center justify-center px-1">
                   <ul className="main-menu">
                     <li className="relative main-menu-item">
@@ -299,7 +299,7 @@ function Borrow({ poolAddress }: BorrowProps) {
             <div className="flex flex-col">
               <span>Token</span>
               <div className="flex border border-solid border-[#EAEBEF] rounded-[5px] justify-between">
-                <input type="text" className="p-1 w-[500px] focus:outline-none border-none"></input>
+                <input type="text" className="p-1 w-[500px] focus:outline-none border-none bg-transparent"></input>
                 <div className="flex items-center justify-center px-1">
                   <ul className="main-menu">
                     <li className="relative main-menu-item">
@@ -328,7 +328,7 @@ function Borrow({ poolAddress }: BorrowProps) {
           )}
         </div>
       </div>
-      <div className=" bg-[#F3F7F9] p-5 text-[#17344F;]">
+      <div className=" bg-[#313066] p-5 text-[#ffffff;]">
         <span className="font-bold">Order information</span>
         <div className="flex justify-between">
           <span>Supply Interest</span>

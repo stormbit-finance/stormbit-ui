@@ -70,7 +70,7 @@ export const Header = () => {
         <div className="flex gap-3">
           <Link href="/" passHref className="items-center hidden gap-2 ml-4 mr-6 lg:flex shrink-0">
             <div>
-              <Image src="/logo.png" alt="logo" width={142} height={70} className="w-auto h-auto" priority></Image>
+              <Image src="/logo.png" alt="logo" width={142} height={65} priority></Image>
             </div>
           </Link>
           <ul className="hidden gap-8 px-1 text-xl lg:flex lg:flex-nowrap">

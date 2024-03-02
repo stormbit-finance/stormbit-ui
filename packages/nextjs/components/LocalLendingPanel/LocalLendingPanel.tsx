@@ -240,7 +240,7 @@ function LocalLendingPanel({ address, setShowCheap }: ModalProps) {
     <>
       <div>
         <div
-          className="flex gap-3 mb-8 "
+          className="flex gap-3 mb-8 text-white"
           onClick={() => {
             setShowCheap();
           }}
@@ -249,22 +249,22 @@ function LocalLendingPanel({ address, setShowCheap }: ModalProps) {
           <Image src="/arrow-left.png" alt="arrow" width={20} height={16}></Image>
           <span>Go back</span>
         </div>
-        <h1 className="text-[#17344F] text-4xl font-bold">Cheap Local Lending</h1>
+        <h1 className="text-[#ffffff] text-4xl font-bold">Cheap Local Lending</h1>
         <div className="text-xl flex gap-4 border-b-2 border-[#F1F3F4] w-[1420px] my-8">
           <span
-            className={`p-2 cursor-pointer ${activeTab === "Overview" ? "border-b-2 border-[#4A5056]" : ""}`}
+            className={`p-2 cursor-pointer ${activeTab === "Overview" ? "border-b-2 border-[#7c41b3]" : ""}`}
             onClick={() => setActiveTab("Overview")}
           >
             Overview
           </span>
           <span
-            className={`p-2 cursor-pointer ${activeTab === "Exit Pool" ? "border-b-2 border-[#4A5056]" : ""}`}
+            className={`p-2 cursor-pointer ${activeTab === "Exit Pool" ? "border-b-2 border-[#7c41b3]" : ""}`}
             onClick={() => setActiveTab("Exit Pool")}
           >
             Exit Pool
           </span>
           <span
-            className={`p-2 cursor-pointer ${activeTab === "Loan Applicant List" ? "border-b-2 border-[#4A5056]" : ""}`}
+            className={`p-2 cursor-pointer ${activeTab === "Loan Applicant List" ? "border-b-2 border-[#7c41b3]" : ""}`}
             onClick={() => setActiveTab("Loan Applicant List")}
           >
             Loan Applicant List
