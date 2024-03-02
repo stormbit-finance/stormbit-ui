@@ -152,7 +152,7 @@ function MyLoans() {
   };
   return (
     <>
-      <h1 className="text-4xl text-[#4A5056] font-bold mb-4">My loans</h1>
+      <h1 className="text-4xl text-[#ffffff] font-bold mb-4">My loans</h1>
       <div className="w-[1450px] flex flex-col">
         <div className="flex gap-4 h-[95px] items-center p-8 border border-solid border-[#EAEBEF]">
           <span className="w-[160px] text-center">Pool</span>
@@ -175,7 +175,7 @@ function MyLoans() {
                   ) => (
                     <span
                       key={agreementIndex}
-                      className={`rounded-[8px] p-2 ${
+                      className={`rounded-[8px] p-2 bg-transparent ${
                         agreement === "Base"
                           ? "bg-[#F1F3F4]"
                           : agreement === "NFT"

@@ -118,7 +118,7 @@ const Home: NextPage = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-center justify-center gap-4 my-40 roadmap">
+      {/* <div className="flex flex-col items-center justify-center gap-4 my-40 roadmap">
         <h2 className="text-5xl font-bold text-white">Roadmap</h2>
         <Image src="/map.png" alt="map" width={1467} height={115}></Image>
         <div className="flex flex-wrap w-[1500px] gap-8 justify-center">
@@ -135,8 +135,8 @@ const Home: NextPage = () => {
             <span className="text-xl font-medium text-white">SBIT Token Faucet on multiple chains</span>
           </div>
         </div>
-      </div>
-      <div className="flex flex-col items-center gap-12">
+      </div> */}
+      <div className="flex flex-col items-center gap-12 mt-60">
         <div className="flex gap-6">
           <h2 className="text-5xl font-bold text-white">Tweets</h2>
           <Image src="/tweets.png" alt="tweets" width={58} height={58}></Image>
