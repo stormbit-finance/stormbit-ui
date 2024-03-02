@@ -66,7 +66,7 @@ All agreements undergo rigorous security audits, including fuzzing tests, to ens
 
 #### Flow 
 
-StormBit facilitates credit access by offering diverse agreement types. Any KYC-verified user can request a loan and receive equitable treatment from the pool's owners, bridging the gap between DeFi and traditional finance.
+StormBit facilitates credit access by offering diverse agreement types. Any user can request a loan and receive equitable treatment from the pool's owners, bridging the gap between DeFi and traditional finance.
 
 #### Credit Score Oracle  
 
