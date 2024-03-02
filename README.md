@@ -51,17 +51,12 @@ StormBit offers three types of loan agreements:
 
 - Simple Agreement: Focuses on trust and the borrower's reputation, allowing undercollateralized loans. It is streamlined for flexibility and simplicity, emphasizing financial terms over asset involvement.
 
-  <img src="./docs/SimpleAgreement.png" alt="SimpleAgreement" >
-
 
 - ERC721 Agreement: Uses NFTs as collateral, ensuring loan security. This agreement includes mechanisms for collateral management and secure NFT custody, allowing borrowers to reclaim their NFT upon fulfilling loan terms.
 
-  <img src="./docs/NFTAgreement.png" alt="NFTAgreement" >
 
+- ERC-20 Agreement: Requires collateral equal to or greater than the loan amount for security. It captures essential loan initiation details and manages collateral throughout the loan lifecycle.
 
-- ERc20 Agreement: Requires collateral equal to or greater than the loan amount for security. It captures essential loan initiation details and manages collateral throughout the loan lifecycle.
-
-  <img src="./docs/FTAgreement.png" alt="FTAgreement Logo" >
 
 #### Security and Trust
 All agreements undergo rigorous security audits, including fuzzing tests, to ensure the highest security standards. Additional checks, such as a voting power cooldown variable, are implemented to safeguard against malicious activities.
@@ -88,6 +83,8 @@ Deployed on the [XDC network](https://xdc.org/), StormBit leverages state-of-the
 
 
 #### **ZEEBU**: 
+
+
 - **Integration of ZEEBU token for governance** : 
   ZEEBU token plays a key role in the architecture of Stormbit as it is the included in the lending process. ZEEBU tokens are distributed to borrowers from the pool where lenders have deposited.
 
@@ -96,6 +93,9 @@ Deployed on the [XDC network](https://xdc.org/), StormBit leverages state-of-the
   
 
 #### **XDC**: 
+
+<img width="312" alt="Screenshot 2024-03-02 at 15 23 46" src="https://github.com/Quantum3-Labs/StormBit-monorepo/assets/75360886/85ca6ca3-e863-4cc8-9a73-8a4b2ea05e7a">
+
 - **XDC for a better gas usage**: 
   test gas tokens are used for a better gas usage. 
 
