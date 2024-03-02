@@ -122,16 +122,16 @@ function Borrow({ poolAddress }: BorrowProps) {
             <ul className="main-menu">
               <li className="relative main-menu-item">
                 <button onClick={toggleDropdown} className="flex items-center justify-center gap-1 dropdown-trigger">
-                  <Image src="/USDT.png" alt="ether" width={17} height={17}></Image>
-                  USDT<span className="arrow-down">&#9662;</span>
+                  <Image src="/ZBUtoken.png" alt="ether" width={17} height={17}></Image>
+                  ZBU<span className="arrow-down">&#9662;</span>
                 </button>
                 {isDropdownOpen && (
                   <ul className="dropdown-menu">
                     <li>
-                      <a href="#"> USDT</a>
+                      <a href="#"> ZBU</a>
                     </li>
                     <li>
-                      <a href="#"> USDT</a>
+                      <a href="#"> ZBU</a>
                     </li>
                   </ul>
                 )}
@@ -139,7 +139,7 @@ function Borrow({ poolAddress }: BorrowProps) {
             </ul>
           </div>
         </div>
-        <span className="text-xs">Balance 0.001 ETH</span>
+        <span className="text-xs">Balance 0.001 ZBU</span>
       </div>
       <div className="flex flex-col gap-4 mt-6">
         <span className="text-[#4A5056] font-bold">Supported Agreement</span>
@@ -276,16 +276,16 @@ function Borrow({ poolAddress }: BorrowProps) {
                         onClick={toggleDropdown}
                         className="flex items-center justify-center gap-1 dropdown-trigger"
                       >
-                        <Image src="/DAI.png" alt="ether" width={17} height={17}></Image>
-                        DAI<span className="arrow-down">&#9662;</span>
+                        <Image src="/ZBUtoken.png" alt="ether" width={17} height={17}></Image>
+                        ZBU<span className="arrow-down">&#9662;</span>
                       </button>
                       {isDropdownOpen && (
                         <ul className="dropdown-menu">
                           <li>
-                            <a href="#"> USDT</a>
+                            <a href="#"> ZBU</a>
                           </li>
                           <li>
-                            <a href="#"> USDT</a>
+                            <a href="#"> ZBU</a>
                           </li>
                         </ul>
                       )}
@@ -307,16 +307,16 @@ function Borrow({ poolAddress }: BorrowProps) {
                         onClick={toggleDropdown}
                         className="flex items-center justify-center gap-1 dropdown-trigger"
                       >
-                        <Image src="/DAI.png" alt="ether" width={17} height={17}></Image>
-                        DAI<span className="arrow-down">&#9662;</span>
+                        <Image src="/ZBUtoken.png" alt="ether" width={17} height={17}></Image>
+                        ZBU<span className="arrow-down">&#9662;</span>
                       </button>
                       {isDropdownOpen && (
                         <ul className="dropdown-menu">
                           <li>
-                            <a href="#">DAI</a>
+                            <a href="#">ZBU</a>
                           </li>
                           <li>
-                            <a href="#">DAI</a>
+                            <a href="#">ZBU</a>
                           </li>
                         </ul>
                       )}
@@ -336,7 +336,7 @@ function Borrow({ poolAddress }: BorrowProps) {
         </div>
         <div className="flex justify-between">
           <span>Total Supply Amount</span>
-          <span>0.001 ETH</span>
+          <span>0.001 ZBU</span>
         </div>
       </div>
       <Button onClick={() => submitRequestLoan()}> Request Loan</Button>

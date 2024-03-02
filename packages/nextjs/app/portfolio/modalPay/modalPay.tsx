@@ -93,7 +93,7 @@ function ModalPay({ setModalPay, pool }: ModalProps) {
             {nextPaymentData && nextPaymentData[0] && !isLoanFinished
               ? parseFloat(formatEther(nextPaymentData[0])).toFixed(2)
               : 0}{" "}
-            USDC
+            ZBU
           </span>
         </div>
         {!isLoanFinished ? (
