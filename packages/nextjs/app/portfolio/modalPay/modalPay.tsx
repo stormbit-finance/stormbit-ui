@@ -83,7 +83,7 @@ function ModalPay({ setModalPay, pool }: ModalProps) {
       <div className="content-modalPay">
         <div className="flex justify-between">
           <h3 className="text-2xl font-bold">Payment</h3>
-          <span onClick={() => setModalPay()} className="cursor-pointer">
+          <span onClick={() => setModalPay()} className="cursor-pointer text-[#4A5056]">
             X
           </span>
         </div>
