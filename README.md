@@ -49,13 +49,13 @@ Loan allocation is governed by a voting process, with each loan request presente
 
 StormBit offers three types of loan agreements:
 
-- Simple Agreement: Focuses on trust and the borrower's reputation, allowing undercollateralized loans. It is streamlined for flexibility and simplicity, emphasizing financial terms over asset involvement.
+- **Simple Agreement** : Focuses on trust and the borrower's reputation, allowing undercollateralized loans. It is streamlined for flexibility and simplicity, emphasizing financial terms over asset involvement.
 
 
-- ERC721 Agreement: Uses NFTs as collateral, ensuring loan security. This agreement includes mechanisms for collateral management and secure NFT custody, allowing borrowers to reclaim their NFT upon fulfilling loan terms.
+- **ERC721 Agreement** : Uses NFTs as collateral, ensuring loan security. This agreement includes mechanisms for collateral management and secure NFT custody, allowing borrowers to reclaim their NFT upon fulfilling loan terms.
 
 
-- ERC-20 Agreement: Requires collateral equal to or greater than the loan amount for security. It captures essential loan initiation details and manages collateral throughout the loan lifecycle.
+- **ERC-20 Agreement** : Requires collateral equal to or greater than the loan amount for security. It captures essential loan initiation details and manages collateral throughout the loan lifecycle.
 
 
 #### Security and Trust
