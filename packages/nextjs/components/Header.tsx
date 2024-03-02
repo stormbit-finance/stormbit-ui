@@ -78,6 +78,20 @@ export const Header = () => {
           </ul>
         </div>
         <div className="flex-grow mr-4 navbar-end">
+          <div className="flex gap-5">
+            <div className="flex items-center gap-1">
+              <span className="font-bold text-[#4A5056]">Balance:</span>
+              <span> {balanceDai}</span>
+            </div>
+            <button
+              className="border border-[#d9d9da] border-solid min-w-[70px] w-full rounded-[13px] py-1 px-4"
+              onClick={() => {
+                mint();
+              }}
+            >
+              Mint
+            </button>
+          </div>
           <RainbowKitCustomConnectButton />
           <FaucetButton />
         </div>
