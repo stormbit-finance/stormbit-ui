@@ -66,7 +66,7 @@ const Home: NextPage = () => {
           <Image src="/scheme.png" alt="scheme" width={1330} height={604}></Image>
         </div>
         <div className="flex flex-col items-center justify-center gap-20">
-          <h2 className="text-5xl text-white">Metrics based on Avalanche</h2>
+          <h2 className="text-5xl text-white">Metrics based on XDC</h2>
           <div className="flex gap-32">
             {metrics.map(element => (
               <>
