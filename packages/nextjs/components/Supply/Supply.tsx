@@ -64,7 +64,7 @@ function Supply({ poolAddress }: SupplyProps) {
       <div className="flex flex-col gap-2">
         <span className="font-bold">Amount to Supply</span>
 
-        <div className="flex border border-solid border-[#EAEBEF] rounded-[5px] justify-between">
+        <div className="flex border border-solid border-[#EAEBEF] rounded-[5px] justify-between px-4">
           <input
             type="number"
             className="p-1 w-[500px] focus:outline-none border-none bg-transparent"
@@ -99,7 +99,7 @@ function Supply({ poolAddress }: SupplyProps) {
             : `Balance ${(balance && parseFloat(formatUnits(balance, 18)).toFixed(5)) || 0} ZBU`}
         </span>
       </div>
-      <div className="my-8 bg-[#F3F7F9] p-5 text-[#17344F;]">
+      <div className="my-8 bg-[#313066] p-5 text-[#ffffff]">
         <span className="font-bold">Order information</span>
         <div className="flex justify-between">
           <span>Supply Interest</span>

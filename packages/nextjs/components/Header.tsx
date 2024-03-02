@@ -80,8 +80,8 @@ export const Header = () => {
         <div className="flex-grow mr-4 navbar-end gap-7">
           <div className="flex gap-5">
             <div className="flex items-center gap-1">
-              <span className="font-bold text-[#4A5056]">$ZBU:</span>
-              <span> {parseFloat(balanceDai).toFixed(3)}</span>
+              <span className="font-bold text-[#ffffff]">$ZBU:</span>
+              <span className="text-white"> {parseFloat(balanceDai).toFixed(3)}</span>
             </div>
             <button
               className="border border-white border-solid min-w-[70px] w-full rounded-[13px] py-1 px-4 text-white"

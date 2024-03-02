@@ -117,7 +117,7 @@ function MyPools() {
 
   return (
     <>
-      <h1 className="text-4xl text-[#4A5056] font-bold">My pools</h1>
+      <h1 className="text-4xl text-[#ffffff] font-bold">My pools</h1>
       <div className="w-[1200px] flex flex-col">
         {poolsLoading ? (
           <>
