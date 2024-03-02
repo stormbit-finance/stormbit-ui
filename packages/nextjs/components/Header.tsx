@@ -15,7 +15,7 @@ type HeaderMenuLink = {
 
 export const menuLinks: HeaderMenuLink[] = [
   {
-    label: "Markets",
+    label: "Pools",
     href: "/markets",
   },
   {
@@ -33,7 +33,7 @@ export const HeaderMenuLinks = () => {
         const isActive = pathname === href;
         return (
           <li key={href}>
-            <Link href={href} passHref className={`${isActive ? "bg-letter" : "text-[#4A5056]"} `}>
+            <Link href={href} passHref className={`text-xl ${isActive ? "bg-letter" : "text-white text-xl"} `}>
               <span>{label}</span>
             </Link>
           </li>
@@ -66,25 +66,25 @@ export const Header = () => {
 
   return (
     <>
-      <div className="sticky top-0 z-20 justify-between flex-shrink-0 min-h-0 p-6 bg-white shadow-md lg:static background-svg navbar sm:px-2 ">
+      <div className="sticky top-0 z-20 justify-between flex-shrink-0 min-h-0 p-6 bg-transparent shadow-md lg:static background-svg navbar sm:px-2 ">
         <div className="flex gap-3">
           <Link href="/" passHref className="items-center hidden gap-2 ml-4 mr-6 lg:flex shrink-0">
             <div>
-              <Image src="/logo.png" alt="logo" width={57} height={47} className="w-auto h-auto" priority></Image>
+              <Image src="/logo.png" alt="logo" width={142} height={70} className="w-auto h-auto" priority></Image>
             </div>
           </Link>
           <ul className="hidden gap-8 px-1 text-xl lg:flex lg:flex-nowrap">
             <HeaderMenuLinks />
           </ul>
         </div>
-        <div className="flex-grow mr-4 navbar-end">
+        <div className="flex-grow mr-4 navbar-end gap-7">
           <div className="flex gap-5">
             <div className="flex items-center gap-1">
-              <span className="font-bold text-[#4A5056]">Balance:</span>
-              <span> {balanceDai}</span>
+              <span className="font-bold text-white">Balance:</span>
+              <span className="text-white"> {balanceDai}</span>
             </div>
             <button
-              className="border border-[#d9d9da] border-solid min-w-[70px] w-full rounded-[13px] py-1 px-4"
+              className="border border-white border-solid min-w-[70px] w-full rounded-[13px] py-1 px-4 text-white"
               onClick={() => {
                 mint();
               }}
