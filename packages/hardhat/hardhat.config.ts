@@ -146,6 +146,10 @@ const config: HardhatUserConfig = {
       url: "https://avalanche-fuji-c-chain.publicnode.com",
       accounts: [deployerPrivateKey, lenderPrivateKey, borrowerPrivateKey],
     },
+    xdcTestnet: {
+      url: "https://erpc.apothem.network",
+      accounts: [deployerPrivateKey, lenderPrivateKey, borrowerPrivateKey],
+    },
   },
   // configuration for harhdat-verify plugin
   etherscan: {

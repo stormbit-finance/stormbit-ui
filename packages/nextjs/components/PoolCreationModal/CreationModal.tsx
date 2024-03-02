@@ -3,9 +3,9 @@ import Image from "next/image";
 import Button from "../Button/Button";
 import "./CreationModal.css";
 import toast from "react-hot-toast";
-import { parseEther } from "viem";
+import { formatEther, parseEther } from "viem";
 import { useAccount } from "wagmi";
-import { useScaffoldContract, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
+import { useScaffoldContract, useScaffoldContractRead, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 interface PoolConfig {
   name: string;
@@ -48,6 +48,7 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
   const { data: stormBitCoreContract } = useScaffoldContract({
     contractName: "StormBitCore",
   });
+
   const { writeAsync: createPool, isLoading: createPoolLoading } = useScaffoldContractWrite({
     contractName: "StormBitCore",
     functionName: "createPool",
@@ -76,7 +77,7 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
   const { writeAsync: approveTokens } = useScaffoldContractWrite({
     contractName: "MockToken",
     functionName: "approve",
-    args: [stormBitCoreContract ? stormBitCoreContract.address : "", parseEther("5000")],
+    args: [stormBitCoreContract ? stormBitCoreContract.address : "", parseEther(String(poolConfig.amount))],
     value: BigInt(0),
     onBlockConfirmation: txReceipt => {
       toast.success(`Tokens approved successfully with hash ${txReceipt.transactionHash as string}`);
