@@ -86,10 +86,11 @@ Deployed on the [XDC network](https://xdc.org/), StormBit leverages state-of-the
 #### **ZEEBU**: 
 
 
-- **Integration of ZEEBU token for governance** : 
-  ZEEBU token plays a key role in the architecture of Stormbit as it is the included in the lending process. ZEEBU tokens are distributed to borrowers from the pool where lenders have deposited.
+- **Integration of ZBU token for governance** : 
+  ZEEBU token plays a key role in the architecture of Stormbit as it is the included in the lending process. ZEEBU tokens are distributed to borrowers from the pool where lenders have deposited. Here is a diagram showing how it works with ZBU token. 
 
-  <img width="780" alt="Screenshot 2024-03-02 at 15 19 41" src="https://github.com/Quantum3-Labs/StormBit-monorepo/assets/75360886/32732895-6cb6-4390-81cf-1141770e42c2">
+  
+<img width="815" alt="Screenshot 2024-03-02 at 15 52 27" src="https://github.com/Quantum3-Labs/StormBit-monorepo/assets/75360886/18d6dfbf-a812-47ff-af2a-e64724ab5e5f">
 
   
 
