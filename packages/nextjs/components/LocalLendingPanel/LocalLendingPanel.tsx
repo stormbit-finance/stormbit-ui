@@ -149,8 +149,8 @@ function LocalLendingPanel({ address, setShowCheap }: ModalProps) {
                     placeholder="0.01"
                   ></input>
                   <div className="flex gap-2">
-                    <Image src="/ether.png" alt="ether" width={17} height={17}></Image>
-                    <span>ETH</span>
+                    <Image src="/ZBUtoken.png" alt="ether" width={17} height={17}></Image>
+                    <span>ZBU</span>
                   </div>
                 </div>
               </div>
@@ -165,8 +165,8 @@ function LocalLendingPanel({ address, setShowCheap }: ModalProps) {
                     placeholder="0.01"
                   ></input>
                   <div className="flex gap-2">
-                    <Image src="/ether.png" alt="ether" width={17} height={17}></Image>
-                    <span>ETH</span>
+                    <Image src="/ZBUtoken.png" alt="ether" width={17} height={17}></Image>
+                    <span>ZBU</span>
                   </div>
                 </div>
               </div>
@@ -176,7 +176,7 @@ function LocalLendingPanel({ address, setShowCheap }: ModalProps) {
               <span className="font-bold text-[#17344F]">Transaction information</span>
               <div className="flex justify-between">
                 <span>Exchange Rate</span>
-                <span>1 ETH = 0.05 BTC</span>
+                <span>1 ETH = 0.05 ZBU</span>
               </div>
               <div className="flex justify-between">
                 <span>Accumulate Interest</span>
