@@ -31,12 +31,12 @@ function Page() {
   });
 
   return (
-    <div className="mx-12 mb-8">
+    <div className="mx-12 mb-8 text-white">
       <div className="flex items-center gap-3 my-8" onClick={handleGoBack} style={{ cursor: "pointer" }}>
         <Image src="/arrow-left.png" alt="arrow" width={20} height={16} className="w-[20px] h-[16px]"></Image>
         <span>Go back</span>
       </div>
-      <span className="text-[#17344F] text-4xl font-bold flex">
+      <span className="text-[#ffffff] text-4xl font-bold flex">
         {poolData ? poolData[0]?.result?.name : " Pool Name"} -
         <div className=" text-ellipsis overflow-hidden w-[30%]"> {poolAddress}</div>
       </span>
@@ -44,15 +44,15 @@ function Page() {
         <>
           <div className="flex flex-col items-center justify-center gap-16 my-20">
             <Image src="/loading.png" alt="loading" width={150} height={150}></Image>
-            <span className="text-3xl text-[#4A5056] font-semibold"> Loading </span>
+            <span className="text-3xl text-[#ffffff] font-semibold"> Loading </span>
           </div>
         </>
       ) : (
         <>
           <div className="flex">
             <div className="flex flex-col gap-6 my-9">
-              <span className="text-[#17344F] text-base font-bold">Overview</span>
-              <div className="flex flex-col text-[#17344F] gap-16 p-7 border border-solid border-[#F1F3F4] rounded-[5px]">
+              <span className="text-[#ffffff] text-base font-bold">Overview</span>
+              <div className="flex flex-col text-[#ffffff] gap-16 p-7 border border-solid border-transparent rounded-[5px]">
                 <div className="flex gap-20">
                   <div className="flex flex-col w-[250px]">
                     <span>Maximum Loan To Value (LTV)</span>
@@ -93,7 +93,7 @@ function Page() {
                 </div>
               </div>
               <div className="flex flex-col gap-3 my-12">
-                <span className="text-[#17344F] font-bold ">Supported Agreement</span>
+                <span className="text-[#ffffff] font-bold ">Supported Agreement</span>
                 <ul className="px-8 list-disc">
                   <li>Base agreement</li>
                   <li>NFT agreement</li>
@@ -101,7 +101,7 @@ function Page() {
                 </ul>
               </div>
               <div className="flex flex-col gap-6">
-                <span className="text-[#17344F] font-bold">Supported Tokens</span>
+                <span className="text-[#ffffff] font-bold">Supported Tokens</span>
                 <div className="flex gap-7">
                   {/*<div className="flex flex-col">*/}
                   {/*  <Image src="/DAI.png" alt="dai" width={32} height={32} />*/}
@@ -109,7 +109,7 @@ function Page() {
                   {/*</div>*/}
                   <div className="flex flex-col">
                     <Image src="/ZBUtoken.png" alt="zbu" width={32} height={32} />
-                    <span className="text-[#17344F]">ZBU</span>
+                    <span className="text-[#FFFFF]">ZBU</span>
                   </div>
                 </div>
               </div>

@@ -89,14 +89,15 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
 
   return (
     <div className="container-modal">
-      <div className="gap-4 content-modal">
+      <div className="gap-4 text-white content-modal">
         <div className="flex flex-col gap-10">
           <div className="flex justify-between">
-            <span className="text-2xl font-bold text-[#4A5056]">Create Pool</span>
+            <span className="text-2xl font-bold text-[#ffffff]">Create Pool</span>
             <button
               onClick={() => {
                 setIsModalOpen();
               }}
+              className="text-white"
             >
               X
             </button>
@@ -108,7 +109,7 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
                 type="text"
                 id="campo1"
                 name="campo1"
-                className="w-full p-2 border"
+                className="w-full p-2 bg-transparent border"
                 value={poolConfig.name}
                 onChange={e => setPoolConfig({ ...poolConfig, name: e.target.value })}
               />
@@ -121,7 +122,7 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
                 type="text"
                 id="campo1"
                 name="campo1"
-                className="w-full p-2 border"
+                className="w-full p-2 bg-transparent border"
               />
             </div>
             <div className="flex gap-16">
@@ -131,7 +132,7 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
                   type="text"
                   id="campo1"
                   name="campo1"
-                  className="w-full p-2 border"
+                  className="w-full p-2 bg-transparent border"
                   value={String(poolConfig.minCreditScore)}
                   onChange={e => setPoolConfig({ ...poolConfig, minCreditScore: BigInt(e.target.value ?? 0) })}
                 />
@@ -142,7 +143,7 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
                   type="number"
                   id="campo2"
                   name="campo2"
-                  className="w-full p-2 border"
+                  className="w-full p-2 bg-transparent border"
                   value={String(poolConfig.maxAmountOfStakers)}
                   onChange={e => setPoolConfig({ ...poolConfig, maxAmountOfStakers: BigInt(e.target.value ?? 0) })}
                 />
@@ -155,7 +156,7 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
                   type="number"
                   id="campo1"
                   name="campo1"
-                  className="w-full p-2 border"
+                  className="w-full p-2 bg-transparent border"
                   value={String(poolConfig.quorum)}
                   onChange={e => setPoolConfig({ ...poolConfig, quorum: BigInt(e.target.value ?? 0) })}
                 />
@@ -166,7 +167,7 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
                   type="number"
                   id="campo2"
                   name="campo2"
-                  className="w-full p-2 border"
+                  className="w-full p-2 bg-transparent border"
                   value={String(poolConfig.maxPoolUsage)}
                   onChange={e => setPoolConfig({ ...poolConfig, maxPoolUsage: BigInt(e.target.value ?? 0) })}
                 />
@@ -178,7 +179,7 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
                 type="number"
                 id="campo1"
                 name="campo1"
-                className="w-full p-2 border"
+                className="w-full p-2 bg-transparent border"
                 value={String(poolConfig.votingPowerCooldown)}
                 onChange={e => setPoolConfig({ ...poolConfig, votingPowerCooldown: BigInt(e.target.value ?? 0) })}
               />
@@ -189,7 +190,7 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
                 type="text"
                 id="campo1"
                 name="campo1"
-                className="w-full p-2 border"
+                className="w-full p-2 bg-transparent border"
                 value={String(poolConfig.amount)}
                 onChange={e => setPoolConfig({ ...poolConfig, amount: BigInt(e.target.value ?? 0) })}
               />
@@ -207,7 +208,7 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
                   >
                     <Image src="/information.png" alt="information" width={18} height={18}></Image>
                     {showInfo && (
-                      <div className="text-xs info-tooltip text-[#484848]">
+                      <div className="text-xs info-tooltip text-[#444444] bg-[#16182E]">
                         <span className="text-xs font-bold">Strategy Name</span>
                         <br></br>
                         <span>Some description info here...</span>
@@ -227,7 +228,7 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
                   >
                     <Image src="/information.png" alt="information" width={18} height={18}></Image>
                     {showInfo && (
-                      <div className="text-xs info-tooltip text-[#484848]">
+                      <div className="text-xs info-tooltip text-[#444444] bg-[#16182E]">
                         <span className="text-xs font-bold">Strategy Name</span>
                         <br></br>
                         <span>Some description info here...</span>
@@ -247,7 +248,7 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
                   >
                     <Image src="/information.png" alt="information" width={18} height={18}></Image>
                     {showInfo && (
-                      <div className="text-xs info-tooltip text-[#484848]">
+                      <div className="text-xs info-tooltip text-[#444444] bg-[#16182E]">
                         <span className="text-xs font-bold">Strategy Name</span>
                         <br></br>
                         <span>Some description info here...</span>

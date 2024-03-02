@@ -67,7 +67,7 @@ function Supply({ poolAddress }: SupplyProps) {
         <div className="flex border border-solid border-[#EAEBEF] rounded-[5px] justify-between">
           <input
             type="number"
-            className="p-1 w-[500px] focus:outline-none border-none"
+            className="p-1 w-[500px] focus:outline-none border-none bg-transparent"
             onChange={e => {
               setAmount(e.target.value);
             }}

@@ -62,12 +62,12 @@ function Table() {
   }, [pools]);
 
   return (
-    <div className="w-[1450px] flex flex-col">
+    <div className="w-[1450px] flex flex-col text-white">
       {poolAddressesLoading || poolsLoading ? (
         <>
           <div className="flex flex-col items-center justify-center gap-16 my-7">
             <Image src="/loading.png" alt="loading" width={150} height={150}></Image>
-            <span className="text-3xl text-[#4A5056] font-semibold"> Loading </span>
+            <span className="text-3xl text-[#ffffff] font-semibold"> Loading </span>
           </div>
         </>
       ) : (
@@ -90,7 +90,7 @@ function Table() {
               <p className="w-[160px] text-center">{pool.totalBorrowed}</p>
               <p className="w-[160px] text-center">{pool.borrowedAPY}</p>
               <Link href={`/pool/${pool.address}`}>
-                <button className="border border-solid border-[#4A5056] rounded-[7px] py-4 px-10">Trade</button>
+                <button className="border border-solid border-[#ffffff] rounded-[7px] py-4 px-10">Trade</button>
               </Link>
               <Link href={`/pool/${pool.address}`}>
                 <Image src="/chevron-right.png" alt="chevron" width={24} height={24}></Image>
