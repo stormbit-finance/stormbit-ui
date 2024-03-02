@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { Space_Grotesk } from "@next/font/google";
 import { RainbowKitProvider, darkTheme, lightTheme } from "@rainbow-me/rainbowkit";
 import { Toaster } from "react-hot-toast";
 import { WagmiConfig } from "wagmi";
@@ -13,6 +14,10 @@ import { useDarkMode } from "~~/hooks/scaffold-eth/useDarkMode";
 import { useGlobalState } from "~~/services/store/store";
 import { wagmiConfig } from "~~/services/web3/wagmiConfig";
 import { appChains } from "~~/services/web3/wagmiConnectors";
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+});
 
 const ScaffoldEthApp = ({ children }: { children: React.ReactNode }) => {
   const price = useNativeCurrencyPrice();
@@ -28,7 +33,7 @@ const ScaffoldEthApp = ({ children }: { children: React.ReactNode }) => {
     <>
       <div className="flex flex-col min-h-screen">
         <Header />
-        <main className="flex flex-col items-center flex-1 margin-top">{children}</main>
+        <main className={`flex flex-col items-center flex-1 margin-top ${spaceGrotesk.className}`}>{children}</main>
         <Footer />
       </div>
       <Toaster />

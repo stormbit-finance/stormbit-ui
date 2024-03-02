@@ -1147,6 +1147,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@next/font@npm:^14.1.0":
+  version: 14.1.1
+  resolution: "@next/font@npm:14.1.1"
+  peerDependencies:
+    next: "*"
+  checksum: f4cf79789c529df91607455608af11879f16531b696efea158ab9dc3f5e65049b81a25fdd90c12a2cca8e9cfcad98eed18660b3fa85fe8815a86a31dcbea0309
+  languageName: node
+  linkType: hard
+
 "@next/swc-darwin-arm64@npm:14.0.4":
   version: 14.0.4
   resolution: "@next/swc-darwin-arm64@npm:14.0.4"
@@ -11778,6 +11787,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "se-2@workspace:."
   dependencies:
+    "@next/font": ^14.1.0
     husky: ~8.0.3
     lint-staged: ~13.2.2
   languageName: unknown

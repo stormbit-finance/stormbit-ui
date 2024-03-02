@@ -48,10 +48,10 @@ input{
 
   @layer utilities {
     .text-gradient {
+      background: linear-gradient(7deg, #805FD8 10.78%, #CBB7FF 64.88%);
       background-clip: text;
       -webkit-background-clip: text;
-      color: transparent;
-      background-image: linear-gradient(88.64deg, #AD92F5 -10.93%, #61BEFF 121.88%);
+      -webkit-text-fill-color: transparent;
     }
   }
 
@@ -69,4 +69,9 @@ input{
 
 .height-market{
   height: fit-content;
+}
+
+.background-svg {
+  fill: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(87.5px);
 }
