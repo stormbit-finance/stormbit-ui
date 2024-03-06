@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Image from "next/image";
 import Button from "../Button/Button";
+import DropdownButton from "../DropdownButton/DropdownButton";
 import "./supply.css";
 import { waitForTransaction, writeContract } from "@wagmi/core";
 import toast from "react-hot-toast";
@@ -12,7 +12,6 @@ interface SupplyProps {
   poolAddress: string;
 }
 function Supply({ poolAddress }: SupplyProps) {
-  const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [amount, setAmount] = useState<string>("");
   const account = useAccount();
 
@@ -56,9 +55,6 @@ function Supply({ poolAddress }: SupplyProps) {
     }
   };
 
-  const toggleDropdown = () => {
-    setDropdownOpen(!isDropdownOpen);
-  };
   return (
     <div className="flex flex-col">
       <div className="flex flex-col gap-2">
@@ -73,24 +69,7 @@ function Supply({ poolAddress }: SupplyProps) {
             }}
           ></input>
           <div className="flex items-center justify-center">
-            <ul className="main-menu">
-              <li className="relative main-menu-item">
-                <button onClick={toggleDropdown} className="flex items-center justify-center dropdown-trigger">
-                  <Image src="/DAI.png" alt="ether" width={17} height={17} className="mx-2 w-17 h-17"></Image>
-                  DAI<span className="arrow-down">&#9662;</span>
-                </button>
-                {isDropdownOpen && (
-                  <ul className="dropdown-menu">
-                    <li>
-                      <a href="#"> DAI 1</a>
-                    </li>
-                    <li>
-                      <a href="#"> DAI 2</a>
-                    </li>
-                  </ul>
-                )}
-              </li>
-            </ul>
+            <DropdownButton></DropdownButton>
           </div>
         </div>
         <span>

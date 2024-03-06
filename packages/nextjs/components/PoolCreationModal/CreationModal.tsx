@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Button from "../Button/Button";
+import DropdownButton from "../DropdownButton/DropdownButton";
 import "./CreationModal.css";
 import toast from "react-hot-toast";
 import { parseEther } from "viem";
@@ -37,13 +38,21 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
     agreements: [false, false, false],
   });
 
-  const { data: tokenContract } = useScaffoldContract({
-    contractName: "MockToken",
+  const { data: tokenContractDAI } = useScaffoldContract({
+    contractName: "tDAI",
+  });
+
+  const { data: tokenContractETH } = useScaffoldContract({
+    contractName: "tETH",
+  });
+  const { data: tokenContractBTC } = useScaffoldContract({
+    contractName: "tBTC",
   });
 
   const { data: simpleAgreementContract } = useScaffoldContract({
     contractName: "SimpleAgreement",
   });
+
 
   const { data: stormBitCoreContract } = useScaffoldContract({
     contractName: "StormBitCore",
@@ -60,8 +69,8 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
         maxPoolUsage: BigInt(poolConfig.maxPoolUsage),
         votingPowerCoolDown: BigInt(poolConfig.votingPowerCooldown),
         initAmount: parseEther(poolConfig.amount.toString()),
-        initToken: tokenContract ? tokenContract.address : "",
-        supportedAssets: [tokenContract ? tokenContract.address : ""],
+        initToken: tokenContractDAI ? tokenContractDAI.address : "",
+        supportedAssets: [tokenContractDAI ? tokenContractDAI.address : ""],
         supportedAgreements: [simpleAgreementContract ? simpleAgreementContract.address : ""],
       },
     ],
@@ -73,10 +82,11 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
     blockConfirmations: 0,
   });
 
+
   const { writeAsync: approveTokens } = useScaffoldContractWrite({
-    contractName: "MockToken",
+    contractName: "tDAI",
     functionName: "approve",
-    args: [stormBitCoreContract ? stormBitCoreContract.address : "", parseEther("5000")],
+    args: [stormBitCoreContract ? stormBitCoreContract.address : "", parseEther("1000")],
     value: BigInt(0),
     onBlockConfirmation: txReceipt => {
       toast.success(`Tokens approved successfully with hash ${txReceipt.transactionHash as string}`);
@@ -184,14 +194,17 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
             </div>
             <div className="flex-1">
               <label htmlFor="campo1">Amount</label>
-              <input
-                type="text"
-                id="campo1"
-                name="campo1"
-                className="w-full p-2 border"
-                value={String(poolConfig.amount)}
-                onChange={e => setPoolConfig({ ...poolConfig, amount: BigInt(e.target.value ?? 0) })}
-              />
+              <div className="flex items-center border">
+                <input
+                  type="text"
+                  id="campo1"
+                  name="campo1"
+                  className="w-full p-2 border focus:outline-none"
+                  value={String(poolConfig.amount)}
+                  onChange={e => setPoolConfig({ ...poolConfig, amount: BigInt(e.target.value ?? 0) })}
+                />
+                <DropdownButton></DropdownButton>
+              </div>
             </div>
             <span>Agreement supported</span>
             <div className="flex gap-16">
