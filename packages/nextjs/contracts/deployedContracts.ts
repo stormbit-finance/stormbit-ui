@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   11155111: {
     SimpleAgreement: {
-      address: "0xA13BDb8E4b94d4514a9D3eE00A15dD2d924E0102",
+      address: "0xBf0E5Ad9832336a79B53CA2ae38b0414738a3E7a",
       abi: [
         {
           inputs: [],
@@ -58,6 +58,19 @@ const deployedContracts = {
               internalType: "uint256[]",
               name: "",
               type: "uint256[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "hasWithdrawn",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
             },
           ],
           stateMutability: "view",
@@ -196,6 +209,7 @@ const deployedContracts = {
       inheritedFunctions: {
         borrower: "contracts/AgreementBedrock.sol",
         getPaymentDates: "contracts/AgreementBedrock.sol",
+        hasWithdrawn: "contracts/AgreementBedrock.sol",
         initialize: "contracts/AgreementBedrock.sol",
         isLoanFinished: "contracts/AgreementBedrock.sol",
         lateFee: "contracts/AgreementBedrock.sol",
