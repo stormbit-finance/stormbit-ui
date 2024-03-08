@@ -29,7 +29,8 @@
     "vercel": "yarn workspace @se-2/nextjs vercel",
     "vercel:yolo": "yarn workspace @se-2/nextjs vercel:yolo",
     "verify": "yarn workspace @se-2/hardhat verify",
-    "nest:start:dev": "yarn workspace @se-2/nestjs start:dev"
+    "nest:start:dev": "yarn workspace @se-2/nestjs start:dev",
+    "nest:lint": "yarn workspace @se-2/nestjs lint"
   },
   "resolutions": {
     "usehooks-ts@^2.7.2": "patch:usehooks-ts@npm:^2.7.2#./.yarn/patches/usehooks-ts-npm-2.7.2-fceffe0e43.patch"

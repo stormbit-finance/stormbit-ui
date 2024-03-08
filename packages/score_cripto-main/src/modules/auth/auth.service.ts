@@ -1,18 +1,20 @@
-import { BadRequestException, Injectable, NotFoundException, } from "@nestjs/common";
+import { BadRequestException, Inject, Injectable, NotFoundException, } from "@nestjs/common";
 import { UserService } from "../user/user.service";
 import { randomBytes,scrypt as _scrypt } from "crypto";
 import { promisify } from "util";
-import { Not } from "typeorm";
+import { Not, Repository } from "typeorm";
 import { createUserDto } from "../user/dto/create-user.dto";
 import axios from 'axios';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom, lastValueFrom } from 'rxjs';
+import { Score } from "./score.entity";
+import { InjectRepository } from "@nestjs/typeorm";
 
 const scrypt = promisify(_scrypt);
 @Injectable()
 export class AuthService {
 
-    constructor(private httpService:HttpService,private usersService: UserService) { }
+    constructor(@InjectRepository(Score) private scoreRepository: Repository<Score>,private httpService:HttpService,private usersService: UserService) { }
 
     async signup(user:createUserDto) {
 
@@ -86,6 +88,18 @@ async obtenerToken(username: string, password: string): Promise<string> {
       const response = await firstValueFrom(
         this.httpService.get(url, { headers: headersRequest })
       );
+      const data = response.data;
+      const score = {
+        account: data.account,
+        value: data.value,
+        value_rating: data.value_rating,
+      };
+
+      // Guardar en la base de datos usando tu ScoreService
+     const newregister= await this.scoreRepository.create(score); 
+      await this.scoreRepository.save(newregister);
+
+      
       return response.data;
     } catch (error) {
       // Manejo de errores adecuado
