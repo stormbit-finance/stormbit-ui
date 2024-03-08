@@ -1,62 +1,65 @@
-import { BadRequestException, Inject, Injectable, NotFoundException, } from "@nestjs/common";
-import { UserService } from "../user/user.service";
-import { randomBytes,scrypt as _scrypt } from "crypto";
-import { promisify } from "util";
-import { Not, Repository } from "typeorm";
-import { createUserDto } from "../user/dto/create-user.dto";
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { UserService } from '../user/user.service';
+import { randomBytes, scrypt as _scrypt } from 'crypto';
+import { promisify } from 'util';
+import { Repository } from 'typeorm';
+import { createUserDto } from '../user/dto/create-user.dto';
 import axios from 'axios';
 import { HttpService } from '@nestjs/axios';
-import { firstValueFrom, lastValueFrom } from 'rxjs';
-import { Score } from "./score.entity";
-import { InjectRepository } from "@nestjs/typeorm";
+import { firstValueFrom } from 'rxjs';
+import { Score } from './score.entity';
+import { InjectRepository } from '@nestjs/typeorm';
 
 const scrypt = promisify(_scrypt);
 @Injectable()
 export class AuthService {
+  constructor(
+    @InjectRepository(Score) private scoreRepository: Repository<Score>,
+    private httpService: HttpService,
+    private usersService: UserService,
+  ) {}
 
-    constructor(@InjectRepository(Score) private scoreRepository: Repository<Score>,private httpService:HttpService,private usersService: UserService) { }
+  async signup(user: createUserDto) {
+    const { email, password } = user;
 
-    async signup(user:createUserDto) {
-
-        const {email,password}=user
-
-        const users = await this.usersService.find(email);
-        if (users.length) {
-            throw new BadRequestException('email in use');
-        }
- const salt = randomBytes(8).toString('hex');
-
- const hash = (await scrypt(password,salt,32)) as Buffer;
-
- const result = salt + '.' + hash.toString('hex');
-
- user.password=result
-
- const newuser = await this.usersService.createUser(user);
-
- return newuser
+    const users = await this.usersService.find(email);
+    if (users.length) {
+      throw new BadRequestException('email in use');
     }
-   async signin(email: string, password: string) {
-  const [user]= await this.usersService.find(email);
-  if (!user) {
+    const salt = randomBytes(8).toString('hex');
+
+    const hash = (await scrypt(password, salt, 32)) as Buffer;
+
+    const result = salt + '.' + hash.toString('hex');
+
+    user.password = result;
+
+    const newuser = await this.usersService.createUser(user);
+
+    return newuser;
+  }
+  async signin(email: string, password: string) {
+    const [user] = await this.usersService.find(email);
+    if (!user) {
       throw new NotFoundException('user not found');
     }
-
 
     const [salt, storedHash] = user.password.split('.');
 
     const hash = (await scrypt(password, salt, 32)) as Buffer;
 
-    if (storedHash !== hash.toString('hex')){
-        throw new BadRequestException('bad password');
+    if (storedHash !== hash.toString('hex')) {
+      throw new BadRequestException('bad password');
     }
 
-        return user;
-    
-}
+    return user;
+  }
 
-
-async obtenerToken(username: string, password: string): Promise<string> {
+  async obtenerToken(username: string, password: string): Promise<string> {
     const url = 'https://risk.credprotocol.com/api/token/auth/create/'; // Asegúrate de reemplazar con la URL correcta
     const parametros = new URLSearchParams();
     parametros.append('username', username);
@@ -81,12 +84,12 @@ async obtenerToken(username: string, password: string): Promise<string> {
   async getScore(address: string, token: string): Promise<any> {
     const url = `https://beta.credprotocol.com/api/score/address/${address}`;
     const headersRequest = {
-      'Authorization': `Token ${token}`,
+      Authorization: `Token ${token}`,
     };
-    
+
     try {
       const response = await firstValueFrom(
-        this.httpService.get(url, { headers: headersRequest })
+        this.httpService.get(url, { headers: headersRequest }),
       );
       const data = response.data;
       const score = {
@@ -96,18 +99,13 @@ async obtenerToken(username: string, password: string): Promise<string> {
       };
 
       // Guardar en la base de datos usando tu ScoreService
-     const newregister= await this.scoreRepository.create(score); 
+      const newregister = await this.scoreRepository.create(score);
       await this.scoreRepository.save(newregister);
 
-      
       return response.data;
     } catch (error) {
       // Manejo de errores adecuado
       throw error;
     }
   }
-  
 }
-
-
-

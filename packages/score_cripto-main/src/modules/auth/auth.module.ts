@@ -9,14 +9,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Score } from './score.entity';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([Score]),UserModule,HttpModule],
-  providers: [AuthService,{
-    
-    provide:APP_INTERCEPTOR,
-    useClass:CurrentUserInterceptor
-
-  
-  }],
-  controllers: [AuthController]
+  imports: [TypeOrmModule.forFeature([Score]), UserModule, HttpModule],
+  providers: [
+    AuthService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: CurrentUserInterceptor,
+    },
+  ],
+  controllers: [AuthController],
 })
 export class AuthModule {}
