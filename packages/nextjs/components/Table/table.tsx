@@ -3,7 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { formatUnits } from "viem";
-import { useContractReads } from "wagmi";
+import { useContractEvent, useContractReads } from "wagmi";
 import { useScaffoldContract, useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 import { Pools } from "~~/types/Pools";
 
@@ -38,6 +38,8 @@ function Table() {
           })
         : [],
   });
+
+
 
   useEffect(() => {
     if (pools && pools.length > 0 && poolAddresses) {

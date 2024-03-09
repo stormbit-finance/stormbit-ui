@@ -1,5 +1,7 @@
 import Image from "next/image";
 import type { NextPage } from "next";
+import CarruselTweets from "~~/components/CarruselTweets/CarruselTweets";
+
 
 const Home: NextPage = () => {
   const data = [
@@ -55,18 +57,18 @@ const Home: NextPage = () => {
   return (
     <>
       <div className="flex flex-col items-stretch justify-center pt-10 gap-80">
-        <div className="flex justify-between gap-28">
-          <div className="w-[964px] my-24">
-            <span className="font-bold text-white text-9xl">STORM</span>
-            <span className="font-bold text-9xl text-gradient">BIT.</span>
+        <div className="flex justify-between px-24 gap-28">
+          <div className="my-24">
+            <span className="font-bold text-white text-8xl">STORM</span>
+            <span className="font-bold text-8xl text-gradient">BIT.</span>
             <p className="text-4xl text-[#B5B5B5]">Democratizing Lending with Collective Decision-Making</p>
           </div>
-        </div>
-        <div className="flex items-center justify-center">
-          <Image src="/scheme.png" alt="scheme" width={1330} height={604}></Image>
+          <div className="flex items-center justify-center">
+            <Image src="/scheme.png" alt="scheme" width={1000} height={604}></Image>
+          </div>
         </div>
         <div className="flex flex-col items-center justify-center gap-20">
-          <h2 className="text-5xl text-white">Metrics based on XDC</h2>
+          <h2 className="text-5xl text-white">Metrics based on Avalanche</h2>
           <div className="flex gap-32">
             {metrics.map(element => (
               <>
@@ -99,7 +101,7 @@ const Home: NextPage = () => {
             ))}
           </div>
         </div>
-        <div className="flex flex-col items-center gap-12">
+        <div className="flex flex-col items-center gap-12 mb-36">
           <h2 className="text-5xl font-bold text-white">Core Technology</h2>
           <div className="flex gap-24">
             {technology.map(element => (
@@ -118,7 +120,7 @@ const Home: NextPage = () => {
           </div>
         </div>
       </div>
-      {/* <div className="flex flex-col items-center justify-center gap-4 my-40 roadmap">
+      <div className="flex flex-col items-center justify-center gap-4 my-40 roadmap">
         <h2 className="text-5xl font-bold text-white">Roadmap</h2>
         <Image src="/map.png" alt="map" width={1467} height={115}></Image>
         <div className="flex flex-wrap w-[1500px] gap-8 justify-center">
@@ -135,18 +137,14 @@ const Home: NextPage = () => {
             <span className="text-xl font-medium text-white">SBIT Token Faucet on multiple chains</span>
           </div>
         </div>
-      </div> */}
-      <div className="flex flex-col items-center gap-12 mt-60">
+      </div>
+      <div className="flex flex-col items-center gap-12 mt-48">
         <div className="flex gap-6">
           <h2 className="text-5xl font-bold text-white">Tweets</h2>
           <Image src="/tweets.png" alt="tweets" width={58} height={58}></Image>
         </div>
         <div className="flex gap-20">
-          <div>
-            <Image src="/x1.png" alt="tweet" width={476} height={290}></Image>
-          </div>
-          <Image src="/x2.png" alt="tweet" width={476} height={356}></Image>
-          <Image src="/x3.png" alt="tweet" width={476} height={356}></Image>
+          <CarruselTweets></CarruselTweets>
         </div>
         <div>
           <button className="w-[234px] h-[71px] text-white rounded-[9px] border border-solid border-white">
@@ -155,7 +153,7 @@ const Home: NextPage = () => {
         </div>
       </div>
       <div className="flex flex-col items-center gap-12 mt-52 bg-form pb-36">
-        <div className="flex flex-col justify-center items-center gap-20 w-[1514px] h-[444px] container-subscribe">
+        <div className="flex flex-col justify-center items-center gap-20 w-[1514px] h-[460px] container-subscribe">
           <h2 className="text-5xl font-bold text-white">Keep Updated</h2>
           <div className="flex gap-6">
             <input

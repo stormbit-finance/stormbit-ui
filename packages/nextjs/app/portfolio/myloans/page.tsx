@@ -5,7 +5,7 @@ import ModalPay from "../modalPay/modalPay";
 import { getPublicClient, waitForTransaction, writeContract } from "@wagmi/core";
 import toast from "react-hot-toast";
 import { keccak256, parseAbiItem } from "viem";
-import { useAccount, useChainId, useContractEvent, useContractReads } from "wagmi";
+import {useAccount, useChainId, useContractEvent, useContractReads} from "wagmi";
 import { useScaffoldContract, useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
 interface Loan {
@@ -45,6 +45,7 @@ function MyLoans() {
   const { data: LendingContract } = useScaffoldContract({
     contractName: "StormBitLending",
   });
+
   const { data: pools, isLoading: poolsLoading } = useContractReads({
     contracts:
       LendingContract && poolAddresses

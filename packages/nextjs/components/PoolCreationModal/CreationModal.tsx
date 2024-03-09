@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Button from "../Button/Button";
+import DropdownButton from "../DropdownButton/DropdownButton";
 import "./CreationModal.css";
 import toast from "react-hot-toast";
 import { formatEther, parseEther } from "viem";
@@ -37,8 +38,15 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
     agreements: [false, false, false],
   });
 
-  const { data: tokenContract } = useScaffoldContract({
-    contractName: "MockToken",
+  const { data: tokenContractDAI } = useScaffoldContract({
+    contractName: "tDAI",
+  });
+
+  const { data: tokenContractETH } = useScaffoldContract({
+    contractName: "tETH",
+  });
+  const { data: tokenContractBTC } = useScaffoldContract({
+    contractName: "tBTC",
   });
 
   const { data: simpleAgreementContract } = useScaffoldContract({
@@ -61,8 +69,8 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
         maxPoolUsage: BigInt(poolConfig.maxPoolUsage),
         votingPowerCoolDown: BigInt(poolConfig.votingPowerCooldown),
         initAmount: parseEther(poolConfig.amount.toString()),
-        initToken: tokenContract ? tokenContract.address : "",
-        supportedAssets: [tokenContract ? tokenContract.address : ""],
+        initToken: tokenContractDAI ? tokenContractDAI.address : "",
+        supportedAssets: [tokenContractDAI ? tokenContractDAI.address : ""],
         supportedAgreements: [simpleAgreementContract ? simpleAgreementContract.address : ""],
       },
     ],
@@ -75,9 +83,9 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
   });
 
   const { writeAsync: approveTokens } = useScaffoldContractWrite({
-    contractName: "MockToken",
+    contractName: "tDAI",
     functionName: "approve",
-    args: [stormBitCoreContract ? stormBitCoreContract.address : "", parseEther(String(poolConfig.amount))],
+    args: [stormBitCoreContract ? stormBitCoreContract.address : "", parseEther("1000")],
     value: BigInt(0),
     onBlockConfirmation: txReceipt => {
       toast.success(`Tokens approved successfully with hash ${txReceipt.transactionHash as string}`);
@@ -92,7 +100,7 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
       <div className="gap-4 text-white content-modal">
         <div className="flex flex-col gap-10">
           <div className="flex justify-between">
-            <span className="text-2xl font-bold text-[#ffffff]">Create Pool</span>
+            <p className="text-2xl font-medium text-[#ffffff] pb-12 border-b border-[#374B6D] w-11/12">Create Pool</p>
             <button
               onClick={() => {
                 setIsModalOpen();
@@ -103,97 +111,127 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
             </button>
           </div>
           <form className="flex flex-col gap-4">
-            <div className="flex-1">
-              <label htmlFor="campo1">Pool name</label>
+            <div className="flex items-center">
+              <label htmlFor="campo1" className="w-1/5 text-xl">
+                Pool name
+              </label>
               <input
                 type="text"
                 id="campo1"
                 name="campo1"
-                className="w-full p-2 bg-transparent border"
+                className="w-full p-5 bg-transparent border-[#374B6D] focus:outline-none rounded-[14px]"
                 value={poolConfig.name}
                 onChange={e => setPoolConfig({ ...poolConfig, name: e.target.value })}
               />
             </div>
-            <div className="flex-1">
-              <label htmlFor="campo1">Owner</label>
+            <div className="flex items-center">
+              <label htmlFor="campo2" className="w-1/5 text-xl">
+                Owner
+              </label>
               <input
                 value={poolConfig.owner}
                 onChange={e => setPoolConfig({ ...poolConfig, owner: e.target.value })}
                 type="text"
-                id="campo1"
-                name="campo1"
-                className="w-full p-2 bg-transparent border"
+                id="campo2"
+                name="campo2"
+                className="w-full p-5 border bg-transparent border-[#374B6D] focus:outline-none rounded-[14px]"
               />
             </div>
             <div className="flex gap-16">
               <div className="flex-1">
-                <label htmlFor="campo1">Min Credit Score</label>
+                <label htmlFor="campo3">Min Credit Score</label>
+                <div className="flex items-center gap-5 ">
+                  <input
+                    type="range"
+                    id="campo3"
+                    name="campo3"
+                    className="w-11/12 p-2 custom-range"
+                    value={String(poolConfig.minCreditScore)}
+                    onChange={e => setPoolConfig({ ...poolConfig, minCreditScore: BigInt(e.target.value ?? 0) })}
+                  />
+                  <span className="p-3 border border-solid border-[#374B6D] rounded-[7px]">
+                    {String(poolConfig.minCreditScore)}
+                  </span>
+                </div>
+              </div>
+              <div className="flex-1">
+                <label htmlFor="campo4">Max Amount Of Stakers</label>
+                <div className="flex items-center gap-5 ">
+                  <input
+                    type="range"
+                    id="campo4"
+                    name="campo4"
+                    className="w-11/12 p-2 custom-range"
+                    value={String(poolConfig.maxAmountOfStakers)}
+                    onChange={e => setPoolConfig({ ...poolConfig, maxAmountOfStakers: BigInt(e.target.value ?? 0) })}
+                  />
+                  <span className="p-3 border border-solid border-[#374B6D] rounded-[7px]">
+                    {String(poolConfig.maxAmountOfStakers)}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="flex gap-16">
+              <div className="flex-1">
+                <label htmlFor="campo5">Min Quorum</label>
+                <div className="flex items-center gap-5 ">
+                  <input
+                    type="range"
+                    id="campo5"
+                    name="campo5"
+                    className="w-11/12 p-2 custom-range"
+                    value={String(poolConfig.quorum)}
+                    onChange={e => setPoolConfig({ ...poolConfig, quorum: BigInt(e.target.value ?? 0) })}
+                  />
+                  <span className="p-3 border border-solid border-[#374B6D] rounded-[7px]">
+                    {String(poolConfig.quorum)}
+                  </span>
+                </div>
+              </div>
+              <div className="flex-1">
+                <label htmlFor="campo6">Max Pool Usage</label>
+                <div className="flex items-center gap-5 ">
+                  <input
+                    type="range"
+                    id="campo6"
+                    name="campo6"
+                    className="w-11/12 p-2 custom-range"
+                    value={String(poolConfig.maxPoolUsage)}
+                    onChange={e => setPoolConfig({ ...poolConfig, maxPoolUsage: BigInt(e.target.value ?? 0) })}
+                  />
+                  <span className="p-3 border border-solid border-[#374B6D] rounded-[7px]">
+                    {String(poolConfig.maxPoolUsage)}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="flex-1">
+              <label htmlFor="campo7">Voting Power Cooldown</label>
+              <div className="flex items-center gap-5 ">
+                <input
+                  type="range"
+                  id="campo7"
+                  name="campo7"
+                  className="w-full p-2 border custom-range"
+                  value={String(poolConfig.votingPowerCooldown)}
+                  onChange={e => setPoolConfig({ ...poolConfig, votingPowerCooldown: BigInt(e.target.value ?? 0) })}
+                />
+                <span className="p-3">days</span>
+              </div>
+            </div>
+            <div className="flex flex-col flex-1 gap-4">
+              <label htmlFor="campo1">Amount</label>
+              <div className="flex items-center border border-[#374B6D] rounded-[14px]">
                 <input
                   type="text"
                   id="campo1"
                   name="campo1"
-                  className="w-full p-2 bg-transparent border"
-                  value={String(poolConfig.minCreditScore)}
-                  onChange={e => setPoolConfig({ ...poolConfig, minCreditScore: BigInt(e.target.value ?? 0) })}
+                  className="w-full p-5 bg-transparent border-none focus:outline-none"
+                  value={String(poolConfig.amount)}
+                  onChange={e => setPoolConfig({ ...poolConfig, amount: BigInt(e.target.value ?? 0) })}
                 />
+                <DropdownButton></DropdownButton>
               </div>
-              <div className="flex-1">
-                <label htmlFor="campo2">Max Amount Of Stakers</label>
-                <input
-                  type="number"
-                  id="campo2"
-                  name="campo2"
-                  className="w-full p-2 bg-transparent border"
-                  value={String(poolConfig.maxAmountOfStakers)}
-                  onChange={e => setPoolConfig({ ...poolConfig, maxAmountOfStakers: BigInt(e.target.value ?? 0) })}
-                />
-              </div>
-            </div>
-            <div className="flex gap-16">
-              <div className="flex-1">
-                <label htmlFor="campo1">Min Quorum</label>
-                <input
-                  type="number"
-                  id="campo1"
-                  name="campo1"
-                  className="w-full p-2 bg-transparent border"
-                  value={String(poolConfig.quorum)}
-                  onChange={e => setPoolConfig({ ...poolConfig, quorum: BigInt(e.target.value ?? 0) })}
-                />
-              </div>
-              <div className="flex-1">
-                <label htmlFor="campo2">Max Pool Usage</label>
-                <input
-                  type="number"
-                  id="campo2"
-                  name="campo2"
-                  className="w-full p-2 bg-transparent border"
-                  value={String(poolConfig.maxPoolUsage)}
-                  onChange={e => setPoolConfig({ ...poolConfig, maxPoolUsage: BigInt(e.target.value ?? 0) })}
-                />
-              </div>
-            </div>
-            <div className="flex-1">
-              <label htmlFor="campo1">Voting Power Cooldown</label>
-              <input
-                type="number"
-                id="campo1"
-                name="campo1"
-                className="w-full p-2 bg-transparent border"
-                value={String(poolConfig.votingPowerCooldown)}
-                onChange={e => setPoolConfig({ ...poolConfig, votingPowerCooldown: BigInt(e.target.value ?? 0) })}
-              />
-            </div>
-            <div className="flex-1">
-              <label htmlFor="campo1">Amount</label>
-              <input
-                type="text"
-                id="campo1"
-                name="campo1"
-                className="w-full p-2 bg-transparent border"
-                value={String(poolConfig.amount)}
-                onChange={e => setPoolConfig({ ...poolConfig, amount: BigInt(e.target.value ?? 0) })}
-              />
             </div>
             <span>Agreement supported</span>
             <div className="flex gap-16">
