@@ -1,0 +1,25 @@
+version: "3.8"
+
+
+services:
+  
+  postgres:
+    image: "postgres"
+    restart: always
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    
+    environment:
+      - DATABASE_HOST=${DB_HOST}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_ROOT_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+       PGADMIN_DEFAULT_EMAIL: ${DB_PGADMIN_DEFAULT_EMAIL}
+       PGADMIN_DEFAULT_PASSWORD: ${DB_PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - "${DB_PORT_ADMIN}:${DB_PORT_ADMIN}"
+    depends_on: 
+      - postgres
