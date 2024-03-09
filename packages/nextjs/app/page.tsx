@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { NextPage } from "next";
-import Button from "~~/components/Button/Button";
+import CarruselTweets from "~~/components/CarruselTweets/CarruselTweets";
+
 
 const Home: NextPage = () => {
   const data = [
@@ -119,7 +120,7 @@ const Home: NextPage = () => {
           </div>
         </div>
       </div>
-       <div className="flex flex-col items-center justify-center gap-4 my-40 roadmap">
+      <div className="flex flex-col items-center justify-center gap-4 my-40 roadmap">
         <h2 className="text-5xl font-bold text-white">Roadmap</h2>
         <Image src="/map.png" alt="map" width={1467} height={115}></Image>
         <div className="flex flex-wrap w-[1500px] gap-8 justify-center">
@@ -136,18 +137,14 @@ const Home: NextPage = () => {
             <span className="text-xl font-medium text-white">SBIT Token Faucet on multiple chains</span>
           </div>
         </div>
-      </div> 
+      </div>
       <div className="flex flex-col items-center gap-12 mt-48">
         <div className="flex gap-6">
           <h2 className="text-5xl font-bold text-white">Tweets</h2>
           <Image src="/tweets.png" alt="tweets" width={58} height={58}></Image>
         </div>
         <div className="flex gap-20">
-          <div>
-            <Image src="/x1.png" alt="tweet" width={476} height={290}></Image>
-          </div>
-          <Image src="/x2.png" alt="tweet" width={476} height={356}></Image>
-          <Image src="/x3.png" alt="tweet" width={476} height={356}></Image>
+          <CarruselTweets></CarruselTweets>
         </div>
         <div>
           <button className="w-[234px] h-[71px] text-white rounded-[9px] border border-solid border-white">
