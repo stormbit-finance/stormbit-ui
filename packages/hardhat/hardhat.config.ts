@@ -72,7 +72,7 @@ const config: HardhatUserConfig = {
     },
     sepolia: {
       url: `https://eth-sepolia.g.alchemy.com/v2/${providerApiKey}`,
-      accounts: [deployerPrivateKey],
+      accounts: [deployerPrivateKey, lenderPrivateKey, borrowerPrivateKey],
     },
     goerli: {
       url: `https://eth-goerli.alchemyapi.io/v2/${providerApiKey}`,
@@ -154,7 +154,7 @@ const config: HardhatUserConfig = {
   // configuration for harhdat-verify plugin
   etherscan: {
     apiKey: {
-      avalancheFuji: "snowtrace", // apiKey is not required, just set a placeholder
+      avalancheFuji: "snowtrace",
     },
   },
   // configuration for etherscan-verify from hardhat-deploy plugin

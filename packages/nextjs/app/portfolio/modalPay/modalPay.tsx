@@ -3,15 +3,15 @@ import toast from "react-hot-toast";
 import { formatEther, parseEther } from "viem";
 import { useAccount, useContractRead, useContractWrite } from "wagmi";
 import Button from "~~/components/Button/Button";
-import { useScaffoldContract, useScaffoldContractRead, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
+import { useScaffoldContract } from "~~/hooks/scaffold-eth";
 
 interface ModalProps {
   setModalPay: () => void;
   pool: string;
 }
 
-function ModalPay({ setModalPay, pool }: ModalProps) {
-  const account = useAccount();
+function ModalPay({ setModalPay }: ModalProps) {
+
 
   const { data: LendingContract } = useScaffoldContract({
     contractName: "StormBitLending",
@@ -19,63 +19,6 @@ function ModalPay({ setModalPay, pool }: ModalProps) {
 
   const { data: SimpleAgreementContract } = useScaffoldContract({
     contractName: "SimpleAgreement",
-  });
-
-  const { data: agreementAddress } = useContractRead({
-    address: pool,
-    abi: LendingContract && LendingContract.abi,
-    functionName: "userAgreement",
-    args: account && account.address ? [account.address] : [""],
-  });
-
-  const { data: balance } = useScaffoldContractRead({
-    contractName: "MockToken",
-    functionName: "balanceOf",
-    args: [account.address],
-  });
-
-  const { writeAsync: payBack } = useContractWrite({
-    address: agreementAddress && agreementAddress,
-    abi: SimpleAgreementContract && SimpleAgreementContract.abi,
-    functionName: "payBack",
-    onSuccess: txReceipt => {
-      toast.success(`Successfully paid back @ ${txReceipt.hash as string}`);
-      setModalPay();
-    },
-  });
-
-  const { data: isLoanFinished } = useContractRead({
-    address: agreementAddress && agreementAddress,
-    abi: SimpleAgreementContract && SimpleAgreementContract.abi,
-    functionName: "isLoanFinished",
-  });
-
-  const { data: nextPaymentData } = useContractRead({
-    address: agreementAddress && agreementAddress,
-    abi: SimpleAgreementContract && SimpleAgreementContract.abi,
-    functionName: "nextPayment",
-  });
-
-  const { writeAsync: approveTokens } = useScaffoldContractWrite({
-    contractName: "MockToken",
-    functionName: "approve",
-    args: [agreementAddress ? agreementAddress : "", balance ? balance : 0n],
-    value: BigInt(0),
-    onBlockConfirmation: (txReceipt: any) => {
-      toast.success(`Tokens approved successfully with hash ${txReceipt.transactionHash as string}`);
-      payBack();
-    },
-    blockConfirmations: 0,
-  });
-
-  const { writeAsync: withdraw } = useContractWrite({
-    address: agreementAddress && agreementAddress,
-    abi: SimpleAgreementContract && SimpleAgreementContract.abi,
-    functionName: "withdraw",
-    onSuccess: txReceipt => {
-      toast.success(`Successfully withdrawn assets @ ${txReceipt.hash as string}`);
-      setModalPay();
-    },
   });
 
   return (
