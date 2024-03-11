@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { ApiTags } from '@nestjs/swagger';
 
 
-@ApiTags('Score')
+@ApiTags('score')
 @Controller('score')
 export class ScoreController {
 

@@ -107,5 +107,7 @@ export class ScoreService {
     
     throw error;
   }
+
+  // to do añadir crud mehods
   }
 
