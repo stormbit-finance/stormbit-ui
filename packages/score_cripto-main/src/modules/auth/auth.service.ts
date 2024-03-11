@@ -11,7 +11,7 @@ import { createUserDto } from '../user/dto/create-user.dto';
 import axios from 'axios';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
-import { Score } from './score.entity';
+import { Score } from '../score/score.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 
 const scrypt = promisify(_scrypt);
@@ -59,53 +59,7 @@ export class AuthService {
     return user;
   }
 
-  async obtenerToken(username: string, password: string): Promise<string> {
-    const url = 'https://risk.credprotocol.com/api/token/auth/create/'; // Asegúrate de reemplazar con la URL correcta
-    const parametros = new URLSearchParams();
-    parametros.append('username', username);
-    parametros.append('password', password);
-
-    try {
-      const response = await axios.post(url, parametros.toString(), {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      });
-
-      // Asumiendo que la API responde con { token: '...' }
-      return response.data.token;
-    } catch (error) {
-      // Manejar error adecuadamente
-      console.error('Error al obtener el token:', error);
-      throw new Error('No se pudo obtener el token');
-    }
-  }
-
-  async getScore(address: string, token: string): Promise<any> {
-    const url = `https://beta.credprotocol.com/api/score/address/${address}`;
-    const headersRequest = {
-      Authorization: `Token ${token}`,
-    };
-
-    try {
-      const response = await firstValueFrom(
-        this.httpService.get(url, { headers: headersRequest }),
-      );
-      const data = response.data;
-      const score = {
-        account: data.account,
-        value: data.value,
-        value_rating: data.value_rating,
-      };
-
-      // Guardar en la base de datos usando tu ScoreService
-      const newregister = await this.scoreRepository.create(score);
-      await this.scoreRepository.save(newregister);
-
-      return response.data;
-    } catch (error) {
-      // Manejo de errores adecuado
-      throw error;
-    }
-  }
 }
+
+
+

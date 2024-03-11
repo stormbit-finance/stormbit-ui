@@ -2,21 +2,23 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Report {
-  @PrimaryGeneratedColumn()
-  id: number;
+    @PrimaryGeneratedColumn()
+    id: number;
 
-  @Column()
-  name: string;
+    @Column()
+    name: string;
 
-  @Column()
-  price: number;
+    @Column()
+    price: number;
 
-  @Column()
-  description: string;
+    @Column()
+    description: string;
 
-  @Column()
-  type: string;
+    @Column()
+    type: string;
 
-  @Column()
-  location: string;
+    @Column()
+    location: string;
+    
+    
 }

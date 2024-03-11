@@ -6,17 +6,17 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 import { CurrentUserInterceptor } from 'src/common/interceptor/current-user.interceptor';
 import { HttpModule } from '@nestjs/axios';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Score } from './score.entity';
+import { Score } from '../score/score.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Score]), UserModule, HttpModule],
-  providers: [
-    AuthService,
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: CurrentUserInterceptor,
-    },
-  ],
-  controllers: [AuthController],
+  imports:[TypeOrmModule.forFeature([Score]),UserModule,HttpModule],
+  providers: [AuthService,{
+    
+    provide:APP_INTERCEPTOR,
+    useClass:CurrentUserInterceptor
+
+  
+  }],
+  controllers: [AuthController]
 })
 export class AuthModule {}
