@@ -2,6 +2,7 @@ import { Controller, Get, Param, Query } from '@nestjs/common';
 import { ScoreService } from './score.service';
 import { Observable } from 'rxjs';
 import { ApiTags } from '@nestjs/swagger';
+import { Score } from './score.entity';
 @ApiTags('Score')
 @Controller('score')
 export class ScoreController {
@@ -33,4 +34,9 @@ export class ScoreController {
    async getPreScore(@Param('address') address: string):Promise<any> {
         return this.scoreService.getRocifiScore(address);
     }
+    @Get()
+getUser():Promise<Score[]>{
+    return this.scoreService.getScores();
+}
+
 }

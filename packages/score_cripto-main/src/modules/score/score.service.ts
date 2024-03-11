@@ -107,5 +107,8 @@ export class ScoreService {
     
     throw error;
   }
+  getScores() {
+    return this.scoreRepository.find();
+}
   }
 
