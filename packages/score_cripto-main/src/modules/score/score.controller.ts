@@ -2,6 +2,8 @@ import { Controller, Get, Param, Query } from '@nestjs/common';
 import { ScoreService } from './score.service';
 import { Observable } from 'rxjs';
 import { ApiTags } from '@nestjs/swagger';
+
+
 @ApiTags('Score')
 @Controller('score')
 export class ScoreController {
