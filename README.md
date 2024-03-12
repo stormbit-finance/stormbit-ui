@@ -1,8 +1,8 @@
 
 ```markdown
-# Scripts del Proyecto
+# Project Scripts
 
-Este proyecto utiliza un monorepo y emplea el gestor de paquetes Yarn para manejar las dependencias y los scripts. A continuación, se describen los scripts más importantes:
+This project uses a monorepo and utilizes the Yarn package manager to handle dependencies and scripts. Below, the most important scripts are described:
 
 ## nest:start:dev
 
@@ -10,15 +10,15 @@ Este proyecto utiliza un monorepo y emplea el gestor de paquetes Yarn para manej
 "nest:start:dev": "yarn workspace @se-2/nestjs start:dev"
 ```
 
-Este script se encarga de iniciar el servidor de desarrollo de NestJS. Ejecuta el comando `start:dev` dentro del espacio de trabajo (`workspace`) `@se-2/nestjs`.
+This script is responsible for starting the NestJS development server. It executes the `start:dev` command within the `@se-2/nestjs` workspace.
 
-Para utilizar este script, simplemente ejecuta el siguiente comando en la raíz del proyecto:
+To use this script, simply run the following command at the root of the project:
 
 ```
 yarn nest:start:dev
 ```
 
-Esto iniciará el servidor de desarrollo de NestJS y permitirá realizar cambios en el código fuente de manera dinámica, sin necesidad de reiniciar el servidor manualmente.
+This will start the NestJS development server and allow for dynamic changes to the source code without the need to manually restart the server.
 
 ## nest:lint
 
@@ -26,22 +26,24 @@ Esto iniciará el servidor de desarrollo de NestJS y permitirá realizar cambios
 "nest:lint": "yarn workspace @se-2/nestjs lint"
 ```
 
-Este script se encarga de ejecutar el linter de código estático para el proyecto NestJS. Ejecuta el comando `lint` dentro del espacio de trabajo (`workspace`) `@se-2/nestjs`.
+This script is responsible for running the static code linter for the NestJS project. It executes the `lint` command within the `@se-2/nestjs` workspace.
 
-Para utilizar este script, simplemente ejecuta el siguiente comando en la raíz del proyecto:
+To use this script, simply run the following command at the root of the project:
 
 ```
 yarn nest:lint
 ```
 
-Esto analizará todo el código fuente del proyecto NestJS y reportará cualquier problema de estilo de código, errores de sintaxis o prácticas no recomendadas según las reglas de linting configuradas.
+This will analyze the entire source code of the NestJS project and report any code style issues, syntax errors, or practices not recommended according to the configured linting rules.
 
-Es una buena práctica ejecutar este script de forma regular durante el desarrollo para mantener un código limpio y consistente.
+It's a good practice to run this script regularly during development to maintain clean and consistent code.
 
-## Uso de workspaces en Yarn
+## Using Yarn workspaces
 
-Como se puede observar, ambos scripts utilizan la propiedad `workspace` de Yarn. Esto permite ejecutar comandos específicos dentro de un subdirectorio del proyecto, en este caso, el subdirectorio `@se-2/nestjs`.
+As can be seen, both scripts use the `workspace` property of Yarn. This allows for executing specific commands within a subdirectory of the project, in this case, the `@se-2/nestjs` subdirectory.
 
-De esta manera, se pueden manejar múltiples proyectos o paquetes dentro de un mismo monorepo, manteniendo una estructura organizada y evitando la duplicación de dependencias.
+To see all the routes, enter the swagger documentation:
+
+localhost:3000/apidocs
 
 ```

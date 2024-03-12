@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../modules/user/user.entity';
 import {ConfigModule,ConfigService} from '@nestjs/config';
+import { Score } from 'src/modules/score/score.entity';
 @Module({ imports: [
     TypeOrmModule.forRootAsync({
         imports: [ConfigModule],
@@ -15,7 +16,7 @@ import {ConfigModule,ConfigService} from '@nestjs/config';
             username: configService.get('DB_USERNAME'),
             password: configService.get('DB_PASSWORD'),
             database: configService.get('DB_NAME'),
-            entities: [User],
+            entities: [User,Score],
             synchronize: true,
             }
         },

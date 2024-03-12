@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserService } from '../user/user.service';
 import { HttpService } from '@nestjs/axios';
@@ -7,18 +7,22 @@ import { Score } from './score.entity';
 import axios from 'axios';
 import { Observable, firstValueFrom, lastValueFrom, map } from 'rxjs';
 import { response } from 'express';
+import { updateScoreDto } from './dto/update-score.dto';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class ScoreService {
+  private readonly apiUrl = 'https://develop.centic.io/v1/centic-services';
     private readonly apiUrlRocifi = 'https://v2.rociapi.com/pre_score';
-    private readonly tokenRocifi = 'TU_TOKEN';
-    private readonly apiUrl = 'https://api-integrate.centic.io/centic-services/calculateCustomScore';
-    private readonly apiKey = 'TU_API_KEY';
+    private readonly tokenRocifi =  this.configService.get('API_KEY_ROCIFI');
+    private readonly apiUrlCentic = 'https://api-integrate.centic.io/centic-services/calculateCustomScore';
+    private readonly apiKeyCentic =  this.configService.get('API_KEY_CENTIC');
 
     constructor(
         @InjectRepository(Score) private scoreRepository: Repository<Score>,
         private httpService: HttpService,
         private usersService: UserService,
+        private configService:ConfigService
       ) {}
     
     
@@ -35,10 +39,10 @@ export class ScoreService {
         },
       });
 
-      // Asumiendo que la API responde con { token: '...' }
+      
       return response.data.token;
     } catch (error) {
-      // Manejar error adecuadamente
+   
       console.error('Error al obtener el token:', error);
       throw new Error('No se pudo obtener el token');
     }
@@ -74,7 +78,7 @@ export class ScoreService {
  async getCenticScore(entityID: string, scoreID: string): Promise<Observable<any>> {
     const url = `${this.apiUrl}/${entityID}?scoreId=${scoreID}`;
     const headers = {
-      'x-apikey': this.apiKey,
+      'x-apikey': this.apiKeyCentic,
       'Content-Type': 'application/json',
     };
 
@@ -110,5 +114,45 @@ export class ScoreService {
   getScores() {
     return this.scoreRepository.find();
 }
+async getScoreById(id:number) {
+  
+  if(!id) {
+      return new HttpException('User not found',HttpStatus.NOT_FOUND);
+  }
+  return this.scoreRepository.findOne({where:{id}});;
+}
+async deleteScore(id:number) {
+
+  const userFound= await this.scoreRepository.findOne({where:{id}});
+  
+  if(!userFound) {
+      return new HttpException('User not found',HttpStatus.NOT_FOUND);
+  }
+  
+  
+ return this.scoreRepository.delete({id});
+
+
+}
+async updateUser(id:number,user:updateScoreDto) {
+  const userFound=await this.scoreRepository.findOne({where:{id}});
+  if (!userFound) {
+      return new HttpException('User not found',HttpStatus.NOT_FOUND);
+  }
+
+  const updateUser2=Object.assign(userFound,user);
+  return this.scoreRepository.save(updateUser2);
+
+}
+calculateCustomScore(entityAddress: string, scoreId: string) {
+  const url = `${this.apiUrl}/calculateCustomScore/${entityAddress}`;
+  const params = { scoreId };
+
+  return this.httpService
+    .get(url, { params })
+    .pipe(map((response) => response.data));
+}
+
+
   }
 

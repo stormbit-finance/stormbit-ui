@@ -5,9 +5,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Score } from './score.entity';
 import { UserModule } from '../user/user.module';
 import { HttpModule } from '@nestjs/axios';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([Score]),UserModule,HttpModule],
+  imports:[TypeOrmModule.forFeature([Score]),UserModule,HttpModule,ConfigModule.forRoot({
+    envFilePath: '.env',
+  })],
   controllers: [ScoreController],
   providers: [ScoreService]
 

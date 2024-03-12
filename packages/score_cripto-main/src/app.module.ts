@@ -7,6 +7,7 @@ import { UserModule } from './modules/user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './modules/auth/auth.module';
 import { HealthModule } from './modules/health/health.module';
+import { ScoreModule } from './modules/score/score.module';
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { HealthModule } from './modules/health/health.module';
       isGlobal:true,
       envFilePath:'.env',
     }),
-    DatabaseModule,UserModule,AuthModule,HealthModule],
+    DatabaseModule,UserModule,AuthModule,HealthModule,ScoreModule],
   controllers: [AppController],
   providers: [AppService],
 })

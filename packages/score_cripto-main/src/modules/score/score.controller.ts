@@ -1,9 +1,12 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Query } from '@nestjs/common';
 import { ScoreService } from './score.service';
 import { Observable } from 'rxjs';
 import { ApiTags } from '@nestjs/swagger';
 import { Score } from './score.entity';
-@ApiTags('Score')
+import { updateScoreDto } from './dto/update-score.dto';
+
+
+@ApiTags('score')
 @Controller('score')
 export class ScoreController {
 
@@ -38,5 +41,24 @@ export class ScoreController {
 getUser():Promise<Score[]>{
     return this.scoreService.getScores();
 }
+@Get('/:id')
+getUserById(@Param('id') id:number){
+    return this.scoreService.getScoreById(id);
+}
+@Delete('/:id')
+deleteUser(@Param('id') id:number){
+    return this.scoreService.deleteScore(id);
 
+}
+@Patch('/:id')
+updateUser(@Param('id') id:number,@Body() user:updateScoreDto){
+    return this.scoreService.updateUser(id,user);
+}
+@Get('calculateCustomScore/:entityAddress')
+calculateCustomScore(
+  @Param('entityAddress') entityAddress: string,
+  @Query('scoreId') scoreId: string,
+) {
+  return this.scoreService.calculateCustomScore(entityAddress, scoreId);
+}
 }
