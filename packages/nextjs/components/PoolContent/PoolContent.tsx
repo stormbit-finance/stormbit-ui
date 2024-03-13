@@ -1,199 +1,69 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useState } from "react";
 import "./poolContents.css";
-import ReactDOM from "react-dom";
-import ReactPaginate from "react-paginate";
+import { Button, Pagination } from "@nextui-org/react";
+import { CircularProgress } from "@nextui-org/react";
+import { data } from "~~/data/data";
 
-interface Data {
-  name: string;
-  supply: number;
-  borrow: number;
-  usage: number;
-}
+export default function PoolContent() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
 
-const data: Data[] = [
-  {
-    name: "Community Credit Pool",
-    supply: 20,
-    borrow: 2,
-    usage: 12,
-  },
-  {
-    name: "Community Credit Pool",
-    supply: 20,
-    borrow: 2,
-    usage: 12,
-  },
-  {
-    name: "Community Credit Pool",
-    supply: 20,
-    borrow: 2,
-    usage: 12,
-  },
-  {
-    name: "Community Credit Pool",
-    supply: 20,
-    borrow: 2,
-    usage: 12,
-  },
-  {
-    name: "Community Credit Pool",
-    supply: 20,
-    borrow: 2,
-    usage: 12,
-  },
-  {
-    name: "Community Credit Pool",
-    supply: 20,
-    borrow: 2,
-    usage: 12,
-  },
-  {
-    name: "Community Credit Pool",
-    supply: 20,
-    borrow: 2,
-    usage: 12,
-  },
-  {
-    name: "Community Credit Pool",
-    supply: 20,
-    borrow: 2,
-    usage: 12,
-  },
-  {
-    name: "Community Credit Pool",
-    supply: 20,
-    borrow: 2,
-    usage: 12,
-  },
-  {
-    name: "Community Credit Pool",
-    supply: 20,
-    borrow: 2,
-    usage: 12,
-  },
-  {
-    name: "Community Credit Pool",
-    supply: 20,
-    borrow: 2,
-    usage: 12,
-  },
-  {
-    name: "Community Credit Pool",
-    supply: 20,
-    borrow: 2,
-    usage: 12,
-  },
-  {
-    name: "Community Credit Pool",
-    supply: 20,
-    borrow: 2,
-    usage: 12,
-  },
-  {
-    name: "Community Credit Pool",
-    supply: 20,
-    borrow: 2,
-    usage: 12,
-  },
-  {
-    name: "Community Credit Pool",
-    supply: 20,
-    borrow: 2,
-    usage: 12,
-  },
-  {
-    name: "Community Credit Pool",
-    supply: 20,
-    borrow: 2,
-    usage: 12,
-  },
-  {
-    name: "Community Credit Pool",
-    supply: 20,
-    borrow: 2,
-    usage: 12,
-  },
-  {
-    name: "Community Credit Pool",
-    supply: 20,
-    borrow: 2,
-    usage: 12,
-  },
-  {
-    name: "Community Credit Pool",
-    supply: 20,
-    borrow: 2,
-    usage: 12,
-  },
-  {
-    name: "Community Credit Pool",
-    supply: 20,
-    borrow: 2,
-    usage: 12,
-  },
-];
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = currentPage * itemsPerPage;
 
-function PoolContent() {
+  const currentPageData = data.slice(startIndex, endIndex);
   return (
-    <div className="flex flex-wrap items-center justify-center gap-8">
-      {data.map(element => (
-        <>
-          <div className="w-[470px] flex flex-col gap-8 container-pool text-white">
-            <div className="flex flex-col items-center justify-center usage">
-              <span className="text-2xl">{element.usage}%</span>
-              <span className="text-sm">usage</span>
-            </div>
-            <span className="text-2xl pl-14">{element.name}</span>
-            <div className="flex items-center justify-center">
-              <div className="flex flex-col items-center justify-center gap-6 py-3 pr-20 border-e">
-                <span className="text-lg">Supply APY</span>
-                <span className="text-4xl">{element.supply}%</span>
+    <div className="flex flex-col items-center justify-center gap-5">
+      <div className="flex flex-wrap items-center justify-center gap-8">
+        {currentPageData.map((element, index) => (
+          <>
+            <div key={index} className="w-[470px] flex flex-col gap-8 container-pool text-white">
+              <CircularProgress size="lg" value={element.usage} color="secondary" showValueLabel={true} />
+              <div className="flex flex-col items-center justify-center usage">
+                <span className="text-2xl">{element.usage}%</span>
+                <span className="text-sm">usage</span>
               </div>
-              <div className="flex flex-col items-center justify-center gap-6 py-3 pl-20">
-                <span className="text-lg">Borrow APY</span>
-                <span className="text-4xl">{element.borrow}%</span>
+              <span className="text-2xl pl-14">{element.name}</span>
+              <div className="flex items-center justify-center">
+                <div className="flex flex-col items-center justify-center gap-6 py-3 pr-20 border-e">
+                  <span className="text-lg">Supply APY</span>
+                  <span className="text-4xl">{element.supply}%</span>
+                </div>
+                <div className="flex flex-col items-center justify-center gap-6 py-3 pl-20">
+                  <span className="text-lg">Borrow APY</span>
+                  <span className="text-4xl">{element.borrow}%</span>
+                </div>
               </div>
             </div>
-          </div>
-        </>
-      ))}
+          </>
+        ))}
+      </div>
+
+      <div className="flex gap-2 text-lg text-white">
+        <Button
+          size="md"
+          variant="light"
+          color="secondary"
+          onPress={() => setCurrentPage(prev => (prev > 1 ? prev - 1 : prev))}
+        >
+          Prev
+        </Button>
+        <Pagination
+          total={Math.ceil(data.length / itemsPerPage)}
+          color="secondary"
+          page={currentPage}
+          onChange={setCurrentPage}
+        />
+        <Button
+          size="md"
+          variant="flat"
+          color="secondary"
+          onPress={() => setCurrentPage(prev => (prev < Math.ceil(data.length / itemsPerPage) ? prev + 1 : prev))}
+        >
+          Next
+        </Button>
+      </div>
     </div>
   );
 }
-
-}
-
-function PaginatedItems({ itemsPerPage }) {
-
-  const [itemOffset, setItemOffset] = useState(0);
-
-  const endOffset = itemOffset + itemsPerPage;
-
-
-  const pageCount = Math.ceil(items.length / itemsPerPage);
-
-  const handlePageClick = event => {
-    const newOffset = (event.selected * itemsPerPage) % items.length;
-    console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`);
-    setItemOffset(newOffset);
-  };
-
-  return (
-    <>
-      
-      <ReactPaginate
-        breakLabel="..."
-        nextLabel="next >"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={5}
-        pageCount={pageCount}
-        previousLabel="< previous"
-        renderOnZeroPageCount={null}
-      />
-    </>
-  );
-}
-
-
-ReactDOM.render(<PaginatedItems itemsPerPage={4} />, document.getElementById("container"));
-export default PoolContent;

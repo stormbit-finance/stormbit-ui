@@ -7,14 +7,14 @@ import { FiSearch } from "react-icons/fi";
 import Button from "~~/components/Button/Button";
 import PoolContent from "~~/components/PoolContent/PoolContent";
 import CreationModal from "~~/components/PoolCreationModal/CreationModal";
-import Table from "~~/components/Table/table";
+
 
 const BlockExplorer: NextPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <>
-      <div className="flex flex-col gap-6 bg-[#070817] w-screen h-screen p-10">
+      <div className="flex flex-col gap-6 bg-[#070817] w-screen p-10">
         <div className="flex justify-end">
           <div className="flex items-center justify-center gap-2">
             <div className="flex rounded-[5px] border border-solid border-[#933CF5] px-4 justify-center items-center">
@@ -35,7 +35,6 @@ const BlockExplorer: NextPage = () => {
           </div>
         </div>
         <div className="flex flex-col justify-center">
-          {/* <Table></Table> */}
           <PoolContent></PoolContent>
         </div>
         {isModalOpen && <CreationModal setIsModalOpen={() => setIsModalOpen(false)}></CreationModal>}
