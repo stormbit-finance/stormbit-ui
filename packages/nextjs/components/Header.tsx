@@ -17,7 +17,7 @@ type HeaderMenuLink = {
 export const menuLinks: HeaderMenuLink[] = [
   {
     label: "Pools",
-    href: "/markets",
+    href: "/pools",
   },
   {
     label: "Portfolio",
@@ -139,6 +139,9 @@ export const Header = () => {
               </div>
             </div>
           </div>
+          <Link href="/register" className="border w-[150px] rounded-xl px-2">
+            Launch App
+          </Link>
           <RainbowKitCustomConnectButton />
           <FaucetButton />
         </div>

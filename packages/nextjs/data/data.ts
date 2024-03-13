@@ -10,7 +10,7 @@ export const data: Data[] = [
     name: "Community Credit Pool",
     supply: 20,
     borrow: 2,
-    usage: 12,
+    usage: 80,
   },
   {
     name: "Community Credit Pool",
@@ -112,7 +112,7 @@ export const data: Data[] = [
     name: "Community Credit Pool",
     supply: 20,
     borrow: 2,
-    usage: 12,
+    usage: 70,
   },
   {
     name: "Community Credit Pool",
