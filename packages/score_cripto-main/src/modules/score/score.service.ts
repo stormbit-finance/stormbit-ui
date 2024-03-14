@@ -134,7 +134,7 @@ async deleteScore(id:number) {
 
 
 }
-async updateUser(id:number,user:updateScoreDto) {
+async updateScore(id:number,user:updateScoreDto) {
   const userFound=await this.scoreRepository.findOne({where:{id}});
   if (!userFound) {
       return new HttpException('User not found',HttpStatus.NOT_FOUND);
@@ -144,7 +144,7 @@ async updateUser(id:number,user:updateScoreDto) {
   return this.scoreRepository.save(updateUser2);
 
 }
-calculateCustomScore(entityAddress: string, scoreId: string) {
+calculateCustomScoreCentic(entityAddress: string, scoreId: string) {
   const url = `${this.apiUrl}/calculateCustomScore/${entityAddress}`;
   const params = { scoreId };
 

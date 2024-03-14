@@ -1,9 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Patch, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Query, Session } from '@nestjs/common';
 import { ScoreService } from './score.service';
 import { Observable } from 'rxjs';
 import { ApiTags } from '@nestjs/swagger';
 import { Score } from './score.entity';
 import { updateScoreDto } from './dto/update-score.dto';
+import { averageScoreDto } from './dto/average.dto';
+import { session } from 'passport';
 
 
 @ApiTags('score')
@@ -12,7 +14,18 @@ export class ScoreController {
 
     constructor(private scoreService: ScoreService) {}
 
-    @Get('obtener-token')
+    // @Get('average')
+    // async getaverage(@Body() body:averageScoreDto,@Session() session: any){
+
+    //   this.scoreService.getScore(address, token);
+
+    //   this.scoreService.getCenticScore(entityID, scoreID);
+
+    //   this.scoreService.getRocifiScore(address);
+    // }
+
+
+    @Get('get-token-cred-protocol')
     async getToken(
       @Query('username') username: string,
       @Query('password') password: string,
@@ -52,13 +65,13 @@ deleteUser(@Param('id') id:number){
 }
 @Patch('/:id')
 updateUser(@Param('id') id:number,@Body() user:updateScoreDto){
-    return this.scoreService.updateUser(id,user);
+    return this.scoreService.updateScore(id,user);
 }
 @Get('calculateCustomScore/:entityAddress')
 calculateCustomScore(
   @Param('entityAddress') entityAddress: string,
   @Query('scoreId') scoreId: string,
 ) {
-  return this.scoreService.calculateCustomScore(entityAddress, scoreId);
+  return this.scoreService.calculateCustomScoreCentic(entityAddress, scoreId);
 }
 }
