@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { LoanEntity } from './loan.entity';
 import { Repository } from 'typeorm';
+import { CreateLoanDto } from './dto/createloan.dto';
 
 @Injectable()
 export class LoanService {
@@ -11,7 +12,7 @@ export class LoanService {
         private loanRepository: Repository<LoanEntity>,
       ) {}
     
-      async createLoan(loan: LoanEntity): Promise<LoanEntity> {
+      async createLoan(loan: CreateLoanDto){
         return this.loanRepository.save(loan);
       }
     

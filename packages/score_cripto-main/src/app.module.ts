@@ -8,6 +8,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './modules/auth/auth.module';
 import { HealthModule } from './modules/health/health.module';
 import { ScoreModule } from './modules/score/score.module';
+import { LoanModule } from './modules/loan/loan.module';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { ScoreModule } from './modules/score/score.module';
       isGlobal:true,
       envFilePath:'.env',
     }),
-    DatabaseModule,UserModule,AuthModule,HealthModule,ScoreModule],
+    DatabaseModule,UserModule,AuthModule,HealthModule,ScoreModule,LoanModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -1,7 +1,8 @@
 
-import { Controller,Post, Get, Param, Put,Delete, Body } from '@nestjs/common';
+import { Controller,Post, Get, Param, Put,Delete, Body, UseGuards } from '@nestjs/common';
 import { LoanService } from './loan.service';
 import { LoanEntity } from './loan.entity';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('loan')
 
@@ -14,6 +15,7 @@ import { LoanEntity } from './loan.entity';
         }
       
         @Get()
+        @UseGuards(AuthGuard('jwt'))
         async getAllLoans(): Promise<LoanEntity[]> {
           return this.loanService.getAllLoans();
         }
