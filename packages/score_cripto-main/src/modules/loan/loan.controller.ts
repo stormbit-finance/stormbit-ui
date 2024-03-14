@@ -15,7 +15,7 @@ import { AuthGuard } from '@nestjs/passport';
         }
       
         @Get()
-        @UseGuards(AuthGuard('jwt'))
+        
         async getAllLoans(): Promise<LoanEntity[]> {
           return this.loanService.getAllLoans();
         }

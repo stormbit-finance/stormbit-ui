@@ -18,8 +18,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "docker:db:up": "docker-compose --env-file .env.development up",
-    "docker:db:down": "docker-compose --env-file .env.development down"
+    "docker:db:up": "docker-compose --env-file .env up",
+    "docker:db:down": "docker-compose --env-file .env down"
   },
   "dependencies": {
     "@nestjs/axios": "^3.0.2",

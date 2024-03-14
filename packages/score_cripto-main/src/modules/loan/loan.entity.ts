@@ -7,28 +7,23 @@ export class LoanEntity {
   id: number;
 
   @Column()
-  borrower: string;
+  debt_total: number;
 
   @Column()
-  lender: string;
+  lender: number;
 
   @Column()
-  amount: number;
+  deposit_total: number;
 
   @Column()
-  interest: number;
-
-  @Column({ type: 'timestamp' })
-  startDate: Date;
-
-  @Column({ type: 'timestamp' })
-  endDate: Date;
+  repaid_total: number;
+  
+  @Column()
+  loans_request_rejected: number;
 
   @Column()
-  collateral: string;
+  loans_expired: number;
 
-  @Column({ default: false })
-  repaid: boolean;
 
   @OneToMany(() => PaymentEntity, payment => payment.loan)
   payments: PaymentEntity[];

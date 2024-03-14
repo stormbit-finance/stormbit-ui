@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../modules/user/user.entity';
 import {ConfigModule,ConfigService} from '@nestjs/config';
-import { Score } from 'src/modules/score/score.entity';
-import { LoanEntity } from 'src/modules/loan/loan.entity';
-import { PaymentEntity } from 'src/modules/payment/payment.entity';
+import { Score } from '../modules/score/score.entity';
+import { LoanEntity } from '../modules/loan/loan.entity';
+import { PaymentEntity } from '../modules/payment/payment.entity';
 @Module({ imports: [
     TypeOrmModule.forRootAsync({
         imports: [ConfigModule],

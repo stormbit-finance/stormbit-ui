@@ -3,35 +3,29 @@ import { IsNotEmpty, IsNumber, Min, IsString, IsDateString, IsBoolean } from 'cl
 export class CreateLoanDto {
   @IsNotEmpty()
   @IsString()
-  borrower: string;
+  debt_total: number;
 
   @IsNotEmpty()
   @IsString()
-  lender: string;
+  lender: number;
+  @IsNotEmpty()
+  @IsNumber()
+  @Min(0)
+  deposit_total: number;
+
 
   @IsNotEmpty()
   @IsNumber()
   @Min(0)
-  amount: number;
-
-  @IsNotEmpty()
-  @IsNumber()
-  @Min(0)
-  interest: number;
+  repaid_total: number;
 
   @IsNotEmpty()
   @IsDateString()
-  startDate: Date;
+  loans_request_rejected: number;
 
   @IsNotEmpty()
   @IsDateString()
-  endDate: Date;
+loans_expired: number;
 
-  @IsNotEmpty()
-  @IsString()
-  collateral: string;
 
-  @IsNotEmpty()
-  @IsBoolean()
-  repaid: boolean;
 }
