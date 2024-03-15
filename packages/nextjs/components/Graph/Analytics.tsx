@@ -9,9 +9,9 @@ import { createUseStyles } from "react-jss";
 const useStyles = createUseStyles(() => ({
   container: {
     color: "#fff",
-    padding: "1rem",
+    padding: "2rem",
     transition: "0.3s ease-in-out",
-    width: "1200px",
+    width: "800px",
     height: "400px",
     display: "flex",
     flexDirection: "column",

@@ -1,10 +1,10 @@
 import React from "react";
 import { useState } from "react";
+import Link from "next/link";
 import "./poolContents.css";
 import { Button, Pagination } from "@nextui-org/react";
 import { CircularProgress } from "@nextui-org/react";
 import { data } from "~~/data/data";
-import Link from "next/link";
 
 export default function PoolContent() {
   const [currentPage, setCurrentPage] = useState(1);

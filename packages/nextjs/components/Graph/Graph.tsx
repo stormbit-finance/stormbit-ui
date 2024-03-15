@@ -10,7 +10,7 @@ interface Props {
 const useStyles = createUseStyles(() => ({
   container: {
     color: "#fff",
-    backgroundColor: "rgb(255, 255, 255)",
+    backgroundColor: "transparent",
     padding: "1rem",
     transition: "0.3s ease-in-out",
     width: "100%",
@@ -33,7 +33,6 @@ const MyGraph: React.FC<Props> = ({ data }) => {
   const classes = useStyles();
   return (
     <div className={classes.container}>
-      <h1> Plays </h1>
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart data={data}>
           <defs>
@@ -43,13 +42,13 @@ const MyGraph: React.FC<Props> = ({ data }) => {
             itemStyle={{ color: "#fff", backgroundColor: "#0A1322" }}
             contentStyle={{ backgroundColor: "#0A1322" }}
           />
-          <CartesianGrid strokeDasharray="4 4" stroke="#8884d8" opacity={0.4} />
+          <CartesianGrid strokeDasharray="4 4" stroke="#9135F5" opacity={0.4} />
           <XAxis dataKey="name" tick={{ fill: "#B6BAC3" }} stroke="#EEEEEE" />
           <YAxis tick={{ fill: "#B6BAC3" }} stroke="#EEEEEE" />
           <Area
             dataKey="view"
             type="monotone"
-            stroke="#8884d8"
+            stroke="#9135F5"
             strokeWidth={3}
             strokeOpacity={1}
             fill="url(#colorView)"

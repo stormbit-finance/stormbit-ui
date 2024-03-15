@@ -45,13 +45,12 @@ const dropdownCategories = [
  */
 const useStyles = createUseStyles(() => ({
   container: {
-    position: "absolute",
-    right: 10,
+    display: "flex",
+    justifyContent: "flex-end",
     "& button": {
-      color: "black",
-      border: "1.5px solid #EDEEF1",
+      color: "#FFFF",
       width: 150,
-      borderRadius: "15px",
+      border: "none",
     },
   },
 }));
@@ -62,7 +61,7 @@ export const DropdownSelector = ({ fetchCustomData }) => {
   // This state is used to track selected value from dropdown
   const [activeTimeFrame, setActiveTimeFrame] = useState(2);
 
-  const handleDataFetching = (key, value) => {
+  const handleDataFetching = (key: number, value: any) => {
     setActiveTimeFrame(key);
     /**
      * This function invokes when user selectes an item from dropdown,
@@ -74,7 +73,10 @@ export const DropdownSelector = ({ fetchCustomData }) => {
 
   return (
     <div className={classes.container}>
-      <Dropdown overlay={menu(handleDataFetching, dropdownCategories, dropdownCategories[activeTimeFrame])}>
+      <Dropdown
+        overlay={menu(handleDataFetching, dropdownCategories, dropdownCategories[activeTimeFrame])}
+        className="bg-none"
+      >
         <Button>
           {dropdownCategories[activeTimeFrame].content} <DownOutlined />
         </Button>

@@ -40,7 +40,7 @@ export const metadata: Metadata = {
 
 const ScaffoldEthApp = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html>
+    <html className="w-screen">
       <body>
         <ScaffoldEthAppWithProviders>{children}</ScaffoldEthAppWithProviders>
       </body>
