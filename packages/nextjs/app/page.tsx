@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import type { NextPage } from "next";
 import CarruselTweets from "~~/components/CarruselTweets/CarruselTweets";
+import { Footer } from "~~/components/Footer";
 
 const Home: NextPage = () => {
   const data = [
@@ -78,8 +79,8 @@ const Home: NextPage = () => {
   return (
     <>
       <div className="max-w-[1920px] w-full">
-        <div className="flex flex-col items-center justify-center  w-full">
-          <div className="flex justify-between relative bg-landing bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg p-8 flex-col  w-full">
+        <div className="flex flex-col items-center justify-center w-full">
+          <div className="relative flex flex-col justify-between w-full p-8 bg-white bg-landing bg-opacity-20 backdrop-filter backdrop-blur-lg">
             <div className="flex w-full items-center justify-center max-w-[1920px] pt-[50px]">
               <div className="" onMouseMove={handleMouseMove}>
                 <span className="font-bold text-white text-8xl">STORM</span>
@@ -99,7 +100,7 @@ const Home: NextPage = () => {
             </div>
             <div className="flex flex-col items-center justify-center gap-20 w-full h-[520px] ">
               <h2 className="text-5xl text-white">Metrics based on Avalanche</h2>
-              <div className="flex items-center w-full justify-center gap-32">
+              <div className="flex items-center justify-center w-full gap-32">
                 {metrics.map(element => (
                   <>
                     <div className="flex flex-col items-center bg-transparent max-w-[423px] w-full gap-4 rounded-[69px] metrics">
@@ -135,7 +136,7 @@ const Home: NextPage = () => {
           </div>
           <div className="flex flex-col items-center gap-12 mb-36 max-h-[520px] h-full">
             <h2 className="text-5xl font-bold text-white">Core Technology</h2>
-            <div className="flex w-full items-center justify-center gap-24">
+            <div className="flex items-center justify-center w-full gap-24">
               {technology.map(element => (
                 <>
                   <div className="flex flex-col items-center justify-center w-[474px] gap-16 h-[539px] border border-solid border-white rounded-[12px] px-12">
@@ -196,6 +197,7 @@ const Home: NextPage = () => {
             </div>
           </div>
         </div>
+        <Footer></Footer>
       </div>
     </>
   );

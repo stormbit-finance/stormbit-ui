@@ -6,7 +6,6 @@ import { NextUIProvider } from "@nextui-org/react";
 import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { Toaster } from "react-hot-toast";
 import { WagmiConfig } from "wagmi";
-import { Footer } from "~~/components/Footer";
 import { Header } from "~~/components/Header";
 import { BlockieAvatar } from "~~/components/scaffold-eth";
 import { ProgressBar } from "~~/components/scaffold-eth/ProgressBar";
@@ -34,7 +33,6 @@ const ScaffoldEthApp = ({ children }: { children: React.ReactNode }) => {
       <div className="flex flex-col items-center bg-[#070817]">
         <Header />
         <main className={`flex flex-col items-center h-screen flex-1 ${spaceGrotesk.className}`}>{children}</main>
-        <Footer />
       </div>
       <Toaster />
     </>

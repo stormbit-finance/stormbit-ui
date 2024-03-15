@@ -82,7 +82,7 @@ function Page() {
               <TableAction></TableAction>
             </div>
           </div>
-          <div>
+          <div className="flex flex-col">
             <div className="flex text-white">
               <button
                 className={`py-10 text-2xl container-total  ${activeButton === "deposit" ? "bg-indigo-900" : ""}`}
@@ -97,11 +97,11 @@ function Page() {
                 Withdraw
               </button>
             </div>
-            <div className="w-fit h-[447px] flex flex-col justify-between container-total my-16 text-white px-8 py-6">
+            <div className=" h-[447px] flex flex-col justify-between container-total my-16 text-white px-8 py-6">
               <span className="text-2xl">Borrow</span>
               <Button>Request Loan</Button>
             </div>
-            <div className="container-total w-fit h-[447px] pl-8 pr-14 py-6 my-16 text-white">
+            <div className="container-total h-[447px] pl-8 pr-28 py-6 my-16 text-white">
               <span className="text-2xl">Stakers</span>
               {stakers.map(element => (
                 <>
@@ -112,8 +112,26 @@ function Page() {
                 </>
               ))}
             </div>
-            <div className="container-total w-fit h-[254px] px-8 py-6 my-16 text-white">
-              <span className="text-2xl">Group Messages</span>
+            <div className="px-8 py-6 my-16 text-white container-total h-fit">
+              <div className="flex justify-between">
+                <span className="text-2xl">Group Messages</span>
+                <span className="text-[#9135F5] text-xl">See all chat</span>
+              </div>
+              <div className="flex gap-24 my-6">
+                <div className="flex gap-4">
+                  
+                    <Image src="/avatar1.png" alt="avatar" width={63} height={63} className="rounded-full"></Image>
+                  
+                  <div className="flex flex-col gap-1">
+                    <span>RequestLoanID</span>
+                    <span>0x70997...c79C8 : Hi hihihi...</span>
+                  </div>
+                </div>
+                <div>
+                  <span>Today, 9.52pm</span>
+                  <div className="rounded-full bg-[#F24E1E] w-[20px] h-[20px] flex items-center justify-center">1</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

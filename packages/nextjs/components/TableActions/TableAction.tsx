@@ -37,7 +37,8 @@ export default function App() {
   const hasMore = perPage * page < allDataArray.length;
 
   return (
-    <table
+    <Table
+      isHeaderSticky
       aria-label="Example table with client side sorting"
       bottomContent={
         hasMore ? (
@@ -50,7 +51,7 @@ export default function App() {
         ) : null
       }
       classNames={{
-        base: "max-h-[420px] container-total text-white base-classes",
+        base: "max-h-[420px] container-total text-white",
         table: "min-h-[420px] bg-transparent table-classes ",
         thead: "thead-classes bg-transparent border-b-1 border-[#374B6D] relative",
         tbody: "tbody-classes bg-transparent",
@@ -82,6 +83,6 @@ export default function App() {
           </TableRow>
         ))}
       </TableBody>
-    </table>
+    </Table>
   );
 }
