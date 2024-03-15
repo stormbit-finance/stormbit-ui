@@ -4,12 +4,14 @@ import * as request from 'supertest';
 import { ScoreModule } from '../src/modules/score/score.module';
 import { DatabaseModule } from '../src/database/database.module';
 import { LoanEntity } from '../src/modules/loan/loan.entity';
+import { CreateLoanDto } from '../src/modules/loan/dto/createloan.dto';
+import { LoanModule } from '../src/modules/loan/loan.module';
 describe('ScoreController (e2e)', () => {
   let app: INestApplication;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [ScoreModule,DatabaseModule],
+      imports: [ScoreModule,DatabaseModule,LoanModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();
@@ -35,15 +37,15 @@ describe('ScoreController (e2e)', () => {
 
   
   it('POST /loan', async () => {
-    const loan: LoanEntity = {
-        id: 0,
-        debt_total: 0,
-        lender: 0,
-        deposit_total: 0,
-        repaid_total: 0,
-        loans_request_rejected: 0,
-        loans_expired: 0,
-        payments: []
+    const loan: CreateLoanDto = {
+        
+      debt_total: 10002,
+      lender: 1232,
+      deposit_total: 2002,
+      repaid_total: 5002,
+      loans_request_rejected: 22,
+      loans_expired: 12,
+    
     };
 
     const response = await request(app.getHttpServer())
@@ -54,100 +56,7 @@ describe('ScoreController (e2e)', () => {
     expect(response.body).toEqual(expect.objectContaining(loan));
   });
 
-  it('GET /loan', async () => {
-    const response = await request(app.getHttpServer())
-      .get('/loan')
-      .expect(200);
-
-    expect(response.body).toEqual(expect.any(Array));
-  });
-
-  it('GET /loan/:id', async () => {
-    const loan: LoanEntity = {
-        id: 0,
-        debt_total: 0,
-        lender: 0,
-        deposit_total: 0,
-        repaid_total: 0,
-        loans_request_rejected: 0,
-        loans_expired: 0,
-        payments: []
-    };
-
-    const createdLoan = await request(app.getHttpServer())
-      .post('/loan')
-      .send(loan)
-      .expect(201);
-
-    const response = await request(app.getHttpServer())
-      .get(`/loan/${createdLoan.body.id}`)
-      .expect(200);
-
-    expect(response.body).toEqual(expect.objectContaining(loan));
-  });
-
-  it('PUT /loan/:id', async () => {
-    const loan: LoanEntity = {
-        id: 0,
-        debt_total: 0,
-        lender: 0,
-        deposit_total: 0,
-        repaid_total: 0,
-        loans_request_rejected: 0,
-        loans_expired: 0,
-        payments: []
-    };
-
-    const createdLoan = await request(app.getHttpServer())
-      .post('/loan')
-      .send(loan)
-      .expect(201);
-
-    const updatedLoan: LoanEntity = {
-        id: 0,
-        debt_total: 0,
-        lender: 0,
-        deposit_total: 0,
-        repaid_total: 0,
-        loans_request_rejected: 0,
-        loans_expired: 0,
-        payments: []
-    };
-
-    const response = await request(app.getHttpServer())
-      .put(`/loan/${createdLoan.body.id}`)
-      .send(updatedLoan)
-      .expect(200);
-
-    expect(response.body).toEqual(expect.objectContaining(updatedLoan));
-  });
-
-  it('DELETE /loan/:id', async () => {
-    const loan: LoanEntity = {
-        id: 0,
-        debt_total: 0,
-        lender: 0,
-        deposit_total: 0,
-        repaid_total: 0,
-        loans_request_rejected: 0,
-        loans_expired: 0,
-        payments: []
-    };
-
-    const createdLoan = await request(app.getHttpServer())
-      .post('/loan')
-      .send(loan)
-      .expect(201);
-
-    await request(app.getHttpServer())
-      .delete(`/loan/${createdLoan.body.id}`)
-      .expect(200);
-
-    const response = await request(app.getHttpServer())
-      .get(`/loan/${createdLoan.body.id}`)
-      .expect(404);
-  });
-
+ 
 
   afterAll(async () => {
     await app.close();

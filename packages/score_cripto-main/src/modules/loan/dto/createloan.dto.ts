@@ -2,11 +2,11 @@ import { IsNotEmpty, IsNumber, Min, IsString, IsDateString, IsBoolean } from 'cl
 
 export class CreateLoanDto {
   @IsNotEmpty()
-  @IsString()
+  @IsNumber()
   debt_total: number;
 
   @IsNotEmpty()
-  @IsString()
+  @IsNumber()
   lender: number;
   @IsNotEmpty()
   @IsNumber()
@@ -20,11 +20,11 @@ export class CreateLoanDto {
   repaid_total: number;
 
   @IsNotEmpty()
-  @IsDateString()
+ 
   loans_request_rejected: number;
 
   @IsNotEmpty()
-  @IsDateString()
+ 
 loans_expired: number;
 
 

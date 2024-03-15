@@ -12,9 +12,7 @@ export class PaymentEntity {
   @Column({ type: 'timestamp' })
   paymentDate: Date;
 
-  @ManyToOne(() => LoanEntity, loan => loan.payments)
-  @JoinColumn({ name: 'loanId' })
-  loan: LoanEntity;
+ 
 
   @Column()
   loanId: number;

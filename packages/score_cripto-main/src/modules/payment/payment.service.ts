@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PaymentEntity } from './payment.entity';
 import { Repository } from 'typeorm';
+import { CreatePaymentDto } from './dto/createpayment.dto';
 
 @Injectable()
 export class PaymentService {constructor(
@@ -9,15 +10,7 @@ export class PaymentService {constructor(
     private paymentRepository: Repository<PaymentEntity>,
   ) {}
 
-  async createFiatPayment(payment: PaymentEntity): Promise<PaymentEntity> {
-    return this.paymentRepository.save(payment);
-  }
-
-  async createCryptoPayment(payment: PaymentEntity): Promise<PaymentEntity> {
-    return this.paymentRepository.save(payment);
-  }
-
-  async createRatesPayment(payment: PaymentEntity): Promise<PaymentEntity> {
+  async createPayment(payment: CreatePaymentDto): Promise<CreatePaymentDto> {
     return this.paymentRepository.save(payment);
   }
 

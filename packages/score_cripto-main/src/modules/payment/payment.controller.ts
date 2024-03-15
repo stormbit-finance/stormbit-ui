@@ -1,11 +1,17 @@
-import { Controller, Get, Param, Put,Delete, Body } from '@nestjs/common';
+import { Controller, Get, Param, Put,Delete, Body,Post } from '@nestjs/common';
 import { PaymentService } from './payment.service';
 import { PaymentEntity } from './payment.entity';
+import { CreatePaymentDto } from './dto/createpayment.dto';
 
 @Controller('payment')
 export class PaymentController {
 
     constructor(private readonly paymentService: PaymentService) {}
+
+    @Post()
+        async createLoan(@Body() loan: CreatePaymentDto): Promise<CreatePaymentDto> {
+          return this.paymentService.createPayment(loan);
+        }
 
     @Get()
     async getAllPayments(): Promise<PaymentEntity[]> {

@@ -3,6 +3,7 @@ import { Controller,Post, Get, Param, Put,Delete, Body, UseGuards } from '@nestj
 import { LoanService } from './loan.service';
 import { LoanEntity } from './loan.entity';
 import { AuthGuard } from '@nestjs/passport';
+import { CreateLoanDto } from './dto/createloan.dto';
 
 @Controller('loan')
 
@@ -10,12 +11,12 @@ import { AuthGuard } from '@nestjs/passport';
         constructor(private readonly loanService: LoanService) {}
       
         @Post()
-        async createLoan(@Body() loan: LoanEntity): Promise<LoanEntity> {
+        async createLoan(@Body() loan: CreateLoanDto): Promise<CreateLoanDto> {
           return this.loanService.createLoan(loan);
         }
       
         @Get()
-        
+        @UseGuards(AuthGuard('jwt'))
         async getAllLoans(): Promise<LoanEntity[]> {
           return this.loanService.getAllLoans();
         }

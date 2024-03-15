@@ -9,6 +9,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { HealthModule } from './modules/health/health.module';
 import { ScoreModule } from './modules/score/score.module';
 import { LoanModule } from './modules/loan/loan.module';
+import { PaymentModule } from './modules/payment/payment.module';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { LoanModule } from './modules/loan/loan.module';
       isGlobal:true,
       envFilePath:'.env',
     }),
-    DatabaseModule,UserModule,AuthModule,HealthModule,ScoreModule,LoanModule],
+    DatabaseModule,UserModule,AuthModule,HealthModule,ScoreModule,LoanModule,PaymentModule],
   controllers: [AppController],
   providers: [AppService],
 })

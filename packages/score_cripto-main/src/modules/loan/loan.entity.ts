@@ -25,6 +25,4 @@ export class LoanEntity {
   loans_expired: number;
 
 
-  @OneToMany(() => PaymentEntity, payment => payment.loan)
-  payments: PaymentEntity[];
 }
