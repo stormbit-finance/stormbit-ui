@@ -73,12 +73,18 @@ input{
 }
 
 .bg-landing{
-  width: 100%;
-  background-image: url('/bg-landing.png');
-  background-position: top;
-  background-repeat: no-repeat;
-  /* backdrop-filter: blur(26.238304138183594px); */
+  background: rgb(7,8,23);
+  background: linear-gradient(306deg, rgba(7,8,23,0) 71%, rgba(111,68,162,0.6209077380952381) 100%);
+  height: 100vh;
+ /*width: 1920px;*/
+
 }
+
+.bg-landing-banner-2{
+  background: rgb(7,8,23);
+  background: linear-gradient(22deg, rgba(7,8,23,1) 66%, rgba(122,72,181,0.22) 90%);
+}
+
 
 .metrics{
   background-image: url('/rectangle.png');
@@ -92,9 +98,9 @@ input{
 }
 
 .roadmap{
-  width: 100vw;
-  padding-block-start: 10rem;
+  width: 1920px;
   height: fit-content;
+  padding-block-start: 10rem;
   background-image: url('/roadd.png');
   background-size: cover;
   background-position: center;
@@ -108,7 +114,8 @@ input{
 }
 
 .bg-form{
-  width: 100vw;
+  max-width: 1920px;
+  width: 100%;
   background-image: url('/bg-form.png');
   background-size: cover;
 }
@@ -117,8 +124,8 @@ input{
   border-radius: 20px;
   background-image: url('/Card.png');
   background-size: cover;
-  /* box-shadow: 5px 5px 30px 0px rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(2px); */
+  max-width: 1920px;
+  width: 100%;
 }
 
 .container-total{
@@ -128,4 +135,34 @@ input{
   backdrop-filter: blur(7px);
   border-radius: 1rem;
 }
+
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30%;
+  height: 50%;
+  background-size: 50px 50px;
+  background-image:
+          linear-gradient(to right, rgba(255, 255, 255, 0.10) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(255, 255, 255, 0.10) 1px, transparent 1px);
+}
+
+
+.highlight {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-color: rgba(255, 255, 255, 0.30);
+  opacity: 2;
+  transition: opacity 0.5s;
+}
+
+.bg-header{
+  background: rgb(0,0,0);
+  background: linear-gradient(180deg, rgba(7,8,23,0) 71%, rgba(111,68,162,0.22) 100%)
+}
+
+
 

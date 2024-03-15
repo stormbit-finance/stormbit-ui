@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { Space_Grotesk } from "@next/font/google";
 import { NextUIProvider } from "@nextui-org/react";
-import { RainbowKitProvider} from "@rainbow-me/rainbowkit";
+import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { Toaster } from "react-hot-toast";
 import { WagmiConfig } from "wagmi";
 import { Footer } from "~~/components/Footer";
@@ -31,7 +31,7 @@ const ScaffoldEthApp = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <>
-      <div className="flex flex-col w-screen bg-landing">
+      <div className="flex flex-col items-center bg-[#070817]">
         <Header />
         <main className={`flex flex-col items-center h-screen flex-1 ${spaceGrotesk.className}`}>{children}</main>
         <Footer />
