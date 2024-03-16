@@ -90,9 +90,9 @@ export const Header = () => {
 
   return (
     <>
-      <div className="max-w-[1920px] w-full">
-        <div>
-          <div className=" flex justify-between items-center 0 min-h-0 p-6 text-white bg-header shadow-md lg:static navbar sm:px-2">
+      <div className="w-full bg-header shadow-md ">
+        <div className="flex items-center justify-center">
+          <div className=" flex justify-between items-center 0 min-h-0 p-6 text-white lg:static navbar sm:px-2 max-w-[1920px] w-full">
             <div className="flex gap-3">
               <Link href="/" passHref className="items-center hidden gap-2 ml-4 mr-6 lg:flex shrink-0">
                 <div>
@@ -104,43 +104,42 @@ export const Header = () => {
               </ul>
             </div>
             <div className="flex-grow gap-8 mr-4 navbar-end">
-              <div className="flex gap-[10px] ">
-                <div className="flex gap-[20px]">
-                  <div className="flex flex-col items-center gap-[6px]">
-                    <button
-                      className="border min-w-[90px] w-full rounded-xl px-2"
-                      onClick={() => {
-                        mintDAI();
-                      }}
-                    >
-                      Mint DAI
-                    </button>
-                    <span>Balance DAI: {balanceDai} </span>
-                  </div>
-                  <div className="flex flex-col items-center gap-[6px]">
-                    <button
-                      className="border min-w-[90px] w-full rounded-xl px-2"
-                      onClick={() => {
-                        mintETH();
-                      }}
-                    >
-                      Mint ETH
-                    </button>
-                    <span>Balance ETH: {balanceEth}</span>
-                  </div>
-                  <div className="flex flex-col items-center gap-[6px]">
-                    <button
-                      className="border min-w-[90px] w-full rounded-xl px-2"
-                      onClick={() => {
-                        mintBTC();
-                      }}
-                    >
-                      Mint BTC
-                    </button>
-                    <span>Balance BTC: {balanceBtc}</span>
-                  </div>
+              <div className="flex gap-[20px]">
+                <div className="flex flex-col items-center gap-[6px]">
+                  <button
+                    className="border min-w-[90px] w-full rounded-xl px-2"
+                    onClick={() => {
+                      mintDAI();
+                    }}
+                  >
+                    Mint DAI
+                  </button>
+                  <span>Balance DAI: {balanceDai} </span>
+                </div>
+                <div className="flex flex-col items-center gap-[6px]">
+                  <button
+                    className="border min-w-[90px] w-full rounded-xl px-2"
+                    onClick={() => {
+                      mintETH();
+                    }}
+                  >
+                    Mint ETH
+                  </button>
+                  <span>Balance ETH: {balanceEth}</span>
+                </div>
+                <div className="flex flex-col items-center gap-[6px]">
+                  <button
+                    className="border min-w-[90px] w-full rounded-xl px-2"
+                    onClick={() => {
+                      mintBTC();
+                    }}
+                  >
+                    Mint BTC
+                  </button>
+                  <span>Balance BTC: {balanceBtc}</span>
                 </div>
               </div>
+
               <Link href="/register" className="border w-[150px] rounded-xl px-2">
                 Launch App
               </Link>
