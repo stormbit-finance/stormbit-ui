@@ -83,25 +83,29 @@ function Page() {
             </div>
           </div>
           <div className="flex flex-col">
-            <div className="flex text-white">
+            <div className="flex justify-center text-white container-total">
               <button
-                className={`py-10 text-2xl container-total  ${activeButton === "deposit" ? "bg-indigo-900" : ""}`}
+                className={`py-10 flex-1 rounded-l-2xl text-2xl ${activeButton === "deposit" ? "bg-[#23233D]" : ""}`}
                 onClick={() => handleButtonClick("deposit")}
               >
                 Deposit
               </button>
               <button
-                className={`py-10 text-2xl container-total  ${activeButton === "withdraw" ? "bg-indigo-900" : ""}`}
+                className={`py-10 flex-1 rounded-r-2xl text-2xl ${activeButton === "withdraw" ? "bg-[#23233D]" : ""}`}
                 onClick={() => handleButtonClick("withdraw")}
               >
                 Withdraw
               </button>
             </div>
-            <div className=" h-[447px] flex flex-col justify-between container-total my-16 text-white px-8 py-6">
+            <div className="flex flex-col justify-between gap-4 px-8 py-6 my-16 text-white container-total">
               <span className="text-2xl">Borrow</span>
+              <div className="flex mt-4 justify-between border-y-1 border-[#374B6D] text-[#374B6D] py-7 px-4">
+                <span>Position status</span>
+                <span>-</span>
+              </div>
               <Button>Request Loan</Button>
             </div>
-            <div className="container-total h-[447px] pl-8 pr-28 py-6 my-16 text-white">
+            <div className="py-6 pl-8 my-16 text-white container-total h-fit pr-28">
               <span className="text-2xl">Stakers</span>
               {stakers.map(element => (
                 <>
@@ -119,9 +123,7 @@ function Page() {
               </div>
               <div className="flex gap-24 my-6">
                 <div className="flex gap-4">
-                  
-                    <Image src="/avatar1.png" alt="avatar" width={63} height={63} className="rounded-full"></Image>
-                  
+                  <Image src="/avatar1.png" alt="avatar" width={63} height={63} className="rounded-full"></Image>
                   <div className="flex flex-col gap-1">
                     <span>RequestLoanID</span>
                     <span>0x70997...c79C8 : Hi hihihi...</span>
