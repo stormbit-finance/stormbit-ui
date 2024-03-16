@@ -38,8 +38,9 @@
     "usehooks-ts@^2.7.2": "patch:usehooks-ts@npm:^2.7.2#./.yarn/patches/usehooks-ts-npm-2.7.2-fceffe0e43.patch"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5",
     "@types/passport": "^0",
-    "@types/passport-jwt": "^4",
+    "@types/passport-jwt": "^4.0.1",
     "husky": "~8.0.3",
     "lint-staged": "~13.2.2"
   },
@@ -47,6 +48,7 @@
   "dependencies": {
     "@nestjs/jwt": "^10.2.0",
     "@nestjs/passport": "^10.0.3",
+    "bcrypt": "^5.1.1",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1"
   }

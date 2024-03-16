@@ -11,4 +11,10 @@ export class JwtauthController {
       const token = await this.authService.generateToken(payload);
       return { access_token: token };
     }
+    @Post('Register')
+    async Register(@Body() body: any) {
+      const payload = { username: body.username, sub: body.userId };
+      const token = await this.authService.generateToken(payload);
+      return { access_token: token };
+    }
 }
