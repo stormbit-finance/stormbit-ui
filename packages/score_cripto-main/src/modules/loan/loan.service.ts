@@ -3,6 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { LoanEntity } from './loan.entity';
 import { Repository } from 'typeorm';
 import { CreateLoanDto } from './dto/createloan.dto';
+import { updateScoreDto } from '../score/dto/update-score.dto';
+import { updatedLoanDto } from './dto/updateloan.dto';
 
 @Injectable()
 export class LoanService {
@@ -24,7 +26,7 @@ export class LoanService {
         return this.loanRepository.findOne({where:{id}});
       }
     
-      async updateLoan(id: number, updatedLoan: LoanEntity): Promise<LoanEntity> {
+      async updateLoan(id: number, updatedLoan: updatedLoanDto) {
         const loan = await this.loanRepository.findOne({where:{id}});
         if (!loan) {
           throw new Error(`Loan with id ${id} not found`);

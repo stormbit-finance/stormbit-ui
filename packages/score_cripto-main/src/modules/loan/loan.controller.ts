@@ -1,9 +1,10 @@
 
-import { Controller,Post, Get, Param, Put,Delete, Body, UseGuards } from '@nestjs/common';
+import { Controller,Post, Get, Param, Put,Delete, Body, UseGuards, Patch } from '@nestjs/common';
 import { LoanService } from './loan.service';
 import { LoanEntity } from './loan.entity';
 import { AuthGuard } from '@nestjs/passport';
 import { CreateLoanDto } from './dto/createloan.dto';
+import { updatedLoanDto } from './dto/updateloan.dto';
 
 @Controller('loan')
 
@@ -16,7 +17,7 @@ import { CreateLoanDto } from './dto/createloan.dto';
         }
       
         @Get()
-        @UseGuards(AuthGuard('jwt'))
+      
         async getAllLoans(): Promise<LoanEntity[]> {
           return this.loanService.getAllLoans();
         }
@@ -26,8 +27,8 @@ import { CreateLoanDto } from './dto/createloan.dto';
           return this.loanService.getLoanById(id);
         }
       
-        @Put(':id')
-        async updateLoan(@Param('id') id: number, @Body() updatedLoan: LoanEntity): Promise<LoanEntity> {
+        @Patch(':id')
+        async updateLoan(@Param('id') id: number, @Body() updatedLoan: updatedLoanDto){
           return this.loanService.updateLoan(id, updatedLoan);
         }
       

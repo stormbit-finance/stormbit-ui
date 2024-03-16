@@ -28,6 +28,7 @@ getUserById(@Param('id') id:number){
 deleteUser(@Param('id') id:number){
     return this.userService.deleteUser(id);
 }
+
 @Patch('/:id')
 updateUser(@Param('id') id:number,@Body() user:updateUserDto){
     return this.userService.updateUser(id,user);
