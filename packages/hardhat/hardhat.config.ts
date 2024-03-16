@@ -150,6 +150,10 @@ const config: HardhatUserConfig = {
       url: "https://erpc.apothem.network",
       accounts: [deployerPrivateKey, lenderPrivateKey, borrowerPrivateKey],
     },
+    auroraTestnet: {
+      url: "https://testnet.aurora.dev",
+      accounts: [deployerPrivateKey, lenderPrivateKey, borrowerPrivateKey],
+    },
   },
   // configuration for harhdat-verify plugin
   etherscan: {
