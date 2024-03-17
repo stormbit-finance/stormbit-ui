@@ -34,12 +34,12 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
 
   // this is for testing purposes
   const devTeamAddress = [
-    "0x2B7E4B80A1C217cCe8f749d5c4fF226AEB1c79DC",
-    "0x4F429734435d52a3932FdaddBd302196b9dad139",
-    "0xFF0A137c33cf8C135477952A803168242778F6A5",
+    // "0x2B7E4B80A1C217cCe8f749d5c4fF226AEB1c79DC",
+    // "0x4F429734435d52a3932FdaddBd302196b9dad139",
+    // "0xFF0A137c33cf8C135477952A803168242778F6A5",
     deployer,
-    lender,
-    borrower,
+    // lender,
+    // borrower,
   ];
 
   let MockToken = await hre.ethers.getContract<Contract>("MockToken", deployer);

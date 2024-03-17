@@ -153,6 +153,22 @@ const config: HardhatUserConfig = {
     auroraTestnet: {
       url: "https://testnet.aurora.dev",
       accounts: [deployerPrivateKey, lenderPrivateKey, borrowerPrivateKey],
+      verify: {
+        etherscan: {
+          apiUrl: "https://explorer.aurora.dev/api",
+          apiKey: `${etherscanApiKey}`,
+        },
+      },
+    },
+    auroraMainnet: {
+      url: "https://mainnet.aurora.dev",
+      accounts: [deployerPrivateKey, lenderPrivateKey, borrowerPrivateKey],
+      verify: {
+        etherscan: {
+          apiUrl: "https://explorer.mainnet.aurora.dev/api",
+          apiKey: `${etherscanApiKey}`,
+        },
+      },
     },
   },
   // configuration for harhdat-verify plugin
@@ -160,6 +176,16 @@ const config: HardhatUserConfig = {
     apiKey: {
       avalancheFuji: "snowtrace", // apiKey is not required, just set a placeholder
     },
+    customChains: [
+      {
+        network: "auroraTestnet",
+        chainId: 1313161555,
+        urls: {
+          apiURL: "https://explorer.aurora.dev/api",
+          browserURL: "https://explorer.aurora.dev/",
+        },
+      },
+    ],
   },
   // configuration for etherscan-verify from hardhat-deploy plugin
   verify: {
