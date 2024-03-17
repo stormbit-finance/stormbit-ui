@@ -126,6 +126,10 @@ const config: HardhatUserConfig = {
       url: "https://goerli.base.org",
       accounts: [deployerPrivateKey],
     },
+    baseSepolia: {
+      url: "https://base-sepolia-rpc.publicnode.com",
+      accounts: [deployerPrivateKey, lenderPrivateKey, borrowerPrivateKey],
+    },
     scrollSepolia: {
       url: "https://sepolia-rpc.scroll.io",
       accounts: [deployerPrivateKey],
