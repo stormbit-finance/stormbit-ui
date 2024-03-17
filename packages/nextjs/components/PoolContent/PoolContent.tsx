@@ -54,7 +54,7 @@ export default function PoolContent() {
         ))}
       </div>
 
-      <div className="flex gap-2 text-lg text-white">
+      <div className="flex items-center justify-center gap-2 text-lg text-white">
         <Button
           size="md"
           variant="flat"
@@ -68,6 +68,17 @@ export default function PoolContent() {
           color="secondary"
           page={currentPage}
           onChange={setCurrentPage}
+          classNames={{
+            base: "",
+            prev: "prev-classes", // prev button classes
+            item: "item-classes bg-transparent text-white border border-[#BCBCBC] w-[64px] h-[64px] rounded-[6px] gap",
+            next: "next-classes", // next button classes
+            cursor: "cursor-classes bg-[#9135F5] w-[64px] h-[64px] rounded-[6px]", // this is the one that moves when an item is selected
+            forwardIcon: "forward-icon-classes", // forward icon
+            ellipsis: "ellipsis-classes", // ellipsis icon
+            chevronNext: "chevron-next-classes",
+            wrapper:"gap-4" // chevron next icon
+          }}
         />
         <Button
           size="md"

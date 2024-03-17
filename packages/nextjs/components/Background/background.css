@@ -1,0 +1,16 @@
+.cell:hover {
+    background-color: rgba(255, 255, 255, 0.164);
+    transition: background-color 0.5s ease-in-out;
+}
+
+.cell{
+    background-color: transparent;
+    transition: background-color 8s ease-in-out; 
+
+}
+
+.grid-container{
+    width: 100%;
+    order: 0;
+    opacity: 4;
+}

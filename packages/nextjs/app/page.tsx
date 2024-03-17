@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import type { NextPage } from "next";
+import Grid from "~~/components/Background/Background";
 import CarruselTweets from "~~/components/CarruselTweets/CarruselTweets";
 import { Footer } from "~~/components/Footer";
 
@@ -62,7 +62,8 @@ const Home: NextPage = () => {
     <>
       <div>
         <div>
-          <div className="bg-landing flex items-center justify-center py-[80px]">
+          <div className="bg-landing flex items-center justify-center py-[80px] relative">
+          <Grid numRows={13} numCols={15} />
             <div className="max-w-[1920px] flex items-center flex-col justify-center w-full ">
               <div className="flex items-center justify-around w-full ">
                 <div>
@@ -78,7 +79,7 @@ const Home: NextPage = () => {
               </div>
               <div className="flex flex-col items-center justify-center gap-20 w-full h-[520px] py-[80px] ">
                 <h2 className="text-5xl text-white">Metrics based on Avalanche</h2>
-                <div className="flex items-center w-full justify-center gap-32">
+                <div className="flex items-center justify-center w-full gap-32">
                   {metrics.map(element => (
                     <div
                       key={element.name}
@@ -92,7 +93,7 @@ const Home: NextPage = () => {
               </div>
             </div>
           </div>
-
+        
           <div className="flex flex-col items-center py-[80px] ">
             <div className="max-w-[1920px] w-full flex items-center flex-col gap-[20px]">
               <h2 className="text-5xl font-bold text-white">Extensions</h2>
@@ -118,7 +119,7 @@ const Home: NextPage = () => {
           <div className="flex flex-col items-center pt-[60px] pb-[80px]">
             <div className="max-w-[1920px] w-full flex-col flex items-center gap-[20px]">
               <h2 className="text-5xl font-bold text-white">Core Technology</h2>
-              <div className="flex w-full items-center justify-center gap-24">
+              <div className="flex items-center justify-center w-full gap-24">
                 {technology.map(element => (
                   <div
                     key={element.name}

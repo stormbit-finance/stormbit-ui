@@ -34,8 +34,8 @@ const BlockExplorer: NextPage = () => {
   ];
 
   return (
-    <>
-      <div className="flex flex-col gap-6 bg-[#070817] w-screen p-10">
+    <div>
+      <div className="flex flex-col gap-6 bg-[#070817] max-w-[1920px] w-screen p-10">
         <div className="flex justify-end">
           <div className="flex items-center justify-center gap-2">
             <div className="flex rounded-[5px] border border-solid border-[#A8B1C8] px-4 justify-center items-center">
@@ -74,7 +74,7 @@ const BlockExplorer: NextPage = () => {
         </div>
         {isModalOpen && <CreationModal setIsModalOpen={() => setIsModalOpen(false)}></CreationModal>}
       </div>
-    </>
+    </div>
   );
 };
 

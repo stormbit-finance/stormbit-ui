@@ -5,7 +5,7 @@ import Button from "~~/components/Button/Button";
 
 function Page() {
   return (
-    <div className="min-h-screen flex justify-center items-center bg-[#070817] w-screen">
+    <div className="flex items-center justify-center min-h-[900px]">
       <div className="w-[900px] rounded-[5px] bg-[#16182E] text-white p-16 flex flex-col gap-4">
         <h1 className="text-4xl font-bold">Create your Account</h1>
         <div>

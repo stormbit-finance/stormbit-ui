@@ -55,7 +55,7 @@ function Page() {
             <div className="w-fit container-total">
               <Analytics></Analytics>
             </div>
-            <div className="flex gap-11">
+            <div className="flex justify-between">
               <div className="flex flex-col gap-2 py-8 text-white container-total w-fit px-9">
                 <span className="text-xl">TVL</span>
                 <span className="text-2xl font-bold">$32.3706</span>
