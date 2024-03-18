@@ -32,6 +32,24 @@
 $ yarn install
 ```
 
+
+
+# Setting up environment variables
+
+cp .env.example .env
+
+#  Starting a local database
+
+```bash
+npm run docker:db:up
+```
+
+# Stopping a local database
+
+```bash
+npm run docker:db:down
+```
+
 ## Running the app
 
 ```bash
