@@ -41,13 +41,13 @@ cp .env.example .env
 #  Starting a local database
 
 ```bash
-npm run docker:db:up
+yarn docker:db:up
 ```
 
 # Stopping a local database
 
 ```bash
-npm run docker:db:down
+yarn docker:db:down
 ```
 
 ## Running the app
