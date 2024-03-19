@@ -2,6 +2,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Button from "../Button/Button";
 import CustomCheckbox from "../CustomCheckbox/CustomCheckbox";
+import SelectableButton from "../SelectableButton/SelectableButton";
 import "./CreationModal.css";
 import toast from "react-hot-toast";
 import { parseEther } from "viem";
@@ -98,13 +99,13 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
 
   const handleButton = (button: string) => {
     if (selectedButtonTime !== button) {
-      console.log(setSelectedButtonTime(button));
+      setSelectedButtonTime(button);
     }
   };
 
-  const handleClick = (string: string) => {
-    if (selectedCheckbox !== string) {
-      console.log(setSelectedCheckbox(string));
+  const handleClick = (value: string) => {
+    if (selectedCheckbox !== value) {
+      setSelectedCheckbox(value);
     }
   };
   return (
@@ -199,33 +200,21 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
                 </div>
               </div>
               <div className="flex gap-6 mt-6">
-                <button
-                  className={`py-4 px-9 rounded-[11px] border border-[#374B6D] ${
-                    selectedButtonTime === "3 days" ? "bg-[#9135F5] text-white border-none" : ""
-                  }`}
+                <SelectableButton
+                  text="3 days"
+                  selected={selectedButtonTime === "3 days"}
                   onClick={() => handleButton("3 days")}
-                  disabled={selectedButtonTime === "3 days"}
-                >
-                  3 days
-                </button>
-                <button
-                  className={`py-4 px-9 rounded-[11px] border border-[#374B6D] ${
-                    selectedButtonTime === "7 days" ? "bg-[#9135F5] text-white border-none" : ""
-                  }`}
+                />
+                <SelectableButton
+                  text="7 days"
+                  selected={selectedButtonTime === "7 days"}
                   onClick={() => handleButton("7 days")}
-                  disabled={selectedButtonTime === "7 days"}
-                >
-                  7 days
-                </button>
-                <button
-                  className={`py-4 px-9 rounded-[11px] border border-[#374B6D] ${
-                    selectedButtonTime === "15 days" ? "bg-[#9135F5] text-white border-none" : ""
-                  }`}
+                />
+                <SelectableButton
+                  text="15 days"
+                  selected={selectedButtonTime === "15 days"}
                   onClick={() => handleButton("15 days")}
-                  disabled={selectedButtonTime === "15 days"}
-                >
-                  15 days
-                </button>
+                />
               </div>
             </div>
             <div className="flex flex-col flex-1 gap-4">
