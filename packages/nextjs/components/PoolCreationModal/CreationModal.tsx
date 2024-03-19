@@ -2,6 +2,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Button from "../Button/Button";
 import CustomCheckbox from "../CustomCheckbox/CustomCheckbox";
+import SelectToken from "../SelectToken/SelectToken";
 import SelectableButton from "../SelectableButton/SelectableButton";
 import "./CreationModal.css";
 import toast from "react-hot-toast";
@@ -220,7 +221,7 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
             <div className="flex flex-col flex-1 gap-4">
               <label htmlFor="campo1">Token vault</label>
               <div className="flex items-center border border-[#374B6D] rounded-[14px]">
-                <input type="text" className="w-full p-5 bg-transparent border-none focus:outline-none" />
+                <SelectToken></SelectToken>
               </div>
             </div>
             <div className="flex flex-col flex-1 gap-4">
