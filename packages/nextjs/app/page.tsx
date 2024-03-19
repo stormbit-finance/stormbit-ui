@@ -61,9 +61,9 @@ const Home: NextPage = () => {
   return (
     <>
       <div>
-        <div>
-          <div className="bg-landing flex items-center justify-center py-[36px] relative">
-            <Grid numRows={13} cellWidth={72} />
+        <div className="bg-landing ">
+          <section className="flex items-center justify-center py-[36px] relative ">
+            <Grid numRows={15} numCols={30} />
             <div className="max-w-[1920px] flex items-center flex-col justify-center w-full ">
               <div className="flex items-center justify-around w-full ">
                 <div>
@@ -77,22 +77,22 @@ const Home: NextPage = () => {
                   <Image src="/scheme.png" alt="scheme" width={800} height={604} />
                 </div>
               </div>
-              <div className="flex flex-col items-center justify-center gap-20 w-full h-[520px] py-[80px] ">
-                <h2 className="text-5xl text-white">Metrics based on Avalanche</h2>
-                <div className="flex items-center justify-center w-full gap-32">
-                  {metrics.map(element => (
-                    <div
-                      key={element.name}
-                      className="flex flex-col items-center bg-transparent max-w-[423px] w-full gap-4 rounded-[69px] metrics"
-                    >
-                      <span className="mt-12 text-4xl font-medium text-white">{element.description}</span>
-                      <span className="text-[#3B3B3B] text-2xl font-medium">{element.name}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
             </div>
-          </div>
+          </section>
+          <section className="flex flex-col items-center justify-center gap-20 w-full h-[520px] py-[80px] ">
+            <h2 className="text-5xl text-white">Metrics based on Avalanche</h2>
+            <div className="flex items-center justify-center w-full gap-32">
+              {metrics.map(element => (
+                <div
+                  key={element.name}
+                  className="flex flex-col items-center bg-transparent max-w-[423px] w-full gap-4 rounded-[69px] metrics"
+                >
+                  <span className="mt-12 text-4xl font-medium text-white">{element.description}</span>
+                  <span className="text-[#3B3B3B] text-2xl font-medium">{element.name}</span>
+                </div>
+              ))}
+            </div>
+          </section>
 
           <div className="flex flex-col items-center py-[80px] ">
             <div className="max-w-[1920px] w-full flex items-center flex-col gap-[20px]">
@@ -116,7 +116,7 @@ const Home: NextPage = () => {
             </div>
           </div>
 
-          <div className="flex flex-col items-center pt-[60px] pb-[80px]">
+          <section className="flex flex-col items-center pt-[60px] pb-[80px]">
             <div className="max-w-[1920px] w-full flex-col flex items-center gap-[20px]">
               <h2 className="text-5xl font-bold text-white">Core Technology</h2>
               <div className="flex items-center justify-center w-full gap-24">
@@ -136,30 +136,9 @@ const Home: NextPage = () => {
                 ))}
               </div>
             </div>
-          </div>
+          </section>
 
-          <div className="flex flex-col items-center my-40 roadmap pt-[60px]">
-            <div className="max-w-[1920px] flex flex-col items-center w-full gap-[30px]">
-              <h2 className="text-5xl font-bold text-white">Roadmap</h2>
-              <Image src="/map.png" alt="map" width={1467} height={115} />
-              <div className="flex flex-wrap w-[1500px] gap-8 justify-center">
-                <div className="w-[469px] h-[91px] credit rounded-3xl flex items-center justify-center">
-                  <span className="text-xl font-medium text-white">Credit Score Aggregation</span>
-                </div>
-                <div className="w-[469px] h-[91px] credit rounded-3xl flex items-center justify-center">
-                  <span className="text-xl font-medium text-white">Cross-chain Governance For Lenders</span>
-                </div>
-                <div className="w-[469px] h-[91px] credit rounded-3xl flex items-center justify-center">
-                  <span className="text-xl font-medium text-white">Public Tesnet</span>
-                </div>
-                <div className="w-[469px] h-[91px] credit rounded-3xl flex items-center justify-center">
-                  <span className="text-xl font-medium text-white">SBIT Token Faucet on multiple chains</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-col items-center py-[60px]">
+          <section className="flex flex-col items-center py-[60px]">
             <div className="max-w-[1920px] flex flex-col items-center w-full">
               <div className="flex gap-6">
                 <h2 className="text-5xl font-bold text-white">Tweets</h2>
@@ -174,9 +153,9 @@ const Home: NextPage = () => {
                 </button>
               </div>
             </div>
-          </div>
+          </section>
 
-          <div className="flex flex-col items-center bg-form pt-[60px] pb-[80px]">
+          <section className="flex flex-col items-center bg-form pt-[60px] pb-[80px]">
             <div className="max-w-[1920px] w-full flex flex-col items-center justify-center">
               <div className="flex flex-col justify-center items-center gap-20 w-[1514px] h-[460px] container-subscribe">
                 <h2 className="text-5xl font-bold text-white">Keep Updated</h2>
@@ -189,7 +168,7 @@ const Home: NextPage = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </section>
         </div>
         <Footer></Footer>
       </div>
