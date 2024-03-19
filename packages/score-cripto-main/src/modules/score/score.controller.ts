@@ -31,7 +31,7 @@ export class ScoreController {
       @Query('username') username: string,
       @Query('password') password: string,
     ): Promise<string> {
-      return this.scoreService.obtenerToken(username, password);
+      return this.scoreService.getToken(username, password);
     }
   
     @Get('score')

@@ -26,7 +26,7 @@ export class ScoreService {
       ) {}
     
     
-  async obtenerToken(username: string, password: string): Promise<string> {
+  async getToken(username: string, password: string): Promise<string> {
     const url = 'https://risk.credprotocol.com/api/token/auth/create/'; 
     const parametros = new URLSearchParams();
     parametros.append('username', username);
