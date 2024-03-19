@@ -90,7 +90,7 @@ export const Header = () => {
 
   return (
     <>
-      <div className="w-full bg-header shadow-md ">
+      <div className="z-10 w-full shadow-md bg-header">
         <div className="flex items-center justify-center">
           <div className=" flex justify-between items-center 0 min-h-0 p-6 text-white lg:static navbar sm:px-2 max-w-[1920px] w-full">
             <div className="flex gap-3">

@@ -11,6 +11,6 @@
 
 .grid-container{
     width: 100%;
-    order: 0;
+    top: 0;
     opacity: 4;
 }
