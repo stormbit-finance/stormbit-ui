@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Button from "../Button/Button";
-import DropdownButton from "../DropdownButton/DropdownButton";
+import CustomCheckbox from "../CustomCheckbox/CustomCheckbox";
 import "./CreationModal.css";
 import toast from "react-hot-toast";
 import { parseEther } from "viem";
@@ -24,6 +24,8 @@ interface ModalProps {
   setIsModalOpen: () => void;
 }
 const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
+  const [selectedButtonTime, setSelectedButtonTime] = useState("");
+  const [selectedCheckbox, setSelectedCheckbox] = useState("");
   const { address } = useAccount();
   const [showInfo, setShowInfo] = useState(false);
   const [poolConfig, setPoolConfig] = useState<PoolConfig>({
@@ -94,6 +96,17 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
     blockConfirmations: 0,
   });
 
+  const handleButton = (button: string) => {
+    if (selectedButtonTime !== button) {
+      console.log(setSelectedButtonTime(button));
+    }
+  };
+
+  const handleClick = (string: string) => {
+    if (selectedCheckbox !== string) {
+      console.log(setSelectedCheckbox(string));
+    }
+  };
   return (
     <div className="container-modal">
       <div className="gap-4 content-modal">
@@ -124,7 +137,7 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
             </div>
             <div className="flex items-center">
               <label htmlFor="campo2" className="w-1/5 text-xl">
-                Owner
+                Manager
               </label>
               <input
                 value={poolConfig.owner}
@@ -137,7 +150,7 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
             </div>
             <div className="flex gap-16">
               <div className="flex-1">
-                <label htmlFor="campo3">Min Credit Score</label>
+                <label htmlFor="campo3">Manager Fee</label>
                 <div className="flex items-center gap-5 ">
                   <input
                     type="range"
@@ -153,7 +166,7 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
                 </div>
               </div>
               <div className="flex-1">
-                <label htmlFor="campo4">Max Amount Of Stakers</label>
+                <label htmlFor="campo4">Max Pool Usage</label>
                 <div className="flex items-center gap-5 ">
                   <input
                     type="range"
@@ -169,130 +182,94 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
                 </div>
               </div>
             </div>
-            <div className="flex gap-16">
-              <div className="flex-1">
-                <label htmlFor="campo5">Min Quorum</label>
-                <div className="flex items-center gap-5 ">
-                  <input
-                    type="range"
-                    id="campo5"
-                    name="campo5"
-                    className="w-11/12 p-2 custom-range"
-                    value={String(poolConfig.quorum)}
-                    onChange={e => setPoolConfig({ ...poolConfig, quorum: BigInt(e.target.value ?? 0) })}
-                  />
-                  <span className="p-3 border border-solid border-[#374B6D] rounded-[7px]">
-                    {String(poolConfig.quorum)}
-                  </span>
-                </div>
-              </div>
-              <div className="flex-1">
-                <label htmlFor="campo6">Max Pool Usage</label>
-                <div className="flex items-center gap-5 ">
-                  <input
-                    type="range"
-                    id="campo6"
-                    name="campo6"
-                    className="w-11/12 p-2 custom-range"
-                    value={String(poolConfig.maxPoolUsage)}
-                    onChange={e => setPoolConfig({ ...poolConfig, maxPoolUsage: BigInt(e.target.value ?? 0) })}
-                  />
-                  <span className="p-3 border border-solid border-[#374B6D] rounded-[7px]">
-                    {String(poolConfig.maxPoolUsage)}
-                  </span>
-                </div>
-              </div>
-            </div>
             <div className="flex-1">
-              <label htmlFor="campo7">Voting Power Cooldown</label>
-              <div className="flex items-center gap-5 ">
-                <input
-                  type="range"
-                  id="campo7"
-                  name="campo7"
-                  className="w-full p-2 border custom-range"
-                  value={String(poolConfig.votingPowerCooldown)}
-                  onChange={e => setPoolConfig({ ...poolConfig, votingPowerCooldown: BigInt(e.target.value ?? 0) })}
-                />
-                <span className="p-3">days</span>
+              <div className="flex items-center gap-4">
+                <span>Timelock</span>
+                <div
+                  className="info-icon-container"
+                  onMouseEnter={() => setShowInfo(true)}
+                  onMouseLeave={() => setShowInfo(false)}
+                >
+                  <Image src="/information.png" alt="information" width={18} height={18}></Image>
+                  {showInfo && (
+                    <div className="text-xs text-white info-tooltip">
+                      <span className="text-xs font-bold">Delay before loan approval is executed</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="flex gap-6 mt-6">
+                <button
+                  className={`py-4 px-9 rounded-[11px] border border-[#374B6D] ${
+                    selectedButtonTime === "3 days" ? "bg-[#9135F5] text-white border-none" : ""
+                  }`}
+                  onClick={() => handleButton("3 days")}
+                  disabled={selectedButtonTime === "3 days"}
+                >
+                  3 days
+                </button>
+                <button
+                  className={`py-4 px-9 rounded-[11px] border border-[#374B6D] ${
+                    selectedButtonTime === "7 days" ? "bg-[#9135F5] text-white border-none" : ""
+                  }`}
+                  onClick={() => handleButton("7 days")}
+                  disabled={selectedButtonTime === "7 days"}
+                >
+                  7 days
+                </button>
+                <button
+                  className={`py-4 px-9 rounded-[11px] border border-[#374B6D] ${
+                    selectedButtonTime === "15 days" ? "bg-[#9135F5] text-white border-none" : ""
+                  }`}
+                  onClick={() => handleButton("15 days")}
+                  disabled={selectedButtonTime === "15 days"}
+                >
+                  15 days
+                </button>
               </div>
             </div>
             <div className="flex flex-col flex-1 gap-4">
-              <label htmlFor="campo1">Amount</label>
+              <label htmlFor="campo1">Token vault</label>
+              <div className="flex items-center border border-[#374B6D] rounded-[14px]">
+                <input type="text" className="w-full p-5 bg-transparent border-none focus:outline-none" />
+              </div>
+            </div>
+            <div className="flex flex-col flex-1 gap-4">
+              <label htmlFor="campo1">Initial deposit</label>
               <div className="flex items-center border border-[#374B6D] rounded-[14px]">
                 <input
                   type="text"
-                  id="campo1"
-                  name="campo1"
+                  id="campo"
+                  name="campo"
                   className="w-full p-5 bg-transparent border-none focus:outline-none"
                   value={String(poolConfig.amount)}
                   onChange={e => setPoolConfig({ ...poolConfig, amount: BigInt(e.target.value ?? 0) })}
                 />
-                <DropdownButton></DropdownButton>
               </div>
             </div>
             <span>Agreement supported</span>
             <div className="flex gap-16">
-              <div className="flex gap-4">
-                <input type="checkbox"></input>
-                <div className="flex items-center gap-2">
-                  <span>Base agreement</span>
-                  <div
-                    className="info-icon-container"
-                    onMouseEnter={() => setShowInfo(true)}
-                    onMouseLeave={() => setShowInfo(false)}
-                  >
-                    <Image src="/information.png" alt="information" width={18} height={18}></Image>
-                    {showInfo && (
-                      <div className="text-xs info-tooltip text-[#484848]">
-                        <span className="text-xs font-bold">Strategy Name</span>
-                        <br></br>
-                        <span>Some description info here...</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-              <div className="flex gap-4">
-                <input type="checkbox"></input>
-                <div className="flex items-center gap-2">
-                  <span>NFT agreement</span>
-                  <div
-                    className="info-icon-container"
-                    onMouseEnter={() => setShowInfo(true)}
-                    onMouseLeave={() => setShowInfo(false)}
-                  >
-                    <Image src="/information.png" alt="information" width={18} height={18}></Image>
-                    {showInfo && (
-                      <div className="text-xs info-tooltip text-[#484848]">
-                        <span className="text-xs font-bold">Strategy Name</span>
-                        <br></br>
-                        <span>Some description info here...</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-              <div className="flex gap-4">
-                <input type="checkbox"></input>
-                <div className="flex items-center gap-2">
-                  <span>FT agreement</span>
-                  <div
-                    className="info-icon-container"
-                    onMouseEnter={() => setShowInfo(true)}
-                    onMouseLeave={() => setShowInfo(false)}
-                  >
-                    <Image src="/information.png" alt="information" width={18} height={18}></Image>
-                    {showInfo && (
-                      <div className="text-xs info-tooltip text-[#484848]">
-                        <span className="text-xs font-bold">Strategy Name</span>
-                        <br></br>
-                        <span>Some description info here...</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
+              <CustomCheckbox
+                isSelected={selectedCheckbox === "Simple"}
+                isDisabled={selectedCheckbox == "Simple"}
+                onClick={() => handleClick("Simple")}
+              >
+                Simple Agreement
+              </CustomCheckbox>
+              <CustomCheckbox
+                isSelected={selectedCheckbox === "ERC721"}
+                isDisabled={selectedCheckbox == "ERC721"}
+                onClick={() => handleClick("ERC721")}
+              >
+                ERC721 Agreement
+              </CustomCheckbox>
+              <CustomCheckbox
+                isSelected={selectedCheckbox === "ERC20"}
+                isDisabled={selectedCheckbox == "ERC720"}
+                onClick={() => handleClick("ERC20")}
+              >
+                ERC20 Agreement
+              </CustomCheckbox>
             </div>
           </form>
         </div>
