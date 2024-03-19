@@ -73,9 +73,11 @@ input{
 }
 
 .bg-landing{
-  background: rgb(7,8,23);
-  background: linear-gradient(306deg, rgba(7,8,23,0) 71%, rgba(111,68,162,0.6209077380952381) 100%);
-  z-index: 100000;
+  background: url("/bg-landing.png");
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: contain;
+  z-index: 1;
 }
 
 .bg-landing-banner-2{
