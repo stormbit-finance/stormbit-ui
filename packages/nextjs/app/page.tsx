@@ -62,8 +62,8 @@ const Home: NextPage = () => {
     <>
       <div>
         <div>
-          <div className="bg-landing flex items-center justify-center py-[80px] relative">
-            <Grid numRows={13} numCols={15} />
+          <div className="bg-landing flex items-center justify-center py-[36px] relative">
+            <Grid numRows={13} cellWidth={72} />
             <div className="max-w-[1920px] flex items-center flex-col justify-center w-full ">
               <div className="flex items-center justify-around w-full ">
                 <div>
