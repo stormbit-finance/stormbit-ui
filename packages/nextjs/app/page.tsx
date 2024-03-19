@@ -5,65 +5,15 @@ import type { NextPage } from "next";
 import Grid from "~~/components/Background/Background";
 import CarruselTweets from "~~/components/CarruselTweets/CarruselTweets";
 import { Footer } from "~~/components/Footer";
+import { dataExtension, dataMetrics, dataTechnology } from "~~/data/data";
 
 const Home: NextPage = () => {
-  const data = [
-    {
-      name: "Morpho Blue",
-      description: "Permissionless Lending Protocol",
-      icon: "/image13.png",
-    },
-    {
-      name: "Captain Hooks",
-      description: "Custom UniswapV4 Pools",
-      icon: "/image12.png",
-    },
-    {
-      name: "Compound",
-      description: "Algorithmic, Autonomous Interest Rate Protocol",
-      icon: "/image14.png",
-    },
-  ];
-
-  const technology = [
-    {
-      name: "Custom Agreements",
-      description: "As a borrower you can choose your agreement from a set of available ones.",
-      icon: "/custom.png",
-    },
-    {
-      name: "Governance Allocations",
-      description: "Loans approvals for borrowers requests enhance the trust between our users.",
-      icon: "/bank.png",
-    },
-    {
-      name: "SBIT Repayments",
-      description: "Lock $SBIT earned after repayments.",
-      icon: "/money-bag.png",
-    },
-  ];
-
-  const metrics = [
-    {
-      name: "Market Size",
-      description: "91M",
-    },
-    {
-      name: "Total Value Locked",
-      description: "52.1M",
-    },
-    {
-      name: "Unique Active Addresses",
-      description: "249.7K",
-    },
-  ];
-
   return (
     <>
       <div>
         <div className="bg-landing ">
           <section className="flex items-center justify-center py-[36px] relative ">
-            <Grid numRows={15} numCols={30} />
+            <Grid numRows={9} numCols={30} />
             <div className="max-w-[1920px] flex items-center flex-col justify-center w-full ">
               <div className="flex items-center justify-around w-full ">
                 <div>
@@ -82,7 +32,7 @@ const Home: NextPage = () => {
           <section className="flex flex-col items-center justify-center gap-20 w-full h-[520px] py-[80px] ">
             <h2 className="text-5xl text-white">Metrics based on Avalanche</h2>
             <div className="flex items-center justify-center w-full gap-32">
-              {metrics.map(element => (
+              {dataMetrics.map(element => (
                 <div
                   key={element.name}
                   className="flex flex-col items-center bg-transparent max-w-[423px] w-full gap-4 rounded-[69px] metrics"
@@ -98,7 +48,7 @@ const Home: NextPage = () => {
             <div className="max-w-[1920px] w-full flex items-center flex-col gap-[20px]">
               <h2 className="text-5xl font-bold text-white">Extensions</h2>
               <div className="flex gap-8">
-                {data.map(element => (
+                {dataExtension.map(element => (
                   <div key={element.name} className="flex items-center w-[538px] gap-4 h-[257px] extensions px-4">
                     <div>
                       <Image src={element.icon} alt="icon" width={200} height={200} />
@@ -120,7 +70,7 @@ const Home: NextPage = () => {
             <div className="max-w-[1920px] w-full flex-col flex items-center gap-[20px]">
               <h2 className="text-5xl font-bold text-white">Core Technology</h2>
               <div className="flex items-center justify-center w-full gap-24">
-                {technology.map(element => (
+                {dataTechnology.map(element => (
                   <div
                     key={element.name}
                     className="flex flex-col items-center justify-center w-[474px] gap-16 h-[539px] border border-solid border-white rounded-[12px] px-12"
@@ -144,7 +94,7 @@ const Home: NextPage = () => {
                 <h2 className="text-5xl font-bold text-white">Tweets</h2>
                 <Image src="/tweets.png" alt="tweets" width={58} height={58} />
               </div>
-              <div className="flex gap-20">
+              <div className="flex gap-20 max-w-[1920px]">
                 <CarruselTweets />
               </div>
               <div>
