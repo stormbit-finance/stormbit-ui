@@ -29,9 +29,11 @@
     "vercel": "yarn workspace @se-2/nextjs vercel",
     "vercel:yolo": "yarn workspace @se-2/nextjs vercel:yolo",
     "verify": "yarn workspace @se-2/hardhat verify",
+    "nest:start": "yarn workspace @se-2/nestjs start",
     "nest:start:dev": "yarn workspace @se-2/nestjs start:dev",
     "nest:lint": "yarn workspace @se-2/nestjs lint",
     "nest:docker:db:up": "yarn workspace @se-2/nestjs docker:db:up",
+    "nest:docker:db:down": "yarn workspace @se-2/nestjs docker:db:down",
     "nest:test:e2e": "yarn workspace @se-2/nestjs test:e2e"
   },
   "resolutions": {

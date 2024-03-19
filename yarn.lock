@@ -3036,9 +3036,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@se-2/nestjs@workspace:packages/score_cripto-main":
+"@se-2/nestjs@workspace:packages/score-cripto-main":
   version: 0.0.0-use.local
-  resolution: "@se-2/nestjs@workspace:packages/score_cripto-main"
+  resolution: "@se-2/nestjs@workspace:packages/score-cripto-main"
   dependencies:
     "@nestjs/axios": ^3.0.2
     "@nestjs/cli": ^10.0.0
