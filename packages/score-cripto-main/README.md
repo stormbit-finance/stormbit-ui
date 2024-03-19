@@ -37,31 +37,35 @@ yarn nest:docker:db:down
 
 ## Running the app
 
+for start you need to use the next scripts in the root of the project
+
 ```bash
 # development
-$ yarn start
+$ yarn nest:start
 
 # watch mode
-$ yarn start:dev
+$ yarn nest:start:dev
 
-# production mode
-$ yarn start:prod
 ```
 
 ## Test
+
+for execute the test you need to use the next scripts
 
 ```bash
 # unit tests
 $ yarn test
 
 # e2e tests
-$ yarn test:e2e
+$ yarn nest:test:e2e
 
 # test coverage
 $ yarn test:cov
 ```
 
 ## Swagger
+
+for see the documentation of the routes you can visit the next link
 
 http://localhost:3000/apidocs
 

@@ -6,13 +6,14 @@ import { Score } from './score.entity';
 import { updateScoreDto } from './dto/update-score.dto';
 import { averageScoreDto } from './dto/average.dto';
 import { session } from 'passport';
+import { ConfigService } from '@nestjs/config';
 
 
 @ApiTags('score')
 @Controller('score')
 export class ScoreController {
 
-    constructor(private scoreService: ScoreService) {}
+    constructor(private scoreService: ScoreService,private configService:ConfigService) {}
 
     // @Get('average')
     // async getaverage(@Body() body:averageScoreDto,@Session() session: any){
@@ -35,7 +36,7 @@ export class ScoreController {
   
     @Get('score')
     async getScore(@Query('address') address: string): Promise<any> {
-      const token = '122009c65654ece48921033926486128aa053d44';
+      const token = this.configService.get('TOKEN_CRED_PROTOCOL');
       return this.scoreService.getScore(address, token);
     }
     @Get('custom-score/:entityID/:scoreID')
