@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import "./background.css";
+import "./gridBackground.css";
 
 interface GridProps {
   numRows: number;
   numCols: number;
 }
 
-const Grid: React.FC<GridProps> = ({ numRows, numCols }) => {
+const GridBackground: React.FC<GridProps> = ({ numRows, numCols }) => {
   const [grid, setGrid] = useState<boolean[][]>([]);
 
   useEffect(() => {
@@ -36,4 +36,4 @@ const Grid: React.FC<GridProps> = ({ numRows, numCols }) => {
   );
 };
 
-export default Grid;
+export default GridBackground;
