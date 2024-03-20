@@ -1,8 +1,9 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { CiDesktopMouse1, CiWallet } from "react-icons/ci";
+import { LiaDotCircleSolid } from "react-icons/lia";
+import { TfiBook } from "react-icons/tfi";
 import { formatEther, parseEther } from "viem";
 import { PublicClient, useAccount } from "wagmi";
 import { GetAccountResult } from "wagmi/dist/actions";
@@ -12,16 +13,29 @@ import { useScaffoldContractRead, useScaffoldContractWrite } from "~~/hooks/scaf
 type HeaderMenuLink = {
   label: string;
   href: string;
+  icon: React.ReactNode;
 };
 
 export const menuLinks: HeaderMenuLink[] = [
   {
     label: "Pools",
-    href: "/markets",
+    href: "/pools",
+    icon: <LiaDotCircleSolid />,
   },
   {
     label: "Portfolio",
     href: "/portfolio",
+    icon: <CiWallet />,
+  },
+  {
+    label: "Docs",
+    href: "/docs",
+    icon: <TfiBook />,
+  },
+  {
+    label: "Dashboard",
+    href: "/dashboard",
+    icon: <CiDesktopMouse1 />,
   },
 ];
 
@@ -30,12 +44,14 @@ export const HeaderMenuLinks = () => {
 
   return (
     <>
-      {menuLinks.map(({ label, href }) => {
+      {menuLinks.map(({ label, href, icon }) => {
         const isActive = pathname === href;
         return (
           <li key={href}>
             <Link href={href} passHref className={`${isActive ? "bg-letter" : "text-[#ffffff]"} `}>
-              <span>{label}</span>
+              <span className="flex items-center gap-[5px]">
+                {icon} {label}
+              </span>
             </Link>
           </li>
         );
@@ -90,57 +106,65 @@ export const Header = () => {
 
   return (
     <>
-      <div className="sticky top-0 z-20 justify-between flex-shrink-0 min-h-0 p-6 text-white bg-transparent shadow-md lg:static navbar sm:px-2">
-        <div className="flex gap-3">
-          <Link href="/" passHref className="items-center hidden gap-2 ml-4 mr-6 lg:flex shrink-0">
-            <div>
-              <Image src="/logo.png" alt="logo" width={142} height={65} className="w-auto h-auto" priority></Image>
+      <div className="z-10 w-full shadow-md bg-header">
+        <div className="flex items-center justify-center">
+          <div className=" flex justify-between items-center 0 min-h-0 p-6 text-white lg:static navbar sm:px-2 max-w-[1920px] w-full">
+            <div className="flex gap-3">
+              <Link href="/" passHref className="items-center hidden gap-2 ml-4 mr-6 lg:flex shrink-0">
+                <div>
+                  <Image src="/logo.png" alt="logo" width={142} height={65} className="w-auto h-auto" priority></Image>
+                </div>
+              </Link>
+              <ul className="hidden gap-8 px-1 text-xl lg:flex lg:flex-nowrap">
+                <HeaderMenuLinks />
+              </ul>
             </div>
-          </Link>
-          <ul className="hidden gap-8 px-1 text-xl lg:flex lg:flex-nowrap">
-            <HeaderMenuLinks />
-          </ul>
-        </div>
-        <div className="flex-grow gap-8 mr-4 navbar-end">
-          <div className="flex gap-[10px] ">
-            <div className="flex gap-[20px]">
-              <div className="flex flex-col items-center gap-[6px]">
-                <button
-                  className="border min-w-[90px] w-full rounded-xl px-2"
-                  onClick={() => {
-                    mintDAI();
-                  }}
-                >
-                  Mint DAI
+            <div className="flex-grow gap-8 mr-4 navbar-end">
+              {account ? (
+                <button className="border rounded-xl py-[15px] px-[50px]">
+                  <Link href="/register">Launch App</Link>
                 </button>
-                <span>Balance DAI: {balanceDai} </span>
-              </div>
-              <div className="flex flex-col items-center gap-[6px]">
-                <button
-                  className="border min-w-[90px] w-full rounded-xl px-2"
-                  onClick={() => {
-                    mintETH();
-                  }}
-                >
-                  Mint ETH
-                </button>
-                <span>Balance ETH: {balanceEth}</span>
-              </div>
-              <div className="flex flex-col items-center gap-[6px]">
-                <button
-                  className="border min-w-[90px] w-full rounded-xl px-2"
-                  onClick={() => {
-                    mintBTC();
-                  }}
-                >
-                  Mint BTC
-                </button>
-                <span>Balance BTC: {balanceBtc}</span>
-              </div>
+              ) : (
+                <div className="flex gap-[20px]">
+                  <div className="flex flex-col items-center gap-[6px]">
+                    <button
+                      className="border min-w-[90px] w-full rounded-xl px-2"
+                      onClick={() => {
+                        mintDAI();
+                      }}
+                    >
+                      Mint DAI
+                    </button>
+                    <span>Balance DAI: {balanceDai} </span>
+                  </div>
+                  <div className="flex flex-col items-center gap-[6px]">
+                    <button
+                      className="border min-w-[90px] w-full rounded-xl px-2"
+                      onClick={() => {
+                        mintETH();
+                      }}
+                    >
+                      Mint ETH
+                    </button>
+                    <span>Balance ETH: {balanceEth}</span>
+                  </div>
+                  <div className="flex flex-col items-center gap-[6px]">
+                    <button
+                      className="border min-w-[90px] w-full rounded-xl px-2"
+                      onClick={() => {
+                        mintBTC();
+                      }}
+                    >
+                      Mint BTC
+                    </button>
+                    <span>Balance BTC: {balanceBtc}</span>
+                  </div>
+                </div>
+              )}
+              <RainbowKitCustomConnectButton />
+              <FaucetButton />
             </div>
           </div>
-          <RainbowKitCustomConnectButton />
-          <FaucetButton />
         </div>
       </div>
     </>

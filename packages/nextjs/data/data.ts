@@ -1,43 +1,203 @@
-export interface Data {
-  id: string;
-  pool: string;
-  agreement: string[];
-  date: string;
-  amount: string;
-  penalty: string;
-  interest: string;
-  status: string;
+interface Data {
+  name: string;
+  supply: number;
+  borrow: number;
+  usage: number;
 }
 
 export const data: Data[] = [
   {
-    id: "1",
-    pool: "Cheap Local Lending",
-    agreement: ["Base", "NFT", "FT"],
-    date: "10-01-2024",
-    amount: "$10.01",
-    penalty: "11.8",
-    interest: "11.8",
-    status: "Pending",
+    name: "Community Credit Pool",
+    supply: 20,
+    borrow: 2,
+    usage: 80,
   },
   {
-    id: "2",
-    pool: "Cheap Local Lending",
-    agreement: ["NFT"],
-    date: "10-01-2024",
-    amount: "$10.01",
-    penalty: "11.8",
-    interest: "11.8",
-    status: "Active",
+    name: "Community Credit Pool",
+    supply: 20,
+    borrow: 2,
+    usage: 19,
   },
   {
-    id: "3",
-    pool: "Cheap Local Lending",
-    agreement: ["Base", "FT"],
-    date: "10-01-2024",
-    amount: "$10.01",
-    penalty: "11.8",
-    interest: "11.8",
-    status: "Rejected",
+    name: "Community Credit Pool",
+    supply: 20,
+    borrow: 2,
+    usage: 15,
   },
+  {
+    name: "Community Credit Pool",
+    supply: 20,
+    borrow: 2,
+    usage: 17,
+  },
+  {
+    name: "Community Credit Pool",
+    supply: 20,
+    borrow: 2,
+    usage: 18,
+  },
+  {
+    name: "Community Credit Pool",
+    supply: 20,
+    borrow: 2,
+    usage: 10,
+  },
+  {
+    name: "Community Credit Pool",
+    supply: 20,
+    borrow: 2,
+    usage: 11,
+  },
+  {
+    name: "Community Credit Pool",
+    supply: 20,
+    borrow: 2,
+    usage: 12,
+  },
+  {
+    name: "Community Credit Pool",
+    supply: 20,
+    borrow: 2,
+    usage: 11,
+  },
+  {
+    name: "Community Credit Pool",
+    supply: 20,
+    borrow: 2,
+    usage: 13,
+  },
+  {
+    name: "Community Credit Pool",
+    supply: 20,
+    borrow: 2,
+    usage: 14,
+  },
+  {
+    name: "Community Credit Pool",
+    supply: 20,
+    borrow: 2,
+    usage: 15,
+  },
+  {
+    name: "Community Credit Pool",
+    supply: 20,
+    borrow: 2,
+    usage: 12,
+  },
+  {
+    name: "Community Credit Pool",
+    supply: 20,
+    borrow: 2,
+    usage: 11,
+  },
+  {
+    name: "Community Credit Pool",
+    supply: 20,
+    borrow: 2,
+    usage: 13,
+  },
+  {
+    name: "Community Credit Pool",
+    supply: 20,
+    borrow: 2,
+    usage: 14,
+  },
+  {
+    name: "Community Credit Pool",
+    supply: 20,
+    borrow: 2,
+    usage: 15,
+  },
+  {
+    name: "Community Credit Pool",
+    supply: 20,
+    borrow: 2,
+    usage: 70,
+  },
+  {
+    name: "Community Credit Pool",
+    supply: 20,
+    borrow: 2,
+    usage: 11,
+  },
+  {
+    name: "Community Credit Pool",
+    supply: 20,
+    borrow: 2,
+    usage: 13,
+  },
+  {
+    name: "Community Credit Pool",
+    supply: 20,
+    borrow: 2,
+    usage: 14,
+  },
+  {
+    name: "Community Credit Pool",
+    supply: 20,
+    borrow: 2,
+    usage: 15,
+  },
+];
+export const dataExtension = [
+  {
+    name: "Morpho Blue",
+    description: "Permissionless Lending Protocol",
+    icon: "/image13.png",
+  },
+  {
+    name: "Captain Hooks",
+    description: "Custom UniswapV4 Pools",
+    icon: "/image12.png",
+  },
+  {
+    name: "Compound",
+    description: "Algorithmic, Autonomous Interest Rate Protocol",
+    icon: "/image14.png",
+  },
+];
+
+export const dataTechnology = [
+  {
+    name: "Custom Agreements",
+    description: "As a borrower you can choose your agreement from a set of available ones.",
+    icon: "/custom.png",
+  },
+  {
+    name: "Governance Allocations",
+    description: "Loans approvals for borrowers requests enhance the trust between our users.",
+    icon: "/bank.png",
+  },
+  {
+    name: "SBIT Repayments",
+    description: "Lock $SBIT earned after repayments.",
+    icon: "/money-bag.png",
+  },
+];
+
+export const dataMetrics = [
+  {
+    name: "Market Size",
+    description: "91M",
+  },
+  {
+    name: "Total Value Locked",
+    description: "52.1M",
+  },
+  {
+    name: "Unique Active Addresses",
+    description: "249.7K",
+  },
+];
+
+export const tweetIds = [
+  "1760393928338264379",
+  "1760393928338264379",
+  "1760393928338264379",
+  "1760393928338264379",
+  "1760393928338264379",
+  "1760393928338264379",
+  "1760393928338264379",
+  "1760393928338264379",
+  "1740708988847878347",
 ];
