@@ -12,7 +12,7 @@ const Home: NextPage = () => {
     <>
       <div>
         <div className="bg-landing ">
-          <section className="flex items-center justify-center py-[36px] relative ">
+          <section className="flex items-center justify-center pb-[36px] pt-[150px] relative ">
             <Grid numRows={9} numCols={30} />
             <div className="max-w-[1920px] flex items-center flex-col justify-center w-full ">
               <div className="flex items-center justify-around w-full ">

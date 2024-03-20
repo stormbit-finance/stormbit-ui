@@ -1,8 +1,9 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { CiDesktopMouse1, CiWallet } from "react-icons/ci";
+import { LiaDotCircleSolid } from "react-icons/lia";
+import { TfiBook } from "react-icons/tfi";
 import { formatEther, parseEther } from "viem";
 import { PublicClient, useAccount } from "wagmi";
 import { GetAccountResult } from "wagmi/dist/actions";
@@ -12,16 +13,29 @@ import { useScaffoldContractRead, useScaffoldContractWrite } from "~~/hooks/scaf
 type HeaderMenuLink = {
   label: string;
   href: string;
+  icon: React.ReactNode;
 };
 
 export const menuLinks: HeaderMenuLink[] = [
   {
     label: "Pools",
     href: "/pools",
+    icon: <LiaDotCircleSolid />,
   },
   {
     label: "Portfolio",
     href: "/portfolio",
+    icon: <CiWallet />,
+  },
+  {
+    label: "Docs",
+    href: "/docs",
+    icon: <TfiBook />,
+  },
+  {
+    label: "Dashboard",
+    href: "/dashboard",
+    icon: <CiDesktopMouse1 />,
   },
 ];
 
@@ -30,12 +44,14 @@ export const HeaderMenuLinks = () => {
 
   return (
     <>
-      {menuLinks.map(({ label, href }) => {
+      {menuLinks.map(({ label, href, icon }) => {
         const isActive = pathname === href;
         return (
           <li key={href}>
             <Link href={href} passHref className={`${isActive ? "bg-letter" : "text-[#ffffff]"} `}>
-              <span>{label}</span>
+              <span className="flex items-center gap-[5px]">
+                {icon} {label}
+              </span>
             </Link>
           </li>
         );
