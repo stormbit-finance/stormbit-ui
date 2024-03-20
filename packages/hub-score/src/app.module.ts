@@ -7,6 +7,8 @@ import { UserModule } from './modules/user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './modules/auth/auth.module';
 import { HealthModule } from './modules/health/health.module';
+import { OutputsModule } from './modules/outputs/outputs.module';
+import { LoansModule } from './modules/loans/loans.module';
 
 @Module({
   imports: [
@@ -14,7 +16,7 @@ import { HealthModule } from './modules/health/health.module';
       isGlobal:true,
       envFilePath:'.env',
     }),
-    DatabaseModule,UserModule,AuthModule,HealthModule],
+    DatabaseModule,UserModule,AuthModule,HealthModule,OutputsModule,LoansModule],
   controllers: [AppController],
   providers: [AppService],
 })
