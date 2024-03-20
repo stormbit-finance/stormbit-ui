@@ -6,6 +6,7 @@ import { CiCalendar } from "react-icons/ci";
 import Button from "~~/components/Button/Button";
 import Analytics from "~~/components/Graph/Analytics";
 import TableAction from "~~/components/TableActions/TableAction";
+import ModalBorrow from "~~/components/ModalBorrow/ModalBorrow";
 
 interface Staker {
   avatar: string;
@@ -33,7 +34,7 @@ const stakers: Staker[] = [
 
 function Page() {
   const [activeButton, setActiveButton] = useState("deposit");
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const handleButtonClick = (button: string) => {
     setActiveButton(button);
   };
@@ -103,7 +104,13 @@ function Page() {
                 <span>Position status</span>
                 <span>-</span>
               </div>
-              <Button>Request Loan</Button>
+              <Button
+                onClick={() => {
+                  setIsModalOpen(true);
+                }}
+              >
+                Request Loan
+              </Button>
             </div>
             <div className="py-6 pl-8 my-16 text-white container-total h-fit pr-28">
               <span className="text-2xl">Stakers</span>
@@ -138,6 +145,7 @@ function Page() {
           </div>
         </div>
       </div>
+      {isModalOpen && <ModalBorrow setIsModalOpen={() => setIsModalOpen(false)}></ModalBorrow>}
     </section>
   );
 }

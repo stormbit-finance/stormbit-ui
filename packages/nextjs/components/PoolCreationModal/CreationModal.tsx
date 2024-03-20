@@ -220,7 +220,7 @@ const CreationModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
             </div>
             <div className="flex flex-col flex-1 gap-4">
               <label htmlFor="campo1">Token vault</label>
-              <div className="flex items-center border border-[#374B6D] rounded-[14px]">
+              <div className="flex items-center">
                 <SelectToken></SelectToken>
               </div>
             </div>
