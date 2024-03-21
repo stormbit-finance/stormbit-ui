@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Output } from './output.entity';
 import { CreateOutputDto } from './dto/create-output.dto';
-import { UpdateOutputDto } from './dto/update-output.dto';
+import { UpdateOutputDto } from './dto/update-loan.dto';
 
 @Injectable()
 export class OutputService {

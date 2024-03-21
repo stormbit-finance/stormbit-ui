@@ -8,6 +8,8 @@ export class User {
     @Column()
     username: string;
 
+    @Column({nullable:true})
+    transaction_count : number
 
     @Column()
     email: string;

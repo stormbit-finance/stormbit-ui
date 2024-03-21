@@ -1,8 +1,11 @@
 import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
 import { OutputService } from '../outputs/outputs.service';
 import { CreateOutputDto } from './dto/create-output.dto';
-import { UpdateOutputDto } from './dto/update-output.dto';
+import { UpdateOutputDto } from './dto/update-loan.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+
+@ApiTags('OUTPUT')
 @Controller('output')
 export class OutputController {
   constructor(private outputService: OutputService) {}
