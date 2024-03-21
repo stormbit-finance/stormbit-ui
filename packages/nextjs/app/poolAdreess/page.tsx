@@ -5,8 +5,10 @@ import Image from "next/image";
 import { CiCalendar } from "react-icons/ci";
 import Button from "~~/components/Button/Button";
 import Analytics from "~~/components/Graph/Analytics";
-import TableAction from "~~/components/TableActions/TableAction";
 import ModalBorrow from "~~/components/ModalBorrow/ModalBorrow";
+import ModalDeposit from "~~/components/ModalDeposit/ModalDeposit";
+import ModalWithdraw from "~~/components/ModalWithdraw/ModalWithdraw";
+import TableAction from "~~/components/TableActions/TableAction";
 
 interface Staker {
   avatar: string;
@@ -35,6 +37,9 @@ const stakers: Staker[] = [
 function Page() {
   const [activeButton, setActiveButton] = useState("deposit");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalDeposit, setIsModalDeposit] = useState(false);
+  const [isModalWithdraw, setIsModalWithdraw] = useState(false);
+
   const handleButtonClick = (button: string) => {
     setActiveButton(button);
   };
@@ -86,18 +91,26 @@ function Page() {
           <div className="flex flex-col">
             <div className="flex justify-center text-white container-total">
               <button
-                className={`py-10 flex-1 rounded-l-2xl text-2xl ${activeButton === "deposit" ? "bg-[#23233D]" : ""}`}
-                onClick={() => handleButtonClick("deposit")}
+                className={`py-10 flex-1 rounded-l-2xl text-2xl ${activeButton === "deposit" ? "bg-[#9135F5]" : ""}`}
+                onClick={() => {
+                  handleButtonClick("deposit");
+                  setIsModalDeposit(true);
+                }}
               >
                 Deposit
               </button>
               <button
-                className={`py-10 flex-1 rounded-r-2xl text-2xl ${activeButton === "withdraw" ? "bg-[#23233D]" : ""}`}
-                onClick={() => handleButtonClick("withdraw")}
+                className={`py-10 flex-1 rounded-r-2xl text-2xl ${activeButton === "withdraw" ? "bg-[#9135F5]" : ""}`}
+                onClick={() => {
+                  handleButtonClick("withdraw");
+                  setIsModalWithdraw(true);
+                }}
               >
                 Withdraw
               </button>
             </div>
+            {isModalDeposit && <ModalDeposit setIsModalDeposit={() => setIsModalDeposit(false)}></ModalDeposit>}
+            {isModalWithdraw && <ModalWithdraw setIsModalWithdraw={() => setIsModalWithdraw(false)}></ModalWithdraw>}
             <div className="flex flex-col justify-between gap-4 px-8 py-6 my-16 text-white container-total">
               <span className="text-2xl">Borrow</span>
               <div className="flex mt-4 justify-between border-y-1 border-[#374B6D] text-[#374B6D] py-7 px-4">
