@@ -88,11 +88,6 @@ input{
   background: linear-gradient(22deg, rgba(7,8,23,1) 66%, rgba(122,72,181,0.22) 90%);
 }
 
-
-.metrics{
-  background-image: url('/rectangle.png');
-}
-
 .extensions{
   border-radius: 9px;
   border: 4.373px solid rgba(255, 255, 255, 0.20);
@@ -116,18 +111,10 @@ input{
   backdrop-filter: blur(7px);
 }
 
-.bg-form{
-  width: 100%;
-  background-image: url('/bg-form.png');
-  background-size: cover;
-}
-
 .container-subscribe{
   border-radius: 20px;
-  background-image: url('/Card.png');
+  background-image: url('/bg-form-suscriber.png');
   background-size: cover;
-  /*max-width: 1920px;*/
-  /*width: 100%;*/
 }
 
 .container-total{
@@ -192,4 +179,12 @@ input{
   z-index: 100000;
   color: #ffffff;
 }
+.custom-select .ant-select-selector {
+  background-color: #19192B; /* Cambia #19192B por el color de fondo deseado */
+}
+
+.custom-select .ant-select-selector .ant-select-selection-search-input {
+  background-color: transparent; /* Si deseas un campo de búsqueda transparente */
+}
+
 
