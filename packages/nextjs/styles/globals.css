@@ -89,9 +89,7 @@ input{
 }
 
 
-.metrics{
-  background-image: url('/rectangle.png');
-}
+
 
 .extensions{
   border-radius: 9px;
@@ -116,18 +114,16 @@ input{
   backdrop-filter: blur(7px);
 }
 
-.bg-form{
-  width: 100%;
-  background-image: url('/bg-form.png');
-  background-size: cover;
-}
+/*.bg-form{*/
+/*  width: 100%;*/
+/*  background-image: url('/bg-form-suscriber');*/
+/*  background-size: cover;*/
+/*}*/
 
 .container-subscribe{
   border-radius: 20px;
-  background-image: url('/Card.png');
+  background-image: url('/bg-form-suscriber.png');
   background-size: cover;
-  /*max-width: 1920px;*/
-  /*width: 100%;*/
 }
 
 .container-total{

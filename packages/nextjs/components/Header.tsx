@@ -48,8 +48,8 @@ export const HeaderMenuLinks = () => {
         const isActive = pathname === href;
         return (
           <li key={href}>
-            <Link href={href} passHref className={`${isActive ? "bg-letter" : "text-[#ffffff]"} `}>
-              <span className="flex items-center gap-[5px]">
+            <Link href={href} passHref>
+              <span className={`flex items-center gap-[5px] ${isActive ? "text-[#A24DFF]" : "text-[#ffffff]"}`}>
                 {icon} {label}
               </span>
             </Link>

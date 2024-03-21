@@ -151,9 +151,9 @@ export const dataExtension = [
     icon: "/image12.png",
   },
   {
-    name: "Compound",
-    description: "Algorithmic, Autonomous Interest Rate Protocol",
-    icon: "/image14.png",
+    name: "Futaba",
+    description: "On-chain data acquisition for all chains",
+    icon: "/futaba.png",
   },
 ];
 
