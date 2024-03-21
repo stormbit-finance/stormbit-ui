@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
-import { LoanService } from '../loans/loans.service';
+import { LoanService } from './loan.service';
 
 import { ApiTags } from '@nestjs/swagger';
 

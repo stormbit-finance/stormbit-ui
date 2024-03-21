@@ -4,13 +4,14 @@ import { User } from './user.entity';
 import { Repository} from 'typeorm';
 import {createUserDto } from './dto/create-user.dto';
 import { updateUserDto } from './dto/update-user.dto';
+import { RegisterAuthDto } from '../jwtauth/dto/register-auth.dto';
 
 @Injectable()
 export class UserService {
 constructor(@InjectRepository(User) private userRepository: Repository<User>) {}
 
 
-async createUser(user:createUserDto) {
+async createUser(user:RegisterAuthDto) {
     const userFound = this.userRepository.findOne({where:{email:user.email}});
     if(!userFound) {
         return new HttpException('User already exists',HttpStatus.BAD_REQUEST);
@@ -52,7 +53,9 @@ async updateUser(id:number,user:updateUserDto) {
     return this.userRepository.save(updateUser2);
 
 }
+
 find(email:string){
     return this.userRepository.find({where:{email}});
 }
+
 }

@@ -1,7 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
-export class Loan {
+@Entity({ name: 'IDPool' })
+export class LoanEntity {
+
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -11,9 +12,7 @@ export class Loan {
   @Column({ default: false })
   refused: boolean;
 
-  @Column({ default: false })
-  repaid: boolean;
-
-  @Column({ default: 0 })
-  timeDelay: number;
+  
+  @Column({ type: 'jsonb', default: { repaid: false, timeDelay: 0 } })
+  repaid: { repaid: boolean, timeDelay: number };
 }

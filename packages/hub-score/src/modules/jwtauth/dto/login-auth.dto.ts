@@ -3,9 +3,7 @@ import { IsEvmAddress } from "src/common/decorators/IsEvmAddress.decorator";
 export class LoginAuthDto {
     @IsEmail()
     email: string;
-    @IsNotEmpty()
-    @IsEvmAddress()
-    username: string;
+
     @IsNotEmpty()
     @IsString()
     password: string;
