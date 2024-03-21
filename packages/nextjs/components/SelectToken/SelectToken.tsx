@@ -22,8 +22,6 @@ export default function SelectToken() {
         description: "descriptiom",
         errorMessage: "errorMesage",
         label: "label text-white",
-        base: "baseSelect ",
-        value: "value",
         mainWrapper: "mainWrapper",
         trigger: "trigger bg-transparent py-8 ",
         innerWrapper: "inner text-white",
@@ -50,10 +48,7 @@ export default function SelectToken() {
           textValue={user.name}
           className="bg-transparent base"
           classNames={{
-            base: "text-white base data-hover",
-            title: "",
-            wrapper: "wrapper ", // title and description wrapper
-            description: "description-classes",
+            base: "text-white",
             selectedIcon: "",
             shortcut: "shortcut-classes",
           }}

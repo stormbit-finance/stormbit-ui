@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useState } from "react";
 import Image from "next/image";
 import Button from "../Button/Button";
+import "./ModalBorrow.css";
 import { Select, SelectItem } from "@nextui-org/react";
 import AgreementCheckbox from "~~/components/AgreementCheckbox/AgreementCheckbox";
 import BorrowInput from "~~/components/BorrowInput/BorrowInput";
@@ -37,17 +38,41 @@ const ModalBorrow: React.FC<ModalProps> = ({ setIsModalOpen }) => {
           <div className="flex gap-4 max-w-[180px] w-full">
             <Select
               radius="md"
-              label=""
-              placeholder=""
-              style={{ backgroundColor: "#f5f5f5", border: "1px solid #ccc" }}
               defaultSelectedKeys={["borrow"]}
-              className=""
+              className="text-white border border-[#374B6D] rounded-[14px] bg-transparent"
               onChange={handleViewChange}
+              classNames={{
+                base: "base",
+                description: "descriptiom",
+                errorMessage: "errorMesage",
+                label: "label text-white",
+                value: "value text-white",
+                mainWrapper: "mainWrapper",
+                trigger: "trigger bg-transparent py-8 text-white",
+                innerWrapper: "inner text-white",
+                selectorIcon: "slectorIcon",
+                spinner: "spinner",
+                listboxWrapper: "listboxWrapper",
+                listbox: "flex border-red-700",
+                popoverContent: "bg-[#17172B] border border-[#374B6D]",
+              }}
             >
-              <SelectItem key="borrow" value="borrow">
+              <SelectItem
+                key="borrow"
+                value="borrow"
+                classNames={{
+                  base: ["data-[selectable=true]:focus:bg-[#25253E] text-white"],
+                }}
+              >
                 Borrow
               </SelectItem>
-              <SelectItem key="repay" value="repay">
+              <SelectItem
+                key="repay"
+                value="repay"
+                classNames={{
+                  base: ["dark:data-[hover=true]:text-white", "data-[selectable=true]:focus:bg-[#25253E] text-white"],
+                }}
+              >
                 Repay
               </SelectItem>
             </Select>
@@ -103,7 +128,7 @@ const ModalBorrow: React.FC<ModalProps> = ({ setIsModalOpen }) => {
                       <Select
                         defaultSelectedKeys={["Select type"]}
                         style={{ marginLeft: "8px", maxWidth: "100px" }}
-                        className="focus:outline-none  border-none w-full "
+                        className="w-full border-none focus:outline-none "
                         color={"primary"}
                       >
                         <SelectItem key="01" value="01">

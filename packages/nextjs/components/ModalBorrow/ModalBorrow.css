@@ -1,0 +1,24 @@
+.trigger:hover{
+    background-color: #25253E;
+}
+
+.base{
+    color: white;
+}
+
+.value{
+    color: white;
+}
+
+.base:hover{
+    background-color: #25253E;
+}
+
+.wrapper{
+    background-color: #25253E;
+}
+
+.wrapper:hover{
+    background-color: #25253E;
+}
+
