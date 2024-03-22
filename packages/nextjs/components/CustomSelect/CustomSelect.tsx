@@ -34,9 +34,9 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
     <div className="relative inline-block text-left">
       <button
         type="button"
-        className={`inline-flex justify-center w-full rounded-md ${
+        className={`inline-flex justify-center w-full rounded-md focus:outline-none ${
           showBorder ? "border border-[#374B6D]" : ""
-        } bg-[#17172B] px-4 py-2 text-sm font-medium text-white hover:bg-[#25253E] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#374B6D]`}
+        } bg-[#17172B] px-4 py-2 text-sm font-medium text-white hover:bg-[#25253E]  focus:ring-[#374B6D]`}
         onClick={() => setIsOpen(!isOpen)}
       >
         {selectedValue ? options.find(option => option.value === selectedValue)?.label : placeholder}
@@ -47,7 +47,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
           {options.map(option => (
             <button
               key={option.value}
-              className={`block w-full px-4 py-2 text-sm text-white hover:bg-[#25253E] ${
+              className={`block w-full px-4 py-2 text-sm text-white hover:bg-[#25253E] focus:outline-none ${
                 selectedValue === option.value ? "font-medium" : ""
               }`}
               onClick={() => handleSelectChange(option.value)}
