@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Button from "../Button/Button";
 import { AiOutlineClose } from "react-icons/ai";
+import SelectDestination from "../SelectDestination/SelectDestination";
 
 interface ModalProps {
   setIsModalWithdraw: () => void;
@@ -10,12 +11,12 @@ interface ModalProps {
 const ModalWithdraw: React.FC<ModalProps> = ({ setIsModalWithdraw }) => {
   return (
     <div className="container-modal">
-      <div className="content-modal">
+      <div className="relative content-modal">
         <div className="flex justify-between items-center border-b-1 border-[#374B6D] pb-6">
           <span className="text-2xl">Deposit</span>
           <AiOutlineClose onClick={() => setIsModalWithdraw()} className="cursor-pointer" />
         </div>
-        <div className="flex justify-between border border-[#374B6D] rounded-[18px] p-4 mt-6">
+        <div className="flex justify-between border border-[#374B6D] rounded-[18px] p-4 mt-6 w-[800px]">
           <div className="flex flex-col justify-center gap-4">
             <input
               type="text"
@@ -33,6 +34,7 @@ const ModalWithdraw: React.FC<ModalProps> = ({ setIsModalWithdraw }) => {
         </div>
         <div className="mt-4">
           <span>Select destination</span>
+          <SelectDestination></SelectDestination>
         </div>
         <Button onClick={() => setIsModalWithdraw()}>Withdraw</Button>
       </div>

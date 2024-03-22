@@ -34,7 +34,7 @@ const BlockExplorer: NextPage = () => {
   ];
 
   return (
-    <div>
+    <div className="flex justify-center">
       <div className="flex flex-col gap-6 bg-[#070817] max-w-[1920px] w-screen p-10">
         <div className="flex justify-end">
           <div className="flex items-center justify-center gap-2">
