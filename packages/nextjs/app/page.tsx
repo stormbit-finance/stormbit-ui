@@ -11,8 +11,8 @@ const Home: NextPage = () => {
   return (
     <>
       <div>
-        <div className="bg-landing ">
-          <section className="flex items-center justify-center pb-[36px] pt-[150px] relative ">
+        <div className="bg-landing flex flex-col gap-20">
+          <section className="flex items-center justify-center  py-[150px] relative ">
             <GridBackground numRows={9} numCols={30} />
             <div className="max-w-[1920px] flex items-center flex-col justify-center w-full ">
               <div className="flex items-center justify-around w-full ">
@@ -29,61 +29,30 @@ const Home: NextPage = () => {
               </div>
             </div>
           </section>
-          <section className="flex flex-col items-center justify-center gap-20 w-full h-[520px] py-[80px] ">
-            <h2 className="text-3xl text-white">Metrics based on Avalanche</h2>
+          <section className="flex flex-col items-center justify-center gap-20 w-full h-[520px] py-[150px]  ">
+            <h2 className="text-3xl text-white">Evolutionary Trust Evaluation Mechanism</h2>
             <div className="flex items-center justify-center w-full gap-32">
-              {dataMetrics.map(element => (
-                <div key={element.name} className="max-w-[423px] w-full rounded-[60px] border-l border-r border-t ">
-                  <div className=" py-[20px] flex flex-col items-center gap-[5px]">
-                    <span className="text-4xl font-medium text-white">{element.description}</span>
-                    <span className="text-[#3B3B3B] text-2xl font-medium">{element.name}</span>
-                  </div>
-                </div>
-              ))}
+              <span className="max-w-[770px] w-full text-[28px] text-white">
+                Empower financial inclusivity with a dynamic, blockchain-enhanced trust score that evolves with your
+                financial interactions
+              </span>
+              <Image src="/marketing-strategy.png" alt="marketing image" width={532} height={416} />
             </div>
           </section>
-
-          <div className="flex flex-col items-center py-[200px] ">
-            <div className="max-w-[1920px] w-full flex items-center flex-col gap-[20px]">
-              <h2 className="text-4xl font-bold text-white">Extensions</h2>
-              <div className="flex gap-8">
-                {dataExtension.map(element => (
-                  <div
-                    key={element.name}
-                    className="flex items-center max-w-[470px] w-full gap-4  extensions px-4 py-3"
-                  >
-                    <div>
-                      <Image src={element.icon} alt="icon" width={200} height={200} />
-                    </div>
-                    <div className="flex flex-col gap-5 text-white">
-                      <div className="flex flex-col">
-                        <span className="text-2xl font-medium text-white">{element.name}</span>
-                        <span className="text-lg">{element.description}</span>
-                      </div>
-                      <button className="py-[10px] max-w-[159px] rounded-[9px] border border-solid border-white">
-                        Launch App
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <section className="flex flex-col items-center py-[80px]">
+          <section className="flex flex-col items-center py-[150px] ">
             <div className="max-w-[1920px] w-full flex-col flex items-center gap-[20px]">
               <h2 className="text-4xl font-bold text-white">Core Technology</h2>
-              <div className="flex items-center justify-center w-full gap-[40px]">
+              <div className="flex flex-wrap justify-center gap-20 max-w-[1400px] mx-auto pt-[80px]">
                 {dataTechnology.map(element => (
                   <div
                     key={element.name}
-                    className="flex flex-col items-center justify-center max-w-[414px] gap-16 min-h-[470px]  w-full border border-solid border-white rounded-[12px] p-12"
+                    className="flex flex-col items-center justify-center max-w-[400px] gap-16 min-h-[470px] w-full border border-solid border-white rounded-[12px] py-12 px-[10px]"
                   >
                     <div>
                       <Image src={element.icon} alt="icon" width={108} height={132} />
                     </div>
-                    <div className="flex flex-col items-center justify-center gap-6 text-white">
-                      <span className="text-2xl font-bold text-white">{element.name}</span>
+                    <div className="flex flex-col items-center justify-center gap-6 text-white max-w-[361px]">
+                      <span className="text-2xl font-bold text-white text-center">{element.name}</span>
                       <span className="text-lg font-medium text-center">{element.description}</span>
                     </div>
                   </div>
@@ -109,7 +78,7 @@ const Home: NextPage = () => {
             </div>
           </section>
 
-          <section className="flex flex-col items-center pt-[60px] pb-[200px]">
+          <section className="flex flex-col items-center pt-[60px] pb-[150px]">
             <div className="max-w-[1920px] w-full flex flex-col items-center justify-center">
               <div className="flex flex-col justify-center items-center gap-20 max-w-[1400px] w-full h-[440px] container-subscribe">
                 <h2 className="text-4xl font-bold text-white">Keep Updated</h2>

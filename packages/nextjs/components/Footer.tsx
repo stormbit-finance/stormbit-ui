@@ -12,7 +12,7 @@ export const Footer = () => {
           </div>
         </div>
         <div>
-          <p className="text-[13px]">
+          <p className="text-[13px] max-w-[1067px]">
             To the maximum extent permitted by applicable law, in no event shall the Company or its suppliers be liable
             for any special, incidental, indirect, or consequential damages whatsoever (including, but not limited to,
             damages for loss of profits, loss of data or other information), even if the Company or any supplier has

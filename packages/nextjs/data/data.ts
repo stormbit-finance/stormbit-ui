@@ -160,18 +160,38 @@ export const dataExtension = [
 export const dataTechnology = [
   {
     name: "Custom Agreements",
-    description: "As a borrower you can choose your agreement from a set of available ones.",
+    description:
+      "Tailor your lending experience with flexible, user-defined loan agreements to fit diverse financial needs.",
     icon: "/custom.png",
   },
   {
     name: "Governance Allocations",
-    description: "Loans approvals for borrowers requests enhance the trust between our users.",
+    description: "Enhance trust and transparency through community-driven, decentralized loan approval processes. ",
     icon: "/bank.png",
   },
   {
-    name: "SBIT Repayments",
-    description: "Lock $SBIT earned after repayments.",
-    icon: "/money-bag.png",
+    name: "Advanced Timelock Protocols",
+    description:
+      "Secure transactions with a built-in delay between loan approval and execution, safeguarding all parties involved.",
+    icon: "/Notifications.png",
+  },
+  {
+    name: "Interoperable Token Vaults",
+    description:
+      "Optimize returns with seamlessly integrated token vaults, supporting a variety of assets and strategies for maximum capital efficiency",
+    icon: "/home1.png",
+  },
+  {
+    name: "Blockchain-Optimized Smart Contracts",
+    description:
+      "Utilize efficient and secure smart contracts designed for minimal gas fees and maximized transaction speed.",
+    icon: "/Security.png",
+  },
+  {
+    name: "Token-Gated Communication Hub",
+    description:
+      " Foster direct lender-borrower relationships with a secure, token-gated messaging platform for enhanced trust and transparency.",
+    icon: "/Chat.png",
   },
 ];
 

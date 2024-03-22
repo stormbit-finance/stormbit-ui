@@ -13,7 +13,7 @@ function CarruselTweets() {
   };
 
   return (
-    <div className="max-w-[1650px]">
+    <div className="max-w-[1450px] ">
       <Slider {...settings}>
         {tweetIds.map(id => (
           <div key={id} className="px-[20px]">

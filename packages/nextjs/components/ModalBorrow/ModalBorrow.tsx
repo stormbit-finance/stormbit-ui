@@ -3,8 +3,8 @@ import Image from "next/image";
 import Button from "../Button/Button";
 import "./ModalBorrow.css";
 import { Select, SelectItem } from "@nextui-org/react";
-import AgreementCheckbox from "~~/components/AgreementCheckbox/AgreementCheckbox";
 import BorrowInput from "~~/components/BorrowInput/BorrowInput";
+import CustomCheckbox from "~~/components/CustomCheckbox/CustomCheckbox";
 import PaymentSchedule from "~~/components/PaymentSchedule/PaymentSchedule";
 
 interface ModalProps {
@@ -35,7 +35,7 @@ const ModalBorrow: React.FC<ModalProps> = ({ setIsModalOpen }) => {
           <div>
             <span>Borrow</span>
           </div>
-          <div className="flex gap-4 max-w-[180px] w-full">
+          <div className="flex gap-4 max-w-[180px] w-full text-white">
             <Select
               radius="md"
               defaultSelectedKeys={["borrow"]}
@@ -43,7 +43,7 @@ const ModalBorrow: React.FC<ModalProps> = ({ setIsModalOpen }) => {
               onChange={handleViewChange}
               classNames={{
                 base: "base",
-                description: "descriptiom",
+                description: "text-white",
                 errorMessage: "errorMesage",
                 label: "label text-white",
                 value: "value text-white",
@@ -53,7 +53,7 @@ const ModalBorrow: React.FC<ModalProps> = ({ setIsModalOpen }) => {
                 selectorIcon: "slectorIcon",
                 spinner: "spinner",
                 listboxWrapper: "listboxWrapper",
-                listbox: "flex border-red-700",
+                listbox: "flex text-white",
                 popoverContent: "bg-[#17172B] border border-[#374B6D]",
               }}
             >
@@ -97,38 +97,54 @@ const ModalBorrow: React.FC<ModalProps> = ({ setIsModalOpen }) => {
               <div className="flex flex-col gap-4 mt-5">
                 <span>Agreement supported</span>
                 <div className="flex gap-16">
-                  <AgreementCheckbox
-                    label="Simple Agreement"
-                    value="Simple"
+                  <CustomCheckbox
                     isSelected={selectedCheckbox === "Simple"}
-                    isDisabled={selectedCheckbox === "Simple"}
+                    isDisabled={selectedCheckbox == "Simple"}
                     onClick={() => handleCheckboxChange("Simple")}
-                  />
-                  <AgreementCheckbox
-                    label="ERC721 Agreement"
-                    value="ERC721"
+                  >
+                    Simple Agreement
+                  </CustomCheckbox>
+                  <CustomCheckbox
                     isSelected={selectedCheckbox === "ERC721"}
-                    isDisabled={selectedCheckbox === "ERC721"}
+                    isDisabled={selectedCheckbox == "ERC721"}
                     onClick={() => handleCheckboxChange("ERC721")}
-                  />
-                  <AgreementCheckbox
-                    label="ERC20 Agreement"
-                    value="ERC20"
+                  >
+                    ERC721 Agreement
+                  </CustomCheckbox>
+                  <CustomCheckbox
                     isSelected={selectedCheckbox === "ERC20"}
-                    isDisabled={selectedCheckbox === "ERC20"}
+                    isDisabled={selectedCheckbox == "ERC720"}
                     onClick={() => handleCheckboxChange("ERC20")}
-                  />
+                  >
+                    ERC20 Agreement
+                  </CustomCheckbox>
                 </div>
               </div>
               {selectedCheckbox === "Simple" && (
                 <>
                   <div className="flex flex-col flex-1 gap-4 mt-5">
                     <label htmlFor="TypeBorrow">Type</label>
-                    <div className="flex items-center w-full">
+                    <div className="flex items-center w-full border border-[#374B6D] rounded-[14px] bg-transparent">
                       <Select
                         defaultSelectedKeys={["Select type"]}
                         style={{ marginLeft: "8px", maxWidth: "100px" }}
-                        className="w-full border-none focus:outline-none "
+                        className="focus:outline-none  border-none w-full "
+                        classNames={{
+                          description: "descriptiom",
+                          errorMessage: "errorMesage",
+                          label: "label text-white",
+                          base: "baseSelect ",
+                          value: "value",
+                          mainWrapper: "mainWrapper",
+                          trigger: "trigger bg-transparent py-8 ",
+                          innerWrapper: "inner text-white",
+                          selectorIcon: "slectorIcon",
+                          spinner: "spinner",
+                          listboxWrapper: "listboxWrapper",
+                          listbox: "flex border-red-700",
+                          popoverContent: "bg-[#17172B] border border-[#374B6D]",
+                        }}
+                        // classNames="focus:outline-none  border-none w-full "
                         color={"primary"}
                       >
                         <SelectItem key="01" value="01">
@@ -142,9 +158,9 @@ const ModalBorrow: React.FC<ModalProps> = ({ setIsModalOpen }) => {
                   </div>
                   <div className="flex flex-col flex-1 gap-4 mt-5">
                     <label htmlFor="Reason">Reason</label>
-                    <div className="flex items-center bg-transparent border-[#374B6D] focus:outline-none">
+                    <div className="flex items-center ">
                       <textarea
-                        className="w-full p-2 bg-transparent border-[#374B6D] rounded-[14px]"
+                        className="w-full p-2 bg-transparent border border-[#374B6D] rounded-[14px] focus:outline-none"
                         placeholder="Write Reason"
                         value={reason}
                         onChange={handleReasonChange}
