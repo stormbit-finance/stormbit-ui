@@ -1,10 +1,12 @@
-import { Controller, Post,Body, Get, Param, Delete, Patch } from '@nestjs/common';
+import { Controller, Post,Body, Get, Param, Delete, Patch, UseGuards } from '@nestjs/common';
 import { createUserDto } from './dto/create-user.dto';
 import { UserService } from './user.service';
 import { User } from './user.entity';
 import { updateUserDto } from './dto/update-user.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 
+@ApiBearerAuth()
 @ApiTags('USER')
 @Controller('users')
 export class UserController {
@@ -16,6 +18,8 @@ constructor(private userService: UserService ){}
 createUser(@Body() newUser:createUserDto){
     return this.userService.createUser(newUser);
 }
+
+@UseGuards(JwtAuthGuard)
 @Get()
 getUser():Promise<User[]>{
     return this.userService.getUser();
