@@ -1,5 +1,4 @@
 import React, { ChangeEvent, useState } from "react";
-import Image from "next/image";
 import Button from "../Button/Button";
 import "./ModalBorrow.css";
 import BorrowInput from "~~/components/BorrowInput/BorrowInput";
@@ -50,7 +49,7 @@ const ModalBorrow: React.FC<ModalProps> = ({ setIsModalOpen }) => {
                     type="text"
                     id="campo1"
                     name="campo1"
-                    className="bg-transparent border-none p-2 focus:outline-none w-full"
+                    className="w-full p-2 bg-transparent border-none focus:outline-none"
                   />
                   <CustomSelect options={optionsMonth} placeholder="Month" onChange={() => {}} showBorder={false} />
                 </div>

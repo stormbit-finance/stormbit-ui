@@ -1,7 +1,30 @@
 import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import { AiOutlineClose } from "react-icons/ai";
 
 function SelectDestination() {
-  const options = ["Avalanche", "Arbitrum", "Ethereum", "Optimism", "Starknet"];
+  const options = [
+    {
+      name: "Avalanche",
+      icon: "/avalanche.png",
+    },
+    {
+      name: "Arbitrum",
+      icon: "/arbitrum.png",
+    },
+    {
+      name: "Ethereum",
+      icon: "/eth1.png",
+    },
+    {
+      name: "Optimism",
+      icon: "/op.png",
+    },
+    {
+      name: "Starknet",
+      icon: "/starknet.png",
+    },
+  ];
   const [selectedOption, setSelectedOption] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -27,10 +50,10 @@ function SelectDestination() {
   return (
     <div ref={dropdownRef}>
       <button
-        className="inline-flex items-center px-4 py-2 font-semibold text-gray-700 bg-gray-200 rounded"
+        className="inline-flex items-center px-4 py-2 font-semibold text-white bg-[#19192B] rounded border border-[#374B6D]"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {selectedOption ? selectedOption : "Select an option"}
+        {selectedOption ? selectedOption.name : "Select destination"}
         <svg
           className={`fill-current h-4 w-4 ml-2 ${isOpen ? "transform rotate-180" : ""}`}
           xmlns="http://www.w3.org/2000/svg"
@@ -40,17 +63,24 @@ function SelectDestination() {
         </svg>
       </button>
       {isOpen && (
-        <ul className="absolute top-0 left-0 w-full pt-1 text-2xl text-gray-700 bg-white border border-gray-300 rounded-tl rounded-tr shadow-lg">
-          {options.map((option, index) => (
-            <li
-              key={index}
-              className="px-4 py-2 cursor-pointer hover:bg-gray-200"
-              onClick={() => handleOptionClick(option)}
-            >
-              {option}
-            </li>
-          ))}
-        </ul>
+        <div className="absolute flex flex-col gap-6 top-0 left-0 w-full p-8 text-2xl text-white bg-[#19192B] rounded-[15px] rounded-tr shadow-lg ">
+          <div className="flex justify-between">
+            <span>Destination</span>
+            <AiOutlineClose onClick={() => setIsOpen(false)} className="cursor-pointer" />
+          </div>
+          <ul className="flex flex-col gap-5">
+            {options.map((option, index) => (
+              <li
+                key={index}
+                className="px-4 py-8 cursor-pointer  border border-[#374B6D] rounded-[18px] flex gap-4 items-center"
+                onClick={() => handleOptionClick(option)}
+              >
+                <Image src={option.icon} alt={option.name} width={50} height={50} className="rounded-full"></Image>
+                {option.name}
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
     </div>
   );
