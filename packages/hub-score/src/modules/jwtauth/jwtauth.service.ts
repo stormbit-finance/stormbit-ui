@@ -6,10 +6,11 @@ import { User } from '../user/user.entity';
 import { Repository } from 'typeorm';
 import { UserService } from '../user/user.service';
 import { LoginAuthDto } from './dto/login-auth.dto';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class JwtauthService {
-    constructor(private usersService: UserService) {}
+    constructor(private usersService: UserService,private JwtAuthService:JwtService) {}
     async register(userObject:RegisterAuthDto) {
        const {password}=userObject
        const plaintohash= await hash(password,10)
@@ -28,9 +29,16 @@ export class JwtauthService {
 
         if (!checkPassword){ throw new HttpException('PASSWORD_INCORRECT',HttpStatus.FORBIDDEN)
         }
-        const data = findUser;
 
-        return data 
+        const payload ={id: findUser.id,name:findUser.username}
+        const token = await this.JwtAuthService.sign(payload)
+
+        const data={
+user:findUser,
+token
+        };
+
+        return data; 
 
     }
 }
