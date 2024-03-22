@@ -159,13 +159,13 @@ export const dataExtension = [
 
 export const dataTechnology = [
   {
-    name: "Custom Agreements",
+    name: "Customizable Agreements",
     description:
       "Tailor your lending experience with flexible, user-defined loan agreements to fit diverse financial needs.",
     icon: "/custom.png",
   },
   {
-    name: "Governance Allocations",
+    name: "Dynamic Governance Allocation",
     description: "Enhance trust and transparency through community-driven, decentralized loan approval processes. ",
     icon: "/bank.png",
   },

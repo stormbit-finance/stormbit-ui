@@ -5,7 +5,7 @@ import type { NextPage } from "next";
 import CarruselTweets from "~~/components/CarruselTweets/CarruselTweets";
 import { Footer } from "~~/components/Footer";
 import GridBackground from "~~/components/GridBackground/GridBackground";
-import { dataExtension, dataMetrics, dataTechnology } from "~~/data/data";
+import { dataTechnology } from "~~/data/data";
 
 const Home: NextPage = () => {
   return (
@@ -30,7 +30,7 @@ const Home: NextPage = () => {
             </div>
           </section>
           <section className="flex flex-col items-center justify-center gap-20 w-full h-[520px] py-[150px]  ">
-            <h2 className="text-3xl text-white">Evolutionary Trust Evaluation Mechanism</h2>
+            <h2 className="text-5xl text-white">Evolutionary Trust Evaluation Mechanism</h2>
             <div className="flex items-center justify-center w-full gap-32">
               <span className="max-w-[770px] w-full text-[28px] text-white">
                 Empower financial inclusivity with a dynamic, blockchain-enhanced trust score that evolves with your
@@ -41,7 +41,7 @@ const Home: NextPage = () => {
           </section>
           <section className="flex flex-col items-center py-[150px] ">
             <div className="max-w-[1920px] w-full flex-col flex items-center gap-[20px]">
-              <h2 className="text-4xl font-bold text-white">Core Technology</h2>
+              <h2 className="text-5xl font-bold text-white">Core Technology</h2>
               <div className="flex flex-wrap justify-center gap-20 max-w-[1400px] mx-auto pt-[80px]">
                 {dataTechnology.map(element => (
                   <div
@@ -51,7 +51,7 @@ const Home: NextPage = () => {
                     <div>
                       <Image src={element.icon} alt="icon" width={108} height={132} />
                     </div>
-                    <div className="flex flex-col items-center justify-center gap-6 text-white max-w-[361px]">
+                    <div className="flex flex-col items-center justify-center gap-6 text-white max-w-[367px]">
                       <span className="text-2xl font-bold text-white text-center">{element.name}</span>
                       <span className="text-lg font-medium text-center">{element.description}</span>
                     </div>
@@ -61,10 +61,10 @@ const Home: NextPage = () => {
             </div>
           </section>
 
-          <section className="flex flex-col items-center py-[150px]">
+          <section className="flex flex-col items-center pb-[150px]">
             <div className="max-w-[1920px] flex flex-col items-center w-full">
               <div className="flex gap-6">
-                <h2 className="text-4xl font-bold text-white">Tweets</h2>
+                <h2 className="text-5xl font-bold text-white">Tweets</h2>
                 <Image src="/tweets.png" alt="tweets" width={58} height={58} />
               </div>
               <div className="flex gap-20 max-w-[1920px]">
@@ -81,7 +81,7 @@ const Home: NextPage = () => {
           <section className="flex flex-col items-center pt-[60px] pb-[150px]">
             <div className="max-w-[1920px] w-full flex flex-col items-center justify-center">
               <div className="flex flex-col justify-center items-center gap-20 max-w-[1400px] w-full h-[440px] container-subscribe">
-                <h2 className="text-4xl font-bold text-white">Keep Updated</h2>
+                <h2 className="text-5xl font-bold text-white">Keep Updated</h2>
                 <div className="flex gap-6 w-full justify-center">
                   <input
                     placeholder="Enter your email address"
