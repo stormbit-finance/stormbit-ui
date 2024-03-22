@@ -171,6 +171,26 @@ input{
   z-index: 100000;
   color: #ffffff;
 }
+.custom-select {
+  background-color: #17172B;
+  border: 1px solid #374B6D;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+}
+
+.custom-option {
+  background-color: #17172B;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: 1px solid #374B6D;
+  border-top: none;
+  border-radius: 0 0 0.25rem 0.25rem;
+}
+
+.custom-option:first-child {
+  border-top: 1px solid #374B6D;
+}
 
 
 
