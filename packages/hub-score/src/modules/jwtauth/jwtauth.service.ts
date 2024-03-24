@@ -1,15 +1,18 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { RegisterAuthDto } from './dto/register-auth.dto';
 import { compare, hash } from 'bcrypt';
-import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../user/user.entity';
-import { Repository } from 'typeorm';
 import { UserService } from '../user/user.service';
 import { LoginAuthDto } from './dto/login-auth.dto';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class JwtauthService {
+    logout() {
+        throw new Error('Method not implemented.');
+    }
+    refreshTokens() {
+        throw new Error('Method not implemented.');
+    }
     constructor(private usersService: UserService,private JwtAuthService:JwtService) {}
     async register(userObject:RegisterAuthDto) {
        const {password}=userObject
@@ -21,7 +24,7 @@ export class JwtauthService {
 
         const {email,password}=userObjectLogin
 
-        const [findUser]=await this.usersService.find(email)
+        const findUser=await this.usersService.findbyemail(email)
 
         if (!findUser) {new HttpException('USER_NOT_FOUND',404)
     }

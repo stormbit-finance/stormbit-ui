@@ -5,57 +5,54 @@ import { Repository} from 'typeorm';
 import {createUserDto } from './dto/create-user.dto';
 import { updateUserDto } from './dto/update-user.dto';
 import { RegisterAuthDto } from '../jwtauth/dto/register-auth.dto';
+import { UserRepository } from './user.repository';
 
 @Injectable()
 export class UserService {
-constructor(@InjectRepository(User) private userRepository: Repository<User>) {}
+constructor(private userRepository:UserRepository) {}
 
 
 async createUser(user:RegisterAuthDto) {
-    const userFound = this.userRepository.findOne({where:{email:user.email}});
+    const userFound = this.userRepository.findByEmail(user.email);
     if(!userFound) {
         return new HttpException('User already exists',HttpStatus.BAD_REQUEST);
     }
- const newUser  = this.userRepository.create(user);
- return this.userRepository.save(newUser);
+ const newUser  = this.userRepository.createUser(user);
+ return newUser;
 }
 getUser() {
-    return this.userRepository.find();
+    return this.userRepository.getAllUsers();
 }
 async getUserById(id:number) {
   
     if(!id) {
         return new HttpException('User not found',HttpStatus.NOT_FOUND);
     }
-    return this.userRepository.findOne({where:{id}});;
+    return this.userRepository.getUserById(id);
 }
 
 async deleteUser(id:number) {
 
-    const userFound= await this.userRepository.findOne({where:{id}});
+    const userFound= await this.userRepository.getUserById(id);
     
     if(!userFound) {
         return new HttpException('User not found',HttpStatus.NOT_FOUND);
     }
     
     
-   return this.userRepository.delete({id});
+   return this.userRepository.deleteUser(id);
 
 
 }
 async updateUser(id:number,user:updateUserDto) {
-    const userFound=await this.userRepository.findOne({where:{id}});
-    if (!userFound) {
-        return new HttpException('User not found',HttpStatus.NOT_FOUND);
-    }
 
-    const updateUser2=Object.assign(userFound,user);
-    return this.userRepository.save(updateUser2);
+   
+    return this.userRepository.updateUser(id,user);
 
 }
 
-find(email:string){
-    return this.userRepository.find({where:{email}});
+findbyemail(email:string){
+    return this.userRepository.findByEmail(email);
 }
 
 }

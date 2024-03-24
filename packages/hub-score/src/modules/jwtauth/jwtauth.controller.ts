@@ -16,11 +16,24 @@ registerUser(@Body() userObject:RegisterAuthDto){
 }
 @Post('login')
 loginUser(@Body() userObjectLogin:LoginAuthDto){
-    console.log("se ejecuta login");
+
     
     console.log({body:userObjectLogin});
     return this.jwtauthService.login(userObjectLogin)
     
+}
+
+@Post('logout')
+logout(){
+
+ this.jwtauthService.logout()
+    
+}
+@Post('refresh')
+refreshtokens(){
+
+  
+    this.jwtauthService.refreshTokens()
 }
 
 }

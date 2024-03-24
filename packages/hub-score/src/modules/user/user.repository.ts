@@ -1,60 +1,60 @@
-// import { Injectable, Logger } from '@nestjs/common';
-// import { InjectRepository } from '@nestjs/typeorm';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User } from './user.entity';
 
-// import { User } from './user.entity';
-// import { UserDto, UserSignUpDto } from './user.dto';
-// import { FindOptionsWhere, Repository } from 'typeorm';
+@Injectable()
+export class UserRepository {
+  constructor(
+    @InjectRepository(User)
+    private repository: Repository<User>,
+  ) {}
 
-// @Injectable()
-// export class UserRepository {
-//   private readonly logger = new Logger(UserRepository.name);
+  async createUser(user: Partial<User>): Promise<User> {
+    const newUser = this.repository.create(user);
+    return this.repository.save(newUser);
+  }
 
-//   constructor(
-//     @InjectRepository(User)
-//     private readonly userEntityRepository: Repository<User>,
-//   ) {}
+  
+  async getUserById(id: number): Promise<User> {
+    return this.repository.findOne({ where: { id } });
+  }
 
-//   public async updateOne(
-//     where: FindOptionsWhere<User>,
-//     dto: Partial<UserSignUpDto>,
-//   ): Promise<User> {
-//     const userEntity = await this.userEntityRepository.findOneBy(where);
+ 
+  async getAllUsers(): Promise<User[]> {
+    return this.repository.find();
+  }
 
-//     if (!userEntity) {
-//       this.logger.log('none');
-//       throw new Error();
-//     }
 
-//     Object.assign(userEntity, dto);
-//     return userEntity.save();
-//   }
+  async updateUser(id: number, user: Partial<User>): Promise<User> {
+    const userFound=await this.repository.findOne({where:{id}});
+    if (!userFound) {
+        console.log('none');
+        ;
+        throw new Error();
+      }
 
-//   public async findOne(
-//     where: FindOptionsWhere<UserEntity>,
-//     options?: FindOneOptions<UserEntity>,
-//   ): Promise<UserEntity | null> {
-//     const userEntity = await this.userEntityRepository.findOne({
-//       where,
-//       ...options,
-//     });
+    const updateUser2=Object.assign(userFound,user);
+    return this.repository.save(updateUser2);
+  }
 
-//     return userEntity;
-//   }
+ 
+  async deleteUser(id: number): Promise<void> {
+    await this.repository.delete(id);
+  }
 
-//   public find(
-//     where: FindOptionsWhere<UserEntity>,
-//     options?: FindManyOptions<UserEntity>,
-//   ): Promise<UserEntity[]> {
-//     return this.userEntityRepository.find({
-//       where,
-//       order: {
-//         createdAt: 'DESC',
-//       },
-//       ...options,
-//     });
-//   }
+  async findByUsername(username: string): Promise<User> {
+    return this.repository.findOne({ where: { username } });
+  }
 
-//   public async create(dto: UserDto): Promise<UserEntity> {
-//     return this.userEntityRepository.create(dto).save();
-//   }
-// }
+  async findByEmail(email: string): Promise<User> {
+    return this.repository.findOne({ where: { email } });
+  }
+
+
+  
+  async incrementTransactionCount(userId: number): Promise<void> {
+    await this.repository.increment({ id: userId }, 'transaction_count', 1);
+  }
+
+}
