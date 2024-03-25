@@ -8,6 +8,4 @@ export class Output {
   @Column({ default: false })
   approved: boolean;
 
-  @Column({ default: false })
-  refused: boolean;
 }

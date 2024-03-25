@@ -2,46 +2,47 @@ import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common'
 import { LoanService } from './loan.service';
 
 import { ApiTags } from '@nestjs/swagger';
+import { LoanEntity } from './loan.entity';
+import { LoanRepaidDto, LoanRepaymentDetailsDto, LoanRepaymentTimeDto } from './loan.dto';
 
 @ApiTags('LOAN')
 @Controller('loan')
 export class LoansController {
-  // constructor(private loanService: LoanService) {}
+ 
+  constructor(private loanService: LoanService ){}
 
-  // @Post()
-  // create(@Body() createLoanDto: CreateLoanDto) {
-  //   return this.loanService.create(createLoanDto);
-  // }
 
-  // @Get()
-  // findAll() {
-  //   return this.loanService.findAll();
-  // }
+//i expected arrays  with the user approved
 
-  // @Get(':id')
-  // findOne(@Param('id') id: number) {
-  //   return this.loanService.findOne(id);
-  // }
+ 
+  @Get('status/approved')
+  async getApprovedLoans(): Promise<LoanEntity[]> {
+    return this.loanService.getApprovedLoans();
+  }
 
-  // @Put(':id')
-  // update(@Param('id') id: number, @Body() updateLoanDto: UpdateLoanDto) {
-  //   return this.loanService.update(id, updateLoanDto);
-  // }
+  @Get('status/refused')
+  async getRefusedLoans(): Promise<LoanEntity[]> {
+    return this.loanService.getRefusedLoans();
+  }
 
-  // @Delete(':id')
-  // remove(@Param('id') id: number) {
-  //   return this.loanService.remove(id);
-  // }
+  //i expected one json of a unique user 
+  @Get('repaymentTime/:id')
+  async getRepaymentTime(@Param('id') id: number): Promise<LoanRepaymentTimeDto> {
+    const repaymentTime = await this.loanService.getRepaymentTimeById(id);
+    return { repaymentTime };
+  }
 
-  // @Get(':id/status')
-  // getStatus(@Param('id') id: number) {
-  //   return this.loanService.findOne(id).then((loan) => ({
-  //     approved: loan.approved,
-  //     refused: loan.refused,
-  //     repayment: {
-  //       repaid: loan.repaid ? 'yes' : 'no',
-  //       timeDelay: loan.timeDelay,
-  //     },
-  //   }));
-  // }
+  @Get('repaid/:id')
+  async getRepaid(@Param('id') id: number): Promise<LoanRepaidDto> {
+    const repaid = await this.loanService.getRepaidById(id);
+    return { repaid };
+  }
+
+  @Get('repaymentDetails/:id')
+  async getRepaymentDetails(@Param('id') id: number): Promise<LoanRepaymentDetailsDto> {
+    const tranches = await this.loanService.getRepaymentDetailsById(id);
+    return { tranches };
+  }
+
+  
 }

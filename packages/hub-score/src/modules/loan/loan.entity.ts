@@ -12,7 +12,7 @@ export class LoanEntity {
   @Column({ default: false })
   refused: boolean;
 
-  
-  @Column({ type: 'jsonb', default: { repaid: false, timeDelay: 0 } })
-  repaid: { repaid: boolean, timeDelay: number };
+  @Column({ type: 'jsonb', default: { repaid: false,tranches:[], repaymentTime: 0 } })
+  repaid: { 
+    repaid:boolean,tranches: Array<{amount:number,date:Date}> , repaymentTime: number,};
 }

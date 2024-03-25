@@ -40,8 +40,5 @@ export class OutputController {
     return this.outputService.findOne(id).then((output) => output.approved);
   }
 
-  @Get(':id/refused')
-  getRefused(@Param('id') id: number) {
-    return this.outputService.findOne(id).then((output) => output.refused);
-  }
+  
 }

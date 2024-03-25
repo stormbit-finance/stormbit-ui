@@ -2,34 +2,34 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { LoanEntity } from './loan.entity';
+import { LoanRepository } from './loan.repository';
 
 
 @Injectable()
 export class LoanService {
-  // constructor(
-  //   @InjectRepository(Loan)
-  //   private loanRepository: Repository<Loan>,
-  // ) {}
+  
+  constructor(private loanRepository:LoanRepository) {}
+  
+  getApprovedLoans(): LoanEntity[] | PromiseLike<LoanEntity[]> {
+    return this.loanRepository.getApprovedLoans()
+  }
+  getRefusedLoans(): LoanEntity[] | PromiseLike<LoanEntity[]> {
+    return this.loanRepository.getRefusedLoans()
+  }
+  
+  async getRepaymentTimeById(id: number): Promise<number> {
+    const loan = await this.loanRepository.getUserById(id);
+    return loan.repaid.repaymentTime;
+  }
 
-  // async create(createLoanDto: CreateLoanDto): Promise<Loan> {
-  //   const loan = this.loanRepository.create(createLoanDto);
-  //   return this.loanRepository.save(loan);
-  // }
+  async getRepaidById(id: number): Promise<boolean> {
+    const loan = await this.loanRepository.getUserById(id);
+    return loan.repaid.repaid;
+  }
 
-  // async findAll(): Promise<Loan[]> {
-  //   return this.loanRepository.find();
-  // }
-
-  // async findOne(id: number): Promise<Loan> {
-  //   return this.loanRepository.findOne({ where: { id } });
-  // }
-
-  // async update(id: number, updateLoanDto: UpdateLoanDto): Promise<Loan> {
-  //   await this.loanRepository.update(id, updateLoanDto);
-  //   return this.findOne(id);
-  // }
-
-  // async remove(id: number): Promise<void> {
-  //   await this.loanRepository.delete(id);
-  // }
+  async getRepaymentDetailsById(id: number): Promise<Array<{ amount: number; date: Date }>> {
+    const loan = await this.loanRepository.getUserById(id);
+    return loan.repaid.tranches;
+  }
+  
 }
