@@ -40,3 +40,7 @@ jobs:
       - name: Check typings on Next.js
         run: yarn next:check-types
         working-directory: ./packages/nextjs
+
+      - name: Build Next.js project
+        run: yarn build
+        working-directory: ./packages/nextjs
