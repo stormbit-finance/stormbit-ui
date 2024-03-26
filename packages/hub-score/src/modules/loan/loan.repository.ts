@@ -1,8 +1,7 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { LoanEntity } from './loan.entity';
-
 
 @Injectable()
 export class LoanRepository {
@@ -11,37 +10,37 @@ export class LoanRepository {
     private repository: Repository<LoanEntity>,
   ) {}
 
-  async createUser(user: Partial<LoanEntity>): Promise<LoanEntity> {
-    const newUser = this.repository.create(user);
-    return this.repository.save(newUser);
+  async createLoan(loan: Partial<LoanEntity>): Promise<LoanEntity> {
+    const newLoan = this.repository.create(loan);
+    return this.repository.save(newLoan);
   }
 
-  
-  async getUserById(id: number): Promise<LoanEntity> {
-    return this.repository.findOne({ where: { id } });
+  async getLoanById(id: number): Promise<LoanEntity> {
+    const loan = await this.repository.findOne({ where: { id } });
+    if (!loan) {
+      throw new NotFoundException('Loan not found');
+    }
+    return loan;
   }
 
- 
-  async getAllUsers(): Promise<LoanEntity[]> {
+  async getAllLoans(): Promise<LoanEntity[]> {
     return this.repository.find();
   }
 
-
-  async updateUser(id: number, user: Partial<LoanEntity>): Promise<LoanEntity> {
-    const userFound=await this.repository.findOne({where:{id}});
-    if (!userFound) {
-        console.log('none');
-        ;
-        throw new Error();
-      }
-
-    const updateUser2=Object.assign(userFound,user);
-    return this.repository.save(updateUser2);
+  async updateLoan(id: number, loan: Partial<LoanEntity>): Promise<LoanEntity> {
+    const loanFound = await this.repository.findOne({ where: { id } });
+    if (!loanFound) {
+      throw new NotFoundException('Loan not found');
+    }
+    Object.assign(loanFound, loan);
+    return this.repository.save(loanFound);
   }
 
- 
-  async deleteUser(id: number): Promise<void> {
-    await this.repository.delete(id);
+  async deleteLoan(id: number): Promise<void> {
+    const result = await this.repository.delete(id);
+    if (result.affected === 0) {
+      throw new NotFoundException('Loan not found');
+    }
   }
 
   async getApprovedLoans(): Promise<LoanEntity[]> {
@@ -51,7 +50,4 @@ export class LoanRepository {
   async getRefusedLoans(): Promise<LoanEntity[]> {
     return this.repository.find({ where: { refused: true } });
   }
-
-
-
 }
