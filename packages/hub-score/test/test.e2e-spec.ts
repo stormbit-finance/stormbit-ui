@@ -175,19 +175,27 @@ describe('GET /loan/repaymentDetails/:id', () => {
   describe('GET /loan/repaid/:id', () => {
     it('should return the repaid status for a specific loan', async () => {
       const loanId = 1;
-      const repaid = true;
+      const repaid=true
+      const tranches = [
+        {
+          amount: 1000,
+          date: new Date(),
+        },
+        {
+          amount: 500,
+          date: new Date(),
+        },
+      ];
       const loan: LoanEntity = {
         id: loanId,
         approved: false,
         refused: false,
         repaid: {
-          repaid,
-          tranche: {
-            amount: 0,
-            date: null,
-          },
+          repaid: false,
+          tranches,
           repaymentTime: 0,
         },
+        
       };
       jest.spyOn(loanRepository, 'getUserById').mockResolvedValue(loan);
 
@@ -202,19 +210,27 @@ describe('GET /loan/repaymentDetails/:id', () => {
   describe('GET /loan/repaymentDetails/:id', () => {
     it('should return the repayment details for a specific loan', async () => {
       const loanId = 1;
-      const tranche = {
-        amount: 1000,
-        date: new Date(),
-      };
+     
+      const tranches = [
+        {
+          amount: 1000,
+          date: new Date(),
+        },
+        {
+          amount: 500,
+          date: new Date(),
+        },
+      ];
       const loan: LoanEntity = {
         id: loanId,
         approved: false,
         refused: false,
         repaid: {
           repaid: false,
-          tranche,
+          tranches,
           repaymentTime: 0,
         },
+        
       };
       jest.spyOn(loanRepository, 'getUserById').mockResolvedValue(loan);
 
@@ -222,7 +238,7 @@ describe('GET /loan/repaymentDetails/:id', () => {
         .get(`/loan/repaymentDetails/${loanId}`)
         .expect(200);
 
-      expect(response.body).toEqual({ tranches: tranche });
+      expect(response.body).toEqual({ tranches: tranches });
     });
   });
 });

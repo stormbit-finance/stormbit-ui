@@ -7,7 +7,7 @@ import { UserModule } from './modules/user/user.module';
 import { ConfigModule } from '@nestjs/config';
 
 import { HealthModule } from './modules/health/health.module';
-import { OutputsModule } from './modules/outputs/outputs.module';
+
 import { LoanModule } from './modules/loan/loan.module';
 import { JwtauthModule } from './modules/jwtauth/jwtauth.module';
 
@@ -17,7 +17,7 @@ import { JwtauthModule } from './modules/jwtauth/jwtauth.module';
       isGlobal:true,
       envFilePath:'.env',
     }),
-    DatabaseModule,UserModule,HealthModule,OutputsModule,LoanModule,JwtauthModule],
+    DatabaseModule,UserModule,HealthModule,LoanModule,JwtauthModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -26,9 +26,9 @@ export class LoanService {
     return loan.repaid.repaid;
   }
 
-  async getRepaymentDetailsById(id: number): Promise<Array<{ amount: number; date: Date }>> {
-    const loan = await this.loanRepository.getUserById(id);
-    return loan.repaid.tranches;
-  }
+  // async getRepaymentDetailsById(id: number): Promise<Array<{ amount: number; date: Date }>> {
+  //   const loan = await this.loanRepository.getUserById(id);
+  //   return loan.repaid.tranches;
+  // }
   
 }

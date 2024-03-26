@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { TrancheEntity } from './tranche.entity';
 
 @Entity({ name: 'IDPool' })
 export class LoanEntity {
@@ -12,7 +13,9 @@ export class LoanEntity {
   @Column({ default: false })
   refused: boolean;
 
-  @Column({ type: 'jsonb', default: { repaid: false,tranches:[], repaymentTime: 0 } })
-  repaid: { 
-    repaid:boolean,tranches: Array<{amount:number,date:Date}> , repaymentTime: number,};
+  @Column({ type: 'jsonb', default: { repaid: false, repaymentTime: 0 } })
+  repaid: { repaid:boolean, repaymentTime: number };
+
+  @OneToMany(() => TrancheEntity, tranche => tranche.loan)
+  tranches: TrancheEntity[];
 }

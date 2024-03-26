@@ -38,11 +38,11 @@ export class LoansController {
     return { repaid };
   }
 
-  @Get('repaymentDetails/:id')
-  async getRepaymentDetails(@Param('id') id: number): Promise<LoanRepaymentDetailsDto> {
-    const tranches = await this.loanService.getRepaymentDetailsById(id);
-    return { tranches };
-  }
+  // @Get('repaymentDetails/:id')
+  // async getRepaymentDetails(@Param('id') id: number): Promise<LoanRepaymentDetailsDto> {
+  //   const tranches = await this.loanService.getRepaymentDetailsById(id);
+  //   return { tranches };
+  // }
 
   
 }
