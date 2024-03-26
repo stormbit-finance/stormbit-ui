@@ -64,11 +64,17 @@ describe('JwtauthController (e2e)', () => {
     expect(response.body).toHaveProperty('token');
     expect(response.body.user).toHaveProperty('id');
     expect(response.body.user.email).toBe(loginData.email);
+
+    token = response.body.token;
   });
 
  
 
   it('should get all users', async () => {
+   
+    
+    console.log(token);
+    
     const response = await request(app.getHttpServer())
       .get('/users')
       .set('Authorization', `Bearer ${token}`)
@@ -112,6 +118,93 @@ describe('JwtauthController (e2e)', () => {
     const getUserResponse = await request(app.getHttpServer())
       .get(`/users/${userId}`)
       .expect(200);
+  });
+  describe('/loan/status/approved (GET)', () => {
+    it('should return an array of approved loans', async () => {
+      const approvedLoans: LoanEntity[] = [
+        {
+          id: 1,
+          approved: true,
+          refused: false,
+          repaid: {
+            repaid: false,
+            tranches: [],
+            repaymentTime: 0,
+          },
+        },
+        {
+          id: 2,
+          approved: true,
+          refused: false,
+          repaid: {
+            repaid: true,
+            tranches: [
+              { amount: 1000, date: new Date('2023-01-01') },
+              { amount: 500, date: new Date('2023-02-01') },
+            ],
+            repaymentTime: 60,
+          },
+        },
+      ];
+  
+      // Convertir las fechas a cadenas de texto
+      const approvedLoansStringDates = approvedLoans.map((loan) => {
+        const repaidTranches = loan.repaid.tranches.map((tranche) => ({
+          amount: tranche.amount,
+          date: tranche.date.toISOString(), // Convertir la fecha a cadena de texto
+        }));
+  
+        return {
+          ...loan,
+          repaid: {
+            ...loan.repaid,
+            tranches: repaidTranches,
+          },
+        };
+      });
+  
+      jest.spyOn(app.get(getRepositoryToken(LoanEntity)), 'find').mockResolvedValue(approvedLoans);
+  
+      const response = await request(app.getHttpServer())
+        .get('/loan/status/approved')
+        .expect(200);
+  
+      expect(response.body).toEqual(approvedLoansStringDates);
+    });
+  });
+  
+  describe('/loan/status/refused (GET)', () => {
+    it('should return an array of refused loans', async () => {
+      const refusedLoans: LoanEntity[] = [
+        {
+          id: 3,
+          approved: false,
+          refused: true,
+          repaid: {
+            repaid: false,
+            tranches: [],
+            repaymentTime: 0,
+          },
+        },
+        {
+          id: 4,
+          approved: false,
+          refused: true,
+          repaid: {
+            repaid: false,
+            tranches: [],
+            repaymentTime: 0,
+          },
+        },
+      ];
+      jest.spyOn(app.get(getRepositoryToken(LoanEntity)), 'find').mockResolvedValue(refusedLoans);
+
+      const response = await request(app.getHttpServer())
+        .get('/loan/status/refused')
+        .expect(200);
+
+      expect(response.body).toEqual(refusedLoans);
+    });
   });
 
   it('/loan/repaymentTime/:id (GET)', async () => {
