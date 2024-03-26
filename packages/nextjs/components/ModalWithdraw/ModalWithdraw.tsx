@@ -32,7 +32,7 @@ const ModalWithdraw: React.FC<ModalProps> = ({ setIsModalWithdraw }) => {
             </div>
           </div>
         </div>
-        <div className="mt-4">
+        <div className="flex items-center justify-between mt-8">
           <span>Select destination</span>
           <SelectDestination></SelectDestination>
         </div>
