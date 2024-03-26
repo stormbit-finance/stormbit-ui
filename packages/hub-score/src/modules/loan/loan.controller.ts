@@ -2,7 +2,7 @@ import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common'
 import { LoanService } from './loan.service';
 
 import { ApiTags } from '@nestjs/swagger';
-import { LoanEntity } from './loan.entity';
+import { LoanEntity, Tranche } from './loan.entity';
 import { LoanRepaidDto, LoanRepaymentDetailsDto, LoanRepaymentTimeDto } from './loan.dto';
 
 @ApiTags('LOAN')
@@ -38,11 +38,10 @@ export class LoansController {
     return { repaid };
   }
 
-  // @Get('repaymentDetails/:id')
-  // async getRepaymentDetails(@Param('id') id: number): Promise<LoanRepaymentDetailsDto> {
-  //   const tranches = await this.loanService.getRepaymentDetailsById(id);
-  //   return { tranches };
-  // }
+  @Get('repaymentDetails/:id')
+  async getRepaymentDetails(@Param('id') id: number): Promise<Tranche[]> {
+    return this.loanService.getRepaymentDetails(id);
+  }
 
   
 }

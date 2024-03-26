@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../modules/user/user.entity';
 import {ConfigModule,ConfigService} from '@nestjs/config';
-import { LoanEntity } from 'src/modules/loan/loan.entity';
-import { TrancheEntity } from 'src/modules/loan/tranche.entity';
+import { LoanEntity } from '../modules/loan/loan.entity';
+
 
 @Module({ imports: [
     TypeOrmModule.forRootAsync({
@@ -18,7 +18,7 @@ import { TrancheEntity } from 'src/modules/loan/tranche.entity';
             username: configService.get('DB_USERNAME'),
             password: configService.get('DB_PASSWORD'),
             database: configService.get('DB_NAME'),
-            entities: [User,LoanEntity,TrancheEntity],
+            entities: [User,LoanEntity],
             synchronize: true,
             }
         },

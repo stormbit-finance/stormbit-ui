@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 
-import { LoanEntity } from './loan.entity';
+import { LoanEntity, Tranche } from './loan.entity';
 import { LoanRepository } from './loan.repository';
 
 
 @Injectable()
 export class LoanService {
+  
   
   constructor(private loanRepository:LoanRepository) {}
   
@@ -26,9 +27,9 @@ export class LoanService {
     return loan.repaid.repaid;
   }
 
-  // async getRepaymentDetailsById(id: number): Promise<Array<{ amount: number; date: Date }>> {
-  //   const loan = await this.loanRepository.getUserById(id);
-  //   return loan.repaid.tranches;
-  // }
-  
+  async getRepaymentDetails(id: number): Promise<Tranche[]> {
+    const loan = await this.loanRepository.getUserById(id);
+    return loan.repaid.tranches;
+  }
+
 }

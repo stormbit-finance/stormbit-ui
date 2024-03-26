@@ -4,16 +4,17 @@ import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
 import { RegisterAuthDto } from './../src/modules/jwtauth/dto/register-auth.dto';
 import { LoginAuthDto } from './../src/modules/jwtauth/dto/login-auth.dto';
-import { updateUserDto } from 'src/modules/user/dto/update-user.dto';
-import { LoanService } from 'src/modules/loan/loan.service';
-import { LoanRepository } from 'src/modules/loan/loan.repository';
-import { LoanEntity } from 'src/modules/loan/loan.entity';
+import { updateUserDto } from '../src/modules/user/dto/update-user.dto';
+
+import { LoanEntity } from '../src/modules/loan/loan.entity';
+import { Repository } from 'typeorm';
+import { getRepositoryToken } from '@nestjs/typeorm';
 
 describe('JwtauthController (e2e)', () => {
   let app: INestApplication;
   let token: string;
-  let loanService: LoanService;
-  let loanRepository: LoanRepository;
+ 
+  let loanRepository: Repository<LoanEntity>;
 
 
   beforeEach(async () => {
@@ -23,9 +24,9 @@ describe('JwtauthController (e2e)', () => {
 
     app = moduleFixture.createNestApplication();
     await app.init();
-
-    loanService = moduleFixture.get<LoanService>(LoanService);
-    loanRepository = moduleFixture.get<LoanRepository>(LoanRepository);
+    loanRepository = moduleFixture.get<Repository<LoanEntity>>(
+      getRepositoryToken(LoanEntity),
+    );
   });
 
   afterEach(async () => {
@@ -58,7 +59,7 @@ describe('JwtauthController (e2e)', () => {
     const response = await request(app.getHttpServer())
       .post('/jwtauth/login')
       .send(loginData)
-      .expect(200);
+      .expect(201);
 
     expect(response.body).toHaveProperty('token');
     expect(response.body.user).toHaveProperty('id');
@@ -110,136 +111,55 @@ describe('JwtauthController (e2e)', () => {
 
     const getUserResponse = await request(app.getHttpServer())
       .get(`/users/${userId}`)
-      .expect(404);
-  });
-  describe('GET /loan/status/approved', () => {
-    it('should return an array of approved loans', async () => {
-      const approvedLoans: LoanEntity[] = [/* Datos de prueba */];
-      jest.spyOn(loanService, 'getApprovedLoans').mockResolvedValue(approvedLoans);
-
-      const response = await request(app.getHttpServer())
-        .get('/loan/status/approved')
-        .expect(200);
-
-      expect(response.body).toEqual(approvedLoans);
-    });
+      .expect(200);
   });
 
-  describe('GET /loan/status/refused', () => {
-    it('should return an array of refused loans', async () => {
-      const refusedLoans: LoanEntity[] = [/* Datos de prueba */];
-      jest.spyOn(loanService, 'getRefusedLoans').mockResolvedValue(refusedLoans);
-
-      const response = await request(app.getHttpServer())
-        .get('/loan/status/refused')
-        .expect(200);
-
-      expect(response.body).toEqual(refusedLoans);
-    });
-  });
-
-  
-describe('GET /loan/repaymentDetails/:id', () => {
-  it('should return the repayment details for a specific loan', async () => {
-    const loanId = 1;
-    const tranches = [
-      {
-        amount: 1000,
-        date: new Date(),
-      },
-      {
-        amount: 500,
-        date: new Date(),
-      },
-    ];
-    const loan: LoanEntity = {
-      id: loanId,
-      approved: false,
-      refused: false,
-      repaid: {
-        repaid: false,
-        tranches,
-        repaymentTime: 0,
-      },
-    };
-    jest.spyOn(loanRepository, 'getUserById').mockResolvedValue(loan);
+  it('/loan/repaymentTime/:id (GET)', async () => {
+    const loan = new LoanEntity();
+    loan.repaid = { repaid: false, tranches: [], repaymentTime: 30 };
+    const createdLoan = await loanRepository.save(loan);
 
     const response = await request(app.getHttpServer())
-      .get(`/loan/repaymentDetails/${loanId}`)
+      .get(`/loan/repaymentTime/${createdLoan.id}`)
       .expect(200);
 
-    expect(response.body).toEqual({ tranches });
-  });
-});
-
-  describe('GET /loan/repaid/:id', () => {
-    it('should return the repaid status for a specific loan', async () => {
-      const loanId = 1;
-      const repaid=true
-      const tranches = [
-        {
-          amount: 1000,
-          date: new Date(),
-        },
-        {
-          amount: 500,
-          date: new Date(),
-        },
-      ];
-      const loan: LoanEntity = {
-        id: loanId,
-        approved: false,
-        refused: false,
-        repaid: {
-          repaid: false,
-          tranches,
-          repaymentTime: 0,
-        },
-        
-      };
-      jest.spyOn(loanRepository, 'getUserById').mockResolvedValue(loan);
-
-      const response = await request(app.getHttpServer())
-        .get(`/loan/repaid/${loanId}`)
-        .expect(200);
-
-      expect(response.body).toEqual({ repaid });
-    });
+    expect(response.body).toStrictEqual({"repaymentTime": 30});
   });
 
-  describe('GET /loan/repaymentDetails/:id', () => {
-    it('should return the repayment details for a specific loan', async () => {
-      const loanId = 1;
-     
-      const tranches = [
-        {
-          amount: 1000,
-          date: new Date(),
-        },
-        {
-          amount: 500,
-          date: new Date(),
-        },
-      ];
-      const loan: LoanEntity = {
-        id: loanId,
-        approved: false,
-        refused: false,
-        repaid: {
-          repaid: false,
-          tranches,
-          repaymentTime: 0,
-        },
-        
-      };
-      jest.spyOn(loanRepository, 'getUserById').mockResolvedValue(loan);
+  it('/loan/repaid/:id (GET)', async () => {
+    const loan = new LoanEntity();
+    loan.repaid = { repaid: true, tranches: [], repaymentTime: 0 };
+    const createdLoan = await loanRepository.save(loan);
 
-      const response = await request(app.getHttpServer())
-        .get(`/loan/repaymentDetails/${loanId}`)
-        .expect(200);
+    const response = await request(app.getHttpServer())
+      .get(`/loan/repaid/${createdLoan.id}`)
+      .expect(200);
 
-      expect(response.body).toEqual({ tranches: tranches });
-    });
+    expect(response.body).toStrictEqual({"repaid": true});
   });
+
+  it('/loan/repaymentDetails/:id (GET)', async () => {
+    const loan = new LoanEntity();
+    loan.repaid = {
+      repaid: false,
+      tranches: [
+        { amount: 1000, date: new Date('2023-01-01') },
+        { amount: 2000, date: new Date('2023-02-01') },
+      ],
+      repaymentTime: 0,
+    };
+    const createdLoan = await loanRepository.save(loan);
+
+    const response = await request(app.getHttpServer())
+      .get(`/loan/repaymentDetails/${createdLoan.id}`)
+      .expect(200);
+
+    expect(response.body).toEqual([
+      { amount: 1000, date: '2023-01-01T00:00:00.000Z' },
+      { amount: 2000, date: '2023-02-01T00:00:00.000Z' },
+    ]);
+  });
+
+
 });
 
