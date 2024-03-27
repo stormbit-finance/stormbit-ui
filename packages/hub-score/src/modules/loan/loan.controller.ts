@@ -4,9 +4,9 @@ import { ApiTags, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
 import { LoanEntity, Tranche } from './loan.entity';
 import { LoanRepaidDto, LoanRepaymentDetailsDto, LoanRepaymentTimeDto } from './loan.dto';
 
-@ApiTags('LOAN')
-@Controller('loan')
-export class LoansController {
+@ApiTags('Loan')
+@Controller('/loan')
+export class LoanController {
   constructor(private loanService: LoanService) {}
 
   @Get('status/approved')

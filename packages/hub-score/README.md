@@ -2,7 +2,7 @@
 
 ## Description
 
-This project aims to extract the credit score of each wallet address entered,and ensure that it qualifies for a loan.
+This project aims to creates stadistic of each wallet address entered,for loans.
 
 
 ## Installation
@@ -13,7 +13,7 @@ $ yarn install
 
 # Setting up environment variables
 
-you need create a env in the score-cripto-main project in packages
+you need create a env in the hub-score project in packages
 
 ```bash
 cp .env.example .env
