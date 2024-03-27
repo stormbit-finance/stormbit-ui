@@ -4,7 +4,7 @@ import "./ModalBorrow.css";
 import BorrowInput from "~~/components/BorrowInput/BorrowInput";
 import CustomCheckbox from "~~/components/CustomCheckbox/CustomCheckbox";
 import CustomSelect from "~~/components/CustomSelect/CustomSelect";
-import { options, optionsMonth, optionsType } from "~~/data/data";
+import { options, optionsPayment, optionsType } from "~~/data/data";
 
 interface ModalProps {
   setIsModalOpen: () => void;
@@ -12,6 +12,8 @@ interface ModalProps {
 
 const ModalBorrow: React.FC<ModalProps> = ({ setIsModalOpen }) => {
   const [selectedView, setSelectedView] = useState("borrow");
+  const [selectedPayment, setSelectedPayment] = useState("month");
+  const [selectedType, setSelectedType] = useState("Select type");
   const [selectedCheckbox, setSelectedCheckbox] = useState("");
   const [reason, setReason] = useState("");
 
@@ -25,6 +27,12 @@ const ModalBorrow: React.FC<ModalProps> = ({ setIsModalOpen }) => {
 
   const handleReasonChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setReason(event.target.value);
+  };
+  const handlePayment = (value: string) => {
+    setSelectedPayment(value);
+  };
+  const handleType = (value: string) => {
+    setSelectedType(value);
   };
 
   return (
@@ -45,13 +53,22 @@ const ModalBorrow: React.FC<ModalProps> = ({ setIsModalOpen }) => {
               <div className="flex flex-col flex-1 gap-4 mt-5 ">
                 <label htmlFor="campo3">Payment Schedule</label>
                 <div className="flex items-center justify-between border w-full p-2 border-[#374B6D] rounded-[14px] bg-transparent">
-                  <input
-                    type="text"
-                    id="campo1"
-                    name="campo1"
-                    className="w-full p-2 bg-transparent border-none focus:outline-none"
+                  <div className="flex justify-center items-center">
+                    <input
+                      type="text"
+                      id="campo1"
+                      name="campo1"
+                      className="bg-transparent border-none p-2 focus:outline-none w-full"
+                      autoComplete="off"
+                      maxLength={10}
+                    />
+                  </div>
+                  <CustomSelect
+                    options={optionsPayment}
+                    placeholder={selectedPayment}
+                    onChange={handlePayment}
+                    showBorder={false}
                   />
-                  <CustomSelect options={optionsMonth} placeholder="Month" onChange={() => {}} showBorder={false} />
                 </div>
               </div>
               <div className="flex flex-col flex-1 gap-4 mt-5">
@@ -62,6 +79,8 @@ const ModalBorrow: React.FC<ModalProps> = ({ setIsModalOpen }) => {
                     id="campo1"
                     name="campo1"
                     className="w-full p-2 bg-transparent border-[#374B6D] focus:outline-none rounded-[14px]"
+                    autoComplete="off"
+                    maxLength={10}
                   />
                 </div>
               </div>
@@ -95,23 +114,20 @@ const ModalBorrow: React.FC<ModalProps> = ({ setIsModalOpen }) => {
                 <>
                   <div className="flex flex-col flex-1 gap-4 mt-5">
                     <label htmlFor="TypeBorrow">Type</label>
-                    <div className="flex items-center w-full border border-[#374B6D] rounded-[14px] bg-transparent">
-                      <CustomSelect
-                        options={optionsType}
-                        placeholder="Select Type"
-                        onChange={() => {}}
-                        showBorder={false}
-                      />
+                    <div className="flex items-center justify-between w-full border border-[#374B6D] rounded-[14px] bg-transparent p-2">
+                      <span className="text-[#4A5056]">{selectedType}</span>
+                      <CustomSelect options={optionsType} onChange={handleType} showBorder={false} />
                     </div>
                   </div>
                   <div className="flex flex-col flex-1 gap-4 mt-5">
                     <label htmlFor="Reason">Reason</label>
                     <div className="flex items-center ">
                       <textarea
-                        className="w-full p-2 bg-transparent border border-[#374B6D] rounded-[14px] focus:outline-none"
+                        className="w-full p-2 bg-transparent border border-[#374B6D] rounded-[14px] focus:outline-none placeholder-[#4A5056] "
                         placeholder="Write Reason"
                         value={reason}
                         onChange={handleReasonChange}
+                        autoComplete="off"
                       />
                     </div>
                   </div>
@@ -120,7 +136,7 @@ const ModalBorrow: React.FC<ModalProps> = ({ setIsModalOpen }) => {
             </div>
           )}
         </div>
-        <Button onClick={() => setIsModalOpen()}>Borrow Dai</Button>
+        <Button onClick={() => setIsModalOpen()}>Borrow</Button>
       </div>
     </div>
   );
