@@ -15,7 +15,7 @@ jobs:
 
       - name: Install Dependencies
         run: yarn install
-        working-directory: packages/nextjs
+        working-directory: .
 
       - name: Build Next.js Application
         run: yarn build
