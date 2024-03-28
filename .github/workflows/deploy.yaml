@@ -1,9 +1,9 @@
-name: Build and Deploy Next.js Application to DigitalOcean
+name: Build and Deploy to Droplet
 
 on:
   push:
     branches:
-      - main  # or your default branch
+      - main 
 
 jobs:
   deploy:
