@@ -38,4 +38,4 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /var/www/Stormbit-monorepo/packages/nextjs
-            pm2 restart all  # Adjust if needed
+            pm2 restart stormbit  # Adjust if needed
