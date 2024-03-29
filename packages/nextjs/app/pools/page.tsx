@@ -34,45 +34,50 @@ const BlockExplorer: NextPage = () => {
   ];
 
   return (
-    <div className="flex justify-center">
-      <div className="flex flex-col gap-6 bg-[#070817] max-w-[1920px] w-screen p-10">
-        <div className="flex justify-end">
-          <div className="flex items-center justify-center gap-2">
+    <div className="flex justify-center items-center">
+      <div className="gap-6 bg-[#070817] max-w-[1920px] ">
+        <div className="max-w-[1550px]">
+          <div className="flex items-center justify-end gap-2 py-[50px]">
             <div className="flex rounded-[5px] border border-solid border-[#A8B1C8] px-4 justify-center items-center">
               <span className="text-white pr-2 border-e border-[#3A3B4B]">%</span>
               <input
                 placeholder="Search pool Usage"
                 className="px-4 py-2 bg-transparent border-none focus:outline-none"
-              ></input>
-              <FiSearch></FiSearch>
+              />
+              <FiSearch />
             </div>
-            <Button
-              onClick={() => {
-                setIsModalOpen(true);
-              }}
-            >
-              Create Pool
-            </Button>
+            <div>
+              <Button
+                onClick={() => {
+                  setIsModalOpen(true);
+                }}
+              >
+                Create Pool
+              </Button>
+            </div>
+          </div>
+          <div className="flex flex-col items-center justify-center gap-24">
+            <div className="flex text-[#A8B1C8] justify-center items-center container-total w-full">
+              {data.map((element, index) => (
+                <>
+                  <div
+                    key={index}
+                    className="flex flex-col gap-2 border-[#374B6D] w-full justify-center items-center py-[24px]"
+                    style={{ borderInlineStartWidth: element.border }}
+                  >
+                    <span className="text-2xl">{element.name}</span>
+                    <span className="text-white text-[32px]">{element.value}</span>
+                  </div>
+                </>
+              ))}
+            </div>
+            <div className="py-[50px]">
+              <PoolContent />
+            </div>
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center gap-24">
-          <div className="flex text-[#A8B1C8]  justify-center items-center container-total max-w-fit">
-            {data.map((element, index) => (
-              <>
-                <div
-                  key={index}
-                  className="flex flex-col gap-2 my-9 border-[#374B6D] px-24"
-                  style={{ borderInlineStartWidth: element.border }}
-                >
-                  <span className="text-2xl">{element.name}</span>
-                  <span className="text-white text-[32px]">{element.value}</span>
-                </div>
-              </>
-            ))}
-          </div>
-          <PoolContent></PoolContent>
-        </div>
-        {isModalOpen && <CreationModal setIsModalOpen={() => setIsModalOpen(false)}></CreationModal>}
+
+        {isModalOpen && <CreationModal setIsModalOpen={() => setIsModalOpen(false)} />}
       </div>
     </div>
   );
