@@ -210,14 +210,6 @@ export const dataMetrics = [
   },
 ];
 
-export const tweetIds = [
-  "1771016246890226145",
-  "1771016296890577249",
-  "1771016328893067556",
-  "1771016368629985321",
-  "1771016403954323565",
-];
-
 export const options = [
   { value: "borrow", label: "Borrow" },
   { value: "repay", label: "Repay" },

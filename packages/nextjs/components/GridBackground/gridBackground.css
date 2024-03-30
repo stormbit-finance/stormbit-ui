@@ -6,12 +6,15 @@
 .cell{
     background-color: transparent;
     transition: background-color 8s ease-in-out; 
-
 }
 
 .grid-container{
     width: 100%;
     top: 0;
     opacity: 4;
-
 }
+
+.last-row{
+    border-bottom: none;
+  }
+  
