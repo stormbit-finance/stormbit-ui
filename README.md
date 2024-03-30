@@ -68,7 +68,8 @@ NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=<your_wallet_connect_project_id_here>
 
 ### To start the development server, run:
 ```bash
-yarn dev
+cd packages/nextjs
+yarn install && yarn dev
 ``` 
 
 For a production build, execute:
