@@ -155,11 +155,9 @@ input{
   backdrop-filter: blur(2px);
   padding: 4rem;
   display: flex;
-  align-items: center;
   justify-content: center;
   z-index: 100000;
 }
-
 .content-modal {
   display: flex;
   flex-direction: column;
@@ -168,7 +166,7 @@ input{
   background: #19192B;
   padding-block: 2rem;
   padding-inline: 3rem;
-  z-index: 100000;
+  z-index: 1;
   color: #ffffff;
 }
 .custom-select {

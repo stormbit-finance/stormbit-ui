@@ -5,7 +5,7 @@ interface PreviewProps {
   placeholder?: string;
 }
 
-const Preview: React.FC<PreviewProps> = ({ placeholder = "0" }) => {
+const PreviewBorrow: React.FC<PreviewProps> = ({ placeholder = "0" }) => {
   const [selectedButton, setSelectedButton] = useState<string | null>(null);
 
   const handleButtonClick = (buttonType: string) => {
@@ -42,4 +42,4 @@ const Preview: React.FC<PreviewProps> = ({ placeholder = "0" }) => {
   );
 };
 
-export default Preview;
+export default PreviewBorrow;

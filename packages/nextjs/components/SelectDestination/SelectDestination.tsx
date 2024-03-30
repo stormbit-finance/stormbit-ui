@@ -6,7 +6,10 @@ interface Option {
   name: string;
   icon: string;
 }
-function SelectDestination() {
+interface SelectDestinationProps {
+  onToggle?: (isOpen: boolean) => void;
+}
+const SelectDestination: React.FC<SelectDestinationProps> = ({ onToggle }) => {
   const options: Option[] = [
     {
       name: "Avalanche",
@@ -34,6 +37,12 @@ function SelectDestination() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    if (onToggle) {
+      onToggle(isOpen);
+    }
+  }, [isOpen]);
+
   const handleOptionClick = (option: Option) => {
     setSelectedOption(option);
     setIsOpen(false);
@@ -59,16 +68,12 @@ function SelectDestination() {
         onClick={() => setIsOpen(!isOpen)}
       >
         {selectedOption ? selectedOption.name : "Select destination"}
-        <svg
-          className={`fill-current h-4 w-4 ml-2 ${isOpen ? "transform rotate-180" : ""}`}
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-        >
-          <path fillRule="evenodd" d="M10 12l-6-6 1.5-1.5L10 9.086l4.5-4.5L16 6l-6 6z"></path>
+        <svg className="fill-current h-4 w-4 ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+          <path fillRule="evenodd" d="M10 12l-6-6 1.5-1.5L10 9.086l4.5-4.5L16 6l-6 6z" />
         </svg>
       </button>
       {isOpen && (
-        <div className="absolute flex flex-col gap-6 top-0 left-0 w-full p-8 text-2xl text-white bg-[#19192B] rounded-[15px] rounded-tr shadow-lg ">
+        <div className="absolute flex flex-col justify-center gap-6 top-0 left-0 w-full p-8 text-2xl text-white bg-[#19192B] rounded-[15px] rounded-tr shadow-lg ">
           <div className="flex justify-between">
             <span>Destination</span>
             <AiOutlineClose onClick={() => setIsOpen(false)} className="cursor-pointer" />
@@ -89,6 +94,6 @@ function SelectDestination() {
       )}
     </div>
   );
-}
+};
 
 export default SelectDestination;

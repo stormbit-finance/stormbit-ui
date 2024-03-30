@@ -5,7 +5,7 @@ import type { NextPage } from "next";
 import { FiSearch } from "react-icons/fi";
 import Button from "~~/components/Button/Button";
 import PoolContent from "~~/components/PoolContent/PoolContent";
-import CreationModal from "~~/components/PoolCreationModal/CreationModal";
+import PoolContentModal from "~~/components/PoolContentModal/PoolContentModal";
 
 const BlockExplorer: NextPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -77,7 +77,7 @@ const BlockExplorer: NextPage = () => {
           </div>
         </div>
 
-        {isModalOpen && <CreationModal setIsModalOpen={() => setIsModalOpen(false)} />}
+        {isModalOpen && <PoolContentModal setIsModalOpen={() => setIsModalOpen(false)} />}
       </div>
     </div>
   );
