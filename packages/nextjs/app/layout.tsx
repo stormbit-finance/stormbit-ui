@@ -11,7 +11,7 @@ const imageUrl = `${baseUrl}/thumbnail.jpg`;
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "StormBIt",
+    default: "Stormbit",
     template: "%s | StormBIt Core",
   },
   description: "Built by Q3 Labs using 🏗 Scaffold-ETH 2",
