@@ -41,7 +41,7 @@ const SelectDestination: React.FC<SelectDestinationProps> = ({ onToggle }) => {
     if (onToggle) {
       onToggle(isOpen);
     }
-  }, [isOpen]);
+  }, [isOpen, onToggle]);
 
   const handleOptionClick = (option: Option) => {
     setSelectedOption(option);
