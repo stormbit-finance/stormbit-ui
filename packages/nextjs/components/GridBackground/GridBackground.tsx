@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./gridBackground.css";
 
 interface GridProps {
@@ -21,13 +21,15 @@ const GridBackground: React.FC<GridProps> = ({ numRows, numCols }) => {
   }, [numRows, numCols]);
 
   return (
-    <div className="absolute flex flex-col items-start justify-start overflow-hidden grid-container w-full">
+    <div className="absolute flex flex-col items-start justify-start w-full overflow-hidden grid-container">
       {grid.map((row, rowIndex) => (
         <div key={rowIndex} className="flex flex-row items-start justify-start w-full h-full">
-          {row.map(colIndex => (
+          {row.map((col, colIndex) => (
             <div
               key={`${rowIndex}-${colIndex}`}
-              className={`cell block h-[72px] w-[72px] border border-solid border-[#ffffff04]`}
+              className={`cell block h-[72px] w-[72px] border border-solid border-[#ffffff04] ${
+                rowIndex === grid.length - 1 ? "last-row" : ""
+              }`}
             ></div>
           ))}
         </div>
