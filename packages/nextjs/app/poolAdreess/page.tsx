@@ -3,12 +3,12 @@
 import { useState } from "react";
 import Image from "next/image";
 import { CiCalendar } from "react-icons/ci";
+import BorrowContentModal from "~~/components/BorrowContentModal/BorrowContentModal";
 import Button from "~~/components/Button/Button";
+import DepositContentModal from "~~/components/DepositContentModal/DepositContentModal";
 import Analytics from "~~/components/Graph/Analytics";
-import ModalBorrow from "~~/components/ModalBorrow/ModalBorrow";
-import ModalDeposit from "~~/components/ModalDeposit/ModalDeposit";
-import ModalWithdraw from "~~/components/ModalWithdraw/ModalWithdraw";
 import TableAction from "~~/components/TableActions/TableAction";
+import WithdrawContentModal from "~~/components/WithdrawContentModal/WithdrawContentModal";
 
 interface Staker {
   avatar: string;
@@ -109,8 +109,12 @@ function Page() {
                 Withdraw
               </button>
             </div>
-            {isModalDeposit && <ModalDeposit setIsModalDeposit={() => setIsModalDeposit(false)}></ModalDeposit>}
-            {isModalWithdraw && <ModalWithdraw setIsModalWithdraw={() => setIsModalWithdraw(false)}></ModalWithdraw>}
+            {isModalDeposit && (
+              <DepositContentModal setIsModalDeposit={() => setIsModalDeposit(false)}></DepositContentModal>
+            )}
+            {isModalWithdraw && (
+              <WithdrawContentModal setIsModalWithdraw={() => setIsModalWithdraw(false)}></WithdrawContentModal>
+            )}
             <div className="flex flex-col justify-between gap-4 px-8 py-6 my-16 text-white container-total">
               <span className="text-2xl">Borrow</span>
               <div className="flex mt-4 justify-between border-y-1 border-[#374B6D] text-[#374B6D] py-7 px-4">
@@ -158,7 +162,7 @@ function Page() {
           </div>
         </div>
       </div>
-      {isModalOpen && <ModalBorrow setIsModalOpen={() => setIsModalOpen(false)}></ModalBorrow>}
+      {isModalOpen && <BorrowContentModal setIsModalOpen={() => setIsModalOpen(false)}></BorrowContentModal>}
     </section>
   );
 }
