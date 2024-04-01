@@ -1,8 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { GrAnalytics } from "react-icons/gr";
+import { HiOutlineHome } from "react-icons/hi";
+import { TbInbox } from "react-icons/tb";
+import ButtonLayout from "~~/components/ButtonLayout/ButtonLayout";
 
 function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -10,7 +13,7 @@ function Layout({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const currentRoute = window.location.pathname.split("/").pop();
-    setActiveButton(currentRoute || "myloans");
+    setActiveButton(currentRoute || "portfolio");
   }, []);
 
   const handleButtonClick = (route: string) => {
@@ -18,45 +21,20 @@ function Layout({ children }: { children: React.ReactNode }) {
     router.push(`/portfolio/${route}`);
   };
   return (
-    <div>
-      <div className="flex flex-col gap-6 rounded-[5px] w-[1800px] height-market bg-white p-10">
-        <div className="flex justify-between">
-          <div className="flex items-center gap-2">
-            <div>
-              <Image src="/home.png" alt="home" width={24} height={24}></Image>
-            </div>
-            <span className="text-2xl text-[#4A5056] font-bold">/Portfolio</span>
-          </div>
+    <div className="flex justify-center ">
+      <div className="max-w-[1920px] w-full flex ">
+        <div className="flex flex-col gap-3 text-white pt-[30px] pb-[180px] px-[20px] max-w-[420px] w-full items-center text-2xl bg-[#0e0f1e]">
+          <ButtonLayout active={activeButton === "portfolio"} onClick={() => handleButtonClick("/")}>
+            <HiOutlineHome /> Home
+          </ButtonLayout>
+          <ButtonLayout active={activeButton === "inbox"} onClick={() => handleButtonClick("inbox")}>
+            <TbInbox /> Inbox
+          </ButtonLayout>
+          <ButtonLayout active={activeButton === "analytics"} onClick={() => handleButtonClick("analytics")}>
+            <GrAnalytics /> Analytics
+          </ButtonLayout>
         </div>
-        <div className="flex gap-10">
-          <div className="flex flex-col gap-3">
-            <button
-              className={`w-[153px] h-[45px] text-[#17344F] font-bold ${
-                activeButton === "myloans" ? "bg-[#EDEDFF] border-l-4 border-[#17344F]" : ""
-              }`}
-              onClick={() => handleButtonClick("myloans")}
-            >
-              My loans
-            </button>
-            <button
-              className={`w-[153px] h-[45px] text-[#17344F] font-bold ${
-                activeButton === "mypools" ? "bg-[#EDEDFF] border-l-4 border-[#17344F]" : ""
-              }`}
-              onClick={() => handleButtonClick("mypools")}
-            >
-              My pools
-            </button>
-            <button
-              className={`w-[153px] h-[45px] text-[#17344F] font-bold ${
-                activeButton === "profile" ? "bg-[#EDEDFF] border-l-4 border-[#17344F]" : ""
-              }`}
-              onClick={() => handleButtonClick("profile")}
-            >
-              Profile
-            </button>
-          </div>
-          <div className="flex flex-col gap-8">{children}</div>
-        </div>
+        <div className="flex flex-col gap-8 bg-[#070817] w-full text-white">{children}</div>
       </div>
     </div>
   );
