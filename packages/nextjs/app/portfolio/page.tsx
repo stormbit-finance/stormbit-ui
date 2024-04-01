@@ -12,15 +12,15 @@ const Portfolio: NextPage = () => {
         <div className="max-w-[1200px] w-full p-[30px] ">
           <div className=" flex-col flex gap-[30px] py-[20px]">
             <span className="text-2xl font-bold">My points summary</span>
-            <div className="flex gap-[20px]">
+            <div className="flex gap-[20px] justify-between">
               <SummaryCard label={"Supply points"} points={0} />
               <SummaryCard label={"Borrow points"} points={0} />
               <SummaryCard label={"Early Repayment Bonus"} points={0} />
             </div>
           </div>
-          <div className="flex flex-col gap-[30px] pt-[30px] pb-[50px]">
+          <div className="flex flex-col gap-[20px] pt-[30px] pb-[50px]">
             <span className="text-2xl font-bold">My open positions</span>
-            <div className="flex flex-col gap-[30px]">
+            <div className="flex flex-col gap-[40px]">
               {poolDataSummary.map((poolData, index) => (
                 <PoolSummary
                   key={index}

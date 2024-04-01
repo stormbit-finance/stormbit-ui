@@ -195,4 +195,11 @@ input{
   background: linear-gradient(90deg, #8700FF -8.16%, #C398FF 108.74%);
   backdrop-filter: blur(21px);
 }
+/*.max-h-143px{*/
+/*  height: calc(100vh - 100px)*/
+/*}*/
+.transform-text{
+  transform: rotate(-90deg);
+  width: 100px;
+}
 

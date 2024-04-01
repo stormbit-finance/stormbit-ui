@@ -31,7 +31,10 @@ function ColumnGraph() {
   return (
     <div className={classes.container}>
       <DropdownSelector fetchCustomData={fetchCustomData} />
-      <Chart data={data} />
+      <div className="flex items-center justify-center">
+        <span className=" text-[#6C757D] transform-text font-bold">Amount ($)</span>
+        <Chart data={data} />
+      </div>
     </div>
   );
 }

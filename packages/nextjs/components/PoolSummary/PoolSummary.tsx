@@ -15,12 +15,12 @@ const PoolSummary: React.FC<PoolSummaryProps> = ({ title, date, debtTotal, repai
         <span className="text-3xl">{title}</span>
         <span className="text-[#A8B1C8]">{date}</span>
       </div>
-      <div className="flex gap-[20px] justify-between max-w-[900px] w-full p-[20px]">
+      <div className="flex gap-[20px] justify-between max-w-[900px] w-full py-[20px]">
         <div className="flex flex-col justify-center items-center gap-[5px]">
           <span className="text-[#A8B1C8] text-xl">Debt total</span>
           <span>{debtTotal}</span>
         </div>
-        <div className="border-x border-x-[#374B6D] px-[50px] max-w-[300px] w-full flex flex-col justify-center items-center gap-[5px]">
+        <div className="border-x border-x-[#374B6D] px-[50px] max-w-[400px] w-full flex flex-col justify-center items-center gap-[5px]">
           <span className="text-[#A8B1C8] text-xl">Repaid</span>
           <span>{repaidTotal}</span>
         </div>

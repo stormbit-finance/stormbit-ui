@@ -9,7 +9,7 @@ interface ButtonLayoutProps {
 const ButtonLayout: React.FC<ButtonLayoutProps> = ({ active, onClick, children }) => {
   return (
     <button
-      className={`w-[376px] py-[20px] text-white flex items-center gap-[10px] justify-start px-[10px] ${
+      className={`w-[376px] py-[24px] text-white flex items-center gap-[10px] justify-start px-[47px] ${
         active ? "bg-[#23233d] rounded-md" : ""
       }`}
       onClick={onClick}
