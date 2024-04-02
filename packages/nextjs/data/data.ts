@@ -224,3 +224,54 @@ export const optionsPayment = [
   { value: "week", label: "Week" },
   { value: "day", label: "Day" },
 ];
+
+export const poolDataSummary = [
+  {
+    title: "EduFunds Pool",
+    date: "15 March 2024 20:18PM",
+    debtTotal: "$2.03K",
+    repaidTotal: "$2.03K",
+    toPayTotal: "$2.03K",
+  },
+  {
+    title: "EduFunds Pool",
+    date: "15 March 2024 20:18PM",
+    debtTotal: "$2.03K",
+    repaidTotal: "$2.03K",
+    toPayTotal: "$2.03K",
+  },
+  {
+    title: "EduFunds Pool",
+    date: "15 March 2024 20:18PM",
+    debtTotal: "$2.03K",
+    repaidTotal: "$2.03K",
+    toPayTotal: "$2.03K",
+  },
+];
+
+export const messagesInbox = [
+  {
+    id: 1,
+    profileImage: "/icon_profile.svg",
+    poolName: "EduFunds Pool",
+    message: "Hi how to deposit in this pool?",
+    time: "Today, 9.52pm",
+    unreadCount: 4,
+  },
+  {
+    id: 1,
+    profileImage: "/icon_profile.svg",
+    poolName: "EduFunds Pool",
+    message: "Hi how to deposit in this pool?",
+    time: "Today, 9.52pm",
+    unreadCount: 5,
+  },
+  {
+    id: 1,
+    profileImage: "/icon_profile.svg",
+    poolName: "EduFunds Pool",
+    message: "Hi how to deposit in this pool?",
+    time: "Today, 9.52pm",
+    unreadCount: 6,
+  },
+];

@@ -85,7 +85,7 @@ const data_2: Data[] = [
     name: "May",
   },
   {
-    view: 1190,
+    view: 200,
     name: "June",
   },
   {
@@ -97,7 +97,7 @@ const data_2: Data[] = [
     name: "Aug",
   },
   {
-    view: 200,
+    view: 2000,
     name: "Sept",
   },
   {
