@@ -112,11 +112,11 @@ function Page() {
               <div className="flex items-center justify-between mb-10 mr-5">
                 <span className="text-2xl">Lenders</span>
                 <div
-                  className="flex px-3 py-3 border border-white rounded-[8px] gap-3 items-center cursor-pointer"
+                  className="flex px-3 py-3 border border-white rounded-[8px] gap-2 items-center cursor-pointer"
                   onClick={() => setIsModalChart(true)}
                 >
-                  <span>Partcipation</span>
-                  <TbDiscount></TbDiscount>
+                  <span>Participation</span>
+                  <TbDiscount className="w-[30px] h-[30px]"></TbDiscount>
                 </div>
               </div>
               {lenders.map(element => (

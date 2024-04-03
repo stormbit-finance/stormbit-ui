@@ -13,6 +13,7 @@ function TreemapChart() {
         aspectRatio={4 / 3}
         stroke="#fff"
         fill="#363653"
+        animationDuration={400}
       />
     </div>
   );
