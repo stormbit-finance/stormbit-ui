@@ -1,3 +1,4 @@
+import React from "react";
 import Image from "next/image";
 import ModalContainer from "../ModalContainer/ModalContainer";
 import TreemapChart from "../TreemapGraph/TreemapGraph";
@@ -9,9 +10,14 @@ interface ModalProps {
 }
 
 function ChartModal({ setIsModalChart }: ModalProps) {
+  const handleCloseModal = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      setIsModalChart();
+    }
+  };
   return (
     <>
-      <ModalContainer>
+      <ModalContainer onClick={handleCloseModal}>
         <div className="flex justify-between">
           <span className="text-2xl">Participation Chart</span>
           <IoCloseOutline onClick={() => setIsModalChart()} className="cursor-pointer w-[35px] h-[35px]" />

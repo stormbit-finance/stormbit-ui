@@ -47,9 +47,14 @@ const BorrowRepayContentModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
       setIsModalOpen();
     }
   };
+  const handleCloseModal = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      setIsModalOpen();
+    }
+  };
 
   return (
-    <ModalContainer>
+    <ModalContainer onClick={handleCloseModal}>
       {selectedView !== "success" ? (
         <>
           <div className="flex gap-20 border-b-1 border-[#374B6D] pb-6 justify-between">

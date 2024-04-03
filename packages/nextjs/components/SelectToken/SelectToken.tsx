@@ -23,7 +23,7 @@ export default function SelectToken() {
         errorMessage: "errorMesage",
         label: "label text-white",
         mainWrapper: "mainWrapper",
-        trigger: "trigger bg-transparent py-8 ",
+        trigger: "trigger bg-transparent py-6 ",
         innerWrapper: "inner text-white",
         selectorIcon: "slectorIcon",
         spinner: "spinner",

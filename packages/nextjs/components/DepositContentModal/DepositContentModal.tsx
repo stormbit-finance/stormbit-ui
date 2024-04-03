@@ -9,8 +9,13 @@ interface ModalProps {
 }
 
 const DepositContentModal: React.FC<ModalProps> = ({ setIsModalDeposit }) => {
+  const handleCloseModal = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      setIsModalDeposit();
+    }
+  };
   return (
-    <ModalContainer>
+    <ModalContainer onClick={handleCloseModal}>
       <div className="flex justify-between items-center border-b-1 border-[#374B6D] pb-[20px]">
         <span className="text-2xl">Deposit</span>
         <AiOutlineClose onClick={() => setIsModalDeposit()} className="cursor-pointer" />

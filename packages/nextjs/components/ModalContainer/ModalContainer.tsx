@@ -2,9 +2,10 @@ import React, { ReactNode, useEffect } from "react";
 
 interface ModalContainerProps {
   children: ReactNode;
+  onClick: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-const ModalContainer: React.FC<ModalContainerProps> = ({ children }) => {
+const ModalContainer: React.FC<ModalContainerProps> = ({ children, onClick }) => {
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -12,7 +13,7 @@ const ModalContainer: React.FC<ModalContainerProps> = ({ children }) => {
     };
   }, []);
   return (
-    <div className="container-modal items-center">
+    <div className="container-modal items-center" onClick={onClick}>
       <div className="content-modal">{children}</div>
     </div>
   );
