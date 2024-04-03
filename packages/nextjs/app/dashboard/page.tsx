@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { AiOutlineCheckCircle } from "react-icons/ai";
@@ -12,8 +12,6 @@ import { IoCopy } from "react-icons/io5";
 import ColumnGraph from "~~/components/ColumnGraph/ColumnGraph";
 
 function Page() {
-  const [activeButton, setActiveButton] = useState("deposit");
-
   const data = [
     {
       name: "Proposal Name",
@@ -38,10 +36,6 @@ function Page() {
     },
   ];
 
-  const handleButtonClick = (button: string) => {
-    setActiveButton(button);
-  };
-
   const getStateText = (state: string) => {
     switch (state) {
       case "Cancelled":
@@ -56,104 +50,86 @@ function Page() {
   };
 
   return (
-    <section className="bg-[#070817] w-screen p-10 flex flex-col justify-center items-center">
-      <div className="flex flex-col gap-20 p-10">
-        <div className="flex justify-between gap-40 text-white">
-          <span className="text-4xl">Borrowers repayment</span>
-          <div>
-            <div className="flex rounded-[5px] border border-solid border-[#A8B1C8] px-4 justify-center items-center text-white">
-              <FiSearch></FiSearch>
+    <section className="flex flex-col justify-center items-center">
+      <div className="max-w-[1500px] w-full">
+        <div className="flex flex-col gap-20 pt-10 pb-[50px]">
+          <div className="flex justify-between gap-40 text-white">
+            <div className="flex rounded-2xl border border-solid border-[#6C757D] py-[10px] px-[30px] items-center text-[#6C757D] w-full">
+              <FiSearch />
               <input
                 placeholder="Search borrower..."
-                className="px-4 py-2 bg-transparent border-none focus:outline-none  w-[401px]"
-              ></input>
-              <span className="pr-2 text-white ">⌘K</span>
+                className="px-4 py-2 bg-transparent border-none focus:outline-none w-full"
+              />
+              <span>⌘K</span>
             </div>
           </div>
-        </div>
-        <div className="flex gap-20">
-          <div className="flex flex-col gap-12">
-            <div className="w-fit container-total">
-              <ColumnGraph />
-            </div>
-            <div className="flex flex-col gap-20">
-              <div className="flex items-center justify-between">
-                <span className="text-3xl font-bold text-white">Borrowers open positions</span>
-                <div className="flex justify-center text-white container-total">
-                  <button
-                    className={`py-4 px-6 rounded-l-2xl text-lg ${activeButton === "deposit" ? "bg-[#23233D]" : ""}`}
-                    onClick={() => {
-                      handleButtonClick("deposit");
-                    }}
-                  >
-                    Total Deposit
-                  </button>
-                  <button
-                    className={`py-4 px-6 rounded-r-2xl text-lg ${activeButton === "borrowed" ? "bg-[#23233D]" : ""}`}
-                    onClick={() => {
-                      handleButtonClick("borrowed");
-                    }}
-                  >
-                    Total Borrowed
-                  </button>
+
+          <div className="flex gap-10 text-white justify-between">
+            <div className="flex gap-[30px]">
+              <div className="max-w-[140px]">
+                <Image src="/icondash.svg" alt="avatar" width={140} height={140} className="rounded-full" />
+              </div>
+              <div className="flex flex-col gap-[20px]">
+                <div className="flex flex-col gap-[10px]">
+                  <span className="text-xl">Borrower Name</span>
+                  <span className="text-3xl">Debt $2k</span>
+                </div>
+                <div className="flex gap-[13px]">
+                  <div className="bg-[#1A1A31] rounded-full w-[50px] h-[50px] flex items-center justify-center">
+                    <FiLinkedin />
+                  </div>
+                  <div className="bg-[#1A1A31] rounded-full w-[50px] h-[50px] flex items-center justify-center">
+                    <FaXTwitter />
+                  </div>
+                  <span className="rounded-[40px] bg-[#1A1A31] py-4 px-16">0xb9df...9811F</span>
+                  <div className="bg-[#1A1A31] rounded-full w-[50px] h-[50px] flex items-center justify-center">
+                    <IoCopy />
+                  </div>
                 </div>
               </div>
+            </div>
+            <div className="flex container-total max-w-[596px] w-full justify-center gap-[140px] text-2xl items-center px-[10px] ">
+              <div className="flex flex-col justify-center items-center gap-[20px]">
+                <span className=" text-white">$2.03K</span>
+                <span className="text-[#A8B1C8]">Total borrowed</span>
+              </div>
+              <div className="flex flex-col justify-center items-center gap-[20px]">
+                <span className="text-white">$2.03K</span>
+                <span className="text-[#A8B1C8] ">Total paid</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col py-[20px]">
+            <div className="max-w-[1500px] w-full py-[30px] gap-[10px] flex flex-col items-center ">
+              <div className="w-full flex container-total flex-col pt-[40px]">
+                <span className="text-2xl text-white pl-[100px]">Borrowers repayment</span>
+                <ColumnGraph />
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-[24px]">
+              <span className="text-3xl font-bold text-white py-[60px]">Borrowers open positions</span>
+
               {data.map((element, index) => (
                 <>
                   <div key={index} className="flex justify-between text-white container-total">
-                    <div className="flex flex-col pl-16">
-                      <span className="mt-10 text-3xl">{element.name}</span>
-                      <span className="my-8 text-xl ">Amount {element.amount}</span>
+                    <div className="flex justify-between w-full items-center p-[40px]">
+                      <div className="flex flex-col gap-[10px]">
+                        <span className="text-3xl">{element.name}</span>
+                        <span className="text-xl ">Amount {element.amount}</span>
+                      </div>
                       <span className="text-[#6C757D] mb-10">
                         {element.state} at {element.date}
                       </span>
                     </div>
-                    <div className="border-l-1 border-[#223049] px-28 flex flex-col justify-center gap-5 items-center">
+                    <div className="border-l-1 border-[#223049] px-28 flex flex-col justify-center gap-5 items-center max-w-[260px] w-full">
                       {element.icon}
                       <span>{getStateText(element.state)}</span>
                     </div>
                   </div>
                 </>
               ))}
-            </div>
-          </div>
-          <div>
-            <div className="container-total">
-              <div className="flex flex-col gap-10 p-10 text-white">
-                <div className="flex gap-6">
-                  <Image src="/avatar1.png" alt="avatar" width={90} height={90} className="rounded-full"></Image>
-                  <div className="flex flex-col justify-center">
-                    <span className="text-xl">Borrower Name</span>
-                    <span className="text-3xl">Debt $2k</span>
-                  </div>
-                </div>
-                <div className="flex gap-32">
-                  <div className="flex flex-col items-center gap-4">
-                    <span className="text-2xl text-white">$2.03K</span>
-                    <span className="text-[#A8B1C8] text-2xl">Total borrowed</span>
-                  </div>
-                  <div className="flex flex-col items-center gap-4">
-                    <span className="text-2xl text-white">$2.03K</span>
-                    <span className="text-[#A8B1C8] text-2xl">Total paid</span>
-                  </div>
-                </div>
-                <div className="flex items-center gap-8">
-                  <span className="text-xl text-white">Address</span>
-                  <span className="rounded-[40px] bg-[#1A1A31] py-4 px-16">0xb9df...9811F</span>
-                  <div className="bg-[#1A1A31] rounded-full p-4">
-                    <IoCopy />
-                  </div>
-                </div>
-                <div className="flex items-center gap-8">
-                  <span className="text-xl text-white">Links</span>
-                  <div className="bg-[#1A1A31] rounded-full p-4 text-white ml-8">
-                    <FiLinkedin />
-                  </div>
-                  <div className="bg-[#1A1A31] rounded-full p-4 text-white">
-                    <FaXTwitter />
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
