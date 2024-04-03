@@ -312,3 +312,14 @@ export const messagesInbox = [
     unreadCount: 6,
   },
 ];
+
+export const loans = [
+  {
+    name: "Loan Request XXX",
+    time: "3 days 0 hrs",
+  },
+  {
+    name: "Loan Request XXX",
+    time: "3 days 0 hrs",
+  },
+];
