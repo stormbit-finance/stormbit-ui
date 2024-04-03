@@ -3,8 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import { CiCalendar } from "react-icons/ci";
+import BorrowComponent from "~~/components/BorrowComponent/BorrowComponent";
 import BorrowRepayContentModal from "~~/components/BorrowRepayContentModal/BorrowRepayContentModal";
-import Button from "~~/components/Button/Button";
 import DepositContentModal from "~~/components/DepositContentModal/DepositContentModal";
 import Analytics from "~~/components/Graph/Analytics";
 import TableAction from "~~/components/TableActions/TableAction";
