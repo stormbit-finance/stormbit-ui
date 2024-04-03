@@ -3,8 +3,10 @@
 import { useState } from "react";
 import Image from "next/image";
 import { CiCalendar } from "react-icons/ci";
+import { TbDiscount } from "react-icons/tb";
 import BorrowComponent from "~~/components/BorrowComponent/BorrowComponent";
 import BorrowRepayContentModal from "~~/components/BorrowRepayContentModal/BorrowRepayContentModal";
+import ChartModal from "~~/components/ChartModal/ChartModal";
 import DepositContentModal from "~~/components/DepositContentModal/DepositContentModal";
 import Analytics from "~~/components/Graph/Analytics";
 import TableAction from "~~/components/TableActions/TableAction";
@@ -17,6 +19,7 @@ function Page() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalDeposit, setIsModalDeposit] = useState(false);
   const [isModalWithdraw, setIsModalWithdraw] = useState(false);
+  const [isModalChart, setIsModalChart] = useState(false);
 
   const handleButtonClick = (button: string) => {
     setActiveButton(button);
@@ -94,40 +97,42 @@ function Page() {
               <WithdrawContentModal setIsModalWithdraw={() => setIsModalWithdraw(false)}></WithdrawContentModal>
             )}
             <BorrowComponent setIsModalOpen={() => setIsModalOpen(true)}></BorrowComponent>
-            <div className="py-6 pl-8 my-16 text-white container-total h-fit pr-28">
-              <span className="text-2xl">Lenders</span>
+            <div className="flex flex-col gap-4 px-6 py-6 pb-24 mb-16 text-white container-total">
+              <span className="mt-4 mb-8 text-xl text-white">Approved Loan Request</span>
+              <div className="flex justify-between text-lg text-white">
+                <span className="text-sm">Loan Request XXX</span>
+                <span className="text-sm">3 days 0 hrs</span>
+              </div>
+              <div className="flex justify-between text-lg text-white">
+                <span className="text-sm">Loan Request XXX</span>
+                <span className="text-sm">3 days 0 hrs</span>
+              </div>
+            </div>
+            <div className="py-6 pl-8 text-white container-total h-fit ">
+              <div className="flex items-center justify-between mb-10 mr-5">
+                <span className="text-2xl">Lenders</span>
+                <div
+                  className="flex px-3 py-3 border border-white rounded-[8px] gap-2 items-center cursor-pointer"
+                  onClick={() => setIsModalChart(true)}
+                >
+                  <span>Participation</span>
+                  <TbDiscount className="w-[30px] h-[30px]"></TbDiscount>
+                </div>
+              </div>
               {lenders.map(element => (
                 <>
-                  <div className="flex gap-6 my-4">
+                  <div className="flex items-center gap-6 my-4 pr-28">
                     <Image src={element.avatar} alt="avatar" width={42} height={42} className="rounded-full"></Image>
                     <span>{element.address}</span>
                   </div>
                 </>
               ))}
             </div>
-            <div className="px-8 py-6 my-16 text-white container-total h-fit">
-              <div className="flex justify-between">
-                <span className="text-2xl">Group Messages</span>
-                <span className="text-[#9135F5] text-xl">See all chat</span>
-              </div>
-              <div className="flex gap-24 my-6">
-                <div className="flex gap-4">
-                  <Image src="/avatar1.png" alt="avatar" width={63} height={63} className="rounded-full"></Image>
-                  <div className="flex flex-col gap-1">
-                    <span>RequestLoanID</span>
-                    <span>0x70997...c79C8 : Hi hihihi...</span>
-                  </div>
-                </div>
-                <div>
-                  <span>Today, 9.52pm</span>
-                  <div className="rounded-full bg-[#F24E1E] w-[20px] h-[20px] flex items-center justify-center">1</div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
       {isModalOpen && <BorrowRepayContentModal setIsModalOpen={() => setIsModalOpen(false)}></BorrowRepayContentModal>}
+      {isModalChart && <ChartModal setIsModalChart={() => setIsModalChart(false)}></ChartModal>}
     </section>
   );
 }
