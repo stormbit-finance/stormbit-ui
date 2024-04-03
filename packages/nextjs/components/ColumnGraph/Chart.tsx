@@ -11,7 +11,7 @@ const useStyles = createUseStyles(() => ({
   container: {
     color: "#fff",
     backgroundColor: "transparent",
-    padding: "1rem",
+    padding: "1rem 1rem 1rem 0",
     transition: "0.3s ease-in-out",
     width: "100%",
     height: "400px",
@@ -33,7 +33,7 @@ const Chart: React.FC<Props> = ({ data }) => {
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={data}>
           <defs>
-            <GradientColors></GradientColors>
+            <GradientColors />
           </defs>
           {/* <Tooltip
             itemStyle={{ color: "#fff", backgroundColor: "#0A1322" }}

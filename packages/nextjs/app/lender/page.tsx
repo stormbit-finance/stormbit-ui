@@ -5,7 +5,7 @@ import Image from "next/image";
 import { CiCalendar } from "react-icons/ci";
 import { TbDiscount } from "react-icons/tb";
 import BorrowComponent from "~~/components/BorrowComponent/BorrowComponent";
-import BorrowContentModal from "~~/components/BorrowContentModal/BorrowContentModal";
+import BorrowRepayContentModal from "~~/components/BorrowRepayContentModal/BorrowRepayContentModal";
 import ChartModal from "~~/components/ChartModal/ChartModal";
 import DepositContentModal from "~~/components/DepositContentModal/DepositContentModal";
 import Analytics from "~~/components/Graph/Analytics";
@@ -109,7 +109,7 @@ function Page() {
               </div>
             </div>
             <div className="py-6 pl-8 text-white container-total h-fit ">
-              <div className="flex items-center justify-between mb-5 mr-5">
+              <div className="flex items-center justify-between mb-10 mr-5">
                 <span className="text-2xl">Lenders</span>
                 <div
                   className="flex px-3 py-3 border border-white rounded-[8px] gap-3 items-center cursor-pointer"
@@ -121,7 +121,7 @@ function Page() {
               </div>
               {lenders.map(element => (
                 <>
-                  <div className="flex gap-6 my-4 pr-28">
+                  <div className="flex items-center gap-6 my-4 pr-28">
                     <Image src={element.avatar} alt="avatar" width={42} height={42} className="rounded-full"></Image>
                     <span>{element.address}</span>
                   </div>
@@ -131,7 +131,7 @@ function Page() {
           </div>
         </div>
       </div>
-      {isModalOpen && <BorrowContentModal setIsModalOpen={() => setIsModalOpen(false)}></BorrowContentModal>}
+      {isModalOpen && <BorrowRepayContentModal setIsModalOpen={() => setIsModalOpen(false)}></BorrowRepayContentModal>}
       {isModalChart && <ChartModal setIsModalChart={() => setIsModalChart(false)}></ChartModal>}
     </section>
   );

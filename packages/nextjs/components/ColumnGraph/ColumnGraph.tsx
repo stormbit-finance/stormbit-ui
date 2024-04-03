@@ -11,8 +11,8 @@ const useStyles = createUseStyles(() => ({
     color: "#fff",
     padding: "2rem",
     transition: "0.3s ease-in-out",
-    width: "800px",
-    height: "400px",
+    width: "100%",
+    height: "100%",
     display: "flex",
     flexDirection: "column",
     position: "relative",
@@ -31,7 +31,10 @@ function ColumnGraph() {
   return (
     <div className={classes.container}>
       <DropdownSelector fetchCustomData={fetchCustomData} />
-      <Chart data={data} />
+      <div className="flex items-center justify-center">
+        <span className=" text-[#6C757D] transform-text font-bold">Amount ($)</span>
+        <Chart data={data} />
+      </div>
     </div>
   );
 }

@@ -165,7 +165,7 @@ input{
   border-radius: 5px;
   background: #19192B;
   padding-block: 2rem;
-  padding-inline: 3rem;
+  padding-inline: 2rem;
   z-index: 1;
   color: #ffffff;
 }
@@ -194,5 +194,12 @@ input{
   border: 1px solid #0F0F0F;
   background: linear-gradient(90deg, #8700FF -8.16%, #C398FF 108.74%);
   backdrop-filter: blur(21px);
+}
+/*.max-h-143px{*/
+/*  height: calc(100vh - 100px)*/
+/*}*/
+.transform-text{
+  transform: rotate(-90deg);
+  width: 100px;
 }
 
