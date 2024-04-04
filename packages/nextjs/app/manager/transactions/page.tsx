@@ -11,7 +11,7 @@ function Page() {
     setActiveButton(button);
   };
   return (
-    <div className="max-w-[1200px] w-full px-12 flex flex-col gap-9">
+    <div className="max-w-[1200px] w-full px-12 flex flex-col gap-9 pb-9">
       <TransactionButton
         buttons={[
           {
@@ -45,7 +45,7 @@ function Page() {
           <div className="flex flex-col justify-center gap-4">
             <input
               type="text"
-              className="text-4xl bg-transparent border-none focus:outline-none"
+              className="text-4xl text-white bg-transparent border-none focus:outline-none"
               placeholder="0"
             ></input>
             <span className="text-xl">Balance : 0.67 (Max)</span>

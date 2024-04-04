@@ -17,7 +17,7 @@ function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex justify-center ">
-      <div className="max-w-[1920px] w-full flex-col ">
+      <div className="max-w-[1920px] w-full flex-col pl-14">
         <div className="flex gap-8 my-16">
           <Image src="/profile.png" alt="profile" width={166} height={166}></Image>
           <div className="flex flex-col justify-center">

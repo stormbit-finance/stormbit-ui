@@ -9,21 +9,21 @@ const Manager: NextPage = () => {
   return (
     <>
       <div className="flex flex-col items-center ">
-        <div className="max-w-[1200px] w-full p-[30px] ">
+        <div className="max-w-[1200px] w-full px-[30px] ">
           <div className="flex flex-col gap-12">
-            <div className="w-fit container-total">
+            <div className="container-total">
               <Analytics></Analytics>
             </div>
             <div className="flex justify-between">
-              <div className="flex flex-col gap-2 py-8 text-white container-total w-[347px] px-9">
+              <div className="flex flex-col gap-2 py-8 text-white container-total w-[250px] px-9">
                 <span className="text-xl">TVL</span>
                 <span className="text-2xl font-bold">$32.3706</span>
               </div>
-              <div className="flex flex-col gap-2 py-8 text-white container-total w-[347px] px-9">
+              <div className="flex flex-col gap-2 py-8 text-white container-total w-[250px] px-9">
                 <span className="text-xl">APY</span>
                 <span className="text-2xl font-bold">$32.3706</span>
               </div>
-              <div className="flex flex-col gap-2 py-8 text-white container-total w-[347px] px-9">
+              <div className="flex flex-col gap-2 py-8 text-white container-total w-[250px] px-9">
                 <span className="text-xl">Pool Usage</span>
                 <span className="text-2xl font-bold">15%</span>
               </div>

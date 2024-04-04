@@ -25,9 +25,9 @@ function Page() {
     },
   ];
   return (
-    <div className="max-w-[1200px] w-full px-12 flex flex-col gap-9">
+    <div className="max-w-[1200px] w-full px-12 flex flex-col gap-9 pb-9">
       <h3 className="text-3xl text-white">Loan Request</h3>
-      <table className="text-xl container-total">
+      <table className="container-total">
         <thead>
           <tr className="border-[#374B6D] border-b">
             <th className="p-10">Loan Request</th>
