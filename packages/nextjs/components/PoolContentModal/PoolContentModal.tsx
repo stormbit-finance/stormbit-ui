@@ -5,6 +5,7 @@ import SelectToken from "../SelectToken/SelectToken";
 import SelectableButton from "../SelectableButton/SelectableButton";
 import "./poolContentModal.css";
 import toast from "react-hot-toast";
+import { AiOutlineClose } from "react-icons/ai";
 import { RiInformationLine } from "react-icons/ri";
 import { parseEther } from "viem";
 import { useAccount } from "wagmi";
@@ -128,7 +129,7 @@ const PoolContentModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
               setIsModalOpen();
             }}
           >
-            X
+            <AiOutlineClose />
           </button>
         </div>
         <form className="flex flex-col gap-10">
