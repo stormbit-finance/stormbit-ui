@@ -122,15 +122,17 @@ const PoolContentModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
   return (
     <ModalContainer onClick={handleCloseModal}>
       <div className="flex flex-col gap-8 pb-[20px]">
-        <div className="flex justify-between border-b border-[#374B6D]">
-          <p className="text-2xl font-medium text-[#ffffff] pb-[20px] m-0 ">Create Pool</p>
-          <button
-            onClick={() => {
-              setIsModalOpen();
-            }}
-          >
-            <AiOutlineClose />
-          </button>
+        <div className="border-b border-[#374B6D] ">
+          <div className="flex justify-between items-center w-full pb-[20px]">
+            <p className="text-2xl font-medium text-[#ffffff] m-0 ">Create Pool</p>
+            <button
+              onClick={() => {
+                setIsModalOpen();
+              }}
+            >
+              <AiOutlineClose />
+            </button>
+          </div>
         </div>
         <form className="flex flex-col gap-10">
           <div className="flex flex-col gap-[20px]">
