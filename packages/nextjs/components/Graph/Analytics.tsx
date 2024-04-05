@@ -9,13 +9,13 @@ import { createUseStyles } from "react-jss";
 const useStyles = createUseStyles(() => ({
   container: {
     color: "#fff",
-    padding: "2rem",
+    padding: "2rem 0",
     transition: "0.3s ease-in-out",
     width: "100%",
     height: "100%",
     display: "flex",
     flexDirection: "column",
-    position: "relative",
+    justifyContent: "center",
   },
 }));
 
@@ -31,7 +31,10 @@ function Analytics() {
   return (
     <div className={classes.container}>
       <DropdownSelector fetchCustomData={fetchCustomData} />
-      <MyGraph data={data} />
+      <div className="flex items-center justify-center">
+        <span className=" text-[#6C757D] transform-text font-bold w-[200px]">pool usage (%)</span>
+        <MyGraph data={data} />
+      </div>
     </div>
   );
 }

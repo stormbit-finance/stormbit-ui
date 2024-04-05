@@ -32,7 +32,7 @@ function ColumnGraph() {
     <div className={classes.container}>
       <DropdownSelector fetchCustomData={fetchCustomData} />
       <div className="flex items-center justify-center">
-        <span className=" text-[#6C757D] transform-text font-bold">Amount ($)</span>
+        <span className=" text-[#6C757D] transform-text font-bold w-[100px];">Amount ($)</span>
         <Chart data={data} />
       </div>
     </div>

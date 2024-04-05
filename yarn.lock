@@ -4648,7 +4648,7 @@ __metadata:
     react-jss: ^10.10.0
     react-slick: ^0.30.2
     react-tweet: ^3.2.0
-    recharts: ^2.12.2
+    recharts: ^2.12.4
     slick-carousel: ^1.8.1
     tailwindcss: ~3.3.3
     type-fest: ~4.6.0
@@ -15292,9 +15292,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"recharts@npm:^2.12.2":
-  version: 2.12.2
-  resolution: "recharts@npm:2.12.2"
+"recharts@npm:^2.12.4":
+  version: 2.12.4
+  resolution: "recharts@npm:2.12.4"
   dependencies:
     clsx: ^2.0.0
     eventemitter3: ^4.0.1
@@ -15307,7 +15307,7 @@ __metadata:
   peerDependencies:
     react: ^16.0.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
-  checksum: 513e47033329e057ee99ffb6074299478524e3c75e6602638a4b2c7e21f2e390223fbfdcb2db8a1acd563a6a80e22a6b7aec3278b22fc1142dcb374b70ac2550
+  checksum: b617ef44380d74d3664bb45ef725823bfb50faac94b93908ffd5b1b1a31128185acec8efcc7bce9eae260465335bb4d48152ce6fc8185b6ce61f033bd112a63c
   languageName: node
   linkType: hard
 
