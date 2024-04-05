@@ -12,7 +12,7 @@ import Analytics from "~~/components/Graph/Analytics";
 import TableAction from "~~/components/TableActions/TableAction";
 import TransactionButton from "~~/components/TransactionButton/TransactionButton";
 import WithdrawContentModal from "~~/components/WithdrawContentModal/WithdrawContentModal";
-import { lenders } from "~~/data/data";
+import { lenders, loans } from "~~/data/data";
 
 function Page() {
   const [activeButton, setActiveButton] = useState("deposit");
@@ -99,14 +99,14 @@ function Page() {
             <BorrowComponent setIsModalOpen={() => setIsModalOpen(true)}></BorrowComponent>
             <div className="flex flex-col gap-4 px-6 py-6 pb-24 mb-16 text-white container-total">
               <span className="mt-4 mb-8 text-xl text-white">Approved Loan Request</span>
-              <div className="flex justify-between text-lg text-white">
-                <span className="text-sm">Loan Request XXX</span>
-                <span className="text-sm">3 days 0 hrs</span>
-              </div>
-              <div className="flex justify-between text-lg text-white">
-                <span className="text-sm">Loan Request XXX</span>
-                <span className="text-sm">3 days 0 hrs</span>
-              </div>
+              {loans.map(element => (
+                <>
+                  <div className="flex justify-between text-lg text-white">
+                    <span className="text-sm">{element.name}</span>
+                    <span className="text-sm">{element.time}</span>
+                  </div>
+                </>
+              ))}
             </div>
             <div className="py-6 pl-8 text-white container-total h-fit ">
               <div className="flex items-center justify-between mb-10 mr-5">
