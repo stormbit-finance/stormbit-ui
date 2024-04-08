@@ -11,7 +11,7 @@ const useStyles = createUseStyles(() => ({
   container: {
     color: "#fff",
     backgroundColor: "transparent",
-    padding: "1rem",
+    padding: "2rem 2rem 2rem 0",
     transition: "0.3s ease-in-out",
     width: "100%",
     height: "400px",
@@ -31,6 +31,7 @@ const GradientColors = () => {
 
 const MyGraph: React.FC<Props> = ({ data }) => {
   console.log({ data });
+
   const classes = useStyles();
   return (
     <div className={classes.container}>
