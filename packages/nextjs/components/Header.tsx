@@ -18,24 +18,24 @@ type HeaderMenuLink = {
 
 export const menuLinks: HeaderMenuLink[] = [
   {
-    label: "Pools",
+    label: "pools",
     href: "/pools",
     icon: <LiaDotCircleSolid />,
   },
   {
-    label: "Portfolio",
+    label: "dashboard",
+    href: "/dashboard",
+    icon: <CiDesktopMouse1 />,
+  },
+  {
+    label: "portfolio",
     href: "/portfolio",
     icon: <CiWallet />,
   },
   {
-    label: "Docs",
-    href: "/docs",
+    label: "ecosystem",
+    href: "/ecosystem",
     icon: <TfiBook />,
-  },
-  {
-    label: "Dashboard",
-    href: "/dashboard",
-    icon: <CiDesktopMouse1 />,
   },
 ];
 

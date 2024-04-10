@@ -37,8 +37,8 @@ const Home: NextPage = () => {
             <div className="max-w-[1920px] flex items-center flex-col justify-center w-full ">
               <div className="flex items-center justify-around w-full ">
                 <div>
-                  <span className="font-bold text-white text-8xl">STORM</span>
-                  <span className="font-bold text-8xl text-gradient">BIT.</span>
+                  <span className="font-bold text-white text-8xl">Storm</span>
+                  <span className="font-bold text-8xl text-gradient">bit.</span>
                   <div className="max-w-[600px] w-full">
                     <p className="text-3xl text-[#B5B5B5]">First p2p incentivized lending protocol.</p>
                   </div>
@@ -50,18 +50,17 @@ const Home: NextPage = () => {
             </div>
           </section>
           <section className="flex flex-col items-center justify-center gap-20 w-full h-[520px] py-[150px]  ">
-            <h2 className="text-5xl text-white">Evolutionary Trust Evaluation Mechanism</h2>
+            <h2 className="text-5xl text-white">Why use Stormbit.finance?</h2>
             <div className="flex items-center justify-center w-full gap-36">
-              <span className="max-w-[770px] w-full text-[28px] text-white">
-                Empower financial inclusivity with a dynamic, blockchain-enhanced trust score that evolves with your
-                financial interactions.
+              <span className="max-w-[770px] w-full text-[36px] text-white">
+                Your loans, your terms: Customized lending for a more inclusive, financially empowered world
               </span>
-              <Image src="/blocks.png" alt="blocks" width={267} height={221} />
+              <Image src="/icon-loans.svg" alt="icon" width={500} height={350} />
             </div>
           </section>
           <section className="flex flex-col items-center py-[150px] ">
             <div className="max-w-[1920px] w-full flex-col flex items-center gap-[20px]">
-              <h2 className="text-5xl font-bold text-white">Core Technology</h2>
+              <h2 className="text-5xl text-white">Core Technology</h2>
               <div className="flex flex-wrap justify-center gap-20 max-w-[1400px] mx-auto pt-[80px]">
                 {dataTechnology.map(element => (
                   <div
@@ -80,19 +79,21 @@ const Home: NextPage = () => {
               </div>
             </div>
           </section>
-          <section className="flex flex-col items-center pb-[150px]">
-            <div className="max-w-[1920px] w-full flex flex-col items-center justify-center">
-              <div className="flex flex-col justify-center items-center max-w-[1400px] w-full container-explorer py-4">
-                <span className="text-xl text-[#969696] mb-3 mt-28">Stormbit doc</span>
-                <span className="text-4xl font-bold text-white">Explore documentation</span>
-                <button className="px-12 py-5 rounded-[34px] button-gradient text-white my-24">Learn More</button>
-              </div>
+
+          <section className="flex flex-col items-center justify-center gap-28 w-full py-[150px] mb-9">
+            <h2 className="text-5xl text-white">Trust Evaluation Mechanism</h2>
+            <div className="flex items-center justify-center w-full gap-44">
+              <span className="max-w-[770px] w-full text-[36px] text-white">
+                Empower financial inclusivity with a dynamic, blockchain-enhanced trust score that evolves with your
+                financial interactions
+              </span>
+              <Image src="/blocks.png" alt="icon" width={375} height={350} />
             </div>
           </section>
 
           <section className="flex flex-col items-center mb-40">
-            <div className=" max-w-[1400px]  w-full flex flex-col items-center justify-center">
-              <span className="text-4xl text-white mb-28">Join Our Community</span>
+            <div className="max-w-[1400px] w-full flex flex-col items-center justify-center">
+              <span className="text-5xl text-white mb-28">Join Our Community</span>
               <div className="flex max-w-[1400px] w-full justify-between">
                 <div className="flex flex-col justify-between">
                   <div className="flex items-center gap-5">
