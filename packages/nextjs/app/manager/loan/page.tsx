@@ -7,21 +7,18 @@ function Page() {
       value: "$ 19.52k",
       amount: "19.7877",
       date: "03 March 2024",
-      button: <Button>Approved</Button>,
     },
     {
       name: "Loan Request XXX",
       value: "$ 19.52k",
       amount: "19.7877",
       date: "03 March 2024",
-      button: <Button>Approved</Button>,
     },
     {
       name: "Loan Request XXX",
       value: "$ 19.52k",
       amount: "19.7877",
       date: "03 March 2024",
-      button: <Button>Approved</Button>,
     },
   ];
   return (
@@ -44,7 +41,9 @@ function Page() {
               <td className="p-10">{row.value}</td>
               <td className="p-10">{row.amount}</td>
               <td className="p-10">{row.date}</td>
-              <td className="p-10">{row.button}</td>
+              <td className="p-10">
+                <Button>Approved</Button>
+              </td>
             </tr>
           ))}
         </tbody>

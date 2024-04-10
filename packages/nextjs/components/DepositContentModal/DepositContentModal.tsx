@@ -18,15 +18,19 @@ const DepositContentModal: React.FC<ModalProps> = ({ setIsModalDeposit }) => {
     <ModalContainer onClick={handleCloseModal}>
       <div className="flex justify-between items-center border-b-1 border-[#374B6D] pb-[20px]">
         <span className="text-2xl">Deposit</span>
-        <AiOutlineClose onClick={() => setIsModalDeposit()} className="cursor-pointer" />
+        <AiOutlineClose onClick={() => setIsModalDeposit()} className="cursor-pointer w-[25px] h-[25px]" />
       </div>
       <div className="flex justify-between border border-[#374B6D] rounded-[18px] p-4 my-6 text-[#4A5056] ">
         <div className="flex flex-col justify-center gap-4">
-          <input type="text" className="text-4xl bg-transparent border-none focus:outline-none" placeholder="0"></input>
+          <input
+            type="text"
+            className="text-4xl text-white bg-transparent border-none focus:outline-none"
+            placeholder="0"
+          ></input>
           <span className="text-xl">Balance : 0.67 (Max)</span>
         </div>
         <div className="flex flex-col gap-3">
-          <div className="flex items-center gap-2 text-white text-2xl">
+          <div className="flex items-center gap-2 text-2xl text-white">
             <Image src="/DAI.png" alt="Dai" width={45} height={45}></Image>
             <span>DAI</span>
           </div>

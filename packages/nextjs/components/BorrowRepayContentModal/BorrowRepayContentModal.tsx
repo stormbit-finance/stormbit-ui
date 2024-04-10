@@ -2,6 +2,7 @@ import React, { ChangeEvent, useState } from "react";
 import Image from "next/image";
 import Button from "../Button/Button";
 import "./borrowRepayContentModal.css";
+import { AiOutlineClose } from "react-icons/ai";
 import CustomCheckbox from "~~/components/CustomCheckbox/CustomCheckbox";
 import CustomSelect from "~~/components/CustomSelect/CustomSelect";
 import ModalContainer from "~~/components/ModalContainer/ModalContainer";
@@ -61,8 +62,9 @@ const BorrowRepayContentModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
             <div>
               <span>{selectedView === "borrow" ? "Borrow" : "Repay"}</span>
             </div>
-            <div className="flex gap-4 max-w-[180px] w-full text-white justify-end">
+            <div className="flex gap-4 max-w-[180px] w-full text-white justify-end items-center">
               <CustomSelect options={options} defaultValue="borrow" onChange={handleViewChange} />
+              <AiOutlineClose onClick={() => setIsModalOpen()} className="cursor-pointer w-[25px] h-[25px]" />
             </div>
           </div>
           <div className="content pb-[30px]">
@@ -72,12 +74,12 @@ const BorrowRepayContentModal: React.FC<ModalProps> = ({ setIsModalOpen }) => {
                 <div className="flex flex-col flex-1 gap-4 mt-5 ">
                   <label htmlFor="campo3">Payment Schedule</label>
                   <div className="flex items-center justify-between border w-full p-2 border-[#374B6D] rounded-[14px] bg-transparent">
-                    <div className="flex justify-center items-center">
+                    <div className="flex items-center justify-center">
                       <input
                         type="text"
                         id="campo1"
                         name="campo1"
-                        className="bg-transparent border-none p-2 focus:outline-none w-full"
+                        className="w-full p-2 bg-transparent border-none focus:outline-none"
                         autoComplete="off"
                         maxLength={10}
                       />
