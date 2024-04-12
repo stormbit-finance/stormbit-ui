@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -64,6 +65,7 @@ export const HeaderMenuLinks = () => {
  * Site header
  */
 export const Header = () => {
+  const [showConnectWallet, setShowConnectWallet] = useState(false);
   const account = useAccount();
 
   const { writeAsync: mintDAI } = useScaffoldContractWrite({
@@ -83,10 +85,6 @@ export const Header = () => {
     functionName: "mint",
     args: [account.address, parseEther("1000")],
   });
-
-  // const balanceDai = balanceDAI !== undefined ? formatEther(balanceDAI) : "Cargando...";
-  // const balanceBtc = balanceBTC !== undefined ? formatEther(balanceBTC) : "Cargando...";
-  // const balanceEth = balanceETH !== undefined ? formatEther(balanceETH) : "Cargando...";
 
   const balanceDai = useFormattedBalance("tDAI", account);
   const balanceBtc = useFormattedBalance("tBTC", account);
@@ -111,9 +109,13 @@ export const Header = () => {
             </div>
             <div className="flex-grow gap-8 mr-4 navbar-end">
               {account ? (
-                <button className="border rounded-xl py-[15px] px-[50px]">
-                  <Link href="/register">Launch App</Link>
-                </button>
+                <Link
+                  href="/register"
+                  onClick={() => setShowConnectWallet(true)}
+                  className="border rounded-xl py-[15px] px-[50px]"
+                >
+                  Launch App
+                </Link>
               ) : (
                 <div className="flex gap-[20px]">
                   <div className="flex flex-col items-center gap-[6px]">
@@ -151,8 +153,12 @@ export const Header = () => {
                   </div>
                 </div>
               )}
-              <RainbowKitCustomConnectButton />
-              <FaucetButton />
+              {showConnectWallet && (
+                <>
+                  <RainbowKitCustomConnectButton />
+                  <FaucetButton />
+                </>
+              )}
             </div>
           </div>
         </div>
