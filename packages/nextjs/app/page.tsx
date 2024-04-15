@@ -82,12 +82,12 @@ const Home: NextPage = () => {
 
           <section className="flex flex-col items-center justify-center gap-28 w-full py-[150px] mb-9">
             <h2 className="text-5xl text-white">Trust Evaluation Mechanism</h2>
-            <div className="flex items-center justify-center w-full gap-44">
-              <span className="max-w-[770px] w-full text-[36px] text-white">
+            <div className="flex items-center justify-center w-full gap-12">
+              <span className="max-w-[770px] w-full text-[32px] text-white">
                 Empower financial inclusivity with a dynamic, blockchain-enhanced trust score that evolves with your
                 financial interactions
               </span>
-              <Image src="/blocks.png" alt="icon" width={375} height={350} />
+              <Image src="/assets.png" alt="icon" width={775} height={950} />
             </div>
           </section>
 
