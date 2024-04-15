@@ -16,7 +16,7 @@ function Page() {
         </div>
         <div className="flex flex-col">
           <span className="mb-2">Stormbit ID</span>
-          <div className="border border-solid border-[#374B6D] rounded-[7px] w-[760px] flex justify-between h-[47px] items-center">
+          <div className="border border-solid border-[#374B6D] rounded-[7px] w-[760px] flex justify-between h-[47px] items-center mb-6">
             <input type="text" className="bg-transparent border-none focus:outline-none w-[680px] px-4"></input>
             <span className=" border-s border-[#374B6D] px-4">.stormbit</span>
           </div>

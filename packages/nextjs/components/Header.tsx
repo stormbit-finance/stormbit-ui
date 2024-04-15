@@ -4,11 +4,12 @@ import { usePathname } from "next/navigation";
 import { CiDesktopMouse1, CiWallet } from "react-icons/ci";
 import { LiaDotCircleSolid } from "react-icons/lia";
 import { TfiBook } from "react-icons/tfi";
-import { parseEther } from "viem";
-import { useAccount } from "wagmi";
 import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
-import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
-import useFormattedBalance from "~~/hooks/scaffold-eth/useFormattedBalance";
+
+// import { parseEther } from "viem";
+// import { useAccount } from "wagmi";
+// import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
+// import useFormattedBalance from "~~/hooks/scaffold-eth/useFormattedBalance";
 
 type HeaderMenuLink = {
   label: string;
@@ -18,24 +19,24 @@ type HeaderMenuLink = {
 
 export const menuLinks: HeaderMenuLink[] = [
   {
-    label: "Pools",
+    label: "pools",
     href: "/pools",
     icon: <LiaDotCircleSolid />,
   },
   {
-    label: "Portfolio",
+    label: "dashboard",
+    href: "/dashboard",
+    icon: <CiDesktopMouse1 />,
+  },
+  {
+    label: "portfolio",
     href: "/portfolio",
     icon: <CiWallet />,
   },
   {
-    label: "Docs",
-    href: "/docs",
+    label: "ecosystem",
+    href: "/ecosystem",
     icon: <TfiBook />,
-  },
-  {
-    label: "Dashboard",
-    href: "/dashboard",
-    icon: <CiDesktopMouse1 />,
   },
 ];
 
@@ -64,33 +65,29 @@ export const HeaderMenuLinks = () => {
  * Site header
  */
 export const Header = () => {
-  const account = useAccount();
+  // const account = useAccount();
 
-  const { writeAsync: mintDAI } = useScaffoldContractWrite({
-    contractName: "tDAI",
-    functionName: "mint",
-    args: [account.address, parseEther("1000")],
-  });
+  // const { writeAsync: mintDAI } = useScaffoldContractWrite({
+  //   contractName: "tDAI",
+  //   functionName: "mint",
+  //   args: [account.address, parseEther("1000")],
+  // });
 
-  const { writeAsync: mintETH } = useScaffoldContractWrite({
-    contractName: "tETH",
-    functionName: "mint",
-    args: [account.address, parseEther("1000")],
-  });
+  // const { writeAsync: mintETH } = useScaffoldContractWrite({
+  //   contractName: "tETH",
+  //   functionName: "mint",
+  //   args: [account.address, parseEther("1000")],
+  // });
 
-  const { writeAsync: mintBTC } = useScaffoldContractWrite({
-    contractName: "tBTC",
-    functionName: "mint",
-    args: [account.address, parseEther("1000")],
-  });
+  // const { writeAsync: mintBTC } = useScaffoldContractWrite({
+  //   contractName: "tBTC",
+  //   functionName: "mint",
+  //   args: [account.address, parseEther("1000")],
+  // });
 
-  // const balanceDai = balanceDAI !== undefined ? formatEther(balanceDAI) : "Cargando...";
-  // const balanceBtc = balanceBTC !== undefined ? formatEther(balanceBTC) : "Cargando...";
-  // const balanceEth = balanceETH !== undefined ? formatEther(balanceETH) : "Cargando...";
-
-  const balanceDai = useFormattedBalance("tDAI", account);
-  const balanceBtc = useFormattedBalance("tBTC", account);
-  const balanceEth = useFormattedBalance("tETH", account);
+  // const balanceDai = useFormattedBalance("tDAI", account);
+  // const balanceBtc = useFormattedBalance("tBTC", account);
+  // const balanceEth = useFormattedBalance("tETH", account);
 
   // console.log(balanceDai,balanceBtc,balanceEth)
 
@@ -110,47 +107,51 @@ export const Header = () => {
               </ul>
             </div>
             <div className="flex-grow gap-8 mr-4 navbar-end">
-              {account ? (
-                <button className="border rounded-xl py-[15px] px-[50px]">
-                  <Link href="/register">Launch App</Link>
-                </button>
-              ) : (
-                <div className="flex gap-[20px]">
-                  <div className="flex flex-col items-center gap-[6px]">
-                    <button
-                      className="border min-w-[90px] w-full rounded-xl px-2"
-                      onClick={() => {
-                        mintDAI();
-                      }}
-                    >
-                      Mint DAI
-                    </button>
-                    <span>Balance DAI: {balanceDai} </span>
-                  </div>
-                  <div className="flex flex-col items-center gap-[6px]">
-                    <button
-                      className="border min-w-[90px] w-full rounded-xl px-2"
-                      onClick={() => {
-                        mintETH();
-                      }}
-                    >
-                      Mint ETH
-                    </button>
-                    <span>Balance ETH: {balanceEth}</span>
-                  </div>
-                  <div className="flex flex-col items-center gap-[6px]">
-                    <button
-                      className="border min-w-[90px] w-full rounded-xl px-2"
-                      onClick={() => {
-                        mintBTC();
-                      }}
-                    >
-                      Mint BTC
-                    </button>
-                    <span>Balance BTC: {balanceBtc}</span>
-                  </div>
+              {/* <Link
+                href="/register"
+                onClick={() => setShowConnectWallet(true)}
+                className="border rounded-xl py-[15px] px-[50px]"
+              >
+                Launch App
+              </Link> 
+              
+              <div className="flex gap-[20px]">
+                <div className="flex flex-col items-center gap-[6px]">
+                  <button
+                    className="border min-w-[90px] w-full rounded-xl px-2"
+                    onClick={() => {
+                      mintDAI();
+                    }}
+                  >
+                    Mint DAI
+                  </button>
+                  <span>Balance DAI: {balanceDai} </span>
                 </div>
-              )}
+                <div className="flex flex-col items-center gap-[6px]">
+                  <button
+                    className="border min-w-[90px] w-full rounded-xl px-2"
+                    onClick={() => {
+                      mintETH();
+                    }}
+                  >
+                    Mint ETH
+                  </button>
+                  <span>Balance ETH: {balanceEth}</span>
+                </div>
+                <div className="flex flex-col items-center gap-[6px]">
+                  <button
+                    className="border min-w-[90px] w-full rounded-xl px-2"
+                    onClick={() => {
+                      mintBTC();
+                    }}
+                  >
+                    Mint BTC
+                  </button>
+                  <span>Balance BTC: {balanceBtc}</span>
+                </div>
+              </div>
+              
+              */}
               <RainbowKitCustomConnectButton />
               <FaucetButton />
             </div>

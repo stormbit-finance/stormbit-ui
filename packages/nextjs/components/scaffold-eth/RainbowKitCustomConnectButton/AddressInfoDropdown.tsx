@@ -1,17 +1,18 @@
 import { useRef, useState } from "react";
 import { NetworkOptions } from "./NetworkOptions";
 import CopyToClipboard from "react-copy-to-clipboard";
+import { BiSolidUser } from "react-icons/bi";
 import { Address, useDisconnect } from "wagmi";
 import {
   ArrowLeftOnRectangleIcon,
   ArrowTopRightOnSquareIcon,
   ArrowsRightLeftIcon,
   CheckCircleIcon,
-  ChevronDownIcon,
   DocumentDuplicateIcon,
+  EllipsisVerticalIcon,
   QrCodeIcon,
 } from "@heroicons/react/24/outline";
-import { BlockieAvatar } from "~~/components/scaffold-eth";
+// import { BlockieAvatar } from "~~/components/scaffold-eth";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
 import { getTargetNetworks } from "~~/utils/scaffold-eth";
 
@@ -26,7 +27,7 @@ type AddressInfoDropdownProps = {
 
 export const AddressInfoDropdown = ({
   address,
-  ensAvatar,
+  // ensAvatar,
   displayName,
   blockExplorerAddressLink,
 }: AddressInfoDropdownProps) => {
@@ -47,11 +48,14 @@ export const AddressInfoDropdown = ({
       <details ref={dropdownRef} className="leading-3 dropdown dropdown-end">
         <summary
           tabIndex={0}
-          className=" flex items-center border border-solid rounded-[13px] btn-sm pl-0 pr-2 dropdown-toggle gap-0 !h-auto"
+          className=" flex items-center border border-[#323344] rounded-[5px] btn-sm px-4 py-2 dropdown-toggle gap-0 !h-auto"
         >
-          <BlockieAvatar address={address} size={30} ensImage={ensAvatar} />
-          <span className="ml-2 mr-1 text-xl">{displayName}</span>
-          <ChevronDownIcon className="w-4 h-6 ml-2 sm:ml-0" />
+          {/* <BlockieAvatar address={address} size={30} ensImage={ensAvatar} /> */}
+          <div className="p-1 border rounded-full">
+            <BiSolidUser />
+          </div>
+          <span className="ml-4 text-xl border-[#323344] border-r pr-4">{displayName}</span>
+          <EllipsisVerticalIcon className="pl-3 ml-2 cursor-pointer w-9 h-9 sm:ml-0" />
         </summary>
         <ul
           tabIndex={0}
