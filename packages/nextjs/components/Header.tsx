@@ -15,6 +15,7 @@ type HeaderMenuLink = {
   label: string;
   href: string;
   icon: React.ReactNode;
+  external?: boolean;
 };
 
 export const menuLinks: HeaderMenuLink[] = [
@@ -35,8 +36,9 @@ export const menuLinks: HeaderMenuLink[] = [
   },
   {
     label: "ecosystem",
-    href: "/ecosystem",
+    href: "https://stormbit.gitbook.io/stormbit",
     icon: <TfiBook />,
+    external: true,
   },
 ];
 
@@ -45,15 +47,27 @@ export const HeaderMenuLinks = () => {
 
   return (
     <>
-      {menuLinks.map(({ label, href, icon }) => {
+      {menuLinks.map(({ label, href, icon, external }) => {
         const isActive = pathname === href;
         return (
           <li key={href}>
-            <Link href={href} passHref>
-              <span className={`flex items-center gap-[5px] ${isActive ? "text-[#A24DFF]" : "text-[#ffffff]"}`}>
+            {external ? (
+              <Link
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`flex items-center gap-[5px] ${isActive ? "text-[#A24DFF]" : "text-[#ffffff]"}`}
+              >
                 {icon} {label}
-              </span>
-            </Link>
+              </Link>
+            ) : (
+              <Link
+                href={href}
+                className={`flex items-center gap-[5px] ${isActive ? "text-[#A24DFF]" : "text-[#ffffff]"}`}
+              >
+                {icon} {label}
+              </Link>
+            )}
           </li>
         );
       })}
@@ -99,7 +113,7 @@ export const Header = () => {
             <div className="flex gap-3">
               <Link href="/" passHref className="items-center hidden gap-2 ml-4 mr-6 lg:flex shrink-0">
                 <div>
-                  <Image src="/logo.png" alt="logo" width={142} height={65} className="w-auto h-auto" priority></Image>
+                  <Image src="/logo.png" alt="logo" width={80} height={80} priority></Image>
                 </div>
               </Link>
               <ul className="hidden gap-8 px-1 text-xl lg:flex lg:flex-nowrap">
