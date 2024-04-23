@@ -1,58 +1,58 @@
-.container-pool{
-    height: 264px;
-    padding-block: 45px;
-    position: relative;
-    border-radius: 20px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.00) 100%);
-    backdrop-filter: blur(2px);
-    margin-block-end: 2rem;
+.container-pool {
+  height: 264px;
+  padding-block: 45px;
+  position: relative;
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0) 100%);
+  backdrop-filter: blur(2px);
+  margin-block-end: 2rem;
 }
 
-.usage{
-    position: absolute;
-    top: -47px;
-    right: 30px;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: #181619;
-    border: 1px;
-    border-color: #933CF5;
-    filter: drop-shadow(0px 2px 1.9000000000000004px #AD92F5)
+.usage {
+  position: absolute;
+  top: -47px;
+  right: 30px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #181619;
+  border: 1px;
+  border-color: #933cf5;
+  filter: drop-shadow(0px 2px 1.9000000000000004px #ad92f5);
 }
 
-.svg-classes{
-    /* position: absolute;
+.svg-classes {
+  /* position: absolute;
     top: -47px;
     right: 30px; */
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background-color: #181619;
-    border: 1px;
-    border-color: #933CF5;
-    /* filter: drop-shadow(0px 2px 1.9000000000000004px #AD92F5) */
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: #181619;
+  border: 1px;
+  border-color: #933cf5;
+  /* filter: drop-shadow(0px 2px 1.9000000000000004px #AD92F5) */
 }
 
-.track-classes{
-    stroke: none;
+.track-classes {
+  stroke: none;
 }
 
-.value-classes{
-    font-size: 1.7rem;
+.value-classes {
+  font-size: 1.7rem;
 }
 
-.indicator-classes{
-    stroke: #933CF5;
+.indicator-classes {
+  stroke: #933cf5;
 }
 
-.base-classes{
-    position: absolute;
-    top: -50px;
-    right: 19px;
+.base-classes {
+  position: absolute;
+  top: -50px;
+  right: 19px;
 }
 
-.label-classes{
-    position: absolute;
-    bottom: 25px;
+.label-classes {
+  position: absolute;
+  bottom: 25px;
 }
