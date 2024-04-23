@@ -98,26 +98,6 @@ const config: HardhatUserConfig = {
       url: `https://polygon-mainnet.g.alchemy.com/v2/${providerApiKey}`,
       accounts: [deployerPrivateKey],
     },
-    polygonMumbai: {
-      url: `https://polygon-mumbai.g.alchemy.com/v2/${providerApiKey}`,
-      accounts: [deployerPrivateKey],
-    },
-    polygonZkEvm: {
-      url: `https://polygonzkevm-mainnet.g.alchemy.com/v2/${providerApiKey}`,
-      accounts: [deployerPrivateKey],
-    },
-    polygonZkEvmTestnet: {
-      url: `https://polygonzkevm-testnet.g.alchemy.com/v2/${providerApiKey}`,
-      accounts: [deployerPrivateKey],
-    },
-    gnosis: {
-      url: "https://rpc.gnosischain.com",
-      accounts: [deployerPrivateKey],
-    },
-    chiado: {
-      url: "https://rpc.chiadochain.net",
-      accounts: [deployerPrivateKey],
-    },
     base: {
       url: "https://mainnet.base.org",
       accounts: [deployerPrivateKey],
@@ -144,6 +124,10 @@ const config: HardhatUserConfig = {
     },
     avalancheFuji: {
       url: "https://avalanche-fuji-c-chain.publicnode.com",
+      accounts: [deployerPrivateKey, lenderPrivateKey, borrowerPrivateKey],
+    },
+    etherlinkTestnet: {
+      url: "https://node.ghostnet.etherlink.com",
       accounts: [deployerPrivateKey, lenderPrivateKey, borrowerPrivateKey],
     },
   },
