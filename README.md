@@ -5,9 +5,9 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/contracts%20built%20with-Foundry-purple"/>
-  <img src="https://img.shields.io/badge/monorepo%20on%20-scaffoldETH-purple"/>
-  <img src="https://img.shields.io/twitter/follow/StormbitX?style=social"/>
+  <img src="https://img.shields.io/badge/contracts%20built%20with-Foundry-purple" alt="built with Foundry"/>
+  <img src="https://img.shields.io/badge/monorepo%20on%20-scaffoldETH-purple" alt="monorepo scaffoldETH"/>
+  <img src="https://img.shields.io/twitter/follow/StormbitX?style=social" alt="Follow on X"/>
 </p>
 
 <h1 align="center">Stormbit: Empowering Inclusive Finance</h1>
@@ -19,6 +19,28 @@
 - **Universal Access to Finance**: Ensuring financial inclusion for traditionally excluded groups.
 - **Tailored Lending Options**: Providing the flexibility for users to create loans that meet their specific needs.
 - **Enhanced Investment Returns**: Delivering competitive returns, surpassing traditional financial institutions.
+
+## 🛠️ Technological Foundation with ScaffoldETH
+
+**ScaffoldETH** accelerates development from concept to deployment, offering an integrated stack optimized for Ethereum development. It includes:
+
+- **Rapid Prototyping**: Quick setup and iteration of smart contracts and UIs using pre-built templates and components.
+- **Next.js**: A React framework for building efficient, scalable, and SEO-friendly user interfaces, ensuring a smooth user experience.
+- **Hardhat**: An Ethereum development environment essential for compiling, deploying, and debugging. Enhances the development of complex smart contracts for innovative financial products.
+    - **StormBitVault.sol**: Handles the storage or management of assets (either tokens or other financial instruments) within the Stormbit platform.
+    - **StormBitLendingVotes.sol**: Involve governance or voting mechanisms specific to lending decisions or policies within Stormbit.
+    - **StormBitLending.sol**: Directly involved in the lending processes, managing loan issuance, terms, and possibly interactions with collateral.
+    - **StormBitERC4626.sol**: Implements the ERC-4626 standard, which is for tokenized vaults. It's used for managing investment strategies or user deposits.
+    - **StormBitCore.sol**: Core contract that links various functionalities of the Stormbit ecosystem.
+    - **StormBit.sol**: Central contract that encapsulates the primary functionality of the Stormbit platform, interfacing with other specific contracts.
+    - **Staking.sol**: Manages staking mechanisms where users lock up tokens to earn rewards, possibly influencing creditworthiness or voting power.
+    - **CreditAggregator.sol**: Aggregates and calculates credit scores or risk assessments based on user activity and history.
+    - **AgreementBedrock.sol**: Provide fundamental legal or transactional structures needed for executing agreements within the platform.
+
+- **Local Testing**: Includes a local Ethereum blockchain for cost-free testing, crucial for ensuring secure and reliable financial transactions.
+- **Developer Experience**: A cohesive suite of tools enhances focus on innovation, supported by a robust community for ongoing learning and support.
+
+Utilizing ScaffoldETH, Stormbit builds secure, user-friendly DeFi applications, propelling forward our mission of empowering inclusive finance.
 
 ## 🚀 Getting Started
 
@@ -38,11 +60,11 @@ Clone the Stormbit repository and install dependencies:
 git clone https://github.com/Quantum3-Labs/Stormbit-monorepo.git
 cd Stormbit-monorepo
 yarn install
+```
 
 ### Managing Environment Variables
 
 To configure environment variables for development and production:
-
 
 ```bash 
 # Alchemy API Key
