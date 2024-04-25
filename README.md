@@ -22,7 +22,9 @@
 
 ## 🛠️ Technological Foundation with ScaffoldETH
 
-**ScaffoldETH** accelerates development from concept to deployment, offering an integrated stack optimized for Ethereum development. It includes:
+**ScaffoldETH** accelerates development from concept to deployment, offering an integrated stack optimized for Ethereum development. 
+
+#### It includes:
 
 - **Rapid Prototyping**: Quick setup and iteration of smart contracts and UIs using pre-built templates and components.
 - **Next.js**: A React framework for building efficient, scalable, and SEO-friendly user interfaces, ensuring a smooth user experience.
