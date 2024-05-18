@@ -60,7 +60,7 @@ function Page() {
 
         <div className=" w-full flex justify-between items-center  p-4">
           <div className="flex items-center gap-4">
-            <div className="text-2xl font-semibold">Ryan Modesto</div>
+            <div className="text-3xl font-semibold">Ryan Modesto</div>
             <div className="px-7 py-2 bg-[#1A1A31] rounded-full">0xb9df...9811F</div>
             <div className="w-10 h-10 flex items-center justify-center rounded-full bg-[#1A1A31]">
               <IoCopy />
@@ -75,26 +75,15 @@ function Page() {
               <BsTwitterX />
             </div>
           </div>
-
-          {/* <div className="grid grid-cols-2 gap-6">
-            <div className="text-lg ">
-              <div className=" text-[#A8B1C8] pb-2">Total borrowed</div>
-              <div className="text-[#A8B1C8]">Total repaid</div>
-            </div>
-            <div className="text-lg ">
-              <div className="text-white pb-2">$2.03K</div>
-              <div className="text-white">$2.03K</div>
-            </div>
-          </div> */}
         </div>
         <div className="my-10 flex gap-4 w-full">
           <div className=" w-[600px] border border-[#1A1A31] rounded-lg flex flex-col gap-6 px-8 py-14 justify-center ">
-            <div className="text-lg font-bold">Overview</div>
-            <div className="flex justify-between ">
+            <div className="text-2xl font-bold">Overview</div>
+            <div className="flex justify-between text-xl">
               <div className="">Your trust score</div>
               <div className="">72%</div>
             </div>
-            <div className="flex justify-between  ">
+            <div className="flex justify-between text-xl ">
               <div className="">
                 <div className="pb-2">Last zk-proof generated</div>
 
@@ -109,12 +98,12 @@ function Page() {
             </div>
           </div>
           <div className=" w-[600px] border border-[#1A1A31] rounded-lg flex flex-col gap-6 px-8 py-14 justify-center ">
-            <div className="text-lg font-bold">Providers</div>
-            <div className="flex justify-between ">
+            <div className="text-2xl font-bold">Providers</div>
+            <div className="flex justify-between text-xl">
               <div className="">Total providers</div>
               <div className="">3</div>
             </div>
-            <div className="flex justify-between   ">
+            <div className="flex justify-between  text-xl ">
               <div className="">Total verified providers</div>
               <div className="">1</div>
             </div>
