@@ -37,6 +37,16 @@ function Page() {
       proofs: 10,
     },
     {
+      provider: "Stripe",
+      logo: "/stripe.svg",
+      proofs: 10,
+    },
+    {
+      provider: "Wise",
+      logo: "/wise.svg",
+      proofs: 10,
+    },
+    {
       provider: "Custom",
       logo: "/custom.svg",
       proofs: 10,
