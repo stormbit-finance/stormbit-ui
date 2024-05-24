@@ -8,6 +8,7 @@ import FilterProviderModal from "~~/components/FilterProviderModal/FIlterProvide
 
 const Reclaim: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [provider, setProvider] = useState("Filter");
   return (
     <div className="flex justify-center items-center py-[30px]">
       <div className="max-w-[1380px] w-full  flex flex-col  items-center gap-[20px] pt-[30px] min-h-[800px]">
@@ -19,7 +20,7 @@ const Reclaim: React.FC = () => {
                 setIsModalOpen(true);
               }}
             >
-              Filter Provider
+              {provider} Provider
               <CiFilter />
             </Button>
           </div>
@@ -70,7 +71,13 @@ const Reclaim: React.FC = () => {
           </div>
         </div>
       </div>
-      {isModalOpen && <FilterProviderModal setIsModalOpen={() => setIsModalOpen(false)} />}
+      {isModalOpen && (
+        <FilterProviderModal
+          provider={provider}
+          setProvider={(provider: string) => setProvider(provider)}
+          setIsModalOpen={() => setIsModalOpen(false)}
+        />
+      )}
     </div>
   );
 };
