@@ -33,7 +33,7 @@ export const RainbowKitCustomConnectButton = () => {
               if (!connected) {
                 return (
                   <button
-                    className="text-[#ffffff] py-3 px-6 border border-solid border-[#ffffff] rounded-[7px] text-xl"
+                    className="text-[#ffffff] lg:py-3 lg:px-6 border border-solid border-[#ffffff] rounded-[7px] lg:text-xl py-1 px-2 text-sm"
                     onClick={openConnectModal}
                     type="button"
                   >

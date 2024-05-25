@@ -109,63 +109,18 @@ export const Header = () => {
     <>
       <div className="z-10 w-full shadow-md bg-header">
         <div className="flex items-center justify-center">
-          <div className=" flex justify-between items-center 0 min-h-0 p-6 text-white lg:static navbar sm:px-2 max-w-[1920px] w-full">
-            <div className="flex gap-3">
-              <Link href="/" passHref className="items-center hidden gap-2 ml-4 mr-6 lg:flex shrink-0">
-                <div>
-                  <Image src="/logo.png" alt="logo" width={80} height={80} priority></Image>
+          <div className="flex justify-between items-center min-h-0 lg:p-6 text-white lg:static navbar sm:px-2 max-w-[1920px] w-full p-2">
+            <div className="flex gap-3 items-center">
+              <Link href="/" passHref className="gap-2 ml-4 mr-6 flex shrink-0">
+                <div className="flex">
+                  <Image src="/logo.png" alt="logo" width={50} height={50} priority className="lg:w-[80px]" />
                 </div>
               </Link>
-              <ul className="hidden gap-8 px-1 text-xl lg:flex lg:flex-nowrap">
+              <ul className="hidden lg:flex gap-8 px-1 text-xl">
                 <HeaderMenuLinks />
               </ul>
             </div>
             <div className="flex-grow gap-8 mr-4 navbar-end">
-              {/* <Link
-                href="/register"
-                onClick={() => setShowConnectWallet(true)}
-                className="border rounded-xl py-[15px] px-[50px]"
-              >
-                Launch App
-              </Link> 
-              
-              <div className="flex gap-[20px]">
-                <div className="flex flex-col items-center gap-[6px]">
-                  <button
-                    className="border min-w-[90px] w-full rounded-xl px-2"
-                    onClick={() => {
-                      mintDAI();
-                    }}
-                  >
-                    Mint DAI
-                  </button>
-                  <span>Balance DAI: {balanceDai} </span>
-                </div>
-                <div className="flex flex-col items-center gap-[6px]">
-                  <button
-                    className="border min-w-[90px] w-full rounded-xl px-2"
-                    onClick={() => {
-                      mintETH();
-                    }}
-                  >
-                    Mint ETH
-                  </button>
-                  <span>Balance ETH: {balanceEth}</span>
-                </div>
-                <div className="flex flex-col items-center gap-[6px]">
-                  <button
-                    className="border min-w-[90px] w-full rounded-xl px-2"
-                    onClick={() => {
-                      mintBTC();
-                    }}
-                  >
-                    Mint BTC
-                  </button>
-                  <span>Balance BTC: {balanceBtc}</span>
-                </div>
-              </div>
-              
-              */}
               <RainbowKitCustomConnectButton />
               <FaucetButton />
             </div>
