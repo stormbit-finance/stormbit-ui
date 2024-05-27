@@ -78,6 +78,14 @@ const FilterProviderModal: React.FC<ModalProps> = ({ setIsModalOpen, provider, s
           >
             Custom
           </div>
+          <div
+            onClick={() => setProvider("All")}
+            className={`cursor-pointer hover:bg-[#23233D] px-6 py-4 rounded-lg ${
+              provider === "All" ? "bg-[#23233D]" : ""
+            }`}
+          >
+            All
+          </div>
         </div>
       </div>
       <div className="w-full flex items-center justify-center py-[20px]">
