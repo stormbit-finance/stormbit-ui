@@ -77,7 +77,6 @@ const Reclaim: React.FC = () => {
           </div>
         ))}
       </div>
-
       {isModalOpen && (
         <FilterProviderModal
           provider={provider}
