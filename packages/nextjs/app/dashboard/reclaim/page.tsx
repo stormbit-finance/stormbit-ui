@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
 import { CiFilter } from "react-icons/ci";
 import { GoArrowUpRight } from "react-icons/go";
 import Button from "~~/components/Button/Button";
@@ -10,12 +11,40 @@ const Reclaim: React.FC = () => {
   const providerData = useMemo(
     () => [
       {
-        providerName: "Binance",
-        desc: "Description",
+        name: "Binance provider",
+        provider: "Binance",
+        desc: "KYC for Binance",
+        img: "/binance.svg",
       },
       {
-        providerName: "OKX",
-        desc: "Description",
+        name: "OKX provider",
+        provider: "OKX",
+        desc: "KYC for OKX",
+        img: "/okx.svg",
+      },
+      {
+        name: "Github provider",
+        provider: "Github",
+        desc: "Developer stats for Github",
+        img: "/github.svg",
+      },
+      {
+        name: "LinkedIn Analytics provider",
+        provider: "LinkedIn Analytics",
+        desc: "Dashboard Analytics for LinkedIn",
+        img: "/linkedin.svg",
+      },
+      {
+        name: "X Analytics provider",
+        provider: "X Analytics",
+        desc: "Dashboard Analytics for X",
+        img: "/x.svg",
+      },
+      {
+        name: "Custom provider",
+        provider: "Custom",
+        desc: "KYC for custom provider",
+        img: "/custom.svg",
       },
     ],
     [],
@@ -30,7 +59,7 @@ const Reclaim: React.FC = () => {
       setProviderList(providerData);
       return;
     } else {
-      setProviderList(providerData.filter(item => item.providerName === provider));
+      setProviderList(providerData.filter(item => item.provider === provider));
     }
   }, [provider, providerData]);
 
@@ -58,13 +87,11 @@ const Reclaim: React.FC = () => {
           </div>
         </div>
         {providerList.map((item, index) => (
-          <div className="flex w-full justify-between items-center" key={index}>
+          <div className="py-4 flex w-full justify-between items-center" key={index}>
             <div className="flex items-center">
-              <div className="w-16 h-16 p-2 flex items-center justify-center rounded-full bg-[#23233D]">
-                <span>{item.providerName.slice(0, 3)}</span>
-              </div>
+              <Image width={50} height={50} className="" src={`${item.img}`} alt="" />
               <div className="ml-4">
-                <div className="text-xl">{item.providerName}</div>
+                <div className="text-xl">{item.name}</div>
                 <div className="text-[#858BA2]">{item.desc}</div>
               </div>
             </div>
