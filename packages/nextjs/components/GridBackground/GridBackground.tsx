@@ -27,7 +27,7 @@ const GridBackground: React.FC<GridProps> = ({ numRows, numCols }) => {
           {row.map((col, colIndex) => (
             <div
               key={`${rowIndex}-${colIndex}`}
-              className={`cell block h-[72px] w-[72px] border border-solid border-[#ffffff04] ${
+              className={`cell block lg:h-[72px] lg:w-[72px]  w-[30px]  h-[30px] border border-solid border-[#ffffff04] ${
                 rowIndex === grid.length - 1 ? "last-row" : ""
               }`}
             ></div>

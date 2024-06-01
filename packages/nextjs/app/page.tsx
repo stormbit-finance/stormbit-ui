@@ -31,48 +31,48 @@ const Home: NextPage = () => {
   return (
     <>
       <div>
-        <div className="flex flex-col gap-20 bg-landing">
-          <section className="flex items-center justify-center py-[150px] relative ">
+        <div className="flex flex-col lg:gap-20 bg-landing gap-10">
+          <section className="flex items-center justify-center lg:py-[150px] relative py-[30px] ">
             <GridBackground numRows={9} numCols={30} />
-            <div className="max-w-[1920px] flex items-center flex-col justify-center w-full ">
-              <div className="flex items-center justify-around w-full ">
+            <div className="lg:max-w-[1920px] flex items-center flex-col justify-center w-full ">
+              <div className="lg:flex-row items-center lg:justify-around w-full px-4 justify-center flex flex-col">
                 <div>
-                  <span className="font-bold text-white text-8xl">Storm</span>
-                  <span className="font-bold text-8xl text-gradient">bit.</span>
-                  <div className="max-w-[600px] w-full">
-                    <p className="text-3xl text-[#B5B5B5]">First p2p incentivized lending protocol.</p>
+                  <span className="font-bold text-white lg:text-8xl text-3xl">Storm</span>
+                  <span className="font-bold lg:text-8xl text-gradient text-3xl">bit.</span>
+                  <div className="max-w-[600px] w-full my-2">
+                    <p className="lg:text-3xl text-[#B5B5B5] text-lg m-0">First p2p incentivized lending protocol.</p>
                   </div>
                 </div>
                 <div>
-                  <Image src="/scheme.png" alt="scheme" width={800} height={604} />
+                  <Image src="/scheme.png" alt="scheme" width={300} height={204} className=" lg:w-[800px] " />
                 </div>
               </div>
             </div>
           </section>
-          <section className="flex flex-col items-center justify-center gap-20 w-full h-[520px] py-[150px]  ">
-            <h2 className="text-5xl text-white">Why use Stormbit.finance?</h2>
-            <div className="flex items-center justify-center w-full gap-36">
-              <span className="max-w-[770px] w-full text-[36px] text-white">
-                Your loans, your terms: Customized lending for a more inclusive, financially empowered world
+          <section className="flex flex-col items-center justify-center lg:gap-20 w-full lg:h-[520px] lg:py-[150px] px-4 gap-5 lg:px-0 py-[60px]">
+            <h2 className="lg:text-5xl text-white text-2xl">Why use Stormbit.finance?</h2>
+            <div className="flex items-center flex-col-reverse justify-center w-full lg:gap-36 lg:flex-row gap-5">
+              <span className="max-w-[770px] w-full lg:text-[36px] text-white text-lg lg:text-start text-center">
+                Your loans, your terms: Customized lending for a more inclusive, financially empowered world.
               </span>
-              <Image src="/icon-loans.svg" alt="icon" width={500} height={350} />
+              <Image src="/icon-loans.svg" alt="icon" width={250} height={100} className="lg:w-[510px]" />
             </div>
           </section>
-          <section className="flex flex-col items-center py-[150px] ">
+          <section className="flex flex-col items-center lg:py-[150px] px-4 lg:px-0">
             <div className="max-w-[1920px] w-full flex-col flex items-center gap-[20px]">
-              <h2 className="text-5xl text-white">Core Technology</h2>
-              <div className="flex flex-wrap justify-center gap-20 max-w-[1400px] mx-auto pt-[80px]">
+              <h2 className="lg:text-5xl text-white text-2xl">Core Technology</h2>
+              <div className="flex flex-wrap justify-center lg:gap-20  gap-10 max-w-[1400px] mx-auto lg:pt-[80px] pt-[20px]">
                 {dataTechnology.map(element => (
                   <div
                     key={element.name}
-                    className="flex flex-col items-center justify-center max-w-[400px] gap-16 min-h-[470px] w-full border border-solid border-white rounded-[12px] py-12 px-[10px]"
+                    className="flex flex-col items-center justify-center lg:max-w-[400px] max-w-[250px] lg:gap-16 gap-5 lg:min-h-[470px] w-full border border-solid border-white rounded-[12px] lg:py-12 px-[10px] py-6"
                   >
                     <div>
-                      <Image src={element.icon} alt="icon" width={108} height={132} />
+                      <Image src={element.icon} alt="icon" width={58} height={73} className="lg:w-[108px]" />
                     </div>
-                    <div className="flex flex-col items-center justify-center gap-6 text-white max-w-[367px]">
-                      <span className="text-2xl font-bold text-center text-white">{element.name}</span>
-                      <span className="text-lg font-medium text-center">{element.description}</span>
+                    <div className="flex flex-col items-center justify-center gap-6 text-white lg:max-w-[367px] max-w-[167px]">
+                      <span className="lg:text-2xl font-bold text-center text-white text-lg">{element.name}</span>
+                      <span className="lg:text-lg font-medium text-center text-sm">{element.description}</span>
                     </div>
                   </div>
                 ))}
@@ -80,42 +80,43 @@ const Home: NextPage = () => {
             </div>
           </section>
 
-          <section className="flex flex-col items-center justify-center gap-28 w-full py-[150px] mb-9">
-            <h2 className="text-5xl text-white">Trust Evaluation Mechanism</h2>
-            <div className="flex items-center justify-center w-full gap-12">
-              <span className="max-w-[770px] w-full text-[32px] text-white">
+          <section className="flex flex-col items-center justify-center lg:gap-28 w-full lg:py-[150px] py-[60px] lg:mb-9 px-4 gap-10 lg:px-0">
+            <h2 className="lg:text-5xl text-white text-2xl">Trust Evaluation Mechanism</h2>
+            <div className="flex items-center justify-center w-full lg:gap-12 flex-col lg:flex-row gap-6">
+              <span className="max-w-[770px] w-full lg:text-[32px] text-white text-lg lg:text-start text-center">
                 Empower financial inclusivity with a dynamic, blockchain-enhanced trust score that evolves with your
                 financial interactions
               </span>
-              <Image src="/assets.png" alt="icon" width={775} height={950} />
+              <Image src="/assets.png" alt="icon" width={300} height={650} className="lg:w-[775px]" />
             </div>
           </section>
-
-          <section className="flex flex-col items-center mb-40">
-            <div className="max-w-[1400px] w-full flex flex-col items-center justify-center">
-              <span className="text-5xl text-white mb-28">Join Our Community</span>
-              <div className="flex max-w-[1400px] w-full justify-between">
+          <section className="flex flex-col items-center lg:mb-40 mb-10">
+            <div className="max-w-[1400px] w-full flex flex-col items-center justify-center gap-10">
+              <span className="lg:text-5xl text-white text-2xl lg:mb-28">Join Our Community</span>
+              <div className="flex max-w-[1400px] w-full justify-between flex-col-reverse lg:flex-row px-4">
                 <div className="flex flex-col justify-between">
-                  <div className="flex items-center gap-5">
-                    <Image src="/clock.png" alt="clock" width={55} height={55}></Image>
-                    <span className="text-3xl text-white">Keep Updated</span>
+                  <div className="flex items-center gap-5 lg:justify-start justify-center">
+                    <Image src="/clock.png" alt="clock" width={55} height={55} />
+                    <span className="lg:text-5xl text-white text-2xl">Keep Updated</span>
                   </div>
-                  <span className="text-xl text-white w-[500px]">
+                  <span className="lg:text-3xl text-white text-xl lg:max-w-[500px] text-center lg:text-start py-4">
                     “ Join our community to get updates on new products and features! ”
                   </span>
-                  <div className="flex gap-6">
+                  <div className="flex lg:gap-6 lg:flex-row flex-col items-center gap-3">
                     <input
                       type="text"
                       placeholder="Enter your email address"
-                      className="rounded-[9px] border-[#3C3D5B] border py-5 px-4 focus:outline-none bg-transparent w-[366px]"
-                    ></input>
-                    <button className="bg-[#1D1E2F] rounded-[9px] text-white text-xl py-5 px-10">Subscribe</button>
+                      className="rounded-[9px] border-[#3C3D5B] border py-5 px-4 focus:outline-none bg-transparent lg:max-w-[366px] max-w-[300px]"
+                    />
+                    <button className="bg-[#1D1E2F] rounded-[9px] text-white text-xl lg:py-5 lg:px-10 py-2 px-5 ">
+                      Subscribe
+                    </button>
                   </div>
                 </div>
-                <div className="flex flex-col">
-                  <div className="flex items-center gap-5 mb-14">
-                    <Image src="/chat1.png" alt="clock" width={38} height={38}></Image>
-                    <span className="text-3xl text-white">Social</span>
+                <div className="flex flex-col items-center lg:items-start pb-10 lg:pb-0">
+                  <div className="flex items-center gap-5 lg:mb-14 pb-4 ">
+                    <Image src="/chat1.png" alt="clock" width={38} height={38} />
+                    <span className="lg:text-5xl text-white text-2xl ">Social</span>
                   </div>
                   <div className="flex flex-col gap-4">
                     {dataSocial.map(element => (
@@ -124,7 +125,7 @@ const Home: NextPage = () => {
                           href={element.link}
                           passHref
                           target="_blank"
-                          className="py-5 bg-[#1D1E2FD1] text-xl text-white flex gap-6 pl-5 rounded-[9px] items-center w-[478px]"
+                          className="py-5 bg-[#1D1E2FD1] lg:text-xl text-lg text-white flex gap-6 pl-5 rounded-[9px] items-center lg:w-[478px] w-[200px]"
                         >
                           {element.icon}
                           <span>{element.name}</span>
@@ -137,7 +138,7 @@ const Home: NextPage = () => {
             </div>
           </section>
         </div>
-        <Footer></Footer>
+        <Footer />
       </div>
     </>
   );
