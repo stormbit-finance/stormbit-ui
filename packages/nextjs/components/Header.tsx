@@ -5,6 +5,7 @@ import { CiDesktopMouse1, CiWallet } from "react-icons/ci";
 import { LiaDotCircleSolid } from "react-icons/lia";
 import { TfiBook } from "react-icons/tfi";
 import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
+import { TbWorld } from "react-icons/tb";
 
 // import { parseEther } from "viem";
 // import { useAccount } from "wagmi";
@@ -39,6 +40,11 @@ export const menuLinks: HeaderMenuLink[] = [
     href: "https://stormbit.gitbook.io/stormbit",
     icon: <TfiBook />,
     external: true,
+  },
+  {
+    label: "explorer",
+    href: "/explorer",
+    icon: <TbWorld />,
   },
 ];
 

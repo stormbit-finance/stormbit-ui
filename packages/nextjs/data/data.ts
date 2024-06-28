@@ -323,3 +323,36 @@ export const loans = [
     time: "3 days 0 hrs",
   },
 ];
+
+export const borrower = [
+  {
+    name: "Ryan Modesto",
+    addres: "0x2B7E...c79DC",
+    loans: "$ 9,099.00",
+    deposited : "$ 9,099.00",
+    terms: "10",
+    verified:"20",
+    proof:"2 days",
+    score:"70",
+  },
+  {
+    name: "Gyan Modesto",
+    addres: "0x2B7E...c79DC",
+    loans: "$ 9,099.00",
+    deposited : "$ 9,099.00",
+    terms: "10",
+    verified:"20",
+    proof:"2 days",
+    score:"70",
+  },
+  {
+    name: "Fyan Modesto",
+    addres: "0x2B7E...c79DC",
+    loans: "$ 9,099.00",
+    deposited : "$ 9,099.00",
+    terms: "10",
+    verified:"20",
+    proof:"2 days",
+    score:"70",
+  }
+]
