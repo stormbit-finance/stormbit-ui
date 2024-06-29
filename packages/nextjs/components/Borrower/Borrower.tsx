@@ -10,9 +10,6 @@ import { FaStripeS } from "react-icons/fa";
 import { SiWise } from "react-icons/si";
 import { SlUser } from "react-icons/sl";
 
-
-import { borrower } from "~~/data/data";
-
 const provider = [
     {
         icon: <SiBinance />,
@@ -114,8 +111,8 @@ function Borrower() {
         <div className="w-full flex flex-wrap gap-4">
 
         {
-            provider.map((element)=>(
-                <div className="text-white flex gap-2 bg-[#2F2F2F] border border-[#444C6A] items-center py-3 px-6 rounded-[11px]">
+            provider.map((element, index)=>(
+                <div className="text-white flex gap-2 bg-[#2F2F2F] border border-[#444C6A] items-center py-3 px-6 rounded-[11px]" key={index}>
                     {element.icon}
                     <span>{element.name}</span>
                     <span>10</span>

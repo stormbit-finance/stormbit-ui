@@ -1,8 +1,6 @@
 "use client";
 
-import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { AiOutlineGlobal } from "react-icons/ai";
 import ButtonLayout from "~~/components/ButtonLayout/ButtonLayout";
 
 function Layout({ children }: { children: React.ReactNode }) {
@@ -15,14 +13,35 @@ function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex justify-center ">
-      <div className="h-full  max-w-[1920px]  w-full flex ">
-        <div className="flex flex-col gap-[14px] text-white pt-[30px] max-h-full px-[20px] max-w-[420px] w-full items-center text-2xl bg-[#0e0f1e]">
+      <div className="h-full max-w-[1920px] w-full flex ">
+        <div className="flex flex-col gap-[14px] text-white pt-[30px] max-h-full max-w-[320px] w-full items-center text-2xl bg-[#0e0f1e]">
+          <div className="flex flex-col gap-4 my-12">
+            <div className="flex gap-2 justify-center items-center">
+              <span className="border border-white rounded-full p-2 px-3 text-center text-sm"> y </span>
+              <span className="text-xl">yixuan.stormbit</span>
+            </div>
+            <span className="text-[#AD7AF3] font-bold">$ 12,608.00</span>
+            <span className="text-[#C8C8C8] text-sm">Net Worth</span>
+          </div>
           <ButtonLayout active={pathname === "/dashboard"} onClick={() => handleButtonClick("/")}>
-            <AiOutlineGlobal /> Explorer
+            Dashboard
           </ButtonLayout>
           <ButtonLayout active={pathname === "/dashboard/reclaim"} onClick={() => handleButtonClick("reclaim")}>
-            <Image width={20} height={20} className="cursor-pointer" src="/reclaim-icon.svg" alt="" />
-            Reclaim
+            Reclaim ®
+          </ButtonLayout>
+          <ButtonLayout
+            active={pathname === "/dashboard/terms"}
+            onClick={() => handleButtonClick("terms")}
+            disabled={true}
+          >
+            Terms
+          </ButtonLayout>
+          <ButtonLayout
+            active={pathname === "/dashboard/loans"}
+            onClick={() => handleButtonClick("loans")}
+            disabled={true}
+          >
+            Loans
           </ButtonLayout>
         </div>
         <div className="flex flex-col gap-8 bg-[#070817] w-full text-white">{children}</div>

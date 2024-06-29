@@ -12,7 +12,7 @@ const Button = ({ children, size = "small", backgroundColor = "#9135F5", onClick
   return (
     <button
       onClick={onClick}
-      className={`text-white text-base flex justify-center items-center gap-2 bg-[${backgroundColor}] base_button__${
+      className={`text-black text-xs flex justify-center items-center gap-2 bg-[${backgroundColor}] base_button__${
         isSmall ? "small" : "large"
       }`}
     >

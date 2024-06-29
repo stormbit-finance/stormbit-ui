@@ -61,9 +61,9 @@ function LenderComponent() {
     return (
         <>
         {
-            lender.map((element)=>(
+            lender.map((element,index)=>(
 
-        <div className="bg-[#2F2F2F] border border-[#444444] flex flex-col p-5 rounded-[11px] text-white w-[500px]">
+        <div className="bg-[#2F2F2F] border border-[#444444] flex flex-col p-5 rounded-[11px] text-white w-[500px]" key={index}>
             <div className=" border-b-1 border-[#444444] flex flex-col pb-4">
                 <span className="text-xl">{element.percentage} APR</span>
                 <span className="text-sm">managed by {element.managed}</span>
