@@ -356,3 +356,48 @@ export const borrower = [
     score:"70",
   }
 ]
+
+interface Transaction {
+  type: string;
+  amount: string;
+  description: string;
+  interestRate?: string;
+}
+
+interface UserData {
+  username: string;
+  currentBalance: string;
+  totalShares: string;
+  totalDeposited: string;
+  totalEarnings: string;
+  earningsPercentage: string;
+  transactions: Transaction[];
+}
+
+export const userData: UserData = {
+  username: "yixuan.stormbit",
+  currentBalance: "$12,608.00",
+  totalShares: "$9,099.00",
+  totalDeposited: "$9,099.00",
+  totalEarnings: "$300.76",
+  earningsPercentage: "+10.00%",
+  transactions: [
+    {
+      type: "Requested Loans",
+      amount: "$1,000.00",
+      description: "Requested a loan of $1,000.00"
+    },
+    {
+      type: "Withdraw",
+      amount: "$1,000.00",
+      description: "Withdrew $1,000.00"
+    },
+    {
+      type: "Deposited Fund",
+      amount: "$1,000.00",
+      interestRate: "4%",
+      description: "Deposited $1,000.00 with a 4% interest rate"
+    }
+  ]
+};
+

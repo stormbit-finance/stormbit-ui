@@ -1,15 +1,11 @@
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { CiDesktopMouse1} from "react-icons/ci";
+import { usePathname, useRouter } from "next/navigation";
+import { CiDesktopMouse1 } from "react-icons/ci";
 import { TfiBook } from "react-icons/tfi";
 import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { TbWorld } from "react-icons/tb";
-
-// import { parseEther } from "viem";
-// import { useAccount } from "wagmi";
-// import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
-// import useFormattedBalance from "~~/hooks/scaffold-eth/useFormattedBalance";
 
 type HeaderMenuLink = {
   label: string;
@@ -35,11 +31,16 @@ export const menuLinks: HeaderMenuLink[] = [
     icon: <TfiBook />,
     external: true,
   },
-  
 ];
 
-export const HeaderMenuLinks = () => {
+interface HeaderMenuLinksProps {
+  showLinks: boolean;
+}
+
+export const HeaderMenuLinks: React.FC<HeaderMenuLinksProps> = ({ showLinks }) => {
   const pathname = usePathname();
+
+  if (!showLinks) return null;
 
   return (
     <>
@@ -75,31 +76,14 @@ export const HeaderMenuLinks = () => {
  * Site header
  */
 export const Header = () => {
-  // const account = useAccount();
+  const pathname = usePathname();
+  const router = useRouter();
+  const [showMenuLinks, setShowMenuLinks] = useState(false);
 
-  // const { writeAsync: mintDAI } = useScaffoldContractWrite({
-  //   contractName: "tDAI",
-  //   functionName: "mint",
-  //   args: [account.address, parseEther("1000")],
-  // });
-
-  // const { writeAsync: mintETH } = useScaffoldContractWrite({
-  //   contractName: "tETH",
-  //   functionName: "mint",
-  //   args: [account.address, parseEther("1000")],
-  // });
-
-  // const { writeAsync: mintBTC } = useScaffoldContractWrite({
-  //   contractName: "tBTC",
-  //   functionName: "mint",
-  //   args: [account.address, parseEther("1000")],
-  // });
-
-  // const balanceDai = useFormattedBalance("tDAI", account);
-  // const balanceBtc = useFormattedBalance("tBTC", account);
-  // const balanceEth = useFormattedBalance("tETH", account);
-
-  // console.log(balanceDai,balanceBtc,balanceEth)
+  const handleConnectSuccess = () => {
+    setShowMenuLinks(true);
+    router.push("/dashboard"); 
+  };
 
   return (
     <>
@@ -112,17 +96,17 @@ export const Header = () => {
                   <Image src="/logo.png" alt="logo" width={50} height={50} priority className="lg:w-[80px]" />
                 </div>
                 <div className="flex justify-center items-center">
-                 <span  className="text-xs bg-[#FFEB80] px-4 py-1 rounded-[7px] text-black">
-                 Beta
+                  <span className="text-xs bg-[#FFEB80] px-4 py-1 rounded-[7px] text-black">
+                    Beta
                   </span>
                 </div>
               </Link>
-              <ul className="hidden lg:flex gap-8 px-1 text-xl">
-                <HeaderMenuLinks />
+              <ul className={`hidden lg:flex gap-8 px-1 text-xl ${showMenuLinks ? "" : "hidden"}`}>
+                <HeaderMenuLinks showLinks={showMenuLinks} />
               </ul>
             </div>
             <div className="flex-grow gap-8 mr-4 navbar-end">
-              <RainbowKitCustomConnectButton />
+              <RainbowKitCustomConnectButton onConnectSuccess={handleConnectSuccess} />
               <FaucetButton />
             </div>
           </div>

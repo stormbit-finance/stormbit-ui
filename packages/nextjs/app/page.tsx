@@ -36,26 +36,28 @@ const Home: NextPage = () => {
             <GridBackground numRows={9} numCols={30} />
             <div className="lg:max-w-[1920px] flex items-center flex-col justify-center w-full ">
               <div className="lg:flex-row items-center lg:justify-around w-full px-4 justify-center flex flex-col">
-                <div>
-                  <span className="font-bold text-white lg:text-8xl text-3xl">Storm</span>
-                  <span className="font-bold lg:text-8xl text-gradient text-3xl">bit.</span>
+                <div className="flex flex-col justify-center items-center">
+                  <div>
+                    <span className="font-bold text-white lg:text-8xl text-3xl">Storm</span>
+                    <span className="font-bold lg:text-8xl text-gradient text-3xl">bit.</span>
+                  </div>
                   <div className="max-w-[600px] w-full my-2">
                     <p className="lg:text-3xl text-[#B5B5B5] text-lg m-0">First p2p incentivized lending protocol.</p>
                   </div>
-                </div>
-                <div>
-                  <Image src="/scheme.png" alt="scheme" width={300} height={204} className=" lg:w-[800px] " />
                 </div>
               </div>
             </div>
           </section>
           <section className="flex flex-col items-center justify-center lg:gap-20 w-full lg:h-[520px] lg:py-[150px] px-4 gap-5 lg:px-0 py-[60px]">
-            <h2 className="lg:text-5xl text-white text-2xl">Why use Stormbit.finance?</h2>
             <div className="flex items-center flex-col-reverse justify-center w-full lg:gap-36 lg:flex-row gap-5">
-              <span className="max-w-[770px] w-full lg:text-[36px] text-white text-lg lg:text-start text-center">
-                Your loans, your terms: Customized lending for a more inclusive, financially empowered world.
+              <div className="flex flex-col gap-2">
+              <span className="px-8 text-lg text-white">About The</span>
+              <span className="px-8 font-bold text-4xl text-white">Stormbit</span>
+              <span className="max-w-[770px] w-full text-white text-lg lg:text-start text-center px-8">
+              Stormbit is an advanced peer-to-peer lending platform that seamlessly integrates traditional financial systems with innovative cryptocurrency markets. 
               </span>
-              <Image src="/icon-loans.svg" alt="icon" width={250} height={100} className="lg:w-[510px]" />
+              </div>
+              <Image src="/asset-landing.png" alt="icon" width={250} height={100} className="lg:w-[510px]" />
             </div>
           </section>
           <section className="flex flex-col items-center lg:py-[150px] px-4 lg:px-0">
@@ -80,16 +82,6 @@ const Home: NextPage = () => {
             </div>
           </section>
 
-          <section className="flex flex-col items-center justify-center lg:gap-28 w-full lg:py-[150px] py-[60px] lg:mb-9 px-4 gap-10 lg:px-0">
-            <h2 className="lg:text-5xl text-white text-2xl">Trust Evaluation Mechanism</h2>
-            <div className="flex items-center justify-center w-full lg:gap-12 flex-col lg:flex-row gap-6">
-              <span className="max-w-[770px] w-full lg:text-[32px] text-white text-lg lg:text-start text-center">
-                Empower financial inclusivity with a dynamic, blockchain-enhanced trust score that evolves with your
-                financial interactions
-              </span>
-              <Image src="/assets.png" alt="icon" width={300} height={650} className="lg:w-[775px]" />
-            </div>
-          </section>
           <section className="flex flex-col items-center lg:mb-40 mb-10">
             <div className="max-w-[1400px] w-full flex flex-col items-center justify-center gap-10">
               <span className="lg:text-5xl text-white text-2xl lg:mb-28">Join Our Community</span>

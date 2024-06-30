@@ -1,6 +1,3 @@
-"use client";
-
-// @refresh reset
 import { Balance } from "../Balance";
 import { AddressInfoDropdown } from "./AddressInfoDropdown";
 import { AddressQRCodeModal } from "./AddressQRCodeModal";
@@ -11,10 +8,14 @@ import { useAutoConnect, useNetworkColor } from "~~/hooks/scaffold-eth";
 import { useTargetNetwork } from "~~/hooks/scaffold-eth/useTargetNetwork";
 import { getBlockExplorerAddressLink } from "~~/utils/scaffold-eth";
 
+interface RainbowKitCustomConnectButtonProps {
+  onConnectSuccess?: () => void;
+}
+
 /**
  * Custom Wagmi Connect Button (watch balance + custom design)
  */
-export const RainbowKitCustomConnectButton = () => {
+export const RainbowKitCustomConnectButton: React.FC<RainbowKitCustomConnectButtonProps> = ({ onConnectSuccess }) => {
   useAutoConnect();
   const networkColor = useNetworkColor();
   const { targetNetwork } = useTargetNetwork();
@@ -33,17 +34,21 @@ export const RainbowKitCustomConnectButton = () => {
               if (!connected) {
                 return (
                   <button
-                    className="text-[#ffffff] lg:py-3 lg:px-6 border border-solid border-[#ffffff] rounded-[7px] lg:text-xl py-1 px-2 text-sm"
+                    className="text-[#ffffff] lg:py-3 lg:px-6 border border-solid border-[#ffffff] rounded-[37px] lg:text-xl py-1 px-2 text-sm"
                     onClick={openConnectModal}
                     type="button"
                   >
-                    Connect Wallet
+                    Launch App
                   </button>
                 );
               }
 
               if (chain.unsupported || chain.id !== targetNetwork.id) {
                 return <WrongNetworkDropdown />;
+              }
+
+              if (onConnectSuccess) {
+                onConnectSuccess();
               }
 
               return (
