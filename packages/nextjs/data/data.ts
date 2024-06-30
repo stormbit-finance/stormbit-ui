@@ -329,33 +329,33 @@ export const borrower = [
     name: "Ryan Modesto",
     addres: "0x2B7E...c79DC",
     loans: "$ 9,099.00",
-    deposited : "$ 9,099.00",
+    deposited: "$ 9,099.00",
     terms: "10",
-    verified:"20",
-    proof:"2 days",
-    score:"70",
+    verified: "20",
+    proof: "2 days",
+    score: "70",
   },
   {
     name: "Gyan Modesto",
     addres: "0x2B7E...c79DC",
     loans: "$ 9,099.00",
-    deposited : "$ 9,099.00",
+    deposited: "$ 9,099.00",
     terms: "10",
-    verified:"20",
-    proof:"2 days",
-    score:"70",
+    verified: "20",
+    proof: "2 days",
+    score: "70",
   },
   {
     name: "Fyan Modesto",
     addres: "0x2B7E...c79DC",
     loans: "$ 9,099.00",
-    deposited : "$ 9,099.00",
+    deposited: "$ 9,099.00",
     terms: "10",
-    verified:"20",
-    proof:"2 days",
-    score:"70",
-  }
-]
+    verified: "20",
+    proof: "2 days",
+    score: "70",
+  },
+];
 
 interface Transaction {
   type: string;
@@ -385,19 +385,18 @@ export const userData: UserData = {
     {
       type: "Requested Loans",
       amount: "$1,000.00",
-      description: "Requested a loan of $1,000.00"
+      description: "Requested a loan of $1,000.00",
     },
     {
       type: "Withdraw",
       amount: "$1,000.00",
-      description: "Withdrew $1,000.00"
+      description: "Withdrew $1,000.00",
     },
     {
       type: "Deposited Fund",
       amount: "$1,000.00",
       interestRate: "4%",
-      description: "Deposited $1,000.00 with a 4% interest rate"
-    }
-  ]
+      description: "Deposited $1,000.00 with a 4% interest rate",
+    },
+  ],
 };
-

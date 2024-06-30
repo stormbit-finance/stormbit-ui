@@ -51,11 +51,12 @@ const Home: NextPage = () => {
           <section className="flex flex-col items-center justify-center lg:gap-20 w-full lg:h-[520px] lg:py-[150px] px-4 gap-5 lg:px-0 py-[60px]">
             <div className="flex items-center flex-col-reverse justify-center w-full lg:gap-36 lg:flex-row gap-5">
               <div className="flex flex-col gap-2">
-              <span className="px-8 text-lg text-white">About The</span>
-              <span className="px-8 font-bold text-4xl text-white">Stormbit</span>
-              <span className="max-w-[770px] w-full text-white text-lg lg:text-start text-center px-8">
-              Stormbit is an advanced peer-to-peer lending platform that seamlessly integrates traditional financial systems with innovative cryptocurrency markets. 
-              </span>
+                <span className="px-8 text-lg text-white">About The</span>
+                <span className="px-8 font-bold text-4xl text-white">Stormbit</span>
+                <span className="max-w-[770px] w-full text-white text-lg lg:text-start text-center px-8">
+                  Stormbit is an advanced peer-to-peer lending platform that seamlessly integrates traditional financial
+                  systems with innovative cryptocurrency markets.
+                </span>
               </div>
               <Image src="/asset-landing.png" alt="icon" width={250} height={100} className="lg:w-[510px]" />
             </div>

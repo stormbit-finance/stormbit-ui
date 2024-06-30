@@ -3,9 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { CiDesktopMouse1 } from "react-icons/ci";
+import { TbWorld } from "react-icons/tb";
 import { TfiBook } from "react-icons/tfi";
 import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
-import { TbWorld } from "react-icons/tb";
 
 type HeaderMenuLink = {
   label: string;
@@ -82,7 +82,7 @@ export const Header = () => {
 
   const handleConnectSuccess = () => {
     setShowMenuLinks(true);
-    router.push("/dashboard"); 
+    router.push("/dashboard");
   };
 
   return (
@@ -96,9 +96,7 @@ export const Header = () => {
                   <Image src="/logo.png" alt="logo" width={50} height={50} priority className="lg:w-[80px]" />
                 </div>
                 <div className="flex justify-center items-center">
-                  <span className="text-xs bg-[#FFEB80] px-4 py-1 rounded-[7px] text-black">
-                    Beta
-                  </span>
+                  <span className="text-xs bg-[#FFEB80] px-4 py-1 rounded-[7px] text-black">Beta</span>
                 </div>
               </Link>
               <ul className={`hidden lg:flex gap-8 px-1 text-xl ${showMenuLinks ? "" : "hidden"}`}>

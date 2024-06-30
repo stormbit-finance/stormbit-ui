@@ -2,11 +2,19 @@
 
 import React from "react";
 import Image from "next/image";
-import Button from "~~/components/Button/Button";
 import { AiOutlineDownload } from "react-icons/ai";
+import { useAccount } from "wagmi";
+import Button from "~~/components/Button/Button";
 import { userData } from "~~/data/data";
+import useUsername from "~~/hooks/gql/useUsername";
 
 function Page() {
+  // TEST GRAPH QL QUERY
+  const account = useAccount();
+  const { username } = useUsername(account.address);
+
+  console.log("debugging username");
+  console.log(username);
   return (
     <div className="flex flex-col gap-10 py-10 px-14">
       <div className="flex gap-12">

@@ -3,12 +3,14 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
+import { FaCheckCircle } from "react-icons/fa";
 import { FiArrowUpRight } from "react-icons/fi";
+import { IoIosCloseCircleOutline } from "react-icons/io";
 import Button from "~~/components/Button/Button";
 import FilterProviderModal from "~~/components/FilterProviderModal/FIlterProviderModal";
 import ModalContainer from "~~/components/ModalContainer/ModalContainer";
-import { FaCheckCircle } from "react-icons/fa";
-import { IoIosCloseCircleOutline } from "react-icons/io";
+
+// @ts-nocheck
 
 const Reclaim = () => {
   const providerData = useMemo(
@@ -47,7 +49,7 @@ const Reclaim = () => {
     }
   }, [provider, providerData]);
 
-  const handleModalClick = (event) => {
+  const handleModalClick = event => {
     if (event.target === event.currentTarget) {
       setIsModalOpen(false);
       setVerificationStatus(null);
@@ -55,12 +57,12 @@ const Reclaim = () => {
   };
 
   const handleVerify = () => {
-    const isSuccess = Math.random() > 0.5; 
+    const isSuccess = Math.random() > 0.5;
     if (isSuccess) {
       setVerifiedProviders([...verifiedProviders, selectedProvider]);
-      setVerificationStatus('success');
+      setVerificationStatus("success");
     } else {
-      setVerificationStatus('failure');
+      setVerificationStatus("failure");
     }
   };
 
@@ -80,7 +82,9 @@ const Reclaim = () => {
               verifiedProviders.map((item, index) => (
                 <div className="flex justify-between" key={index}>
                   <div className="flex flex-col text-sm">
-                    <span>{item.name} - {item.condition}</span>
+                    <span>
+                      {item.name} - {item.condition}
+                    </span>
                     <span className="text-[#A8B1C8]">Verified just now</span>
                   </div>
                   <Button backgroundColor="#D0C8FF" size="small">
@@ -103,13 +107,13 @@ const Reclaim = () => {
                     <div className="text-xs text-[#858BA2]">{item.condition}</div>
                   </div>
                 </div>
-                <Button 
-                  backgroundColor="#D0C8FF" 
+                <Button
+                  backgroundColor="#D0C8FF"
                   size="small"
                   onClick={() => {
                     setSelectedProvider(item);
                     setIsModalOpen(true);
-                    setVerificationStatus(null); 
+                    setVerificationStatus(null);
                   }}
                 >
                   Verify<FiArrowUpRight></FiArrowUpRight>
@@ -152,15 +156,13 @@ const Reclaim = () => {
           ))}
         </div>
       </div>
-      {
-        isFilterOpen && (
-          <FilterProviderModal
-              provider={provider}
-              setProvider={(provider: string) => setProvider(provider)}
-              setIsModalOpen={() => setIsFilterOpen(false)}
-            />
-        )
-      }
+      {isFilterOpen && (
+        <FilterProviderModal
+          provider={provider}
+          setProvider={(provider: string) => setProvider(provider)}
+          setIsModalOpen={() => setIsFilterOpen(false)}
+        />
+      )}
 
       {isModalOpen && (
         <ModalContainer onClick={handleModalClick}>
@@ -174,7 +176,7 @@ const Reclaim = () => {
                   Request proof with signature
                 </Button>
               </>
-            ) : verificationStatus === 'success' ? (
+            ) : verificationStatus === "success" ? (
               <>
                 <FaCheckCircle size={60} color="green" />
                 <h2 className="text-xl text-white font-bold m-0">Verify Successfully</h2>

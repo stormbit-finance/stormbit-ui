@@ -12,8 +12,8 @@ const ButtonLayout: React.FC<ButtonLayoutProps> = ({ active, onClick, children, 
     <button
       className={`w-[376px] py-[24px] flex items-center gap-[10px] justify-start px-[47px] text-lg ${
         active ? "bg-[#D0C8FF] text-black" : ""
-      } ${disabled ? "opacity-50 cursor-not-allowed" : ""}`} 
-      onClick={!disabled ? onClick : undefined} 
+      } ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
+      onClick={!disabled ? onClick : undefined}
       disabled={disabled}
     >
       {children}
