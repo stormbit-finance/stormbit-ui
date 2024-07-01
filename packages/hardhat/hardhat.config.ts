@@ -130,6 +130,10 @@ const config: HardhatUserConfig = {
       url: "https://node.ghostnet.etherlink.com",
       accounts: [deployerPrivateKey, lenderPrivateKey, borrowerPrivateKey],
     },
+    arbitrumSepolia: {
+      url: "https://serene-falling-general.arbitrum-sepolia.quiknode.pro/20d1c2a30a90903cdcc68e53091ab26f94aad6d4/",
+      accounts: [deployerPrivateKey],
+    },
   },
   // configuration for harhdat-verify plugin
   etherscan: {

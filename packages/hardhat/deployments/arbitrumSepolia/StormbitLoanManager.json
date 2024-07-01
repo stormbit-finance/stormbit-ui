@@ -1,0 +1,980 @@
+{
+  "address": "0x78102e9277437E2Aecf31cC0C141e952CEAd6f5B",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "initialGovernor",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidInitialization",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotInitializing",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "loanId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "termId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "assets",
+          "type": "uint256"
+        }
+      ],
+      "name": "AllocatedTermAndFundOnLoan",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "termId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "loanId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "profit",
+          "type": "uint256"
+        }
+      ],
+      "name": "ClaimLoanProfit",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint64",
+          "name": "version",
+          "type": "uint64"
+        }
+      ],
+      "name": "Initialized",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "loanId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "borrower",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "repayAssets",
+          "type": "uint256"
+        }
+      ],
+      "name": "LoanExecuted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "loanId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "repayUser",
+          "type": "address"
+        }
+      ],
+      "name": "LoanRepaid",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "loanId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "borrower",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "assets",
+          "type": "uint256"
+        }
+      ],
+      "name": "LoanRequested",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "BASIS_POINTS",
+      "outputs": [
+        {
+          "internalType": "uint16",
+          "name": "",
+          "type": "uint16"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "loanId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "termId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "assets",
+          "type": "uint256"
+        }
+      ],
+      "name": "allocateTermAndFundOnLoan",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "assetManager",
+      "outputs": [
+        {
+          "internalType": "contract IAssetManager",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "termId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "loanId",
+          "type": "uint256"
+        }
+      ],
+      "name": "claimLoanProfit",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "loanId",
+          "type": "uint256"
+        }
+      ],
+      "name": "executeLoan",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "loanId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getLoan",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "borrower",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "token",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "repayAssets",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "assetsRequired",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "assetsAllocated",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "sharesAllocated",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "deadlineAllocate",
+              "type": "uint256"
+            },
+            {
+              "internalType": "enum ILoanManager.LoanStatus",
+              "name": "status",
+              "type": "uint8"
+            }
+          ],
+          "internalType": "struct ILoanManager.Loan",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "loanId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "termId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getLoanTermAllocated",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "loanId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "termId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        }
+      ],
+      "name": "getTermAllocatedSharesOnLoan",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "termId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getTermLoanAllocatedCounter",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "governor",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "assetManagerAddr",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "lendingManagerAddr",
+          "type": "address"
+        }
+      ],
+      "name": "initialize",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "termId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "loanId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "vaultToken",
+          "type": "address"
+        }
+      ],
+      "name": "lenderClaimedProfit",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "lendingManager",
+      "outputs": [
+        {
+          "internalType": "contract ILendingManager",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "loanId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "termId",
+          "type": "uint256"
+        }
+      ],
+      "name": "loanTermAllocated",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "isAllocated",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "loanId",
+          "type": "uint256"
+        }
+      ],
+      "name": "loans",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "borrower",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "repayAssets",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "assetsRequired",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "assetsAllocated",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "sharesAllocated",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "deadlineAllocate",
+          "type": "uint256"
+        },
+        {
+          "internalType": "enum ILoanManager.LoanStatus",
+          "name": "status",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "loanId",
+          "type": "uint256"
+        }
+      ],
+      "name": "repay",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "assets",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "deadline",
+          "type": "uint256"
+        }
+      ],
+      "name": "requestLoan",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "loanId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "termId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "vaultToken",
+          "type": "address"
+        }
+      ],
+      "name": "termAllocatedShares",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "shares",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "name": "userLoanNonce",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "counter",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xa13726b5b1340235fac7bb59fe9c50aeab32610641e2a6b470592d80a496e038",
+  "receipt": {
+    "to": null,
+    "from": "0xDe3089d40F3491De794fBb1ECA109fAc36F889d0",
+    "contractAddress": "0x78102e9277437E2Aecf31cC0C141e952CEAd6f5B",
+    "transactionIndex": 1,
+    "gasUsed": "3105487",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0xd9a20398815f3affcf24f043dd4714a619eb19ad8ba624e2a364a0b29f2045f4",
+    "transactionHash": "0xa13726b5b1340235fac7bb59fe9c50aeab32610641e2a6b470592d80a496e038",
+    "logs": [],
+    "blockNumber": 59964003,
+    "cumulativeGasUsed": "3105487",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0xDe3089d40F3491De794fBb1ECA109fAc36F889d0"
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "fc88f2785a8cc64f484af0517b95c10f",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.21+commit.d9974bed\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"initialGovernor\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"InvalidInitialization\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotInitializing\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"loanId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"termId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"assets\",\"type\":\"uint256\"}],\"name\":\"AllocatedTermAndFundOnLoan\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"termId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"loanId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"profit\",\"type\":\"uint256\"}],\"name\":\"ClaimLoanProfit\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"version\",\"type\":\"uint64\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"loanId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"borrower\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"repayAssets\",\"type\":\"uint256\"}],\"name\":\"LoanExecuted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"loanId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"repayUser\",\"type\":\"address\"}],\"name\":\"LoanRepaid\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"loanId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"borrower\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"assets\",\"type\":\"uint256\"}],\"name\":\"LoanRequested\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"BASIS_POINTS\",\"outputs\":[{\"internalType\":\"uint16\",\"name\":\"\",\"type\":\"uint16\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"loanId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"termId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"assets\",\"type\":\"uint256\"}],\"name\":\"allocateTermAndFundOnLoan\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"assetManager\",\"outputs\":[{\"internalType\":\"contract IAssetManager\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"termId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"loanId\",\"type\":\"uint256\"}],\"name\":\"claimLoanProfit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"loanId\",\"type\":\"uint256\"}],\"name\":\"executeLoan\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"loanId\",\"type\":\"uint256\"}],\"name\":\"getLoan\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"borrower\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"repayAssets\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"assetsRequired\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"assetsAllocated\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"sharesAllocated\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"deadlineAllocate\",\"type\":\"uint256\"},{\"internalType\":\"enum ILoanManager.LoanStatus\",\"name\":\"status\",\"type\":\"uint8\"}],\"internalType\":\"struct ILoanManager.Loan\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"loanId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"termId\",\"type\":\"uint256\"}],\"name\":\"getLoanTermAllocated\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"loanId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"termId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"getTermAllocatedSharesOnLoan\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"termId\",\"type\":\"uint256\"}],\"name\":\"getTermLoanAllocatedCounter\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"governor\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"assetManagerAddr\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"lendingManagerAddr\",\"type\":\"address\"}],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"termId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"loanId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"vaultToken\",\"type\":\"address\"}],\"name\":\"lenderClaimedProfit\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"lendingManager\",\"outputs\":[{\"internalType\":\"contract ILendingManager\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"loanId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"termId\",\"type\":\"uint256\"}],\"name\":\"loanTermAllocated\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"isAllocated\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"loanId\",\"type\":\"uint256\"}],\"name\":\"loans\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"borrower\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"repayAssets\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"assetsRequired\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"assetsAllocated\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"sharesAllocated\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"deadlineAllocate\",\"type\":\"uint256\"},{\"internalType\":\"enum ILoanManager.LoanStatus\",\"name\":\"status\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"loanId\",\"type\":\"uint256\"}],\"name\":\"repay\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"assets\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"deadline\",\"type\":\"uint256\"}],\"name\":\"requestLoan\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"loanId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"termId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"vaultToken\",\"type\":\"address\"}],\"name\":\"termAllocatedShares\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"shares\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"}],\"name\":\"userLoanNonce\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"counter\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"author\":\"Quantum3 Labs\",\"errors\":{\"InvalidInitialization()\":[{\"details\":\"The contract is already initialized.\"}],\"NotInitializing()\":[{\"details\":\"The contract is not initializing.\"}]},\"events\":{\"Initialized(uint64)\":{\"details\":\"Triggered when the contract has been initialized or reinitialized.\"}},\"kind\":\"dev\",\"methods\":{\"allocateTermAndFundOnLoan(uint256,uint256,uint256)\":{\"details\":\"allow lender to allocate fund on the loan, but only when the term is already allocated\",\"params\":{\"assets\":\"amount of token to allocate\",\"loanId\":\"id of the loan\",\"termId\":\"id of the term\"}},\"claimLoanProfit(uint256,uint256)\":{\"details\":\"allow lender to claim the profit for loan, then add the remaining profit to term profit\"},\"executeLoan(uint256)\":{\"details\":\"allow borrower to execute the loan and receive the fund\",\"params\":{\"loanId\":\"id of the loan\"}},\"getLoan(uint256)\":{\"details\":\"get the loan details\"},\"getLoanTermAllocated(uint256,uint256)\":{\"details\":\"get the allocation status of a term on a loan\"},\"getTermAllocatedSharesOnLoan(uint256,uint256,address)\":{\"details\":\"get the allocated shares on the loan\"},\"getTermLoanAllocatedCounter(uint256)\":{\"details\":\"get the amount of loans a term was allocated to\"},\"repay(uint256)\":{\"details\":\"allow anyone to repay the loan, not restricted to borrower\",\"params\":{\"loanId\":\"id of the loan\"}},\"requestLoan(address,uint256,uint256)\":{\"details\":\"allow borrower to request loan\",\"params\":{\"assets\":\"amount of token to borrow\",\"deadline\":\"deadline of the loan to be allocated\",\"token\":\"address of the token\"},\"returns\":{\"_0\":\"loanId id of the loan\"}}},\"title\":\"Stormbit Loan Manager\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"notice\":\"entrypoint for loan related operations\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/LoanManager.sol\":\"StormbitLoanManager\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":5},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/interfaces/IERC4626.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (interfaces/IERC4626.sol)\\n\\npragma solidity ^0.8.20;\\n\\nimport {IERC20} from \\\"../token/ERC20/IERC20.sol\\\";\\nimport {IERC20Metadata} from \\\"../token/ERC20/extensions/IERC20Metadata.sol\\\";\\n\\n/**\\n * @dev Interface of the ERC4626 \\\"Tokenized Vault Standard\\\", as defined in\\n * https://eips.ethereum.org/EIPS/eip-4626[ERC-4626].\\n */\\ninterface IERC4626 is IERC20, IERC20Metadata {\\n    event Deposit(address indexed sender, address indexed owner, uint256 assets, uint256 shares);\\n\\n    event Withdraw(\\n        address indexed sender,\\n        address indexed receiver,\\n        address indexed owner,\\n        uint256 assets,\\n        uint256 shares\\n    );\\n\\n    /**\\n     * @dev Returns the address of the underlying token used for the Vault for accounting, depositing, and withdrawing.\\n     *\\n     * - MUST be an ERC-20 token contract.\\n     * - MUST NOT revert.\\n     */\\n    function asset() external view returns (address assetTokenAddress);\\n\\n    /**\\n     * @dev Returns the total amount of the underlying asset that is \\u201cmanaged\\u201d by Vault.\\n     *\\n     * - SHOULD include any compounding that occurs from yield.\\n     * - MUST be inclusive of any fees that are charged against assets in the Vault.\\n     * - MUST NOT revert.\\n     */\\n    function totalAssets() external view returns (uint256 totalManagedAssets);\\n\\n    /**\\n     * @dev Returns the amount of shares that the Vault would exchange for the amount of assets provided, in an ideal\\n     * scenario where all the conditions are met.\\n     *\\n     * - MUST NOT be inclusive of any fees that are charged against assets in the Vault.\\n     * - MUST NOT show any variations depending on the caller.\\n     * - MUST NOT reflect slippage or other on-chain conditions, when performing the actual exchange.\\n     * - MUST NOT revert.\\n     *\\n     * NOTE: This calculation MAY NOT reflect the \\u201cper-user\\u201d price-per-share, and instead should reflect the\\n     * \\u201caverage-user\\u2019s\\u201d price-per-share, meaning what the average user should expect to see when exchanging to and\\n     * from.\\n     */\\n    function convertToShares(uint256 assets) external view returns (uint256 shares);\\n\\n    /**\\n     * @dev Returns the amount of assets that the Vault would exchange for the amount of shares provided, in an ideal\\n     * scenario where all the conditions are met.\\n     *\\n     * - MUST NOT be inclusive of any fees that are charged against assets in the Vault.\\n     * - MUST NOT show any variations depending on the caller.\\n     * - MUST NOT reflect slippage or other on-chain conditions, when performing the actual exchange.\\n     * - MUST NOT revert.\\n     *\\n     * NOTE: This calculation MAY NOT reflect the \\u201cper-user\\u201d price-per-share, and instead should reflect the\\n     * \\u201caverage-user\\u2019s\\u201d price-per-share, meaning what the average user should expect to see when exchanging to and\\n     * from.\\n     */\\n    function convertToAssets(uint256 shares) external view returns (uint256 assets);\\n\\n    /**\\n     * @dev Returns the maximum amount of the underlying asset that can be deposited into the Vault for the receiver,\\n     * through a deposit call.\\n     *\\n     * - MUST return a limited value if receiver is subject to some deposit limit.\\n     * - MUST return 2 ** 256 - 1 if there is no limit on the maximum amount of assets that may be deposited.\\n     * - MUST NOT revert.\\n     */\\n    function maxDeposit(address receiver) external view returns (uint256 maxAssets);\\n\\n    /**\\n     * @dev Allows an on-chain or off-chain user to simulate the effects of their deposit at the current block, given\\n     * current on-chain conditions.\\n     *\\n     * - MUST return as close to and no more than the exact amount of Vault shares that would be minted in a deposit\\n     *   call in the same transaction. I.e. deposit should return the same or more shares as previewDeposit if called\\n     *   in the same transaction.\\n     * - MUST NOT account for deposit limits like those returned from maxDeposit and should always act as though the\\n     *   deposit would be accepted, regardless if the user has enough tokens approved, etc.\\n     * - MUST be inclusive of deposit fees. Integrators should be aware of the existence of deposit fees.\\n     * - MUST NOT revert.\\n     *\\n     * NOTE: any unfavorable discrepancy between convertToShares and previewDeposit SHOULD be considered slippage in\\n     * share price or some other type of condition, meaning the depositor will lose assets by depositing.\\n     */\\n    function previewDeposit(uint256 assets) external view returns (uint256 shares);\\n\\n    /**\\n     * @dev Mints shares Vault shares to receiver by depositing exactly amount of underlying tokens.\\n     *\\n     * - MUST emit the Deposit event.\\n     * - MAY support an additional flow in which the underlying tokens are owned by the Vault contract before the\\n     *   deposit execution, and are accounted for during deposit.\\n     * - MUST revert if all of assets cannot be deposited (due to deposit limit being reached, slippage, the user not\\n     *   approving enough underlying tokens to the Vault contract, etc).\\n     *\\n     * NOTE: most implementations will require pre-approval of the Vault with the Vault\\u2019s underlying asset token.\\n     */\\n    function deposit(uint256 assets, address receiver) external returns (uint256 shares);\\n\\n    /**\\n     * @dev Returns the maximum amount of the Vault shares that can be minted for the receiver, through a mint call.\\n     * - MUST return a limited value if receiver is subject to some mint limit.\\n     * - MUST return 2 ** 256 - 1 if there is no limit on the maximum amount of shares that may be minted.\\n     * - MUST NOT revert.\\n     */\\n    function maxMint(address receiver) external view returns (uint256 maxShares);\\n\\n    /**\\n     * @dev Allows an on-chain or off-chain user to simulate the effects of their mint at the current block, given\\n     * current on-chain conditions.\\n     *\\n     * - MUST return as close to and no fewer than the exact amount of assets that would be deposited in a mint call\\n     *   in the same transaction. I.e. mint should return the same or fewer assets as previewMint if called in the\\n     *   same transaction.\\n     * - MUST NOT account for mint limits like those returned from maxMint and should always act as though the mint\\n     *   would be accepted, regardless if the user has enough tokens approved, etc.\\n     * - MUST be inclusive of deposit fees. Integrators should be aware of the existence of deposit fees.\\n     * - MUST NOT revert.\\n     *\\n     * NOTE: any unfavorable discrepancy between convertToAssets and previewMint SHOULD be considered slippage in\\n     * share price or some other type of condition, meaning the depositor will lose assets by minting.\\n     */\\n    function previewMint(uint256 shares) external view returns (uint256 assets);\\n\\n    /**\\n     * @dev Mints exactly shares Vault shares to receiver by depositing amount of underlying tokens.\\n     *\\n     * - MUST emit the Deposit event.\\n     * - MAY support an additional flow in which the underlying tokens are owned by the Vault contract before the mint\\n     *   execution, and are accounted for during mint.\\n     * - MUST revert if all of shares cannot be minted (due to deposit limit being reached, slippage, the user not\\n     *   approving enough underlying tokens to the Vault contract, etc).\\n     *\\n     * NOTE: most implementations will require pre-approval of the Vault with the Vault\\u2019s underlying asset token.\\n     */\\n    function mint(uint256 shares, address receiver) external returns (uint256 assets);\\n\\n    /**\\n     * @dev Returns the maximum amount of the underlying asset that can be withdrawn from the owner balance in the\\n     * Vault, through a withdraw call.\\n     *\\n     * - MUST return a limited value if owner is subject to some withdrawal limit or timelock.\\n     * - MUST NOT revert.\\n     */\\n    function maxWithdraw(address owner) external view returns (uint256 maxAssets);\\n\\n    /**\\n     * @dev Allows an on-chain or off-chain user to simulate the effects of their withdrawal at the current block,\\n     * given current on-chain conditions.\\n     *\\n     * - MUST return as close to and no fewer than the exact amount of Vault shares that would be burned in a withdraw\\n     *   call in the same transaction. I.e. withdraw should return the same or fewer shares as previewWithdraw if\\n     *   called\\n     *   in the same transaction.\\n     * - MUST NOT account for withdrawal limits like those returned from maxWithdraw and should always act as though\\n     *   the withdrawal would be accepted, regardless if the user has enough shares, etc.\\n     * - MUST be inclusive of withdrawal fees. Integrators should be aware of the existence of withdrawal fees.\\n     * - MUST NOT revert.\\n     *\\n     * NOTE: any unfavorable discrepancy between convertToShares and previewWithdraw SHOULD be considered slippage in\\n     * share price or some other type of condition, meaning the depositor will lose assets by depositing.\\n     */\\n    function previewWithdraw(uint256 assets) external view returns (uint256 shares);\\n\\n    /**\\n     * @dev Burns shares from owner and sends exactly assets of underlying tokens to receiver.\\n     *\\n     * - MUST emit the Withdraw event.\\n     * - MAY support an additional flow in which the underlying tokens are owned by the Vault contract before the\\n     *   withdraw execution, and are accounted for during withdraw.\\n     * - MUST revert if all of assets cannot be withdrawn (due to withdrawal limit being reached, slippage, the owner\\n     *   not having enough shares, etc).\\n     *\\n     * Note that some implementations will require pre-requesting to the Vault before a withdrawal may be performed.\\n     * Those methods should be performed separately.\\n     */\\n    function withdraw(uint256 assets, address receiver, address owner) external returns (uint256 shares);\\n\\n    /**\\n     * @dev Returns the maximum amount of Vault shares that can be redeemed from the owner balance in the Vault,\\n     * through a redeem call.\\n     *\\n     * - MUST return a limited value if owner is subject to some withdrawal limit or timelock.\\n     * - MUST return balanceOf(owner) if owner is not subject to any withdrawal limit or timelock.\\n     * - MUST NOT revert.\\n     */\\n    function maxRedeem(address owner) external view returns (uint256 maxShares);\\n\\n    /**\\n     * @dev Allows an on-chain or off-chain user to simulate the effects of their redeemption at the current block,\\n     * given current on-chain conditions.\\n     *\\n     * - MUST return as close to and no more than the exact amount of assets that would be withdrawn in a redeem call\\n     *   in the same transaction. I.e. redeem should return the same or more assets as previewRedeem if called in the\\n     *   same transaction.\\n     * - MUST NOT account for redemption limits like those returned from maxRedeem and should always act as though the\\n     *   redemption would be accepted, regardless if the user has enough shares, etc.\\n     * - MUST be inclusive of withdrawal fees. Integrators should be aware of the existence of withdrawal fees.\\n     * - MUST NOT revert.\\n     *\\n     * NOTE: any unfavorable discrepancy between convertToAssets and previewRedeem SHOULD be considered slippage in\\n     * share price or some other type of condition, meaning the depositor will lose assets by redeeming.\\n     */\\n    function previewRedeem(uint256 shares) external view returns (uint256 assets);\\n\\n    /**\\n     * @dev Burns exactly shares from owner and sends assets of underlying tokens to receiver.\\n     *\\n     * - MUST emit the Withdraw event.\\n     * - MAY support an additional flow in which the underlying tokens are owned by the Vault contract before the\\n     *   redeem execution, and are accounted for during redeem.\\n     * - MUST revert if all of shares cannot be redeemed (due to withdrawal limit being reached, slippage, the owner\\n     *   not having enough shares, etc).\\n     *\\n     * NOTE: some implementations will require pre-requesting to the Vault before a withdrawal may be performed.\\n     * Those methods should be performed separately.\\n     */\\n    function redeem(uint256 shares, address receiver, address owner) external returns (uint256 assets);\\n}\\n\",\"keccak256\":\"0x207f64371bc0fcc5be86713aa5da109a870cc3a6da50e93b64ee881e369b593d\",\"license\":\"MIT\"},\"@openzeppelin/contracts/proxy/utils/Initializable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (proxy/utils/Initializable.sol)\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev This is a base contract to aid in writing upgradeable contracts, or any kind of contract that will be deployed\\n * behind a proxy. Since proxied contracts do not make use of a constructor, it's common to move constructor logic to an\\n * external initializer function, usually called `initialize`. It then becomes necessary to protect this initializer\\n * function so it can only be called once. The {initializer} modifier provided by this contract will have this effect.\\n *\\n * The initialization functions use a version number. Once a version number is used, it is consumed and cannot be\\n * reused. This mechanism prevents re-execution of each \\\"step\\\" but allows the creation of new initialization steps in\\n * case an upgrade adds a module that needs to be initialized.\\n *\\n * For example:\\n *\\n * [.hljs-theme-light.nopadding]\\n * ```solidity\\n * contract MyToken is ERC20Upgradeable {\\n *     function initialize() initializer public {\\n *         __ERC20_init(\\\"MyToken\\\", \\\"MTK\\\");\\n *     }\\n * }\\n *\\n * contract MyTokenV2 is MyToken, ERC20PermitUpgradeable {\\n *     function initializeV2() reinitializer(2) public {\\n *         __ERC20Permit_init(\\\"MyToken\\\");\\n *     }\\n * }\\n * ```\\n *\\n * TIP: To avoid leaving the proxy in an uninitialized state, the initializer function should be called as early as\\n * possible by providing the encoded function call as the `_data` argument to {ERC1967Proxy-constructor}.\\n *\\n * CAUTION: When used with inheritance, manual care must be taken to not invoke a parent initializer twice, or to ensure\\n * that all initializers are idempotent. This is not verified automatically as constructors are by Solidity.\\n *\\n * [CAUTION]\\n * ====\\n * Avoid leaving a contract uninitialized.\\n *\\n * An uninitialized contract can be taken over by an attacker. This applies to both a proxy and its implementation\\n * contract, which may impact the proxy. To prevent the implementation contract from being used, you should invoke\\n * the {_disableInitializers} function in the constructor to automatically lock it when it is deployed:\\n *\\n * [.hljs-theme-light.nopadding]\\n * ```\\n * /// @custom:oz-upgrades-unsafe-allow constructor\\n * constructor() {\\n *     _disableInitializers();\\n * }\\n * ```\\n * ====\\n */\\nabstract contract Initializable {\\n    /**\\n     * @dev Storage of the initializable contract.\\n     *\\n     * It's implemented on a custom ERC-7201 namespace to reduce the risk of storage collisions\\n     * when using with upgradeable contracts.\\n     *\\n     * @custom:storage-location erc7201:openzeppelin.storage.Initializable\\n     */\\n    struct InitializableStorage {\\n        /**\\n         * @dev Indicates that the contract has been initialized.\\n         */\\n        uint64 _initialized;\\n        /**\\n         * @dev Indicates that the contract is in the process of being initialized.\\n         */\\n        bool _initializing;\\n    }\\n\\n    // keccak256(abi.encode(uint256(keccak256(\\\"openzeppelin.storage.Initializable\\\")) - 1)) & ~bytes32(uint256(0xff))\\n    bytes32 private constant INITIALIZABLE_STORAGE = 0xf0c57e16840df040f15088dc2f81fe391c3923bec73e23a9662efc9c229c6a00;\\n\\n    /**\\n     * @dev The contract is already initialized.\\n     */\\n    error InvalidInitialization();\\n\\n    /**\\n     * @dev The contract is not initializing.\\n     */\\n    error NotInitializing();\\n\\n    /**\\n     * @dev Triggered when the contract has been initialized or reinitialized.\\n     */\\n    event Initialized(uint64 version);\\n\\n    /**\\n     * @dev A modifier that defines a protected initializer function that can be invoked at most once. In its scope,\\n     * `onlyInitializing` functions can be used to initialize parent contracts.\\n     *\\n     * Similar to `reinitializer(1)`, except that in the context of a constructor an `initializer` may be invoked any\\n     * number of times. This behavior in the constructor can be useful during testing and is not expected to be used in\\n     * production.\\n     *\\n     * Emits an {Initialized} event.\\n     */\\n    modifier initializer() {\\n        // solhint-disable-next-line var-name-mixedcase\\n        InitializableStorage storage $ = _getInitializableStorage();\\n\\n        // Cache values to avoid duplicated sloads\\n        bool isTopLevelCall = !$._initializing;\\n        uint64 initialized = $._initialized;\\n\\n        // Allowed calls:\\n        // - initialSetup: the contract is not in the initializing state and no previous version was\\n        //                 initialized\\n        // - construction: the contract is initialized at version 1 (no reininitialization) and the\\n        //                 current contract is just being deployed\\n        bool initialSetup = initialized == 0 && isTopLevelCall;\\n        bool construction = initialized == 1 && address(this).code.length == 0;\\n\\n        if (!initialSetup && !construction) {\\n            revert InvalidInitialization();\\n        }\\n        $._initialized = 1;\\n        if (isTopLevelCall) {\\n            $._initializing = true;\\n        }\\n        _;\\n        if (isTopLevelCall) {\\n            $._initializing = false;\\n            emit Initialized(1);\\n        }\\n    }\\n\\n    /**\\n     * @dev A modifier that defines a protected reinitializer function that can be invoked at most once, and only if the\\n     * contract hasn't been initialized to a greater version before. In its scope, `onlyInitializing` functions can be\\n     * used to initialize parent contracts.\\n     *\\n     * A reinitializer may be used after the original initialization step. This is essential to configure modules that\\n     * are added through upgrades and that require initialization.\\n     *\\n     * When `version` is 1, this modifier is similar to `initializer`, except that functions marked with `reinitializer`\\n     * cannot be nested. If one is invoked in the context of another, execution will revert.\\n     *\\n     * Note that versions can jump in increments greater than 1; this implies that if multiple reinitializers coexist in\\n     * a contract, executing them in the right order is up to the developer or operator.\\n     *\\n     * WARNING: Setting the version to 2**64 - 1 will prevent any future reinitialization.\\n     *\\n     * Emits an {Initialized} event.\\n     */\\n    modifier reinitializer(uint64 version) {\\n        // solhint-disable-next-line var-name-mixedcase\\n        InitializableStorage storage $ = _getInitializableStorage();\\n\\n        if ($._initializing || $._initialized >= version) {\\n            revert InvalidInitialization();\\n        }\\n        $._initialized = version;\\n        $._initializing = true;\\n        _;\\n        $._initializing = false;\\n        emit Initialized(version);\\n    }\\n\\n    /**\\n     * @dev Modifier to protect an initialization function so that it can only be invoked by functions with the\\n     * {initializer} and {reinitializer} modifiers, directly or indirectly.\\n     */\\n    modifier onlyInitializing() {\\n        _checkInitializing();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Reverts if the contract is not in an initializing state. See {onlyInitializing}.\\n     */\\n    function _checkInitializing() internal view virtual {\\n        if (!_isInitializing()) {\\n            revert NotInitializing();\\n        }\\n    }\\n\\n    /**\\n     * @dev Locks the contract, preventing any future reinitialization. This cannot be part of an initializer call.\\n     * Calling this in the constructor of a contract will prevent that contract from being initialized or reinitialized\\n     * to any version. It is recommended to use this to lock implementation contracts that are designed to be called\\n     * through proxies.\\n     *\\n     * Emits an {Initialized} event the first time it is successfully executed.\\n     */\\n    function _disableInitializers() internal virtual {\\n        // solhint-disable-next-line var-name-mixedcase\\n        InitializableStorage storage $ = _getInitializableStorage();\\n\\n        if ($._initializing) {\\n            revert InvalidInitialization();\\n        }\\n        if ($._initialized != type(uint64).max) {\\n            $._initialized = type(uint64).max;\\n            emit Initialized(type(uint64).max);\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the highest version that has been initialized. See {reinitializer}.\\n     */\\n    function _getInitializedVersion() internal view returns (uint64) {\\n        return _getInitializableStorage()._initialized;\\n    }\\n\\n    /**\\n     * @dev Returns `true` if the contract is currently initializing. See {onlyInitializing}.\\n     */\\n    function _isInitializing() internal view returns (bool) {\\n        return _getInitializableStorage()._initializing;\\n    }\\n\\n    /**\\n     * @dev Returns a pointer to the storage namespace.\\n     */\\n    // solhint-disable-next-line var-name-mixedcase\\n    function _getInitializableStorage() private pure returns (InitializableStorage storage $) {\\n        assembly {\\n            $.slot := INITIALIZABLE_STORAGE\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0x631188737069917d2f909d29ce62c4d48611d326686ba6683e26b72a23bfac0b\",\"license\":\"MIT\"},\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (token/ERC20/IERC20.sol)\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev Interface of the ERC20 standard as defined in the EIP.\\n */\\ninterface IERC20 {\\n    /**\\n     * @dev Emitted when `value` tokens are moved from one account (`from`) to\\n     * another (`to`).\\n     *\\n     * Note that `value` may be zero.\\n     */\\n    event Transfer(address indexed from, address indexed to, uint256 value);\\n\\n    /**\\n     * @dev Emitted when the allowance of a `spender` for an `owner` is set by\\n     * a call to {approve}. `value` is the new allowance.\\n     */\\n    event Approval(address indexed owner, address indexed spender, uint256 value);\\n\\n    /**\\n     * @dev Returns the value of tokens in existence.\\n     */\\n    function totalSupply() external view returns (uint256);\\n\\n    /**\\n     * @dev Returns the value of tokens owned by `account`.\\n     */\\n    function balanceOf(address account) external view returns (uint256);\\n\\n    /**\\n     * @dev Moves a `value` amount of tokens from the caller's account to `to`.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transfer(address to, uint256 value) external returns (bool);\\n\\n    /**\\n     * @dev Returns the remaining number of tokens that `spender` will be\\n     * allowed to spend on behalf of `owner` through {transferFrom}. This is\\n     * zero by default.\\n     *\\n     * This value changes when {approve} or {transferFrom} are called.\\n     */\\n    function allowance(address owner, address spender) external view returns (uint256);\\n\\n    /**\\n     * @dev Sets a `value` amount of tokens as the allowance of `spender` over the\\n     * caller's tokens.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * IMPORTANT: Beware that changing an allowance with this method brings the risk\\n     * that someone may use both the old and the new allowance by unfortunate\\n     * transaction ordering. One possible solution to mitigate this race\\n     * condition is to first reduce the spender's allowance to 0 and set the\\n     * desired value afterwards:\\n     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729\\n     *\\n     * Emits an {Approval} event.\\n     */\\n    function approve(address spender, uint256 value) external returns (bool);\\n\\n    /**\\n     * @dev Moves a `value` amount of tokens from `from` to `to` using the\\n     * allowance mechanism. `value` is then deducted from the caller's\\n     * allowance.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transferFrom(address from, address to, uint256 value) external returns (bool);\\n}\\n\",\"keccak256\":\"0xc6a8ff0ea489379b61faa647490411b80102578440ab9d84e9a957cc12164e70\",\"license\":\"MIT\"},\"@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (token/ERC20/extensions/IERC20Metadata.sol)\\n\\npragma solidity ^0.8.20;\\n\\nimport {IERC20} from \\\"../IERC20.sol\\\";\\n\\n/**\\n * @dev Interface for the optional metadata functions from the ERC20 standard.\\n */\\ninterface IERC20Metadata is IERC20 {\\n    /**\\n     * @dev Returns the name of the token.\\n     */\\n    function name() external view returns (string memory);\\n\\n    /**\\n     * @dev Returns the symbol of the token.\\n     */\\n    function symbol() external view returns (string memory);\\n\\n    /**\\n     * @dev Returns the decimals places of the token.\\n     */\\n    function decimals() external view returns (uint8);\\n}\\n\",\"keccak256\":\"0xaa761817f6cd7892fcf158b3c776b34551cde36f48ff9703d53898bc45a94ea2\",\"license\":\"MIT\"},\"contracts/LoanManager.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.21;\\n\\nimport {Initializable} from \\\"@openzeppelin/contracts/proxy/utils/Initializable.sol\\\";\\nimport {IGovernable} from \\\"./interfaces/utils/IGovernable.sol\\\";\\nimport {IInitialize} from \\\"./interfaces/utils/IInitialize.sol\\\";\\nimport {IERC4626} from \\\"./interfaces/token/IERC4626.sol\\\";\\nimport {IAssetManager} from \\\"./interfaces/managers/asset/IAssetManager.sol\\\";\\nimport {ILoanManager} from \\\"./interfaces/managers/loan/ILoanManager.sol\\\";\\nimport {ILendingManager} from \\\"./interfaces/managers/lending/ILendingManager.sol\\\";\\n\\n/// @author Quantum3 Labs\\n/// @title Stormbit Loan Manager\\n/// @notice entrypoint for loan related operations\\n\\ncontract StormbitLoanManager is Initializable, IGovernable, IInitialize, ILoanManager {\\n    uint16 public constant BASIS_POINTS = 10_000;\\n\\n    address private _governor;\\n\\n    mapping(address user => uint256 counter) public userLoanNonce;\\n\\n    ILendingManager public lendingManager;\\n    IAssetManager public assetManager;\\n\\n    mapping(uint256 loanId => Loan loan) public loans;\\n    mapping(uint256 loanId => mapping(uint256 termId => mapping(address vaultToken => uint256 shares))) public\\n        termAllocatedShares;\\n    mapping(uint256 loanId => mapping(uint256 termId => bool isAllocated)) public loanTermAllocated;\\n    // a counter use to track amount of loans a term was allocated to\\n    mapping(uint256 termId => uint256 loanAllocated) termLoanAllocatedCounter;\\n    mapping(uint256 termId => mapping(uint256 loanId => mapping(address vaultToken => bool))) public lenderClaimedProfit; // mapping to track lender claim profit\\n\\n    constructor(address initialGovernor) {\\n        _governor = initialGovernor;\\n    }\\n\\n    // -----------------------------------------\\n    // ------------- Modifiers -----------------\\n    // -----------------------------------------\\n\\n    modifier onlyGovernor() {\\n        require(msg.sender == _governor, \\\"StormbitAssetManager: not governor\\\");\\n        _;\\n    }\\n\\n    modifier onlyBorrower(uint256 loanId) {\\n        require(loans[loanId].borrower == msg.sender, \\\"StormbitLoanManager: not borrower\\\");\\n        _;\\n    }\\n\\n    modifier onlyTermOwner(uint256 termId) {\\n        address owner = lendingManager.getLendingTerm(termId).owner;\\n        require(owner == msg.sender, \\\"StormbitLendingManager: not term owner\\\");\\n        _;\\n    }\\n\\n    // -----------------------------------------\\n    // -------- PUBLIC FUNCTIONS ---------------\\n    // -----------------------------------------\\n\\n    function initialize(address assetManagerAddr, address lendingManagerAddr) public override initializer {\\n        assetManager = IAssetManager(assetManagerAddr);\\n        lendingManager = ILendingManager(lendingManagerAddr);\\n    }\\n\\n    /// @dev allow borrower to request loan\\n    /// @param token address of the token\\n    /// @param assets amount of token to borrow\\n    /// @param deadline deadline of the loan to be allocated\\n    /// @return loanId id of the loan\\n    function requestLoan(address token, uint256 assets, uint256 deadline) public override returns (uint256) {\\n        // todo: see which agreement to use\\n\\n        // check if token is supported\\n        require(assetManager.isTokenSupported(token), \\\"StormbitLoanManager: token not supported\\\");\\n\\n        uint256 loanNonce = userLoanNonce[msg.sender];\\n        uint256 loanId = uint256(keccak256(abi.encode(msg.sender, loanNonce)));\\n        loanNonce += 1;\\n        userLoanNonce[msg.sender] = loanNonce;\\n\\n        // todo: change the fixed rate\\n        // 5% interest rate\\n        uint256 repayAssets = assets + (assets * 500) / BASIS_POINTS;\\n\\n        loans[loanId] = Loan({\\n            borrower: msg.sender,\\n            token: token,\\n            repayAssets: repayAssets,\\n            assetsRequired: assets,\\n            assetsAllocated: 0,\\n            sharesAllocated: 0,\\n            deadlineAllocate: deadline,\\n            status: LoanStatus.Pending\\n        });\\n\\n        emit LoanRequested(loanId, msg.sender, token, assets);\\n        return loanId;\\n    }\\n\\n    /// @dev allow borrower to execute the loan and receive the fund\\n    /// @param loanId id of the loan\\n    function executeLoan(uint256 loanId) public override onlyBorrower(loanId) {\\n        Loan memory loan = loans[loanId];\\n        // require valid loan\\n        require(_validLoan(loanId), \\\"StormbitLoanManager: invalid loan\\\");\\n        require(loan.status == LoanStatus.Pending, \\\"StormbitLoanManager: loan not pending\\\");\\n        require(loan.assetsAllocated >= loan.assetsRequired, \\\"StormbitLoanManager: insufficient allocation\\\");\\n        // only if deadline is passed\\n        require(block.timestamp >= loan.deadlineAllocate, \\\"StormbitLoanManager: deadline not passed\\\");\\n\\n        loans[loanId].status = LoanStatus.Active;\\n        lendingManager.borrowerWithdraw(\\n            // withdraw by asset manager\\n            loan.borrower,\\n            loan.token,\\n            loan.assetsRequired\\n        );\\n        emit LoanExecuted(loanId, loan.borrower, loan.token, loan.repayAssets);\\n    }\\n\\n    /// @dev allow anyone to repay the loan, not restricted to borrower\\n    /// @param loanId id of the loan\\n    function repay(uint256 loanId) public override {\\n        // check if loan is valid\\n        require(_validLoan(loanId), \\\"StormbitLoanManager: invalid loan\\\");\\n        Loan memory loan = loans[loanId];\\n        require(loan.status == LoanStatus.Active, \\\"StormbitLoanManager: loan not active\\\");\\n        assetManager.depositFrom(loan.token, loan.repayAssets, msg.sender, address(lendingManager));\\n        loans[loanId].status = LoanStatus.Repaid;\\n        emit LoanRepaid(loanId, msg.sender);\\n    }\\n\\n    /// @dev allow lender to allocate fund on the loan, but only when the term is already allocated\\n    /// @param loanId id of the loan\\n    /// @param termId id of the term\\n    /// @param assets amount of token to allocate\\n    function allocateTermAndFundOnLoan(uint256 loanId, uint256 termId, uint256 assets)\\n        public\\n        override\\n        onlyTermOwner(termId)\\n    {\\n        Loan memory loan = loans[loanId];\\n        // check is valid loan\\n        require(_validLoan(loanId), \\\"StormbitLoanManager: invalid loan\\\");\\n        require(block.timestamp < loan.deadlineAllocate, \\\"StormbitLoanManager: deadline passed\\\");\\n        // only if allocate deadline not passed\\n        require(block.timestamp < loans[loanId].deadlineAllocate, \\\"StormbitLoanManager: deadline passed\\\");\\n\\n        // if first time allocate to the loan, update status\\n        if (!loanTermAllocated[loanId][termId]) {\\n            loanTermAllocated[loanId][termId] = true;\\n            termLoanAllocatedCounter[termId] += 1;\\n        }\\n\\n        // get disposable shares on token of the term\\n        address token = loan.token;\\n        // get the corresponding vault token\\n        address vaultToken = assetManager.getVaultToken(token);\\n        // get term owner disposable shares\\n        (, uint256 termOwnerDisposableShares,) = lendingManager.getLendingTermBalances(termId, token);\\n        // convert assets to shares\\n        uint256 sharesRequired = assetManager.convertToShares(token, assets);\\n        require(\\n            termOwnerDisposableShares >= sharesRequired,\\n            \\\"StormbitLoanManager: term owner insufficient disposable shares\\\"\\n        );\\n        // fund shares should less than loan shares required\\n        require(\\n            loan.assetsAllocated + assets <= loan.assetsRequired, \\\"StormbitLoanManager: loan assets required exceeded\\\"\\n        );\\n\\n        // freeze the term owner shares\\n        lendingManager.freezeTermShares(termId, sharesRequired, token);\\n\\n        loans[loanId].sharesAllocated += sharesRequired;\\n        loans[loanId].assetsAllocated += assets;\\n        termAllocatedShares[loanId][termId][vaultToken] += sharesRequired;\\n\\n        emit AllocatedTermAndFundOnLoan(loanId, termId, assets);\\n    }\\n\\n    /// @dev allow lender to claim the profit for loan, then add the remaining profit to term profit\\n    function claimLoanProfit(uint256 termId, uint256 loanId) public override {\\n        Loan memory loan = loans[loanId];\\n        address vaultToken = assetManager.getVaultToken(loan.token);\\n        // check if the profit has been claimed\\n        require(!lenderClaimedProfit[termId][loanId][vaultToken], \\\"StormbitLendingManager: profit already claimed\\\");\\n        // get loan\\n        require(loan.status == ILoanManager.LoanStatus.Repaid, \\\"StormbitLendingManager: loan not repaid\\\");\\n        // term allocated on shares should > 0\\n        uint256 weight = termAllocatedShares[loanId][termId][vaultToken];\\n        require(weight > 0, \\\"StormbitLendingManager: term not allocated on loan\\\");\\n\\n        // get lending term\\n        ILendingManager.LendingTermMetadata memory term = lendingManager.getLendingTerm(termId);\\n        // convert repay assets to shares\\n        uint256 repayShares = assetManager.convertToShares(loan.token, loan.repayAssets);\\n        // calculate profit\\n        // calculate shares required, convert assets to shares\\n        uint256 sharesRequired = assetManager.convertToShares(loan.token, loan.assetsRequired);\\n        uint256 profitShares = repayShares - sharesRequired;\\n        // calculate weight of term in shares / loan required shares\\n        uint256 termFundedPercent = (weight * BASIS_POINTS) / sharesRequired;\\n        // term owner profit shares\\n        uint256 termProfitShares = (profitShares * termFundedPercent) / BASIS_POINTS;\\n        // from term profit shares, get commission for term owner\\n        uint256 termOwnerProfitShares = (termProfitShares * term.comission) / BASIS_POINTS;\\n        // calculate the remaining profit after term owner profit\\n        uint256 extraProfit = termProfitShares - termOwnerProfitShares;\\n\\n        lendingManager.distributeProfit(termId, loan.token, extraProfit, weight, termOwnerProfitShares);\\n\\n        // update claimed status\\n        lenderClaimedProfit[termId][loanId][vaultToken] = true;\\n\\n        // decrement term allocated counter\\n        termLoanAllocatedCounter[termId] -= 1;\\n\\n        emit ClaimLoanProfit(termId, loanId, loan.token, termOwnerProfitShares);\\n    }\\n\\n    // -----------------------------------------\\n    // ----------- PRIVATE FUNCTIONS -----------\\n    // -----------------------------------------\\n    function _validLoan(uint256 loanId) private view returns (bool) {\\n        return loans[loanId].borrower != address(0);\\n    }\\n\\n    function _calculateSharesRequired(address token, uint256 assets) private view returns (uint256) {\\n        // get the vault token\\n        address vaultToken = assetManager.getVaultToken(token);\\n        // convert assets to shares\\n        uint256 sharesRequired = IERC4626(vaultToken).convertToShares(assets);\\n        return sharesRequired;\\n    }\\n\\n    // -----------------------------------------\\n    // -------- PUBLIC GETTER FUNCTIONS --------\\n    // -----------------------------------------\\n    function governor() public view override returns (address) {\\n        return _governor;\\n    }\\n\\n    /// @dev get the loan details\\n    function getLoan(uint256 loanId) public view override returns (Loan memory) {\\n        return loans[loanId];\\n    }\\n\\n    /// @dev get the allocation status of a term on a loan\\n    function getLoanTermAllocated(uint256 loanId, uint256 termId) public view override returns (bool) {\\n        return loanTermAllocated[loanId][termId];\\n    }\\n\\n    /// @dev get the amount of loans a term was allocated to\\n    function getTermLoanAllocatedCounter(uint256 termId) external view override returns (uint256) {\\n        return termLoanAllocatedCounter[termId];\\n    }\\n\\n    /// @dev get the allocated shares on the loan\\n    function getTermAllocatedSharesOnLoan(uint256 loanId, uint256 termId, address token)\\n        public\\n        view\\n        override\\n        returns (uint256)\\n    {\\n        address vaultToken = assetManager.getVaultToken(token);\\n        return termAllocatedShares[loanId][termId][vaultToken];\\n    }\\n}\\n\",\"keccak256\":\"0xeeb590a3dc7cf21c2371fd6dffdb635f34113eb9351eba261f1acc5ae8c6ffbf\",\"license\":\"MIT\"},\"contracts/interfaces/hooks/IHooks.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.21;\\n\\n/// @author Quantum3 Labs\\n/// @title Stormbit Hooks Interface\\ninterface IHooks {\\n    function beforeDepositToTerm(address from, address token, uint256 termId, uint256 shares) external returns (bool);\\n}\\n\",\"keccak256\":\"0xc990c6c6da8481dddbcd1941ee76c6060fa2d79fe00ee4c4530be4d9857312fa\",\"license\":\"MIT\"},\"contracts/interfaces/managers/asset/IAssetManager.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.21;\\n\\n/// @author Quantum3 Labs\\n/// @title Stormbit Asset Manager Interface\\n/// TODO split into different interfaces according to funcionality\\ninterface IAssetManager {\\n    event AddToken(address indexed token, address indexed vault);\\n\\n    event RemoveToken(address indexed token, address indexed vault);\\n\\n    event Deposit(address indexed user, address indexed token, uint256 assets);\\n\\n    /// @dev note that withdraw event uses assets instead of shares\\n    event Withdraw(address indexed user, address indexed vaultToken, uint256 assets, uint256 sharesBurned);\\n\\n    event BorrowerWithdraw(address indexed borrower, address indexed token, uint256 shares);\\n\\n    function addToken(address _asset) external;\\n\\n    function removeToken(address _asset) external;\\n\\n    function isTokenSupported(address token) external view returns (bool);\\n\\n    function getVaultToken(address token) external view returns (address);\\n\\n    function getUserShares(address token, address user) external view returns (uint256);\\n\\n    function convertToShares(address token, uint256 assets) external view returns (uint256);\\n\\n    function convertToAssets(address token, uint256 shares) external view returns (uint256);\\n\\n    function deposit(address token, uint256 assets) external;\\n\\n    function depositFrom(address token, uint256 assets, address depositor, address receiver) external;\\n\\n    function withdraw(address token, uint256 shares) external;\\n\\n    function borrowerWithdraw(address borrower, address token, uint256 assets) external;\\n}\\n\",\"keccak256\":\"0x1592b04aa36f3055611d05739d3a8a891e69de4a759640641fbf9cacfbbf8428\",\"license\":\"MIT\"},\"contracts/interfaces/managers/lending/ILendingManager.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.21;\\n\\nimport {IHooks} from \\\"../../hooks/IHooks.sol\\\";\\n\\n/// @author Quantum3 Labs\\n/// @title Stormbit Lending Manager Interface\\n/// TODO split into different interfaces according to funcionality\\ninterface ILendingManager {\\n    struct Balances {\\n        uint256 available; // available for tracking disposable shares\\n        uint256 weight; // weight is shares + profit\\n        uint256 shares; // shares is weight but without profit\\n    }\\n\\n    struct LendingTerm {\\n        address owner;\\n        uint256 comission; // TODO add balances and other ERC4626 custom fields\\n        IHooks hooks;\\n        mapping(uint256 termId => mapping(address vaultToken => Balances balances)) termBalances; // total shares controlled by the term owner\\n        mapping(uint256 termId => uint256 nonZeroTokenBalanceCounter) termNonZeroTokenCounter; // track non zero token counter\\n    }\\n\\n    struct LendingTermMetadata {\\n        address owner;\\n        uint256 comission;\\n        IHooks hooks;\\n    }\\n\\n    event LendingTermCreated(uint256 indexed id, address lender, uint256 comission);\\n\\n    event LendingTermRemoved(uint256 indexed id);\\n\\n    event BorrowerWithdraw(address indexed borrower, address indexed token, uint256 assets);\\n\\n    event DepositToTerm(uint256 indexed id, address indexed user, address indexed token, uint256 shares);\\n\\n    event WithdrawFromTerm(uint256 indexed id, address indexed user, address indexed token, uint256 shares);\\n\\n    event FreezeSharesOnTerm(uint256 indexed termId, address indexed token, uint256 shares);\\n\\n    event DistributeProfit(uint256 indexed termId, address indexed token, uint256 profit);\\n\\n    function createLendingTerm(uint256 comission, IHooks hooks) external returns (uint256);\\n\\n    function removeLendingTerm(uint256 id) external;\\n\\n    function borrowerWithdraw(address borrower, address token, uint256 assets) external;\\n\\n    function depositToTerm(uint256 termId, address token, uint256 shares) external;\\n\\n    function withdrawFromTerm(uint256 termId, address token, uint256 requestedDecrease) external;\\n\\n    function freezeTermShares(uint256 termId, uint256 shares, address token) external;\\n\\n    function distributeProfit(uint256 termId, address token, uint256 weight, uint256 shares, uint256 ownerProfit)\\n        external;\\n\\n    function getLendingTerm(uint256 id) external returns (LendingTermMetadata memory);\\n\\n    function getTermFreezedShares(uint256 termId, address token) external view returns (uint256);\\n\\n    function getUserTotalDelegatedShares(address user, address token) external view returns (uint256);\\n\\n    function getLendingTermBalances(uint256 termId, address token) external view returns (uint256, uint256, uint256);\\n}\\n\",\"keccak256\":\"0x7a65150775050fd55e09cb63a2c35fc107939e0ead0066d064035308a1507869\",\"license\":\"MIT\"},\"contracts/interfaces/managers/loan/ILoanManager.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.21;\\n\\n/// @author Quantum3 Labs\\n/// @title Stormbit Loan Manager Interface\\n/// TODO split into different interfaces according to funcionality\\ninterface ILoanManager {\\n    enum LoanStatus {\\n        Pending,\\n        Active,\\n        Repaid,\\n        Cancelled\\n    }\\n\\n    struct Loan {\\n        address borrower;\\n        address token;\\n        uint256 repayAssets;\\n        uint256 assetsRequired;\\n        uint256 assetsAllocated;\\n        uint256 sharesAllocated;\\n        uint256 deadlineAllocate;\\n        LoanStatus status;\\n    }\\n\\n    event LoanRequested(uint256 indexed loanId, address indexed borrower, address indexed token, uint256 assets);\\n\\n    event AllocatedTermAndFundOnLoan(uint256 indexed loanId, uint256 indexed termId, uint256 assets);\\n\\n    event LoanExecuted(uint256 indexed loanId, address indexed borrower, address indexed token, uint256 repayAssets);\\n\\n    event LoanRepaid(uint256 indexed loanId, address indexed repayUser);\\n\\n    event ClaimLoanProfit(uint256 indexed termId, uint256 indexed loanId, address indexed token, uint256 profit);\\n\\n    function requestLoan(address token, uint256 assets, uint256 deadline) external returns (uint256);\\n\\n    function allocateTermAndFundOnLoan(uint256 loanId, uint256 termId, uint256 assets) external;\\n\\n    function executeLoan(uint256 loanId) external;\\n\\n    function repay(uint256 loanId) external;\\n\\n    function claimLoanProfit(uint256 termId, uint256 loanId) external;\\n\\n    function getLoan(uint256 loanId) external view returns (Loan memory);\\n\\n    function getLoanTermAllocated(uint256 loanId, uint256 termId) external view returns (bool);\\n\\n    function getTermLoanAllocatedCounter(uint256 termId) external view returns (uint256);\\n\\n    function getTermAllocatedSharesOnLoan(uint256 loanId, uint256 termId, address token)\\n        external\\n        view\\n        returns (uint256);\\n}\\n\",\"keccak256\":\"0x6d7182cceb6ad29b38c65bf5cdb2d7fd85a12b91517992a8ef5eaac3c67270fd\",\"license\":\"MIT\"},\"contracts/interfaces/token/IERC4626.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.21;\\n\\nimport {IERC4626 as OzIERC4626} from \\\"@openzeppelin/contracts/interfaces/IERC4626.sol\\\";\\n\\ninterface IERC4626 is OzIERC4626 {\\n    function decimals() external view returns (uint8);\\n}\\n\",\"keccak256\":\"0x622004f6e08f19a2d85d9af3129282385c583e22de170150f6b839d653095970\",\"license\":\"MIT\"},\"contracts/interfaces/utils/IGovernable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.21;\\n\\n/// @author Quantum3 Labs\\n/// @title Stormbit Admin Interface\\n/// TODO split into different interfaces according to funcionality\\ninterface IGovernable {\\n    function governor() external view returns (address);\\n}\\n\",\"keccak256\":\"0xa7f16dd2484971a7082382378ab66a44708776e53551b6a490cd170ee7783284\",\"license\":\"MIT\"},\"contracts/interfaces/utils/IInitialize.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.21;\\n\\n/// @author Quantum3 Labs\\n/// @title Stormbit Initialize Interface\\ninterface IInitialize {\\n    function initialize(address loanManagerAddr, address lendingManagerAddr) external;\\n}\\n\",\"keccak256\":\"0x796f82f96c1b1bd5db3ed804417c14ba8abc4586eac468463a57aae74a8448c2\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5060405161203438038061203483398101604081905261002f91610054565b600080546001600160a01b0319166001600160a01b0392909216919091179055610084565b60006020828403121561006657600080fd5b81516001600160a01b038116811461007d57600080fd5b9392505050565b611fa1806100936000396000f3fe608060405234801561001057600080fd5b50600436106100f15760003560e01c80630c340a24146100f6578063371fd8e6146101195780633abde1b71461012e57806342edaecf1461016c578063485cc9551461019a578063504006ca146101ad5780635b8d3424146101cd5780635c01f3731461020157806360fe6197146102145780636f77ff551461023457806370e92c2f14610247578063780b23741461025a57806394217ad11461028b578063979823d21461029e5780639e3b77af146102b1578063a63251a0146102c4578063d1434ed8146102d7578063e1ec3c68146102ea578063e1f1c4a71461035f575b600080fd5b6000546001600160a01b03165b6040516101109190611b02565b60405180910390f35b61012c610127366004611b16565b61037b565b005b61015c61013c366004611b2f565b600660209081526000928352604080842090915290825290205460ff1681565b6040519015158152602001610110565b61018c61017a366004611b16565b60009081526007602052604090205490565b604051908152602001610110565b61012c6101a8366004611b69565b610587565b6101c06101bb366004611b16565b6106bc565b6040516101109190611bda565b61015c6101db366004611c48565b600860209081526000938452604080852082529284528284209052825290205460ff1681565b61012c61020f366004611b2f565b610769565b61018c610222366004611c81565b60016020526000908152604090205481565b61018c610242366004611ca5565b610d95565b61012c610255366004611b16565b61103f565b61018c610268366004611c48565b600560209081526000938452604080852082529284528284209052825290205481565b600354610103906001600160a01b031681565b61012c6102ac366004611cda565b6113b6565b600254610103906001600160a01b031681565b61018c6102d2366004611c48565b6119b2565b61015c6102e5366004611b2f565b611a5a565b61034b6102f8366004611b16565b6004602081905260009182526040909120805460018201546002830154600384015494840154600585015460068601546007909601546001600160a01b0395861697949095169592949192909160ff1688565b604051610110989796959493929190611d06565b61036861271081565b60405161ffff9091168152602001610110565b61038481611a7e565b6103a95760405162461bcd60e51b81526004016103a090611d5c565b60405180910390fd5b600081815260046020818152604080842081516101008101835281546001600160a01b039081168252600183015416938101939093526002810154918301919091526003808201546060840152928101546080830152600581015460a0830152600681015460c083015260078101549192909160e084019160ff9091169081111561043657610436611ba2565b600381111561044757610447611ba2565b905250905060018160e00151600381111561046457610464611ba2565b146104bd5760405162461bcd60e51b8152602060048201526024808201527f53746f726d6269744c6f616e4d616e616765723a206c6f616e206e6f742061636044820152637469766560e01b60648201526084016103a0565b60035460208201516040808401516002549151632ab5c0a560e01b81526001600160a01b03938416600482015260248101919091523360448201529082166064820152911690632ab5c0a590608401600060405180830381600087803b15801561052657600080fd5b505af115801561053a573d6000803e3d6000fd5b505050600083815260046020526040808220600701805460ff191660021790555133925084917fe69d7686a8bc68278b8c5419579f91716b3ef2ac2fac0d8cf80b8011f8f458a491a35050565b7ff0c57e16840df040f15088dc2f81fe391c3923bec73e23a9662efc9c229c6a008054600160401b810460ff1615906001600160401b03166000811580156105cc5750825b90506000826001600160401b031660011480156105e85750303b155b9050811580156105f6575080155b156106145760405163f92ee8a960e01b815260040160405180910390fd5b84546001600160401b0319166001178555831561063d57845460ff60401b1916600160401b1785555b600380546001600160a01b03808a166001600160a01b031992831617909255600280549289169290911691909117905583156106b357845460ff60401b19168555604051600181527fc7f505b2f371ae2175ee4913f4499e1f2633a7b5936321eed1cdaeb6115181d29060200160405180910390a15b50505050505050565b6106c4611a9b565b60008281526004602081815260409283902083516101008101855281546001600160a01b039081168252600183015416928101929092526002810154938201939093526003808401546060830152918301546080820152600583015460a0820152600683015460c0820152600783015490929160e084019160ff169081111561074f5761074f611ba2565b600381111561076057610760611ba2565b90525092915050565b600081815260046020818152604080842081516101008101835281546001600160a01b039081168252600183015416938101939093526002810154918301919091526003808201546060840152928101546080830152600581015460a0830152600681015460c083015260078101549192909160e084019160ff909116908111156107f6576107f6611ba2565b600381111561080757610807611ba2565b9052506003546020820151604051639dc6108f60e01b81529293506000926001600160a01b0390921691639dc6108f9161084391600401611b02565b602060405180830381865afa158015610860573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906108849190611d9d565b600085815260086020908152604080832087845282528083206001600160a01b038516845290915290205490915060ff16156109195760405162461bcd60e51b815260206004820152602e60248201527f53746f726d6269744c656e64696e674d616e616765723a2070726f666974206160448201526d1b1c9958591e4818db185a5b595960921b60648201526084016103a0565b60028260e00151600381111561093157610931611ba2565b1461098e5760405162461bcd60e51b815260206004820152602760248201527f53746f726d6269744c656e64696e674d616e616765723a206c6f616e206e6f74604482015266081c995c185a5960ca1b60648201526084016103a0565b600083815260056020908152604080832087845282528083206001600160a01b038516845290915290205480610a215760405162461bcd60e51b815260206004820152603260248201527f53746f726d6269744c656e64696e674d616e616765723a207465726d206e6f746044820152711030b63637b1b0ba32b21037b7103637b0b760711b60648201526084016103a0565b6002546040516384a9dc1360e01b8152600481018790526000916001600160a01b0316906384a9dc13906024016060604051808303816000875af1158015610a6d573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610a919190611dba565b60035460208601516040808801519051633e5541f160e01b81529394506000936001600160a01b0390931692633e5541f192610ad1929091600401611e30565b602060405180830381865afa158015610aee573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610b129190611e49565b60035460208701516060880151604051633e5541f160e01b81529394506000936001600160a01b0390931692633e5541f192610b52929091600401611e30565b602060405180830381865afa158015610b6f573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610b939190611e49565b90506000610ba18284611e78565b9050600082610bb261271088611e8b565b610bbc9190611ea2565b90506000612710610bcd8385611e8b565b610bd79190611ea2565b9050600061271061ffff16876020015183610bf29190611e8b565b610bfc9190611ea2565b90506000610c0a8284611e78565b9050600260009054906101000a90046001600160a01b03166001600160a01b031663760841c38e8d60200151848d876040518663ffffffff1660e01b8152600401610c809594939291909485526001600160a01b0393909316602085015260408401919091526060830152608082015260a00190565b600060405180830381600087803b158015610c9a57600080fd5b505af1158015610cae573d6000803e3d6000fd5b505050506001600860008f815260200190815260200160002060008e815260200190815260200160002060008c6001600160a01b03166001600160a01b0316815260200190815260200160002060006101000a81548160ff0219169083151502179055506001600760008f81526020019081526020016000206000828254610d369190611e78565b925050819055508a602001516001600160a01b03168c8e7fa8e4beb0b4ddc5be1810bccfe0b9f2c61ca4f659478a69c005abf7d7aa22e67d85604051610d7e91815260200190565b60405180910390a450505050505050505050505050565b6003546040516375151b6360e01b81526000916001600160a01b0316906375151b6390610dc6908790600401611b02565b602060405180830381865afa158015610de3573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610e079190611ec4565b610e645760405162461bcd60e51b815260206004820152602860248201527f53746f726d6269744c6f616e4d616e616765723a20746f6b656e206e6f7420736044820152671d5c1c1bdc9d195960c21b60648201526084016103a0565b3360008181526001602090815260408083205490519093610e89929091859101611e30565b60408051601f1981840301815291905280516020909101209050610eae600183611ee6565b336000908152600160205260408120829055909250612710610ed2876101f4611e8b565b610edc9190611ea2565b610ee69087611ee6565b9050604051806101000160405280336001600160a01b03168152602001886001600160a01b03168152602001828152602001878152602001600081526020016000815260200186815260200160006003811115610f4557610f45611ba2565b9052600083815260046020818152604092839020845181546001600160a01b039182166001600160a01b031991821617835592860151600180840180549290931691909416179055928401516002840155606084015160038085019190915560808501519284019290925560a0840151600584015560c0840151600684015560e08401516007840180549193909260ff1990921691908490811115610fec57610fec611ba2565b0217905550506040518781526001600160a01b0389169150339084907fdc60aa6fe6ea1316bf5acc811851e823e68d2aa48e0b9e4ecc3650b38b9303f69060200160405180910390a45095945050505050565b60008181526004602052604090205481906001600160a01b031633146110b15760405162461bcd60e51b815260206004820152602160248201527f53746f726d6269744c6f616e4d616e616765723a206e6f7420626f72726f77656044820152603960f91b60648201526084016103a0565b600082815260046020818152604080842081516101008101835281546001600160a01b039081168252600183015416938101939093526002810154918301919091526003808201546060840152928101546080830152600581015460a0830152600681015460c083015260078101549192909160e084019160ff9091169081111561113e5761113e611ba2565b600381111561114f5761114f611ba2565b905250905061115d83611a7e565b6111795760405162461bcd60e51b81526004016103a090611d5c565b60008160e00151600381111561119157611191611ba2565b146111ec5760405162461bcd60e51b815260206004820152602560248201527f53746f726d6269744c6f616e4d616e616765723a206c6f616e206e6f742070656044820152646e64696e6760d81b60648201526084016103a0565b8060600151816080015110156112595760405162461bcd60e51b815260206004820152602c60248201527f53746f726d6269744c6f616e4d616e616765723a20696e73756666696369656e60448201526b3a1030b63637b1b0ba34b7b760a11b60648201526084016103a0565b8060c001514210156112be5760405162461bcd60e51b815260206004820152602860248201527f53746f726d6269744c6f616e4d616e616765723a20646561646c696e65206e6f6044820152671d081c185cdcd95960c21b60648201526084016103a0565b600083815260046020526040902060070180546001919060ff191682800217905550600254815160208301516060840151604051636b4ee7f360e01b81526001600160a01b03938416600482015291831660248301526044820152911690636b4ee7f390606401600060405180830381600087803b15801561133f57600080fd5b505af1158015611353573d6000803e3d6000fd5b5050505080602001516001600160a01b031681600001516001600160a01b0316847f535138fec577605910559ceaf871d86125897e3bf1a488a722ffd910f68065d084604001516040516113a991815260200190565b60405180910390a4505050565b6002546040516384a9dc1360e01b81526004810184905283916000916001600160a01b03909116906384a9dc13906024016060604051808303816000875af1158015611406573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061142a9190611dba565b5190506001600160a01b03811633146114945760405162461bcd60e51b815260206004820152602660248201527f53746f726d6269744c656e64696e674d616e616765723a206e6f74207465726d6044820152651037bbb732b960d11b60648201526084016103a0565b600085815260046020818152604080842081516101008101835281546001600160a01b039081168252600183015416938101939093526002810154918301919091526003808201546060840152928101546080830152600581015460a0830152600681015460c083015260078101549192909160e084019160ff9091169081111561152157611521611ba2565b600381111561153257611532611ba2565b905250905061154086611a7e565b61155c5760405162461bcd60e51b81526004016103a090611d5c565b8060c00151421061157f5760405162461bcd60e51b81526004016103a090611ef9565b60008681526004602052604090206006015442106115af5760405162461bcd60e51b81526004016103a090611ef9565b600086815260066020908152604080832088845290915290205460ff166116155760008681526006602090815260408083208884528252808320805460ff191660019081179091556007909252822080549192909161160f908490611ee6565b90915550505b6020810151600354604051639dc6108f60e01b81526000916001600160a01b031690639dc6108f9061164b908590600401611b02565b602060405180830381865afa158015611668573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061168c9190611d9d565b6002546040516212d81b60e41b8152600481018a90526001600160a01b0385811660248301529293506000929091169063012d81b090604401606060405180830381865afa1580156116e2573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906117069190611f3d565b50600354604051633e5541f160e01b8152919350600092506001600160a01b031690633e5541f19061173e9087908c90600401611e30565b602060405180830381865afa15801561175b573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061177f9190611e49565b9050808210156117f75760405162461bcd60e51b815260206004820152603e60248201527f53746f726d6269744c6f616e4d616e616765723a207465726d206f776e65722060448201527f696e73756666696369656e7420646973706f7361626c6520736861726573000060648201526084016103a0565b846060015188866080015161180c9190611ee6565b11156118755760405162461bcd60e51b815260206004820152603260248201527f53746f726d6269744c6f616e4d616e616765723a206c6f616e20617373657473604482015271081c995c5d5a5c995908195e18d95959195960721b60648201526084016103a0565b6002546040516327d1812760e01b8152600481018b9052602481018390526001600160a01b038681166044830152909116906327d1812790606401600060405180830381600087803b1580156118ca57600080fd5b505af11580156118de573d6000803e3d6000fd5b50505060008b81526004602052604081206005018054849350909190611905908490611ee6565b909155505060008a815260046020819052604082200180548a929061192b908490611ee6565b909155505060008a81526005602090815260408083208c845282528083206001600160a01b03871684529091528120805483929061196a908490611ee6565b909155505060405188815289908b907f8e252caa36ad783ebe21a9ae62d3f14da87fe9f3814027755552c55ef99eebaa9060200160405180910390a350505050505050505050565b600354604051639dc6108f60e01b815260009182916001600160a01b0390911690639dc6108f906119e7908690600401611b02565b602060405180830381865afa158015611a04573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190611a289190611d9d565b60009586526005602090815260408088209688529581528587206001600160a01b039290921687525250505090205490565b600082815260066020908152604080832084845290915290205460ff165b92915050565b6000908152600460205260409020546001600160a01b0316151590565b60405180610100016040528060006001600160a01b0316815260200160006001600160a01b03168152602001600081526020016000815260200160008152602001600081526020016000815260200160006003811115611afd57611afd611ba2565b905290565b6001600160a01b0391909116815260200190565b600060208284031215611b2857600080fd5b5035919050565b60008060408385031215611b4257600080fd5b50508035926020909101359150565b6001600160a01b0381168114611b6657600080fd5b50565b60008060408385031215611b7c57600080fd5b8235611b8781611b51565b91506020830135611b9781611b51565b809150509250929050565b634e487b7160e01b600052602160045260246000fd5b60048110611bd657634e487b7160e01b600052602160045260246000fd5b9052565b60006101008201905060018060a01b038084511683528060208501511660208401525060408301516040830152606083015160608301526080830151608083015260a083015160a083015260c083015160c083015260e0830151611c4160e0840182611bb8565b5092915050565b600080600060608486031215611c5d57600080fd5b83359250602084013591506040840135611c7681611b51565b809150509250925092565b600060208284031215611c9357600080fd5b8135611c9e81611b51565b9392505050565b600080600060608486031215611cba57600080fd5b8335611cc581611b51565b95602085013595506040909401359392505050565b600080600060608486031215611cef57600080fd5b505081359360208301359350604090920135919050565b6001600160a01b0389811682528816602082015260408101879052606081018690526080810185905260a0810184905260c081018390526101008101611d4f60e0830184611bb8565b9998505050505050505050565b60208082526021908201527f53746f726d6269744c6f616e4d616e616765723a20696e76616c6964206c6f616040820152603760f91b606082015260800190565b600060208284031215611daf57600080fd5b8151611c9e81611b51565b600060608284031215611dcc57600080fd5b604051606081016001600160401b0381118282101715611dfc57634e487b7160e01b600052604160045260246000fd5b6040528251611e0a81611b51565b8152602083810151908201526040830151611e2481611b51565b60408201529392505050565b6001600160a01b03929092168252602082015260400190565b600060208284031215611e5b57600080fd5b5051919050565b634e487b7160e01b600052601160045260246000fd5b81810381811115611a7857611a78611e62565b8082028115828204841417611a7857611a78611e62565b600082611ebf57634e487b7160e01b600052601260045260246000fd5b500490565b600060208284031215611ed657600080fd5b81518015158114611c9e57600080fd5b80820180821115611a7857611a78611e62565b60208082526024908201527f53746f726d6269744c6f616e4d616e616765723a20646561646c696e652070616040820152631cdcd95960e21b606082015260800190565b600080600060608486031215611f5257600080fd5b835192506020840151915060408401519050925092509256fea264697066735822122092911131a3205e9c06fc4c01f53136d93e842e7fb55ab785a8d999cc710fd26e64736f6c63430008150033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100f15760003560e01c80630c340a24146100f6578063371fd8e6146101195780633abde1b71461012e57806342edaecf1461016c578063485cc9551461019a578063504006ca146101ad5780635b8d3424146101cd5780635c01f3731461020157806360fe6197146102145780636f77ff551461023457806370e92c2f14610247578063780b23741461025a57806394217ad11461028b578063979823d21461029e5780639e3b77af146102b1578063a63251a0146102c4578063d1434ed8146102d7578063e1ec3c68146102ea578063e1f1c4a71461035f575b600080fd5b6000546001600160a01b03165b6040516101109190611b02565b60405180910390f35b61012c610127366004611b16565b61037b565b005b61015c61013c366004611b2f565b600660209081526000928352604080842090915290825290205460ff1681565b6040519015158152602001610110565b61018c61017a366004611b16565b60009081526007602052604090205490565b604051908152602001610110565b61012c6101a8366004611b69565b610587565b6101c06101bb366004611b16565b6106bc565b6040516101109190611bda565b61015c6101db366004611c48565b600860209081526000938452604080852082529284528284209052825290205460ff1681565b61012c61020f366004611b2f565b610769565b61018c610222366004611c81565b60016020526000908152604090205481565b61018c610242366004611ca5565b610d95565b61012c610255366004611b16565b61103f565b61018c610268366004611c48565b600560209081526000938452604080852082529284528284209052825290205481565b600354610103906001600160a01b031681565b61012c6102ac366004611cda565b6113b6565b600254610103906001600160a01b031681565b61018c6102d2366004611c48565b6119b2565b61015c6102e5366004611b2f565b611a5a565b61034b6102f8366004611b16565b6004602081905260009182526040909120805460018201546002830154600384015494840154600585015460068601546007909601546001600160a01b0395861697949095169592949192909160ff1688565b604051610110989796959493929190611d06565b61036861271081565b60405161ffff9091168152602001610110565b61038481611a7e565b6103a95760405162461bcd60e51b81526004016103a090611d5c565b60405180910390fd5b600081815260046020818152604080842081516101008101835281546001600160a01b039081168252600183015416938101939093526002810154918301919091526003808201546060840152928101546080830152600581015460a0830152600681015460c083015260078101549192909160e084019160ff9091169081111561043657610436611ba2565b600381111561044757610447611ba2565b905250905060018160e00151600381111561046457610464611ba2565b146104bd5760405162461bcd60e51b8152602060048201526024808201527f53746f726d6269744c6f616e4d616e616765723a206c6f616e206e6f742061636044820152637469766560e01b60648201526084016103a0565b60035460208201516040808401516002549151632ab5c0a560e01b81526001600160a01b03938416600482015260248101919091523360448201529082166064820152911690632ab5c0a590608401600060405180830381600087803b15801561052657600080fd5b505af115801561053a573d6000803e3d6000fd5b505050600083815260046020526040808220600701805460ff191660021790555133925084917fe69d7686a8bc68278b8c5419579f91716b3ef2ac2fac0d8cf80b8011f8f458a491a35050565b7ff0c57e16840df040f15088dc2f81fe391c3923bec73e23a9662efc9c229c6a008054600160401b810460ff1615906001600160401b03166000811580156105cc5750825b90506000826001600160401b031660011480156105e85750303b155b9050811580156105f6575080155b156106145760405163f92ee8a960e01b815260040160405180910390fd5b84546001600160401b0319166001178555831561063d57845460ff60401b1916600160401b1785555b600380546001600160a01b03808a166001600160a01b031992831617909255600280549289169290911691909117905583156106b357845460ff60401b19168555604051600181527fc7f505b2f371ae2175ee4913f4499e1f2633a7b5936321eed1cdaeb6115181d29060200160405180910390a15b50505050505050565b6106c4611a9b565b60008281526004602081815260409283902083516101008101855281546001600160a01b039081168252600183015416928101929092526002810154938201939093526003808401546060830152918301546080820152600583015460a0820152600683015460c0820152600783015490929160e084019160ff169081111561074f5761074f611ba2565b600381111561076057610760611ba2565b90525092915050565b600081815260046020818152604080842081516101008101835281546001600160a01b039081168252600183015416938101939093526002810154918301919091526003808201546060840152928101546080830152600581015460a0830152600681015460c083015260078101549192909160e084019160ff909116908111156107f6576107f6611ba2565b600381111561080757610807611ba2565b9052506003546020820151604051639dc6108f60e01b81529293506000926001600160a01b0390921691639dc6108f9161084391600401611b02565b602060405180830381865afa158015610860573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906108849190611d9d565b600085815260086020908152604080832087845282528083206001600160a01b038516845290915290205490915060ff16156109195760405162461bcd60e51b815260206004820152602e60248201527f53746f726d6269744c656e64696e674d616e616765723a2070726f666974206160448201526d1b1c9958591e4818db185a5b595960921b60648201526084016103a0565b60028260e00151600381111561093157610931611ba2565b1461098e5760405162461bcd60e51b815260206004820152602760248201527f53746f726d6269744c656e64696e674d616e616765723a206c6f616e206e6f74604482015266081c995c185a5960ca1b60648201526084016103a0565b600083815260056020908152604080832087845282528083206001600160a01b038516845290915290205480610a215760405162461bcd60e51b815260206004820152603260248201527f53746f726d6269744c656e64696e674d616e616765723a207465726d206e6f746044820152711030b63637b1b0ba32b21037b7103637b0b760711b60648201526084016103a0565b6002546040516384a9dc1360e01b8152600481018790526000916001600160a01b0316906384a9dc13906024016060604051808303816000875af1158015610a6d573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610a919190611dba565b60035460208601516040808801519051633e5541f160e01b81529394506000936001600160a01b0390931692633e5541f192610ad1929091600401611e30565b602060405180830381865afa158015610aee573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610b129190611e49565b60035460208701516060880151604051633e5541f160e01b81529394506000936001600160a01b0390931692633e5541f192610b52929091600401611e30565b602060405180830381865afa158015610b6f573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610b939190611e49565b90506000610ba18284611e78565b9050600082610bb261271088611e8b565b610bbc9190611ea2565b90506000612710610bcd8385611e8b565b610bd79190611ea2565b9050600061271061ffff16876020015183610bf29190611e8b565b610bfc9190611ea2565b90506000610c0a8284611e78565b9050600260009054906101000a90046001600160a01b03166001600160a01b031663760841c38e8d60200151848d876040518663ffffffff1660e01b8152600401610c809594939291909485526001600160a01b0393909316602085015260408401919091526060830152608082015260a00190565b600060405180830381600087803b158015610c9a57600080fd5b505af1158015610cae573d6000803e3d6000fd5b505050506001600860008f815260200190815260200160002060008e815260200190815260200160002060008c6001600160a01b03166001600160a01b0316815260200190815260200160002060006101000a81548160ff0219169083151502179055506001600760008f81526020019081526020016000206000828254610d369190611e78565b925050819055508a602001516001600160a01b03168c8e7fa8e4beb0b4ddc5be1810bccfe0b9f2c61ca4f659478a69c005abf7d7aa22e67d85604051610d7e91815260200190565b60405180910390a450505050505050505050505050565b6003546040516375151b6360e01b81526000916001600160a01b0316906375151b6390610dc6908790600401611b02565b602060405180830381865afa158015610de3573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610e079190611ec4565b610e645760405162461bcd60e51b815260206004820152602860248201527f53746f726d6269744c6f616e4d616e616765723a20746f6b656e206e6f7420736044820152671d5c1c1bdc9d195960c21b60648201526084016103a0565b3360008181526001602090815260408083205490519093610e89929091859101611e30565b60408051601f1981840301815291905280516020909101209050610eae600183611ee6565b336000908152600160205260408120829055909250612710610ed2876101f4611e8b565b610edc9190611ea2565b610ee69087611ee6565b9050604051806101000160405280336001600160a01b03168152602001886001600160a01b03168152602001828152602001878152602001600081526020016000815260200186815260200160006003811115610f4557610f45611ba2565b9052600083815260046020818152604092839020845181546001600160a01b039182166001600160a01b031991821617835592860151600180840180549290931691909416179055928401516002840155606084015160038085019190915560808501519284019290925560a0840151600584015560c0840151600684015560e08401516007840180549193909260ff1990921691908490811115610fec57610fec611ba2565b0217905550506040518781526001600160a01b0389169150339084907fdc60aa6fe6ea1316bf5acc811851e823e68d2aa48e0b9e4ecc3650b38b9303f69060200160405180910390a45095945050505050565b60008181526004602052604090205481906001600160a01b031633146110b15760405162461bcd60e51b815260206004820152602160248201527f53746f726d6269744c6f616e4d616e616765723a206e6f7420626f72726f77656044820152603960f91b60648201526084016103a0565b600082815260046020818152604080842081516101008101835281546001600160a01b039081168252600183015416938101939093526002810154918301919091526003808201546060840152928101546080830152600581015460a0830152600681015460c083015260078101549192909160e084019160ff9091169081111561113e5761113e611ba2565b600381111561114f5761114f611ba2565b905250905061115d83611a7e565b6111795760405162461bcd60e51b81526004016103a090611d5c565b60008160e00151600381111561119157611191611ba2565b146111ec5760405162461bcd60e51b815260206004820152602560248201527f53746f726d6269744c6f616e4d616e616765723a206c6f616e206e6f742070656044820152646e64696e6760d81b60648201526084016103a0565b8060600151816080015110156112595760405162461bcd60e51b815260206004820152602c60248201527f53746f726d6269744c6f616e4d616e616765723a20696e73756666696369656e60448201526b3a1030b63637b1b0ba34b7b760a11b60648201526084016103a0565b8060c001514210156112be5760405162461bcd60e51b815260206004820152602860248201527f53746f726d6269744c6f616e4d616e616765723a20646561646c696e65206e6f6044820152671d081c185cdcd95960c21b60648201526084016103a0565b600083815260046020526040902060070180546001919060ff191682800217905550600254815160208301516060840151604051636b4ee7f360e01b81526001600160a01b03938416600482015291831660248301526044820152911690636b4ee7f390606401600060405180830381600087803b15801561133f57600080fd5b505af1158015611353573d6000803e3d6000fd5b5050505080602001516001600160a01b031681600001516001600160a01b0316847f535138fec577605910559ceaf871d86125897e3bf1a488a722ffd910f68065d084604001516040516113a991815260200190565b60405180910390a4505050565b6002546040516384a9dc1360e01b81526004810184905283916000916001600160a01b03909116906384a9dc13906024016060604051808303816000875af1158015611406573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061142a9190611dba565b5190506001600160a01b03811633146114945760405162461bcd60e51b815260206004820152602660248201527f53746f726d6269744c656e64696e674d616e616765723a206e6f74207465726d6044820152651037bbb732b960d11b60648201526084016103a0565b600085815260046020818152604080842081516101008101835281546001600160a01b039081168252600183015416938101939093526002810154918301919091526003808201546060840152928101546080830152600581015460a0830152600681015460c083015260078101549192909160e084019160ff9091169081111561152157611521611ba2565b600381111561153257611532611ba2565b905250905061154086611a7e565b61155c5760405162461bcd60e51b81526004016103a090611d5c565b8060c00151421061157f5760405162461bcd60e51b81526004016103a090611ef9565b60008681526004602052604090206006015442106115af5760405162461bcd60e51b81526004016103a090611ef9565b600086815260066020908152604080832088845290915290205460ff166116155760008681526006602090815260408083208884528252808320805460ff191660019081179091556007909252822080549192909161160f908490611ee6565b90915550505b6020810151600354604051639dc6108f60e01b81526000916001600160a01b031690639dc6108f9061164b908590600401611b02565b602060405180830381865afa158015611668573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061168c9190611d9d565b6002546040516212d81b60e41b8152600481018a90526001600160a01b0385811660248301529293506000929091169063012d81b090604401606060405180830381865afa1580156116e2573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906117069190611f3d565b50600354604051633e5541f160e01b8152919350600092506001600160a01b031690633e5541f19061173e9087908c90600401611e30565b602060405180830381865afa15801561175b573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061177f9190611e49565b9050808210156117f75760405162461bcd60e51b815260206004820152603e60248201527f53746f726d6269744c6f616e4d616e616765723a207465726d206f776e65722060448201527f696e73756666696369656e7420646973706f7361626c6520736861726573000060648201526084016103a0565b846060015188866080015161180c9190611ee6565b11156118755760405162461bcd60e51b815260206004820152603260248201527f53746f726d6269744c6f616e4d616e616765723a206c6f616e20617373657473604482015271081c995c5d5a5c995908195e18d95959195960721b60648201526084016103a0565b6002546040516327d1812760e01b8152600481018b9052602481018390526001600160a01b038681166044830152909116906327d1812790606401600060405180830381600087803b1580156118ca57600080fd5b505af11580156118de573d6000803e3d6000fd5b50505060008b81526004602052604081206005018054849350909190611905908490611ee6565b909155505060008a815260046020819052604082200180548a929061192b908490611ee6565b909155505060008a81526005602090815260408083208c845282528083206001600160a01b03871684529091528120805483929061196a908490611ee6565b909155505060405188815289908b907f8e252caa36ad783ebe21a9ae62d3f14da87fe9f3814027755552c55ef99eebaa9060200160405180910390a350505050505050505050565b600354604051639dc6108f60e01b815260009182916001600160a01b0390911690639dc6108f906119e7908690600401611b02565b602060405180830381865afa158015611a04573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190611a289190611d9d565b60009586526005602090815260408088209688529581528587206001600160a01b039290921687525250505090205490565b600082815260066020908152604080832084845290915290205460ff165b92915050565b6000908152600460205260409020546001600160a01b0316151590565b60405180610100016040528060006001600160a01b0316815260200160006001600160a01b03168152602001600081526020016000815260200160008152602001600081526020016000815260200160006003811115611afd57611afd611ba2565b905290565b6001600160a01b0391909116815260200190565b600060208284031215611b2857600080fd5b5035919050565b60008060408385031215611b4257600080fd5b50508035926020909101359150565b6001600160a01b0381168114611b6657600080fd5b50565b60008060408385031215611b7c57600080fd5b8235611b8781611b51565b91506020830135611b9781611b51565b809150509250929050565b634e487b7160e01b600052602160045260246000fd5b60048110611bd657634e487b7160e01b600052602160045260246000fd5b9052565b60006101008201905060018060a01b038084511683528060208501511660208401525060408301516040830152606083015160608301526080830151608083015260a083015160a083015260c083015160c083015260e0830151611c4160e0840182611bb8565b5092915050565b600080600060608486031215611c5d57600080fd5b83359250602084013591506040840135611c7681611b51565b809150509250925092565b600060208284031215611c9357600080fd5b8135611c9e81611b51565b9392505050565b600080600060608486031215611cba57600080fd5b8335611cc581611b51565b95602085013595506040909401359392505050565b600080600060608486031215611cef57600080fd5b505081359360208301359350604090920135919050565b6001600160a01b0389811682528816602082015260408101879052606081018690526080810185905260a0810184905260c081018390526101008101611d4f60e0830184611bb8565b9998505050505050505050565b60208082526021908201527f53746f726d6269744c6f616e4d616e616765723a20696e76616c6964206c6f616040820152603760f91b606082015260800190565b600060208284031215611daf57600080fd5b8151611c9e81611b51565b600060608284031215611dcc57600080fd5b604051606081016001600160401b0381118282101715611dfc57634e487b7160e01b600052604160045260246000fd5b6040528251611e0a81611b51565b8152602083810151908201526040830151611e2481611b51565b60408201529392505050565b6001600160a01b03929092168252602082015260400190565b600060208284031215611e5b57600080fd5b5051919050565b634e487b7160e01b600052601160045260246000fd5b81810381811115611a7857611a78611e62565b8082028115828204841417611a7857611a78611e62565b600082611ebf57634e487b7160e01b600052601260045260246000fd5b500490565b600060208284031215611ed657600080fd5b81518015158114611c9e57600080fd5b80820180821115611a7857611a78611e62565b60208082526024908201527f53746f726d6269744c6f616e4d616e616765723a20646561646c696e652070616040820152631cdcd95960e21b606082015260800190565b600080600060608486031215611f5257600080fd5b835192506020840151915060408401519050925092509256fea264697066735822122092911131a3205e9c06fc4c01f53136d93e842e7fb55ab785a8d999cc710fd26e64736f6c63430008150033",
+  "devdoc": {
+    "author": "Quantum3 Labs",
+    "errors": {
+      "InvalidInitialization()": [
+        {
+          "details": "The contract is already initialized."
+        }
+      ],
+      "NotInitializing()": [
+        {
+          "details": "The contract is not initializing."
+        }
+      ]
+    },
+    "events": {
+      "Initialized(uint64)": {
+        "details": "Triggered when the contract has been initialized or reinitialized."
+      }
+    },
+    "kind": "dev",
+    "methods": {
+      "allocateTermAndFundOnLoan(uint256,uint256,uint256)": {
+        "details": "allow lender to allocate fund on the loan, but only when the term is already allocated",
+        "params": {
+          "assets": "amount of token to allocate",
+          "loanId": "id of the loan",
+          "termId": "id of the term"
+        }
+      },
+      "claimLoanProfit(uint256,uint256)": {
+        "details": "allow lender to claim the profit for loan, then add the remaining profit to term profit"
+      },
+      "executeLoan(uint256)": {
+        "details": "allow borrower to execute the loan and receive the fund",
+        "params": {
+          "loanId": "id of the loan"
+        }
+      },
+      "getLoan(uint256)": {
+        "details": "get the loan details"
+      },
+      "getLoanTermAllocated(uint256,uint256)": {
+        "details": "get the allocation status of a term on a loan"
+      },
+      "getTermAllocatedSharesOnLoan(uint256,uint256,address)": {
+        "details": "get the allocated shares on the loan"
+      },
+      "getTermLoanAllocatedCounter(uint256)": {
+        "details": "get the amount of loans a term was allocated to"
+      },
+      "repay(uint256)": {
+        "details": "allow anyone to repay the loan, not restricted to borrower",
+        "params": {
+          "loanId": "id of the loan"
+        }
+      },
+      "requestLoan(address,uint256,uint256)": {
+        "details": "allow borrower to request loan",
+        "params": {
+          "assets": "amount of token to borrow",
+          "deadline": "deadline of the loan to be allocated",
+          "token": "address of the token"
+        },
+        "returns": {
+          "_0": "loanId id of the loan"
+        }
+      }
+    },
+    "title": "Stormbit Loan Manager",
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "notice": "entrypoint for loan related operations",
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 5274,
+        "contract": "contracts/LoanManager.sol:StormbitLoanManager",
+        "label": "_governor",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 5278,
+        "contract": "contracts/LoanManager.sol:StormbitLoanManager",
+        "label": "userLoanNonce",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_mapping(t_address,t_uint256)"
+      },
+      {
+        "astId": 5281,
+        "contract": "contracts/LoanManager.sol:StormbitLoanManager",
+        "label": "lendingManager",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_contract(ILendingManager)6878"
+      },
+      {
+        "astId": 5284,
+        "contract": "contracts/LoanManager.sol:StormbitLoanManager",
+        "label": "assetManager",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_contract(IAssetManager)6503"
+      },
+      {
+        "astId": 5289,
+        "contract": "contracts/LoanManager.sol:StormbitLoanManager",
+        "label": "loans",
+        "offset": 0,
+        "slot": "4",
+        "type": "t_mapping(t_uint256,t_struct(Loan)7062_storage)"
+      },
+      {
+        "astId": 5297,
+        "contract": "contracts/LoanManager.sol:StormbitLoanManager",
+        "label": "termAllocatedShares",
+        "offset": 0,
+        "slot": "5",
+        "type": "t_mapping(t_uint256,t_mapping(t_uint256,t_mapping(t_address,t_uint256)))"
+      },
+      {
+        "astId": 5303,
+        "contract": "contracts/LoanManager.sol:StormbitLoanManager",
+        "label": "loanTermAllocated",
+        "offset": 0,
+        "slot": "6",
+        "type": "t_mapping(t_uint256,t_mapping(t_uint256,t_bool))"
+      },
+      {
+        "astId": 5307,
+        "contract": "contracts/LoanManager.sol:StormbitLoanManager",
+        "label": "termLoanAllocatedCounter",
+        "offset": 0,
+        "slot": "7",
+        "type": "t_mapping(t_uint256,t_uint256)"
+      },
+      {
+        "astId": 5315,
+        "contract": "contracts/LoanManager.sol:StormbitLoanManager",
+        "label": "lenderClaimedProfit",
+        "offset": 0,
+        "slot": "8",
+        "type": "t_mapping(t_uint256,t_mapping(t_uint256,t_mapping(t_address,t_bool)))"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_contract(IAssetManager)6503": {
+        "encoding": "inplace",
+        "label": "contract IAssetManager",
+        "numberOfBytes": "20"
+      },
+      "t_contract(ILendingManager)6878": {
+        "encoding": "inplace",
+        "label": "contract ILendingManager",
+        "numberOfBytes": "20"
+      },
+      "t_enum(LoanStatus)7044": {
+        "encoding": "inplace",
+        "label": "enum ILoanManager.LoanStatus",
+        "numberOfBytes": "1"
+      },
+      "t_mapping(t_address,t_bool)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => bool)",
+        "numberOfBytes": "32",
+        "value": "t_bool"
+      },
+      "t_mapping(t_address,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_mapping(t_uint256,t_bool)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => bool)",
+        "numberOfBytes": "32",
+        "value": "t_bool"
+      },
+      "t_mapping(t_uint256,t_mapping(t_address,t_bool))": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => mapping(address => bool))",
+        "numberOfBytes": "32",
+        "value": "t_mapping(t_address,t_bool)"
+      },
+      "t_mapping(t_uint256,t_mapping(t_address,t_uint256))": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => mapping(address => uint256))",
+        "numberOfBytes": "32",
+        "value": "t_mapping(t_address,t_uint256)"
+      },
+      "t_mapping(t_uint256,t_mapping(t_uint256,t_bool))": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => mapping(uint256 => bool))",
+        "numberOfBytes": "32",
+        "value": "t_mapping(t_uint256,t_bool)"
+      },
+      "t_mapping(t_uint256,t_mapping(t_uint256,t_mapping(t_address,t_bool)))": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => mapping(uint256 => mapping(address => bool)))",
+        "numberOfBytes": "32",
+        "value": "t_mapping(t_uint256,t_mapping(t_address,t_bool))"
+      },
+      "t_mapping(t_uint256,t_mapping(t_uint256,t_mapping(t_address,t_uint256)))": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => mapping(uint256 => mapping(address => uint256)))",
+        "numberOfBytes": "32",
+        "value": "t_mapping(t_uint256,t_mapping(t_address,t_uint256))"
+      },
+      "t_mapping(t_uint256,t_struct(Loan)7062_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct ILoanManager.Loan)",
+        "numberOfBytes": "32",
+        "value": "t_struct(Loan)7062_storage"
+      },
+      "t_mapping(t_uint256,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_struct(Loan)7062_storage": {
+        "encoding": "inplace",
+        "label": "struct ILoanManager.Loan",
+        "members": [
+          {
+            "astId": 7046,
+            "contract": "contracts/LoanManager.sol:StormbitLoanManager",
+            "label": "borrower",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_address"
+          },
+          {
+            "astId": 7048,
+            "contract": "contracts/LoanManager.sol:StormbitLoanManager",
+            "label": "token",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_address"
+          },
+          {
+            "astId": 7050,
+            "contract": "contracts/LoanManager.sol:StormbitLoanManager",
+            "label": "repayAssets",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 7052,
+            "contract": "contracts/LoanManager.sol:StormbitLoanManager",
+            "label": "assetsRequired",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 7054,
+            "contract": "contracts/LoanManager.sol:StormbitLoanManager",
+            "label": "assetsAllocated",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 7056,
+            "contract": "contracts/LoanManager.sol:StormbitLoanManager",
+            "label": "sharesAllocated",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 7058,
+            "contract": "contracts/LoanManager.sol:StormbitLoanManager",
+            "label": "deadlineAllocate",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 7061,
+            "contract": "contracts/LoanManager.sol:StormbitLoanManager",
+            "label": "status",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_enum(LoanStatus)7044"
+          }
+        ],
+        "numberOfBytes": "256"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}
