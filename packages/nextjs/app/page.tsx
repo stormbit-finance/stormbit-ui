@@ -28,8 +28,8 @@ const Home: NextPage = () => {
               </div>
             </div>
           </section>
-          <section className="flex flex-col items-center justify-center lg:gap-20 w-full lg:h-[520px] lg:py-[150px] px-4 gap-5 lg:px-0 py-[100px]">
-            <div className="flex items-center flex-col-reverse justify-center w-full lg:gap-20 lg:flex-row gap-10">
+          <section className=" flex flex-col items-center justify-center lg:gap-20 w-full lg:h-[520px] lg:py-[150px] px-4 gap-5 lg:px-0 py-[100px]">
+            <div className="max-w-[1500px]  flex items-center flex-col-reverse justify-between w-full lg:gap-20 lg:flex-row gap-10">
               <div className="flex flex-col gap-2">
                 <span className="lg:text-start text-center px-8 text-lg text-white">About The</span>
                 <span className="lg:text-start text-center px-8 font-bold text-3xl text-white">Stormbit</span>
@@ -38,7 +38,7 @@ const Home: NextPage = () => {
                   systems with innovative cryptocurrency markets.
                 </span>
               </div>
-              <Image src="/asset-landing.svg" alt="icon" width={250} height={100} className="bg-transparent w-[40%] lg:w-[auto]" />
+              <Image src="/asset-landing.svg" alt="icon" width={200} height={50} className="bg-transparent w-[30%] " />
             </div>
           </section>
           <section className="flex flex-col items-center  py-[100px] lg:py-[150px] px-4 lg:px-0">
