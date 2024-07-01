@@ -12,6 +12,26 @@ import ModalContainer from "~~/components/ModalContainer/ModalContainer";
 
 // @ts-nocheck
 
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
+
 const Reclaim = () => {
   const providerData = useMemo(
     () => [
