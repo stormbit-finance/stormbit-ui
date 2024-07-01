@@ -1,67 +1,47 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import type { NextPage } from "next";
-import { FaDiscord } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
-import { PiTelegramLogo } from "react-icons/pi";
 import { Footer } from "~~/components/Footer";
 import GridBackground from "~~/components/GridBackground/GridBackground";
 import { dataTechnology } from "~~/data/data";
 
 const Home: NextPage = () => {
-  const dataSocial = [
-    {
-      name: "Twitter",
-      icon: <FaXTwitter className="w-[20px] h-[20px]" />,
-      link: "https://twitter.com/StormbitX",
-    },
-    {
-      name: "Discord",
-      icon: <FaDiscord className="w-[20px] h-[20px]" />,
-      link: "https://twitter.com/StormbitX",
-    },
-    {
-      name: "Telegram",
-      icon: <PiTelegramLogo className="w-[20px] h-[20px]" />,
-      link: "https://twitter.com/StormbitX",
-    },
-  ];
+
   return (
     <>
-      <div>
-        <div className="flex flex-col lg:gap-20 bg-landing gap-10">
+      <div className="bg-[#070817] pt-[100px] ">
+        <div className="flex flex-col lg:gap-20 mb-[250px] bg-landing gap-10">
           <section className="flex items-center justify-center lg:py-[150px] relative py-[30px] ">
             <GridBackground numRows={9} numCols={30} />
             <div className="lg:max-w-[1920px] flex items-center flex-col justify-center w-full ">
               <div className="lg:flex-row items-center lg:justify-around w-full px-4 justify-center flex flex-col">
                 <div className="flex flex-col justify-center items-center">
                   <div>
-                    <span className="font-bold text-white lg:text-8xl text-3xl">Storm</span>
-                    <span className="font-bold lg:text-8xl text-gradient text-3xl">bit.</span>
+                    <span className="font-bold text-white lg:text-8xl  text-4xl">Storm</span>
+                    <span className="font-bold  text-gradient  lg:text-8xl text-4xl">bit.</span>
                   </div>
                   <div className="max-w-[600px] w-full my-2">
-                    <p className="lg:text-3xl text-[#B5B5B5] text-lg m-0">First p2p incentivized lending protocol.</p>
+                    <p className="lg:text-start text-center text-xl lg:text-3xl text-[#B5B5B5]  m-0">First p2p incentivized lending protocol.</p>
                   </div>
                 </div>
               </div>
             </div>
           </section>
-          <section className="flex flex-col items-center justify-center lg:gap-20 w-full lg:h-[520px] lg:py-[150px] px-4 gap-5 lg:px-0 py-[60px]">
-            <div className="flex items-center flex-col-reverse justify-center w-full lg:gap-36 lg:flex-row gap-5">
+          <section className="flex flex-col items-center justify-center lg:gap-20 w-full lg:h-[520px] lg:py-[150px] px-4 gap-5 lg:px-0 py-[100px]">
+            <div className="flex items-center flex-col-reverse justify-center w-full lg:gap-20 lg:flex-row gap-10">
               <div className="flex flex-col gap-2">
-                <span className="px-8 text-lg text-white">About The</span>
-                <span className="px-8 font-bold text-4xl text-white">Stormbit</span>
-                <span className="max-w-[770px] w-full text-white text-lg lg:text-start text-center px-8">
+                <span className="lg:text-start text-center px-8 text-lg text-white">About The</span>
+                <span className="lg:text-start text-center px-8 font-bold text-3xl text-white">Stormbit</span>
+                <span className="max-w-[770px] w-full text-white  text-sm lg:text-lg lg:text-start text-center px-8">
                   Stormbit is an advanced peer-to-peer lending platform that seamlessly integrates traditional financial
                   systems with innovative cryptocurrency markets.
                 </span>
               </div>
-              <Image src="/asset-landing.png" alt="icon" width={250} height={100} className="lg:w-[510px]" />
+              <Image src="/asset-landing.svg" alt="icon" width={250} height={100} className="bg-transparent w-[40%] lg:w-[auto]" />
             </div>
           </section>
-          <section className="flex flex-col items-center lg:py-[150px] px-4 lg:px-0">
+          <section className="flex flex-col items-center  py-[100px] lg:py-[150px] px-4 lg:px-0">
             <div className="max-w-[1920px] w-full flex-col flex items-center gap-[20px]">
               <h2 className="lg:text-5xl text-white text-2xl">Core Technology</h2>
               <div className="flex flex-wrap justify-center lg:gap-20  gap-10 max-w-[1400px] mx-auto lg:pt-[80px] pt-[20px]">
@@ -83,52 +63,28 @@ const Home: NextPage = () => {
             </div>
           </section>
 
-          <section className="flex flex-col items-center lg:mb-40 mb-10">
-            <div className="max-w-[1400px] w-full flex flex-col items-center justify-center gap-10">
-              <span className="lg:text-5xl text-white text-2xl lg:mb-28">Join Our Community</span>
-              <div className="flex max-w-[1400px] w-full justify-between flex-col-reverse lg:flex-row px-4">
-                <div className="flex flex-col justify-between">
-                  <div className="flex items-center gap-5 lg:justify-start justify-center">
-                    <Image src="/clock.png" alt="clock" width={55} height={55} />
-                    <span className="lg:text-5xl text-white text-2xl">Keep Updated</span>
-                  </div>
-                  <span className="lg:text-3xl text-white text-xl lg:max-w-[500px] text-center lg:text-start py-4">
-                    “ Join our community to get updates on new products and features! ”
-                  </span>
-                  <div className="flex lg:gap-6 lg:flex-row flex-col items-center gap-3">
-                    <input
-                      type="text"
-                      placeholder="Enter your email address"
-                      className="rounded-[9px] border-[#3C3D5B] border py-5 px-4 focus:outline-none bg-transparent lg:max-w-[366px] max-w-[300px]"
-                    />
-                    <button className="bg-[#1D1E2F] rounded-[9px] text-white text-xl lg:py-5 lg:px-10 py-2 px-5 ">
-                      Subscribe
-                    </button>
-                  </div>
-                </div>
-                <div className="flex flex-col items-center lg:items-start pb-10 lg:pb-0">
-                  <div className="flex items-center gap-5 lg:mb-14 pb-4 ">
-                    <Image src="/chat1.png" alt="clock" width={38} height={38} />
-                    <span className="lg:text-5xl text-white text-2xl ">Social</span>
-                  </div>
-                  <div className="flex flex-col gap-4">
-                    {dataSocial.map(element => (
-                      <>
-                        <Link
-                          href={element.link}
-                          passHref
-                          target="_blank"
-                          className="py-5 bg-[#1D1E2FD1] lg:text-xl text-lg text-white flex gap-6 pl-5 rounded-[9px] items-center lg:w-[478px] w-[200px]"
-                        >
-                          {element.icon}
-                          <span>{element.name}</span>
-                        </Link>
-                      </>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
+          <section className="relative flex items-center lg:py-[150px]  pt-[100px]  px-4 lg:px-0">
+          <Image src="/reclaim-background.png" alt="icon" width={1500} height={1500} className=" absolute top-[50%] left-[50%] translate-x-[-50%]" /> 
+          <div className="z-40 max-w-[1920px] w-full flex-col justify-center flex items-center gap-[20px]">
+          <h2 className="lg:text-5xl text-white text-2xl">Reclaim Protocol</h2>
+          <div className="max-w-[1200px] text-white text-center text-sm lg:text-lg">
+          Reclaim Protocol creates digital signatures, known as zero knowledge proof, of users' identity and reputation on any website. These digital signatures are computed completely on the client side. Meaning, it is private and secure. When the user shares this proof with your app, you can be certain that its authenticity and integrity haven't been compromised.
+          </div>
+          <div className="lg:pt-[80px] pt-[20px] grid grid-rows-2 gap-5 ">
+          <div className="text-sm lg:text-lg text-white grid justify-center  grid-cols-2 gap-10">
+            <div className="flex gap-5"> <Image src="/checkmark.svg" alt="icon" width={20} height={20} className="" /> Onboarding and Loyalty</div>
+            <div className="flex gap-5"> <Image src="/checkmark.svg" alt="icon" width={20} height={20} className="" />  KYC</div>
+          </div>
+          <div className="text-sm lg:text-lg text-white grid justify-center grid-cols-2 gap-10">
+            <div className="flex gap-5"> <Image src="/checkmark.svg" alt="icon" width={20} height={20} className="" /> Onchain Attestations</div>
+            <div className="flex gap-5"> <Image src="/checkmark.svg" alt="icon" width={20} height={20} className="" />  Proof of Personhood</div>
+          </div>
+          </div>
+  
+
+          </div>
+
+
           </section>
         </div>
         <Footer />

@@ -76,7 +76,6 @@ export const HeaderMenuLinks: React.FC<HeaderMenuLinksProps> = ({ showLinks }) =
  * Site header
  */
 export const Header = () => {
-  const pathname = usePathname();
   const router = useRouter();
   const [showMenuLinks, setShowMenuLinks] = useState(false);
 
@@ -86,10 +85,10 @@ export const Header = () => {
   };
 
   return (
-    <>
-      <div className="z-10 w-full shadow-md bg-header">
-        <div className="flex items-center justify-center">
-          <div className="flex justify-between items-center min-h-0 lg:p-6 text-white lg:static navbar sm:px-2 max-w-[1920px] w-full p-2">
+  
+      <div className="h-[50px] lg:h-[100px] absolute top-0 z-40  w-full backdrop-blur-lg transition-colors duration-500 bg-[#f8fafc0f]/5">
+     
+          <div className="flex justify-between items-center min-h-0 lg:py-2 lg:px-6 text-white lg:static navbar sm:px-2 max-w-[1920px] w-full p-2">
             <div className="flex gap-3 items-center">
               <Link href="/" passHref className="flex ml-4 mr-6">
                 <div>
@@ -108,8 +107,8 @@ export const Header = () => {
               <FaucetButton />
             </div>
           </div>
-        </div>
+     
       </div>
-    </>
+
   );
 };

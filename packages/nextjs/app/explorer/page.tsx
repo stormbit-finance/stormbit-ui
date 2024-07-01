@@ -12,7 +12,7 @@ function Page() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-[500px]">
+    <div className="pt-[100px] flex items-center justify-center min-h-[500px]">
       {!showResults && (
         <div className="w-[900px] text-white p-16 flex flex-col items-center gap-4">
           <h1 className="text-3xl font-bold">Stormbit Explorer</h1>
