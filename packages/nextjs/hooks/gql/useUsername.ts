@@ -8,7 +8,7 @@ const useUsername = (address: string | undefined) => {
   });
 
   return {
-    username: data?.user.username,
+    username: data?.user?.username,
     loading,
     error,
   };
