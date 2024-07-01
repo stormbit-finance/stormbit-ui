@@ -1,208 +1,99 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
-import { Address, DeployFunction } from "hardhat-deploy/types";
-import { AbiCoder, Contract, parseEther } from "ethers";
-import { time } from "@nomicfoundation/hardhat-network-helpers";
-import { network } from "hardhat";
+import { DeployFunction } from "hardhat-deploy/types";
+import { ethers } from "hardhat";
+import { StormbitAssetManager, StormbitLendingManager, StormbitLoanManager } from "../typechain-types";
 
-function sleep(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-/**
- * Deploys a contract named "YourContract" using the deployer account and
- * constructor arguments set to the deployer address
- *
- * @param hre HardhatRuntimeEnvironment object.
- */
-const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
-  /*
-    On localhost, the deployer account is the one that comes with Hardhat, which is already funded.
-
-    When deploying to live networks (e.g `yarn deploy --network goerli`), the deployer account
-    should have sufficient balance to pay for the gas fees for contract creation.
-
-    You can generate a random account with `yarn generate` which will fill DEPLOYER_PRIVATE_KEY
-    with a random private key in the .env file (then used on hardhat.config.ts)
-    You can run the `yarn account` command to check your balance in every network.
-  */
-  const { deployer, lender, borrower } = await hre.getNamedAccounts();
+const deployStormbitContracts: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
+  const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
-  const VOTING_POWER_COOLDOWN = 1;
 
-  await deploy("tDAI", {
+  console.log("Deploying contracts with the account:", deployer);
+
+  // Deploy StormbitRegistry
+  const stormbitRegistryDeployment = await deploy("StormbitRegistry", {
     from: deployer,
-    contract: "MockToken",
-    args: [],
+    args: [deployer],
     log: true,
-    autoMine: true,
   });
+  const registryAddress = stormbitRegistryDeployment.address;
+  console.log("StormbitRegistry deployed to:", registryAddress);
 
-  await deploy("tBTC", {
+  // Deploy MockTokens
+  const mockUsdtDeployment = await deploy("MockToken", {
     from: deployer,
-    contract: "MockToken",
-    args: [],
+    args: ["USD Tether", "USDT"],
     log: true,
-    autoMine: true,
   });
+  const mockUsdtAddress = mockUsdtDeployment.address;
+  console.log("MockUsdt deployed to:", mockUsdtAddress);
 
-  await deploy("tETH", {
+  const mockDaiDeployment = await deploy("MockToken", {
     from: deployer,
-    contract: "MockToken",
-    args: [],
+    args: ["Dai Stablecoin", "DAI"],
     log: true,
-    autoMine: true,
   });
+  const mockDaiAddress = mockDaiDeployment.address;
+  console.log("MockDai deployed to:", mockDaiAddress);
 
-  // this is for testing purposes
-  const devTeamAddress = [deployer, lender, borrower];
-  let MockToken = await hre.ethers.getContract<Contract>("tDAI", deployer);
-
-  console.log("minting tokens to devTeam adddresses : ", devTeamAddress);
-  let tx;
-  for (let i = 0; i < devTeamAddress.length; i++) {
-    tx = await MockToken.mint(devTeamAddress[i], parseEther("1000000"));
-    await tx.wait();
-  }
-
-  console.log("tokens minted");
-
-  const dSimpleAgreement = await deploy("SimpleAgreement", {
+  const mockUsdcDeployment = await deploy("MockToken", {
     from: deployer,
-    args: [],
+    args: ["USD Coin", "USDC"],
     log: true,
-    autoMine: true,
   });
+  const mockUsdcAddress = mockUsdcDeployment.address;
+  console.log("MockUsdc deployed to:", mockUsdcAddress);
 
-  // deploy StormBit lending implementation
-  await deploy("StormBitLending", {
+  // Deploy Stormbit Managers
+  const assetManagerDeployment = await deploy("StormbitAssetManager", {
     from: deployer,
-    args: [],
+    args: [deployer],
     log: true,
-    autoMine: true,
   });
-  const StormBitLendingImplementation = await hre.ethers.getContract<Contract>("StormBitLending", deployer);
+  const assetManagerAddress = assetManagerDeployment.address;
+  console.log("StormbitAssetManager deployed to:", assetManagerAddress);
 
-  await deploy("StormBitLendingVotes", {
+  const lendingManagerDeployment = await deploy("StormbitLendingManager", {
     from: deployer,
-    args: [],
+    args: [deployer],
     log: true,
-    autoMine: true,
   });
-  const StormBitLendingVotesImplementation = await hre.ethers.getContract<Contract>("StormBitLendingVotes", deployer);
+  const lendingManagerAddress = lendingManagerDeployment.address;
+  console.log("StormbitLendingManager deployed to:", lendingManagerAddress);
 
-  // deploy StormBit Core
-  await deploy("StormBitCore", {
+  const loanManagerDeployment = await deploy("StormbitLoanManager", {
     from: deployer,
-    args: [deployer, StormBitLendingImplementation.target, StormBitLendingVotesImplementation.target],
+    args: [deployer],
     log: true,
-    autoMine: true,
   });
+  const loanManagerAddress = loanManagerDeployment.address;
+  console.log("StormbitLoanManager deployed to:", loanManagerAddress);
 
-  await deploy("StormBitCore", {
-    from: deployer,
-    args: [deployer, StormBitLendingImplementation.target, StormBitLendingVotesImplementation.target],
-    log: true,
-    autoMine: true,
-  });
+  // Initialize Managers
+  const assetManager = (await ethers.getContractAt(
+    "StormbitAssetManager",
+    assetManagerAddress,
+  )) as unknown as StormbitAssetManager;
+  const lendingManager = (await ethers.getContractAt(
+    "StormbitLendingManager",
+    lendingManagerAddress,
+  )) as unknown as StormbitLendingManager;
+  const loanManager = (await ethers.getContractAt(
+    "StormbitLoanManager",
+    loanManagerAddress,
+  )) as unknown as StormbitLoanManager;
 
-  const StormBitCore = await hre.ethers.getContract<Contract>("StormBitCore", deployer);
-  await MockToken.approve(StormBitCore.target, parseEther("5000"));
-  tx = await StormBitCore.createPool({
-    name: "Cheap Lending Q3 Labs Pool",
-    creditScore: 0,
-    maxAmountOfStakers: 10,
-    votingQuorum: 75,
-    maxPoolUsage: 100,
-    votingPowerCoolDown: VOTING_POWER_COOLDOWN,
-    initAmount: parseEther("5000"),
-    initToken: MockToken.target,
-    supportedAssets: [MockToken.target],
-    supportedAgreements: [dSimpleAgreement.address],
-  });
-  const receipt = await tx.wait();
-  const logs = receipt.logs;
-  const poolAddr = `0x${logs[logs.length - 1].topics[1].slice(26)}`;
-  console.log("created pool at : ", poolAddr);
+  await assetManager.initialize(loanManagerAddress, lendingManagerAddress);
+  await lendingManager.initialize(assetManagerAddress, loanManagerAddress);
+  await loanManager.initialize(assetManagerAddress, lendingManagerAddress);
 
-  console.log("Created pool");
+  // Add supported tokens to AssetManager
+  await assetManager.addToken(mockUsdtAddress);
+  await assetManager.addToken(mockDaiAddress);
+  await assetManager.addToken(mockUsdcAddress);
 
-  // wait for one block to be mined
-  console.log("waiting for new block");
-  let block = await hre.ethers.provider.getBlock("latest");
-  let newBlock = block;
-  while (block?.number == newBlock?.number) {
-    await sleep(1000);
-    newBlock = await hre.ethers.provider.getBlock("latest");
-  }
-  console.log("new block mined");
-  // a user supplies account
-  let lendingPool = await hre.ethers.getContractAtWithSignerAddress<Contract>(
-    "StormBitLending",
-    poolAddr as Address,
-    lender,
-  );
-
-  MockToken = await hre.ethers.getContract<Contract>("tDAI", lender);
-  await MockToken.approve(lendingPool.target, parseEther("1000"));
-  await lendingPool.stake(MockToken.target, parseEther("1000"));
-  console.log("Lender staked on pool");
-
-  lendingPool = await hre.ethers.getContractAtWithSignerAddress<Contract>(
-    "StormBitLending",
-    poolAddr as Address,
-    borrower,
-  );
-
-  const abiCoder = AbiCoder.defaultAbiCoder();
-
-  // // get block timestamp
-  block = await hre.ethers.provider.getBlock("latest");
-  const thirtydaysInSeconds = 30 * 24 * 60 * 60;
-  const sixtydaysInSeconds = 60 * 24 * 60 * 60;
-
-  const amounts = [parseEther("550"), parseEther("550")];
-  const times = [block!.timestamp + thirtydaysInSeconds, block!.timestamp + sixtydaysInSeconds];
-
-  await lendingPool.requestLoan({
-    amount: parseEther("1000"),
-    token: MockToken.target,
-    agreement: dSimpleAgreement.address,
-    agreementCalldata: abiCoder.encode(
-      ["uint256", "address", "address", "uint256[]", "uint256[]"],
-      [parseEther("1000"), borrower, MockToken.target, amounts, times],
-    ),
-  });
-
-  console.log("Loan requested");
-
-  console.log("waiting for new block");
-  block = await hre.ethers.provider.getBlock("latest");
-  newBlock = block;
-  while (block?.number == newBlock?.number) {
-    await sleep(2000);
-    newBlock = await hre.ethers.provider.getBlock("latest");
-  }
-  console.log("new block mined");
-
-  if (network.name === "localhost") {
-    await time.increase(VOTING_POWER_COOLDOWN + 2);
-
-    const votingPowerDeployer = lendingPool.getVotingPower(deployer);
-    const votingPowerLender = lendingPool.getVotingPower(lender);
-
-    console.log("Voting power deployer", (await votingPowerDeployer).toString());
-    console.log("Voting power lender", (await votingPowerLender).toString());
-  } else {
-    const votingPowerDeployer = lendingPool.getVotingPower(deployer);
-    const votingPowerLender = lendingPool.getVotingPower(lender);
-
-    console.log("Voting power deployer", (await votingPowerDeployer).toString());
-    console.log("Voting power lender", (await votingPowerLender).toString());
-  }
+  console.log("Deployment and initialization complete.");
 };
 
-export default deployYourContract;
+export default deployStormbitContracts;
 
-// Tags are useful if you have multiple deploy files and only want to run one of them.
-// e.g. yarn deploy --tags YourContract
-deployYourContract.tags = ["AllContracts"];
+deployStormbitContracts.tags = ["Stormbit"];
