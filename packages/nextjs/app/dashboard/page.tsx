@@ -13,7 +13,6 @@ function Page() {
   const account = useAccount();
   const { username } = useUsername(account.address);
 
-  console.log("debugging username");
   console.log(username);
   return (
     <div className="flex flex-col gap-10 py-10 px-14">
