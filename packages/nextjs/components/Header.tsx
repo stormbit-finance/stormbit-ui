@@ -81,7 +81,7 @@ export const Header = () => {
 
   const handleConnectSuccess = () => {
     setShowMenuLinks(true);
-    router.push("/dashboard");
+    router.push("/explorer");
   };
 
   return (

@@ -17,7 +17,7 @@ function Page() {
         <div className="w-[900px] text-white p-16 flex flex-col items-center gap-4">
           <h1 className="text-3xl font-bold">Stormbit Explorer</h1>
           <div className="flex flex-col">
-            <div className="border border-solid border-[#374B6D] rounded-[7px] w-[760px] flex justify-between h-[47px] items-center mb-6">
+            <div className="border border-solid border-[#6C757D] rounded-[7px] w-[760px] flex justify-between h-[47px] items-center mb-6">
               <input
                 type="text"
                 className="bg-transparent border-none focus:outline-none w-[680px] px-4"

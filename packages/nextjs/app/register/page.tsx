@@ -2,27 +2,37 @@
 
 import Link from "next/link";
 import Button from "~~/components/Button/Button";
+import React, { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
 function Page() {
+  const router = useRouter();
+
+  const [username, setUsername] = useState("");
+  const handleRegister = () =>{
+    router.push("/explorer")
+  }
   return (
-    <div className="pt-[100px] flex items-center justify-center min-h-[900px]">
-      <div className="w-[900px] rounded-[5px] bg-[#16182E] text-white p-16 flex flex-col gap-4">
-        <h1 className="text-4xl font-bold">Create your Account</h1>
-        <div>
-          <span>Already have an account? </span>
-          <Link href="/login" className="text-[#9135F5]">
-            Login here
-          </Link>
+    <div className="pt-[100px] flex items-center justify-center min-h-[900px] text-white">
+        <div className="w-max-[900px] text-white p-16 flex flex-col items-center gap-4">
+        <h1 className="text-3xl font-bold mb-10 ">Register</h1>
+        <div className="mb-20 border border-solid border-[#6C757D] rounded-[7px]  flex justify-between h-[47px] items-center">
+              <input
+                type="text"
+                placeholder="Enter username"
+                className="bg-transparent border-none focus:outline-none w-[680px] px-4"
+                value={username}
+                onChange={e => setUsername(e.target.value)}
+              />
+              <div className="text-white flex justify-center items-center px-20 h-[47px] border-l border-[#6C757D] rounded-r-[8px] " >
+                .stormbit
+              </div>
         </div>
-        <div className="flex flex-col">
-          <span className="mb-2">Stormbit ID</span>
-          <div className="border border-solid border-[#374B6D] rounded-[7px] w-[760px] flex justify-between h-[47px] items-center mb-6">
-            <input type="text" className="bg-transparent border-none focus:outline-none w-[680px] px-4"></input>
-            <span className=" border-s border-[#374B6D] px-4">.stormbit</span>
-          </div>
-          <Button>Register</Button>
+        <button onClick={handleRegister} className="bg-[#D0C8FF] py-4 w-full text-black rounded-[7px]">Register</button>
+        <button className="border border-[#D0C8FF] py-4 w-full text-[#D0C8FF] rounded-[7px]">Cancel</button>
+
         </div>
-      </div>
+
     </div>
   );
 }
