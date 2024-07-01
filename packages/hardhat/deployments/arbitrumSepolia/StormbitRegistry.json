@@ -1,0 +1,194 @@
+{
+  "address": "0xB45dbe61e39189a9cc1E553e031b423A0e0cD222",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "initialGovernor",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidInitialization",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotInitializing",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint64",
+          "name": "version",
+          "type": "uint64"
+        }
+      ],
+      "name": "Initialized",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "username",
+          "type": "string"
+        }
+      ],
+      "name": "Registered",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "governor",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_username",
+          "type": "string"
+        }
+      ],
+      "name": "register",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "usernames",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xc90adfdfc26498e84e27fd3de6061c89db39bda5e81b8cf2c3508c1049663d17",
+  "receipt": {
+    "to": null,
+    "from": "0xDe3089d40F3491De794fBb1ECA109fAc36F889d0",
+    "contractAddress": "0xB45dbe61e39189a9cc1E553e031b423A0e0cD222",
+    "transactionIndex": 1,
+    "gasUsed": "738039",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x259431bbe2057b6548f50f51021522709a0eb44fa57375947d9b6a086dcfe737",
+    "transactionHash": "0xc90adfdfc26498e84e27fd3de6061c89db39bda5e81b8cf2c3508c1049663d17",
+    "logs": [],
+    "blockNumber": 59963923,
+    "cumulativeGasUsed": "738039",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0xDe3089d40F3491De794fBb1ECA109fAc36F889d0"
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "fc88f2785a8cc64f484af0517b95c10f",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.21+commit.d9974bed\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"initialGovernor\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"InvalidInitialization\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotInitializing\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"version\",\"type\":\"uint64\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"username\",\"type\":\"string\"}],\"name\":\"Registered\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"governor\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_username\",\"type\":\"string\"}],\"name\":\"register\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"usernames\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"Think of terms are minimal ERC4626, this contract is using word \\\"shares\\\" to represent ERC4626 assets, and \\\"weight\\\" to represent ERC4626 shares\",\"errors\":{\"InvalidInitialization()\":[{\"details\":\"The contract is already initialized.\"}],\"NotInitializing()\":[{\"details\":\"The contract is not initializing.\"}]},\"events\":{\"Initialized(uint64)\":{\"details\":\"Triggered when the contract has been initialized or reinitialized.\"}},\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/StormbitRegistry.sol\":\"StormbitRegistry\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":5},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/proxy/utils/Initializable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (proxy/utils/Initializable.sol)\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev This is a base contract to aid in writing upgradeable contracts, or any kind of contract that will be deployed\\n * behind a proxy. Since proxied contracts do not make use of a constructor, it's common to move constructor logic to an\\n * external initializer function, usually called `initialize`. It then becomes necessary to protect this initializer\\n * function so it can only be called once. The {initializer} modifier provided by this contract will have this effect.\\n *\\n * The initialization functions use a version number. Once a version number is used, it is consumed and cannot be\\n * reused. This mechanism prevents re-execution of each \\\"step\\\" but allows the creation of new initialization steps in\\n * case an upgrade adds a module that needs to be initialized.\\n *\\n * For example:\\n *\\n * [.hljs-theme-light.nopadding]\\n * ```solidity\\n * contract MyToken is ERC20Upgradeable {\\n *     function initialize() initializer public {\\n *         __ERC20_init(\\\"MyToken\\\", \\\"MTK\\\");\\n *     }\\n * }\\n *\\n * contract MyTokenV2 is MyToken, ERC20PermitUpgradeable {\\n *     function initializeV2() reinitializer(2) public {\\n *         __ERC20Permit_init(\\\"MyToken\\\");\\n *     }\\n * }\\n * ```\\n *\\n * TIP: To avoid leaving the proxy in an uninitialized state, the initializer function should be called as early as\\n * possible by providing the encoded function call as the `_data` argument to {ERC1967Proxy-constructor}.\\n *\\n * CAUTION: When used with inheritance, manual care must be taken to not invoke a parent initializer twice, or to ensure\\n * that all initializers are idempotent. This is not verified automatically as constructors are by Solidity.\\n *\\n * [CAUTION]\\n * ====\\n * Avoid leaving a contract uninitialized.\\n *\\n * An uninitialized contract can be taken over by an attacker. This applies to both a proxy and its implementation\\n * contract, which may impact the proxy. To prevent the implementation contract from being used, you should invoke\\n * the {_disableInitializers} function in the constructor to automatically lock it when it is deployed:\\n *\\n * [.hljs-theme-light.nopadding]\\n * ```\\n * /// @custom:oz-upgrades-unsafe-allow constructor\\n * constructor() {\\n *     _disableInitializers();\\n * }\\n * ```\\n * ====\\n */\\nabstract contract Initializable {\\n    /**\\n     * @dev Storage of the initializable contract.\\n     *\\n     * It's implemented on a custom ERC-7201 namespace to reduce the risk of storage collisions\\n     * when using with upgradeable contracts.\\n     *\\n     * @custom:storage-location erc7201:openzeppelin.storage.Initializable\\n     */\\n    struct InitializableStorage {\\n        /**\\n         * @dev Indicates that the contract has been initialized.\\n         */\\n        uint64 _initialized;\\n        /**\\n         * @dev Indicates that the contract is in the process of being initialized.\\n         */\\n        bool _initializing;\\n    }\\n\\n    // keccak256(abi.encode(uint256(keccak256(\\\"openzeppelin.storage.Initializable\\\")) - 1)) & ~bytes32(uint256(0xff))\\n    bytes32 private constant INITIALIZABLE_STORAGE = 0xf0c57e16840df040f15088dc2f81fe391c3923bec73e23a9662efc9c229c6a00;\\n\\n    /**\\n     * @dev The contract is already initialized.\\n     */\\n    error InvalidInitialization();\\n\\n    /**\\n     * @dev The contract is not initializing.\\n     */\\n    error NotInitializing();\\n\\n    /**\\n     * @dev Triggered when the contract has been initialized or reinitialized.\\n     */\\n    event Initialized(uint64 version);\\n\\n    /**\\n     * @dev A modifier that defines a protected initializer function that can be invoked at most once. In its scope,\\n     * `onlyInitializing` functions can be used to initialize parent contracts.\\n     *\\n     * Similar to `reinitializer(1)`, except that in the context of a constructor an `initializer` may be invoked any\\n     * number of times. This behavior in the constructor can be useful during testing and is not expected to be used in\\n     * production.\\n     *\\n     * Emits an {Initialized} event.\\n     */\\n    modifier initializer() {\\n        // solhint-disable-next-line var-name-mixedcase\\n        InitializableStorage storage $ = _getInitializableStorage();\\n\\n        // Cache values to avoid duplicated sloads\\n        bool isTopLevelCall = !$._initializing;\\n        uint64 initialized = $._initialized;\\n\\n        // Allowed calls:\\n        // - initialSetup: the contract is not in the initializing state and no previous version was\\n        //                 initialized\\n        // - construction: the contract is initialized at version 1 (no reininitialization) and the\\n        //                 current contract is just being deployed\\n        bool initialSetup = initialized == 0 && isTopLevelCall;\\n        bool construction = initialized == 1 && address(this).code.length == 0;\\n\\n        if (!initialSetup && !construction) {\\n            revert InvalidInitialization();\\n        }\\n        $._initialized = 1;\\n        if (isTopLevelCall) {\\n            $._initializing = true;\\n        }\\n        _;\\n        if (isTopLevelCall) {\\n            $._initializing = false;\\n            emit Initialized(1);\\n        }\\n    }\\n\\n    /**\\n     * @dev A modifier that defines a protected reinitializer function that can be invoked at most once, and only if the\\n     * contract hasn't been initialized to a greater version before. In its scope, `onlyInitializing` functions can be\\n     * used to initialize parent contracts.\\n     *\\n     * A reinitializer may be used after the original initialization step. This is essential to configure modules that\\n     * are added through upgrades and that require initialization.\\n     *\\n     * When `version` is 1, this modifier is similar to `initializer`, except that functions marked with `reinitializer`\\n     * cannot be nested. If one is invoked in the context of another, execution will revert.\\n     *\\n     * Note that versions can jump in increments greater than 1; this implies that if multiple reinitializers coexist in\\n     * a contract, executing them in the right order is up to the developer or operator.\\n     *\\n     * WARNING: Setting the version to 2**64 - 1 will prevent any future reinitialization.\\n     *\\n     * Emits an {Initialized} event.\\n     */\\n    modifier reinitializer(uint64 version) {\\n        // solhint-disable-next-line var-name-mixedcase\\n        InitializableStorage storage $ = _getInitializableStorage();\\n\\n        if ($._initializing || $._initialized >= version) {\\n            revert InvalidInitialization();\\n        }\\n        $._initialized = version;\\n        $._initializing = true;\\n        _;\\n        $._initializing = false;\\n        emit Initialized(version);\\n    }\\n\\n    /**\\n     * @dev Modifier to protect an initialization function so that it can only be invoked by functions with the\\n     * {initializer} and {reinitializer} modifiers, directly or indirectly.\\n     */\\n    modifier onlyInitializing() {\\n        _checkInitializing();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Reverts if the contract is not in an initializing state. See {onlyInitializing}.\\n     */\\n    function _checkInitializing() internal view virtual {\\n        if (!_isInitializing()) {\\n            revert NotInitializing();\\n        }\\n    }\\n\\n    /**\\n     * @dev Locks the contract, preventing any future reinitialization. This cannot be part of an initializer call.\\n     * Calling this in the constructor of a contract will prevent that contract from being initialized or reinitialized\\n     * to any version. It is recommended to use this to lock implementation contracts that are designed to be called\\n     * through proxies.\\n     *\\n     * Emits an {Initialized} event the first time it is successfully executed.\\n     */\\n    function _disableInitializers() internal virtual {\\n        // solhint-disable-next-line var-name-mixedcase\\n        InitializableStorage storage $ = _getInitializableStorage();\\n\\n        if ($._initializing) {\\n            revert InvalidInitialization();\\n        }\\n        if ($._initialized != type(uint64).max) {\\n            $._initialized = type(uint64).max;\\n            emit Initialized(type(uint64).max);\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the highest version that has been initialized. See {reinitializer}.\\n     */\\n    function _getInitializedVersion() internal view returns (uint64) {\\n        return _getInitializableStorage()._initialized;\\n    }\\n\\n    /**\\n     * @dev Returns `true` if the contract is currently initializing. See {onlyInitializing}.\\n     */\\n    function _isInitializing() internal view returns (bool) {\\n        return _getInitializableStorage()._initializing;\\n    }\\n\\n    /**\\n     * @dev Returns a pointer to the storage namespace.\\n     */\\n    // solhint-disable-next-line var-name-mixedcase\\n    function _getInitializableStorage() private pure returns (InitializableStorage storage $) {\\n        assembly {\\n            $.slot := INITIALIZABLE_STORAGE\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0x631188737069917d2f909d29ce62c4d48611d326686ba6683e26b72a23bfac0b\",\"license\":\"MIT\"},\"contracts/StormbitRegistry.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.21;\\n\\nimport {Initializable} from \\\"@openzeppelin/contracts/proxy/utils/Initializable.sol\\\";\\nimport {IGovernable} from \\\"./interfaces/utils/IGovernable.sol\\\";\\nimport {IInitialize} from \\\"./interfaces/utils/IInitialize.sol\\\";\\nimport {IStormbitRegistry} from \\\"./interfaces/IStormbitRegistry.sol\\\";\\n\\n/// @author Quantum3 Labs\\n/// @title Stormbit Lending Manager\\n/// @notice entrypoint for all lender and lending terms operations\\n\\n/// @dev Think of terms are minimal ERC4626, this contract is using word \\\"shares\\\" to represent ERC4626 assets, and \\\"weight\\\" to represent ERC4626 shares\\ncontract StormbitRegistry is Initializable, IGovernable, IStormbitRegistry {\\n    address private _governor;\\n\\n    mapping(address => string) public usernames;\\n\\n    constructor(address initialGovernor) {\\n        _governor = initialGovernor;\\n    }\\n\\n    function governor() public view override returns (address) {\\n        return _governor;\\n    }\\n\\n    function register(string memory _username) external override {\\n        require(bytes(usernames[msg.sender]).length == 0, \\\"StormbitRegistry: user already registered\\\");\\n        require(bytes(_username).length > 0, \\\"StormbitRegistry: username is empty\\\");\\n\\n        usernames[msg.sender] = _username;\\n\\n        emit Registered(msg.sender, _username);\\n    }\\n}\\n\",\"keccak256\":\"0x489ceaf9bc5d4f061faac3e4aab4fcafe9f41fee7b6828d8cafeef53333aa8f5\",\"license\":\"MIT\"},\"contracts/interfaces/IStormbitRegistry.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.21;\\n\\n/// @author Quantum3 Labs\\n/// @title Stormbit Registry Interface\\ninterface IStormbitRegistry {\\n    event Registered(address indexed user, string username);\\n\\n    function register(string memory) external;\\n}\\n\",\"keccak256\":\"0x8bc27358d8a95ca0e86e880246f2f62e908920cd1c224fb58e846ddbb1770671\",\"license\":\"MIT\"},\"contracts/interfaces/utils/IGovernable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.21;\\n\\n/// @author Quantum3 Labs\\n/// @title Stormbit Admin Interface\\n/// TODO split into different interfaces according to funcionality\\ninterface IGovernable {\\n    function governor() external view returns (address);\\n}\\n\",\"keccak256\":\"0xa7f16dd2484971a7082382378ab66a44708776e53551b6a490cd170ee7783284\",\"license\":\"MIT\"},\"contracts/interfaces/utils/IInitialize.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.21;\\n\\n/// @author Quantum3 Labs\\n/// @title Stormbit Initialize Interface\\ninterface IInitialize {\\n    function initialize(address loanManagerAddr, address lendingManagerAddr) external;\\n}\\n\",\"keccak256\":\"0x796f82f96c1b1bd5db3ed804417c14ba8abc4586eac468463a57aae74a8448c2\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b506040516105c53803806105c583398101604081905261002f91610054565b600080546001600160a01b0319166001600160a01b0392909216919091179055610084565b60006020828403121561006657600080fd5b81516001600160a01b038116811461007d57600080fd5b9392505050565b610532806100936000396000f3fe608060405234801561001057600080fd5b50600436106100415760003560e01c80630c340a2414610046578063ee91877c14610066578063f2c298be14610086575b600080fd5b6000546040516001600160a01b0390911681526020015b60405180910390f35b610079610074366004610270565b61009b565b60405161005d91906102a0565b610099610094366004610304565b610135565b005b600160205260009081526040902080546100b4906103b4565b80601f01602080910402602001604051908101604052809291908181526020018280546100e0906103b4565b801561012d5780601f106101025761010080835404028352916020019161012d565b820191906000526020600020905b81548152906001019060200180831161011057829003601f168201915b505050505081565b336000908152600160205260409020805461014f906103b4565b1590506101b55760405162461bcd60e51b815260206004820152602960248201527f53746f726d62697452656769737472793a207573657220616c726561647920726044820152681959da5cdd195c995960ba1b60648201526084015b60405180910390fd5b60008151116102125760405162461bcd60e51b815260206004820152602360248201527f53746f726d62697452656769737472793a20757365726e616d6520697320656d60448201526270747960e81b60648201526084016101ac565b33600090815260016020526040902061022b828261043d565b50336001600160a01b03167fb3eccf73f39b1c07947c780b2b39df2a1bb058b4037b0a42d0881ca1a028a1328260405161026591906102a0565b60405180910390a250565b60006020828403121561028257600080fd5b81356001600160a01b038116811461029957600080fd5b9392505050565b600060208083528351808285015260005b818110156102cd578581018301518582016040015282016102b1565b506000604082860101526040601f19601f8301168501019250505092915050565b634e487b7160e01b600052604160045260246000fd5b60006020828403121561031657600080fd5b81356001600160401b038082111561032d57600080fd5b818401915084601f83011261034157600080fd5b813581811115610353576103536102ee565b604051601f8201601f19908116603f0116810190838211818310171561037b5761037b6102ee565b8160405282815287602084870101111561039457600080fd5b826020860160208301376000928101602001929092525095945050505050565b600181811c908216806103c857607f821691505b6020821081036103e857634e487b7160e01b600052602260045260246000fd5b50919050565b601f82111561043857600081815260208120601f850160051c810160208610156104155750805b601f850160051c820191505b8181101561043457828155600101610421565b5050505b505050565b81516001600160401b03811115610456576104566102ee565b61046a8161046484546103b4565b846103ee565b602080601f83116001811461049f57600084156104875750858301515b600019600386901b1c1916600185901b178555610434565b600085815260208120601f198616915b828110156104ce578886015182559484019460019091019084016104af565b50858210156104ec5787850151600019600388901b60f8161c191681555b5050505050600190811b0190555056fea2646970667358221220630ee3176c5b57c423a19d9d4ef92394d1e0adacb9be3693395250c51b5a18cc64736f6c63430008150033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100415760003560e01c80630c340a2414610046578063ee91877c14610066578063f2c298be14610086575b600080fd5b6000546040516001600160a01b0390911681526020015b60405180910390f35b610079610074366004610270565b61009b565b60405161005d91906102a0565b610099610094366004610304565b610135565b005b600160205260009081526040902080546100b4906103b4565b80601f01602080910402602001604051908101604052809291908181526020018280546100e0906103b4565b801561012d5780601f106101025761010080835404028352916020019161012d565b820191906000526020600020905b81548152906001019060200180831161011057829003601f168201915b505050505081565b336000908152600160205260409020805461014f906103b4565b1590506101b55760405162461bcd60e51b815260206004820152602960248201527f53746f726d62697452656769737472793a207573657220616c726561647920726044820152681959da5cdd195c995960ba1b60648201526084015b60405180910390fd5b60008151116102125760405162461bcd60e51b815260206004820152602360248201527f53746f726d62697452656769737472793a20757365726e616d6520697320656d60448201526270747960e81b60648201526084016101ac565b33600090815260016020526040902061022b828261043d565b50336001600160a01b03167fb3eccf73f39b1c07947c780b2b39df2a1bb058b4037b0a42d0881ca1a028a1328260405161026591906102a0565b60405180910390a250565b60006020828403121561028257600080fd5b81356001600160a01b038116811461029957600080fd5b9392505050565b600060208083528351808285015260005b818110156102cd578581018301518582016040015282016102b1565b506000604082860101526040601f19601f8301168501019250505092915050565b634e487b7160e01b600052604160045260246000fd5b60006020828403121561031657600080fd5b81356001600160401b038082111561032d57600080fd5b818401915084601f83011261034157600080fd5b813581811115610353576103536102ee565b604051601f8201601f19908116603f0116810190838211818310171561037b5761037b6102ee565b8160405282815287602084870101111561039457600080fd5b826020860160208301376000928101602001929092525095945050505050565b600181811c908216806103c857607f821691505b6020821081036103e857634e487b7160e01b600052602260045260246000fd5b50919050565b601f82111561043857600081815260208120601f850160051c810160208610156104155750805b601f850160051c820191505b8181101561043457828155600101610421565b5050505b505050565b81516001600160401b03811115610456576104566102ee565b61046a8161046484546103b4565b846103ee565b602080601f83116001811461049f57600084156104875750858301515b600019600386901b1c1916600185901b178555610434565b600085815260208120601f198616915b828110156104ce578886015182559484019460019091019084016104af565b50858210156104ec5787850151600019600388901b60f8161c191681555b5050505050600190811b0190555056fea2646970667358221220630ee3176c5b57c423a19d9d4ef92394d1e0adacb9be3693395250c51b5a18cc64736f6c63430008150033",
+  "devdoc": {
+    "details": "Think of terms are minimal ERC4626, this contract is using word \"shares\" to represent ERC4626 assets, and \"weight\" to represent ERC4626 shares",
+    "errors": {
+      "InvalidInitialization()": [
+        {
+          "details": "The contract is already initialized."
+        }
+      ],
+      "NotInitializing()": [
+        {
+          "details": "The contract is not initializing."
+        }
+      ]
+    },
+    "events": {
+      "Initialized(uint64)": {
+        "details": "Triggered when the contract has been initialized or reinitialized."
+      }
+    },
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 6107,
+        "contract": "contracts/StormbitRegistry.sol:StormbitRegistry",
+        "label": "_governor",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 6111,
+        "contract": "contracts/StormbitRegistry.sol:StormbitRegistry",
+        "label": "usernames",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_mapping(t_address,t_string_storage)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_mapping(t_address,t_string_storage)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => string)",
+        "numberOfBytes": "32",
+        "value": "t_string_storage"
+      },
+      "t_string_storage": {
+        "encoding": "bytes",
+        "label": "string",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}
