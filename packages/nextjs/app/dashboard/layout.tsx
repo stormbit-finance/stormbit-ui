@@ -33,7 +33,6 @@ function Layout({ children }: { children: React.ReactNode }) {
           <ButtonLayout
             active={pathname === "/dashboard/terms"}
             onClick={() => handleButtonClick("terms")}
-            disabled={true}
           >
             Terms
           </ButtonLayout>

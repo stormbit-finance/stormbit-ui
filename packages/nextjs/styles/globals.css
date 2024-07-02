@@ -186,7 +186,7 @@ input {
 
 .button-gradient {
   border: 1px solid #0f0f0f;
-  background: linear-gradient(90deg, #8700ff -8.16%, #c398ff 108.74%);
+  background: var(--purple-gradient-light, linear-gradient(90deg, #A864FF 0%, #E69EFF 100%));
   backdrop-filter: blur(21px);
 }
 /*.max-h-143px{*/
@@ -195,3 +195,4 @@ input {
 .transform-text {
   transform: rotate(-90deg);
 }
+
