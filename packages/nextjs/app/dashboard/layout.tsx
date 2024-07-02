@@ -13,15 +13,16 @@ function Layout({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <div className="pt-[100px]  flex justify-center ">
+    <div className="h-full pt-[100px]  flex justify-center ">
       <div className="h-full max-w-[1920px] w-full flex ">
-        <div className="flex flex-col gap-[14px] text-white pt-[30px] max-h-full max-w-[320px] w-full items-center text-2xl bg-[#2D2D2D]">
+        <div className="min-h-screen max-h-full flex flex-col gap-[14px] text-white pt-[30px]  max-w-[320px] w-full items-center text-2xl bg-[#2D2D2D]">
           <div className="flex flex-col gap-4 my-12">
-            <div className="flex gap-2 justify-center items-center">
-              <span className="border border-white rounded-full p-2 px-3 text-center text-sm"> y </span>
-              <span className="text-xl">{userData.username}</span>
-            </div>
-            <span className="text-[#AD7AF3] font-bold">{userData.currentBalance}</span>
+           {!userData.username && "Login Required"}
+            {userData.username && <div className="flex gap-2 justify-center items-center">
+              <span className="border border-white rounded-full p-2 px-3 text-center text-sm"> {userData?.username.slice(0,1)}</span>
+              <span className="text-xl">{userData?.username || "-"}</span>
+            </div>}
+            <span className="text-[#AD7AF3] font-bold">${userData?.currentBalance || 0.00}</span>
             <span className="text-[#C8C8C8] text-sm">Net Worth</span>
           </div>
           <ButtonLayout active={pathname === "/dashboard"} onClick={() => handleButtonClick("/")}>
@@ -45,7 +46,7 @@ function Layout({ children }: { children: React.ReactNode }) {
             Loans
           </ButtonLayout>
         </div>
-        <div className="flex flex-col gap-8 bg-[#252525] w-full text-white">{children}</div>
+        <div className="h-full flex flex-col gap-8 bg-[#252525] w-full text-white">{children}</div>
       </div>
     </div>
   );
