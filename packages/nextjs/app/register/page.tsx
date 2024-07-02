@@ -1,17 +1,25 @@
 "use client";
-
-import Link from "next/link";
-import Button from "~~/components/Button/Button";
 import React, { useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
-
+import { useRouter } from "next/navigation";
+import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 function Page() {
-  const router = useRouter();
 
+  const router = useRouter();
   const [username, setUsername] = useState("");
   const handleRegister = () =>{
     router.push("/explorer")
   }
+  const { writeAsync: register } = useScaffoldContractWrite({
+    contractName: "StormbitRegistry",
+    functionName: "register",
+    args: [username],
+    value: BigInt(0),
+    onBlockConfirmation: txReceipt => {
+      console.log(txReceipt)
+      handleRegister()
+    },
+    blockConfirmations: 0,
+  });
   return (
     <div className="pt-[100px] flex items-center justify-center min-h-[900px] text-white">
         <div className="w-max-[900px] text-white p-16 flex flex-col items-center gap-4">
@@ -28,7 +36,7 @@ function Page() {
                 .stormbit
               </div>
         </div>
-        <button onClick={handleRegister} className="bg-[#D0C8FF] py-4 w-full text-black rounded-[7px]">Register</button>
+        <button onClick={()=>register()} className="bg-[#D0C8FF] py-4 w-full text-black rounded-[7px]">Register</button>
         <button className="border border-[#D0C8FF] py-4 w-full text-[#D0C8FF] rounded-[7px]">Cancel</button>
 
         </div>

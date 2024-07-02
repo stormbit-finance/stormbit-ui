@@ -51,7 +51,7 @@ function Borrower() {
       <div className="flex  justify-between">
         <div className="flex gap-6">
           <span className="text-2xl text-white">Rower wee</span>
-          <span className="flex py-1 px-2 justify-center items-center gap-4 border border-solid border-[#C398FF] rounded-[40px] text-white text-[10px]">
+          <span className="flex py-1 px-5 justify-center items-center gap-4 border border-solid border-[#C398FF] rounded-[40px] text-white text-[14px]">
             0x2332..2324
             <IoCopy></IoCopy>
           </span>
@@ -60,7 +60,7 @@ function Borrower() {
           Zk-proofs powered by <span>Reclaim</span>
         </span>
       </div>
-      <div className="flex gap-6 flex-col">
+      <div className="mt-10 flex gap-6 flex-col">
         <span className="text-[#C398FF] text-bold">Assets Overview</span>
         <div className="flex justify-between">
           <div className="py-2 px-4 flex gap-8 justify-center items-center bg-[#2F2F2F] rounded-[11px] border border-[#444C6A] w-[220px] h-[90px]">

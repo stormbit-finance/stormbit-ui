@@ -57,7 +57,7 @@ export const AddressInfoDropdown = ({
           <span className="ml-4 text-xl border-[#323344] border-r pr-4">{displayName}</span>
           <EllipsisVerticalIcon className="pl-3 ml-2 cursor-pointer w-9 h-9 sm:ml-0" />
         </summary>
-        <ul tabIndex={0} className="dropdown-content menu z-[2] p-2 mt-2 bg-[#17172B] rounded-box gap-1">
+        <ul tabIndex={0} className="dropdown-content menu z-[2] p-2 mt-2 bg-[#2F2F2F]  gap-1">
           <NetworkOptions hidden={!selectingNetwork} />
           <li className={selectingNetwork ? "hidden" : ""}>
             {addressCopied ? (

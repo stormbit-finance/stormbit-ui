@@ -40,7 +40,7 @@ interface HeaderMenuLinksProps {
 export const HeaderMenuLinks: React.FC<HeaderMenuLinksProps> = ({ showLinks }) => {
   const pathname = usePathname();
 
-  if (!showLinks) return null;
+  // if (!showLinks) return null;
 
   return (
     <>
@@ -98,7 +98,7 @@ export const Header = () => {
                   <span className="text-xs bg-[#FFEB80] px-4 py-1 rounded-[7px] text-black">Beta</span>
                 </div>
               </Link>
-              <ul className={`hidden lg:flex gap-8 px-1 text-xl ${showMenuLinks ? "" : "hidden"}`}>
+              <ul className={`hidden lg:flex gap-8 px-1 text-xl`}>
                 <HeaderMenuLinks showLinks={showMenuLinks} />
               </ul>
             </div>

@@ -47,9 +47,9 @@ export const RainbowKitCustomConnectButton: React.FC<RainbowKitCustomConnectButt
                 return <WrongNetworkDropdown />;
               }
 
-              if (onConnectSuccess) {
-                onConnectSuccess();
-              }
+              // if (onConnectSuccess) {
+              //   onConnectSuccess();
+              // }
 
               return (
                 <>
