@@ -12,7 +12,7 @@ function Page() {
   const { writeAsync: register } = useScaffoldContractWrite({
     contractName: "StormbitRegistry",
     functionName: "register",
-    args: [username],
+    args: [username+'.stormbit'],
     value: BigInt(0),
     onBlockConfirmation: txReceipt => {
       console.log(txReceipt)

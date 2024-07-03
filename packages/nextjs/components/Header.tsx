@@ -37,11 +37,8 @@ interface HeaderMenuLinksProps {
   showLinks: boolean;
 }
 
-export const HeaderMenuLinks: React.FC<HeaderMenuLinksProps> = ({ showLinks }) => {
+export const HeaderMenuLinks: React.FC<HeaderMenuLinksProps> = () => {
   const pathname = usePathname();
-
-  // if (!showLinks) return null;
-
   return (
     <>
       {menuLinks.map(({ label, href, icon, external }) => {
@@ -104,6 +101,7 @@ export const Header = () => {
             </div>
             <div className="flex-grow gap-8 mr-4 navbar-end">
               <RainbowKitCustomConnectButton onConnectSuccess={handleConnectSuccess} />
+              
               <FaucetButton />
             </div>
           </div>
