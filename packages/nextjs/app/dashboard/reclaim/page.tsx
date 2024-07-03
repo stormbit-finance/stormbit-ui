@@ -35,13 +35,13 @@ import ModalContainer from "~~/components/ModalContainer/ModalContainer";
 const Reclaim = () => {
   const providerData = useMemo(
     () => [
-      { name: "Binance", provider: "Binance", desc: "KYC", img: "/binance.svg" },
-      { name: "OKX", provider: "OKX", desc: "KYC", img: "/okx.svg" },
-      { name: "Github", provider: "Github", desc: "KYC", img: "/github.svg" },
-      { name: "Stripe", provider: "Stripe", desc: "More than 1000 USDT in balance", img: "/stripe.svg" },
-      { name: "LinkedIn Analytics", provider: "LinkedIn Analytics", desc: "Dashboard Analytics", img: "/linkedin.svg" },
-      { name: "X Analytics", provider: "X Analytics", desc: "Dashboard Analytics", img: "/x.svg" },
-      { name: "Custom", provider: "Custom", desc: "KYC", img: "/custom.svg" },
+      { name: "Binance", provider: "Binance", desc: "KYC", img: "/binance.svg" , zkproof:10},
+      { name: "OKX", provider: "OKX", desc: "KYC", img: "/okx.svg", zkproof:10 },
+      { name: "Github", provider: "Github", desc: "KYC", img: "/github.svg", zkproof:0 },
+      { name: "Stripe", provider: "Stripe", desc: "More than 1000 USDT in balance", img: "/stripe.svg" , zkproof:10},
+      { name: "LinkedIn Analytics", provider: "LinkedIn Analytics", desc: "Dashboard Analytics", img: "/linkedin.svg" , zkproof:10},
+      { name: "X Analytics", provider: "X Analytics", desc: "Dashboard Analytics", img: "/x.svg" , zkproof:10},
+      { name: "Custom", provider: "Custom", desc: "KYC", img: "/custom.svg", zkproof:10 },
     ],
     [],
   );
@@ -118,33 +118,38 @@ const Reclaim = () => {
           <span>Not Verified</span>
 
           <div className="bg-[#2F2F2F] border border-[#444C6A] py-8 px-11 gap-5 flex flex-col h-full">
-            {providers.map((item, index) => (
-              <div className="py-4 flex w-full justify-between items-center" key={index}>
-                <div className="flex items-center">
-                  <Image width={50} height={50} className="" src={`${item.img}`} alt="" />
-                  <div className="ml-4">
-                    <div className="text-xl">{item.name}</div>
-                    <div className="text-xs text-[#858BA2]">{item.condition}</div>
+          {providers.length === 0 ? (
+              <div className="text-[#A8B1C8] text-center">No data here</div>
+            ) : (
+              providers.map((item, index) => (
+                <div className=" flex w-full justify-between items-center" key={index}>
+                  <div className="flex items-center">
+                    <Image width={30} height={30} className="" src={`${item.img}`} alt="" />
+                    <div className="ml-4">
+                      <div className="text-base">{item.name}</div>
+                      <div className="text-xs text-[#858BA2]">{item.condition}</div>
+                    </div>
                   </div>
+                  <Button
+                    backgroundColor="#D0C8FF"
+                    size="small"
+                    onClick={() => {
+                      setSelectedProvider(item);
+                      setIsModalOpen(true);
+                      setVerificationStatus(null);
+                    }}
+                  >
+                    Verify<FiArrowUpRight></FiArrowUpRight>
+                  </Button>
                 </div>
-                <Button
-                  backgroundColor="#D0C8FF"
-                  size="small"
-                  onClick={() => {
-                    setSelectedProvider(item);
-                    setIsModalOpen(true);
-                    setVerificationStatus(null);
-                  }}
-                >
-                  Verify<FiArrowUpRight></FiArrowUpRight>
-                </Button>
-              </div>
-            ))}
+              ))
+            )}
+    
           </div>
         </div>
-        <div className="w-2/5 flex flex-col items-center gap-[20px] pt-[30px] bg-[#2F2F2F] border border-[#444C6A]">
+        <div className="w-2/5 flex flex-col items-center gap-[20px] py-[30px] bg-[#2F2F2F] border border-[#444C6A]">
           <div className="flex justify-between w-full px-8">
-            <span className="text-2xl">ZK Proof</span>
+            <span className="text-2xl">Providers</span>
             <div>
               <button
                 onClick={() => {
@@ -157,7 +162,7 @@ const Reclaim = () => {
             </div>
           </div>
 
-          <div className="w-full border-y-1 border-[#374B6D] text-white py-7 px-4 mb-7 bg-[#3E3E3E]">
+          <div className="w-full border-y-1 border-[#374B6D] text-white py-7 px-4  bg-[#3E3E3E]">
             <div className="flex items-center justify-between">
               <div className="flex-1">Name</div>
               <div className="">zk proof generated</div>
@@ -171,7 +176,7 @@ const Reclaim = () => {
                   <div className="text-xl">{item.name}</div>
                 </div>
               </div>
-              <span>10</span>
+              <span>{item?.zkproof || 0}</span>
             </div>
           ))}
         </div>

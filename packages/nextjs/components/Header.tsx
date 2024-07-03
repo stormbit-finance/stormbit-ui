@@ -37,11 +37,8 @@ interface HeaderMenuLinksProps {
   showLinks: boolean;
 }
 
-export const HeaderMenuLinks: React.FC<HeaderMenuLinksProps> = ({ showLinks }) => {
+export const HeaderMenuLinks: React.FC<HeaderMenuLinksProps> = () => {
   const pathname = usePathname();
-
-  if (!showLinks) return null;
-
   return (
     <>
       {menuLinks.map(({ label, href, icon, external }) => {
@@ -98,12 +95,13 @@ export const Header = () => {
                   <span className="text-xs bg-[#FFEB80] px-4 py-1 rounded-[7px] text-black">Beta</span>
                 </div>
               </Link>
-              <ul className={`hidden lg:flex gap-8 px-1 text-xl ${showMenuLinks ? "" : "hidden"}`}>
+              <ul className={`hidden lg:flex gap-8 px-1 text-xl`}>
                 <HeaderMenuLinks showLinks={showMenuLinks} />
               </ul>
             </div>
             <div className="flex-grow gap-8 mr-4 navbar-end">
               <RainbowKitCustomConnectButton onConnectSuccess={handleConnectSuccess} />
+              
               <FaucetButton />
             </div>
           </div>

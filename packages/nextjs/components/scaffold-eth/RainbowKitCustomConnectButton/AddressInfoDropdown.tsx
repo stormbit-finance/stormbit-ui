@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import { NetworkOptions } from "./NetworkOptions";
 import CopyToClipboard from "react-copy-to-clipboard";
-import { BiSolidUser } from "react-icons/bi";
 import { Address, useDisconnect } from "wagmi";
 import {
   ArrowLeftOnRectangleIcon,
@@ -12,27 +11,27 @@ import {
   EllipsisVerticalIcon,
   QrCodeIcon,
 } from "@heroicons/react/24/outline";
+import { IoEllipsisVertical } from "react-icons/io5";
 // import { BlockieAvatar } from "~~/components/scaffold-eth";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
 import { getTargetNetworks } from "~~/utils/scaffold-eth";
-
 const allowedNetworks = getTargetNetworks();
 
 type AddressInfoDropdownProps = {
   address: Address;
   blockExplorerAddressLink: string | undefined;
   displayName: string;
+  chainName:string | undefined;
   ensAvatar?: string;
+
 };
 
 export const AddressInfoDropdown = ({
   address,
-  // ensAvatar,
-  displayName,
+  chainName,
   blockExplorerAddressLink,
 }: AddressInfoDropdownProps) => {
   const { disconnect } = useDisconnect();
-
   const [addressCopied, setAddressCopied] = useState(false);
 
   const [selectingNetwork, setSelectingNetwork] = useState(false);
@@ -48,16 +47,15 @@ export const AddressInfoDropdown = ({
       <details ref={dropdownRef} className="leading-3 dropdown dropdown-end">
         <summary
           tabIndex={0}
-          className=" flex items-center border border-[#323344] rounded-[5px] btn-sm px-4 py-2 dropdown-toggle gap-0 !h-auto"
+          className="cursor-pointer flex items-center  border border-[#C398FF] rounded-[5px] btn-sm px-4 py-2 dropdown-toggle gap-4 !h-auto"
         >
-          {/* <BlockieAvatar address={address} size={30} ensImage={ensAvatar} /> */}
-          <div className="p-1 border rounded-full">
-            <BiSolidUser />
-          </div>
-          <span className="ml-4 text-xl border-[#323344] border-r pr-4">{displayName}</span>
-          <EllipsisVerticalIcon className="pl-3 ml-2 cursor-pointer w-9 h-9 sm:ml-0" />
+            {/* <Balance address={address as Address} className="h-auto min-h-0 " /> */}
+            <span className="text-xl">
+              {chainName}    
+            </span>
+            <IoEllipsisVertical />
         </summary>
-        <ul tabIndex={0} className="dropdown-content menu z-[2] p-2 mt-2 bg-[#17172B] rounded-box gap-1">
+        <ul tabIndex={0} className="dropdown-content menu z-[2] p-2 mt-2 bg-[#2F2F2F]  gap-1">
           <NetworkOptions hidden={!selectingNetwork} />
           <li className={selectingNetwork ? "hidden" : ""}>
             {addressCopied ? (

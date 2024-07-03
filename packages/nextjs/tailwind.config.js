@@ -13,15 +13,15 @@ export const daisyui = {
     {
       scaffoldEth: {
         primary: "#93BBFB",
-        "primary-content": "#212638",
+        "primary-content": "#3E3E3E",
         accent: "#93BBFB",
-        "accent-content": "#212638",
-        neutral: "#212638",
+        "accent-content": "#3E3E3E",
+        neutral: "#3E3E3E",
         "neutral-content": "#ffffff",
         "base-100": "#ffffff",
         "base-200": "#f4f8ff",
         "base-300": "#DAE8FF",
-        "base-content": "#212638",
+        "base-content": "#3E3E3E",
         info: "#93BBFB",
         success: "#34EEB6",
         warning: "#FFCF72",
@@ -42,7 +42,7 @@ export const daisyui = {
     },
     {
       scaffoldEthDark: {
-        primary: "#212638",
+        primary: "#3E3E3E",
         "primary-content": "#F9FBFF",
         accent: "#4969A6",
         "accent-content": "#F9FBFF",
@@ -50,7 +50,7 @@ export const daisyui = {
         "neutral-content": "#385183",
         "base-100": "#385183",
         "base-200": "#2A3655",
-        "base-300": "#212638",
+        "base-300": "#3E3E3E",
         "base-content": "#F9FBFF",
         info: "#385183",
         success: "#34EEB6",
