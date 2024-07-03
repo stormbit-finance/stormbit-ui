@@ -1,9 +1,9 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
+import { useAccount } from "wagmi";
 import ButtonLayout from "~~/components/ButtonLayout/ButtonLayout";
 import { userData } from "~~/data/data";
-import { useAccount } from "wagmi";
 import useUsername from "~~/hooks/gql/useUsername";
 
 function Layout({ children }: { children: React.ReactNode }) {
@@ -21,12 +21,21 @@ function Layout({ children }: { children: React.ReactNode }) {
       <div className="h-full max-w-[1920px] w-full flex ">
         <div className="min-h-screen max-h-full flex flex-col gap-[14px] text-white pt-[30px]  max-w-[320px] w-full items-center text-2xl bg-[#2D2D2D]">
           <div className="flex flex-col gap-4 my-12">
-           {!userData.username && "Login Required"}
-            {userData.username && <div className="flex gap-2 justify-center items-center">
-              <span className={`${username?'visible':'hidden'} border border-white rounded-full p-2 px-3 text-center text-sm`}> {username?.slice(0,1)}</span>
-              <span className="text-xl">{username|| "Please login"}</span>
-            </div>}
-            <span className="text-[#AD7AF3] font-bold">${userData?.currentBalance || 0.00}</span>
+            {!userData.username && "Login Required"}
+            {userData.username && (
+              <div className="flex gap-2 justify-center items-center">
+                <span
+                  className={`${
+                    username ? "visible" : "hidden"
+                  } border border-white rounded-full p-2 px-3 text-center text-sm`}
+                >
+                  {" "}
+                  {username?.slice(0, 1)}
+                </span>
+                <span className="text-xl">{username || "Please login"}</span>
+              </div>
+            )}
+            <span className="text-[#AD7AF3] font-bold">${userData?.currentBalance || 0.0}</span>
             <span className="text-[#C8C8C8] text-sm">Net Worth</span>
           </div>
           <ButtonLayout active={pathname === "/dashboard"} onClick={() => handleButtonClick("/")}>
@@ -35,17 +44,10 @@ function Layout({ children }: { children: React.ReactNode }) {
           <ButtonLayout active={pathname === "/dashboard/reclaim"} onClick={() => handleButtonClick("reclaim")}>
             Reclaim ®
           </ButtonLayout>
-          <ButtonLayout
-            active={pathname === "/dashboard/terms"}
-            onClick={() => handleButtonClick("terms")}
-          >
+          <ButtonLayout active={pathname === "/dashboard/terms"} onClick={() => handleButtonClick("terms")}>
             Terms
           </ButtonLayout>
-          <ButtonLayout
-            active={pathname === "/dashboard/loans"}
-            onClick={() => handleButtonClick("loans")}
-            disabled={true}
-          >
+          <ButtonLayout active={pathname === "/dashboard/loans"} onClick={() => handleButtonClick("loans")}>
             Loans
           </ButtonLayout>
         </div>

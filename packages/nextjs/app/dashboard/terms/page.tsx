@@ -1,9 +1,13 @@
+// @ts-nocheck
 "use client"
+
 import React, { useState } from "react";
 import TermForm from "~~/components/TermForm/TermForm";
 import ModalContainer from "~~/components/ModalContainer/ModalContainer";
 import Button from "~~/components/Button/Button";
 import { FaCheckCircle } from 'react-icons/fa';
+import { FaXTwitter } from "react-icons/fa6";
+
 
 const Page = () => {
   const [terms, setTerms] = useState<string[]>([]);
@@ -38,6 +42,9 @@ const Page = () => {
 
   const closeModal = () => {
     setShowModal(false);
+  };
+
+  const closeModalS = () => {
     setShowSuccessModal(false);
   };
 
@@ -52,23 +59,38 @@ const Page = () => {
         </div>
       )}
 
-{/* {!showForm && terms.length > 0 && (
-//   <div className="flex flex-col items-center">
-//     <ul>
-//       {terms.map((term, index) => (
-//         <li key={index}>{term}</li>
-//       ))}
-//     </ul>
-//     <div className="grid grid-cols-6 gap-4 mt-4 w-full">
-//       <div className="col-span-1">{commission}</div>
-//       <div className="col-span-4"></div>
-//       <div className="col-span-1 text-right">More details</div>
-//     </div>
-//   </div>
-)} */}
+
+{!showForm && terms.length > 0 && (
+        <div className="flex flex-col items-center">
+          <div className="grid grid-cols-6 gap-4 mt-4 w-full bg-[#2D2D2D] rounded-[5px]">
+            <div className="col-span-1 flex items-center px-7">
+              <p>10% APR</p>
+            </div>
+            <div className="col-span-1">
+              <p className="text-[#A4A4A4] text-sm">Total Amount</p>
+              <p> $1000</p>
+            </div>
+            <div className="col-span-1">
+              <p className="text-[#A4A4A4] text-sm">Total Loans</p>
+              <p>$1000</p>
+            </div>
+            <div className="col-span-1">
+              <p className="text-[#A4A4A4] text-sm">Total Lending</p>
+              <p>$1000</p>
+            </div>
+            <div className="col-span-1">
+              <p className="text-[#A4A4A4] text-sm">APR</p>
+              <p>10%</p>
+            </div>
+            <div className="col-span-1 text-right flex items-center">
+              <p className="text-[#AE9FFD] text-sm">More details</p>
+            </div>
+          </div>
+        </div>
+      )}
 
 
-      {/* {showForm && <TermForm onSubmit={handleAddTerm} onCancel={() => setShowForm(false)} />} */}
+       {showForm && <TermForm onSubmit={handleAddTerm} onCancel={() => setShowForm(false)} />}
 
       {showModal && (
         <ModalContainer onClick={closeModal}>
@@ -88,7 +110,7 @@ const Page = () => {
       )}
 
       {showSuccessModal && (
-        <ModalContainer onClick={closeModal}>
+        <ModalContainer onClick={closeModalS}>
           <div className="p-4 rounded-lg flex flex-col items-center">
             <FaCheckCircle className="text-green-500 text-6xl mb-4" />
             <h2 className="text-lg">Terms Created Successfully</h2>
@@ -97,14 +119,18 @@ const Page = () => {
               <a href={`http://terms/detail?id=${termId}`} target="_blank" rel="noopener noreferrer" className="text-black border border-[#6C757D] py-3 px-6 underline rounded-l-lg">
                 http://terms/detail?id={termId}
               </a>
-              <button onClick={handleCopyLink} className="bg-[#D0C8FF] text-white px-2 py-4 rounded-r-lg border border-[#D0C8FF]">
+              <button onClick={handleCopyLink} className="bg-[#D0C8FF] text-white text-xs px-3 py-4 rounded-r-lg border border-[#D0C8FF]">
                 Copy
               </button>
-            </div>
-            <div className="flex justify-between w-full">
-              <p className="text-gray-700">Commission: {commission} %</p>
-              <p className="text-gray-700">More detail</p>
-            </div>
+            </div> 
+          </div>
+          <div className="flex gap-4 items-center">
+                <span className="text-[#858BA2] text-sm">
+                  Share to 
+                </span>
+                <div className="bg-[#616161] rounded-full w-[20px] h-[20px] flex items-center justify-center">
+                  <FaXTwitter href="https://x.com/StormbitX" className="w-[10px] h-[10px] cursor-pointer" target="_blank"/>
+                </div>
           </div>
         </ModalContainer>
       )}

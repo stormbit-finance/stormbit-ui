@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { CiDesktopMouse1 } from "react-icons/ci";
 import { TbWorld } from "react-icons/tb";
 import { TfiBook } from "react-icons/tfi";
+import { LuUsers2 } from "react-icons/lu";
 import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 
 type HeaderMenuLink = {
@@ -19,6 +20,11 @@ export const menuLinks: HeaderMenuLink[] = [
     label: "explorer",
     href: "/explorer",
     icon: <TbWorld />,
+  },
+  {
+    label: "lenders",
+    href: "/lenders",
+    icon: <LuUsers2 />,
   },
   {
     label: "dashboard",

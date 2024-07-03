@@ -196,3 +196,6 @@ input {
   transform: rotate(-90deg);
 }
 
+.btn-transparent{
+  background: linear-gradient(90deg, #252525 0%, #424242 100%);
+}
