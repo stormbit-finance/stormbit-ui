@@ -7,7 +7,6 @@ import GridBackground from "~~/components/GridBackground/GridBackground";
 import { dataTechnology } from "~~/data/data";
 
 const Home: NextPage = () => {
-
   return (
     <>
       <div className="bg-[#070817] pt-[100px] ">
@@ -22,7 +21,9 @@ const Home: NextPage = () => {
                     <span className="font-bold  text-gradient  lg:text-8xl text-4xl">bit.</span>
                   </div>
                   <div className="max-w-[600px] w-full my-2">
-                    <p className="lg:text-start text-center text-xl lg:text-3xl text-[#B5B5B5]  m-0">First p2p incentivized lending protocol.</p>
+                    <p className="lg:text-start text-center text-xl lg:text-3xl text-[#B5B5B5]  m-0">
+                      First p2p incentivized lending protocol.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -63,28 +64,45 @@ const Home: NextPage = () => {
             </div>
           </section>
 
-          <section className="relative flex items-center lg:py-[150px]  pt-[100px]  px-4 lg:px-0">
-          <Image src="/reclaim-background.png" alt="icon" width={1500} height={1500} className=" absolute top-[50%] left-[50%] translate-x-[-50%]" /> 
-          <div className="z-40 max-w-[1920px] w-full flex-col justify-center flex items-center gap-[20px]">
-          <h2 className="lg:text-5xl text-white text-2xl">Reclaim Protocol</h2>
-          <div className="max-w-[1200px] text-white text-center text-sm lg:text-lg">
-          Reclaim Protocol creates digital signatures, known as zero knowledge proof, of users' identity and reputation on any website. These digital signatures are computed completely on the client side. Meaning, it is private and secure. When the user shares this proof with your app, you can be certain that its authenticity and integrity haven't been compromised.
-          </div>
-          <div className="lg:pt-[80px] pt-[20px] grid grid-rows-2 gap-5 ">
-          <div className="text-sm lg:text-lg text-white grid justify-center  grid-cols-2 gap-10">
-            <div className="flex gap-5"> <Image src="/checkmark.svg" alt="icon" width={20} height={20} className="" /> Onboarding and Loyalty</div>
-            <div className="flex gap-5"> <Image src="/checkmark.svg" alt="icon" width={20} height={20} className="" />  KYC</div>
-          </div>
-          <div className="text-sm lg:text-lg text-white grid justify-center grid-cols-2 gap-10">
-            <div className="flex gap-5"> <Image src="/checkmark.svg" alt="icon" width={20} height={20} className="" /> Onchain Attestations</div>
-            <div className="flex gap-5"> <Image src="/checkmark.svg" alt="icon" width={20} height={20} className="" />  Proof of Personhood</div>
-          </div>
-          </div>
-  
-
-          </div>
-
-
+          <section className="relative flex justify-center items-center lg:py-[150px]  pt-[100px]  px-4 lg:px-0">
+            <Image
+              src="/reclaim-background.png"
+              alt="icon"
+              width={1500}
+              height={1500}
+              className=" absolute top-[50%] left-[50%] translate-x-[-50%]"
+            />
+            <div className="z-40 max-w-[1920px] w-full flex-col justify-center flex items-center gap-[20px]">
+              <h2 className="lg:text-5xl text-white text-2xl">Reclaim Protocol</h2>
+              <div className="max-w-[1200px] text-white text-center text-sm lg:text-lg">
+                Reclaim Protocol creates digital signatures, known as zero knowledge proof, of users' identity and
+                reputation on any website. These digital signatures are computed completely on the client side. Meaning,
+                it is private and secure. When the user shares this proof with your app, you can be certain that its
+                authenticity and integrity haven't been compromised.
+              </div>
+              <div className="lg:pt-[80px] pt-[20px] grid grid-rows-2 gap-5 ">
+                <div className="text-sm lg:text-lg text-white grid justify-center  grid-cols-2 gap-10">
+                  <div className="flex gap-5">
+                    {" "}
+                    <Image src="/checkmark.svg" alt="icon" width={20} height={20} className="" /> Onboarding and Loyalty
+                  </div>
+                  <div className="flex gap-5">
+                    {" "}
+                    <Image src="/checkmark.svg" alt="icon" width={20} height={20} className="" /> KYC
+                  </div>
+                </div>
+                <div className="text-sm lg:text-lg text-white grid justify-center grid-cols-2 gap-10">
+                  <div className="flex gap-5">
+                    {" "}
+                    <Image src="/checkmark.svg" alt="icon" width={20} height={20} className="" /> Onchain Attestations
+                  </div>
+                  <div className="flex gap-5">
+                    {" "}
+                    <Image src="/checkmark.svg" alt="icon" width={20} height={20} className="" /> Proof of Personhood
+                  </div>
+                </div>
+              </div>
+            </div>
           </section>
         </div>
         <Footer />

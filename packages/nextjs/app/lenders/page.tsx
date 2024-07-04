@@ -1,10 +1,11 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { FaSearch } from "react-icons/fa";
 import Button from "~~/components/Button/Button";
 import LenderComponent from "~~/components/LenderComponent/LenderComponent";
-import Image from "next/image";
-import { FaSearch } from "react-icons/fa"; 
 
 function Page() {
   return (
@@ -36,9 +37,9 @@ function Page() {
           <option value="Supply APY">Supply APY</option>
         </select>
       </div>
-      <div className="w-full flex flex-wrap gap-12 mt-4 justify-center items-center">
-        <LenderComponent></LenderComponent>
-      </div>
+      <Link href="/lender" className="w-full flex flex-wrap gap-2 mt-4 justify-center items-center">
+        <LenderComponent />
+      </Link>
     </div>
   );
 }
