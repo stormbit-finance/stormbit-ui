@@ -21,7 +21,7 @@ const TermForm: React.FC<TermFormProps> = ({ onSubmit, onCancel }) => {
         <h2 className="text-center text-2xl mb-4">Create Terms</h2>
         <select
           value={selectedOption}
-          onChange={(e) => setSelectedOption(e.target.value)}
+          onChange={e => setSelectedOption(e.target.value)}
           className="p-4 px-6 border border-gray-300 bg-transparent rounded-[2px]"
         >
           <option value="" disabled>
@@ -34,7 +34,7 @@ const TermForm: React.FC<TermFormProps> = ({ onSubmit, onCancel }) => {
         <input
           type="text"
           value={additionalInput}
-          onChange={(e) => setAdditionalInput(e.target.value)}
+          onChange={e => setAdditionalInput(e.target.value)}
           placeholder="Input commission"
           className="p-4 px-6 border border-gray-300 bg-transparent rounded-[2px]"
         />

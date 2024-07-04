@@ -55,6 +55,12 @@ import useSupportedProvider from "~~/hooks/api/useSupportedProvider";
 
 // @ts-nocheck
 
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
+
 const Reclaim = () => {
   const providerData = useMemo(
     () => [

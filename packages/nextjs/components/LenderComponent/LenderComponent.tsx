@@ -46,7 +46,7 @@ const lender = [
     deposited: "$100.00",
     borrowed: "$100.00",
     commission: "$100.00",
-  }
+  },
 ];
 function LenderComponent() {
   return (

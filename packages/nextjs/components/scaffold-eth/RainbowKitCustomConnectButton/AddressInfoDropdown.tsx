@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { NetworkOptions } from "./NetworkOptions";
 import CopyToClipboard from "react-copy-to-clipboard";
+import { IoEllipsisVertical } from "react-icons/io5";
 import { Address, useDisconnect } from "wagmi";
 import {
   ArrowLeftOnRectangleIcon,
@@ -11,26 +12,21 @@ import {
   EllipsisVerticalIcon,
   QrCodeIcon,
 } from "@heroicons/react/24/outline";
-import { IoEllipsisVertical } from "react-icons/io5";
 // import { BlockieAvatar } from "~~/components/scaffold-eth";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
 import { getTargetNetworks } from "~~/utils/scaffold-eth";
+
 const allowedNetworks = getTargetNetworks();
 
 type AddressInfoDropdownProps = {
   address: Address;
   blockExplorerAddressLink: string | undefined;
   displayName: string;
-  chainName:string | undefined;
+  chainName: string | undefined;
   ensAvatar?: string;
-
 };
 
-export const AddressInfoDropdown = ({
-  address,
-  chainName,
-  blockExplorerAddressLink,
-}: AddressInfoDropdownProps) => {
+export const AddressInfoDropdown = ({ address, chainName, blockExplorerAddressLink }: AddressInfoDropdownProps) => {
   const { disconnect } = useDisconnect();
   const [addressCopied, setAddressCopied] = useState(false);
 
@@ -49,11 +45,9 @@ export const AddressInfoDropdown = ({
           tabIndex={0}
           className="cursor-pointer flex items-center  border border-[#C398FF] rounded-[5px] btn-sm px-4 py-2 dropdown-toggle gap-4 !h-auto"
         >
-            {/* <Balance address={address as Address} className="h-auto min-h-0 " /> */}
-            <span className="text-xl">
-              {chainName}    
-            </span>
-            <IoEllipsisVertical />
+          {/* <Balance address={address as Address} className="h-auto min-h-0 " /> */}
+          <span className="text-xl">{chainName}</span>
+          <IoEllipsisVertical />
         </summary>
         <ul tabIndex={0} className="dropdown-content menu z-[2] p-2 mt-2 bg-[#2F2F2F]  gap-1">
           <NetworkOptions hidden={!selectingNetwork} />

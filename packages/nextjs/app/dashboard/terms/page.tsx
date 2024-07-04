@@ -1,13 +1,18 @@
 // @ts-nocheck
-"use client"
+"use client";
 
 import React, { useState } from "react";
-import TermForm from "~~/components/TermForm/TermForm";
-import ModalContainer from "~~/components/ModalContainer/ModalContainer";
-import Button from "~~/components/Button/Button";
-import { FaCheckCircle } from 'react-icons/fa';
+import { FaCheckCircle } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import Button from "~~/components/Button/Button";
+import ModalContainer from "~~/components/ModalContainer/ModalContainer";
+import TermForm from "~~/components/TermForm/TermForm";
 
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
 
 const Page = () => {
   const [terms, setTerms] = useState<string[]>([]);
@@ -27,7 +32,7 @@ const Page = () => {
   };
 
   const handleConfirmAddTerm = () => {
-    const newTermId = terms.length + 1; 
+    const newTermId = terms.length + 1;
     setTerms([...terms, `${selectedOption}: ${newTerm}`]);
     setTermId(newTermId);
     setShowModal(false);
@@ -59,8 +64,7 @@ const Page = () => {
         </div>
       )}
 
-
-{!showForm && terms.length > 0 && (
+      {!showForm && terms.length > 0 && (
         <div className="flex flex-col items-center">
           <div className="grid grid-cols-6 gap-4 mt-4 w-full bg-[#2D2D2D] rounded-[5px]">
             <div className="col-span-1 flex items-center px-7">
@@ -89,8 +93,7 @@ const Page = () => {
         </div>
       )}
 
-
-       {showForm && <TermForm onSubmit={handleAddTerm} onCancel={() => setShowForm(false)} />}
+      {showForm && <TermForm onSubmit={handleAddTerm} onCancel={() => setShowForm(false)} />}
 
       {showModal && (
         <ModalContainer onClick={closeModal}>
@@ -116,21 +119,27 @@ const Page = () => {
             <h2 className="text-lg">Terms Created Successfully</h2>
             <p className="text-[#858BA2] m-0 text-sm">Click the link below to view term</p>
             <div className="flex items-center m-4">
-              <a href={`http://terms/detail?id=${termId}`} target="_blank" rel="noopener noreferrer" className="text-black border border-[#6C757D] py-3 px-6 underline rounded-l-lg">
+              <a
+                href={`http://terms/detail?id=${termId}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-black border border-[#6C757D] py-3 px-6 underline rounded-l-lg"
+              >
                 http://terms/detail?id={termId}
               </a>
-              <button onClick={handleCopyLink} className="bg-[#D0C8FF] text-white text-xs px-3 py-4 rounded-r-lg border border-[#D0C8FF]">
+              <button
+                onClick={handleCopyLink}
+                className="bg-[#D0C8FF] text-white text-xs px-3 py-4 rounded-r-lg border border-[#D0C8FF]"
+              >
                 Copy
               </button>
-            </div> 
+            </div>
           </div>
           <div className="flex gap-4 items-center">
-                <span className="text-[#858BA2] text-sm">
-                  Share to 
-                </span>
-                <div className="bg-[#616161] rounded-full w-[20px] h-[20px] flex items-center justify-center">
-                  <FaXTwitter href="https://x.com/StormbitX" className="w-[10px] h-[10px] cursor-pointer" target="_blank"/>
-                </div>
+            <span className="text-[#858BA2] text-sm">Share to</span>
+            <div className="bg-[#616161] rounded-full w-[20px] h-[20px] flex items-center justify-center">
+              <FaXTwitter href="https://x.com/StormbitX" className="w-[10px] h-[10px] cursor-pointer" target="_blank" />
+            </div>
           </div>
         </ModalContainer>
       )}

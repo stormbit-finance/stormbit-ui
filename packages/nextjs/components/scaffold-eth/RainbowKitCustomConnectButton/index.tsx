@@ -1,15 +1,14 @@
-
+import { useRouter } from "next/navigation";
 import { AddressInfoDropdown } from "./AddressInfoDropdown";
 import { AddressQRCodeModal } from "./AddressQRCodeModal";
 import { WrongNetworkDropdown } from "./WrongNetworkDropdown";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { BiSolidUser } from "react-icons/bi";
 import { Address } from "viem";
-import { useRouter } from "next/navigation";
+import useUsername from "~~/hooks/gql/useUsername";
 import { useAutoConnect } from "~~/hooks/scaffold-eth";
 import { useTargetNetwork } from "~~/hooks/scaffold-eth/useTargetNetwork";
 import { getBlockExplorerAddressLink } from "~~/utils/scaffold-eth";
-import { BiSolidUser } from "react-icons/bi";
-import useUsername from "~~/hooks/gql/useUsername";
 
 interface RainbowKitCustomConnectButtonProps {
   onConnectSuccess?: () => void;
@@ -23,9 +22,9 @@ export const RainbowKitCustomConnectButton: React.FC<RainbowKitCustomConnectButt
   const router = useRouter();
   const { targetNetwork } = useTargetNetwork();
 
-  const goRegister = () =>{
-    router.push('/register')
-  }
+  const goRegister = () => {
+    router.push("/register");
+  };
   return (
     <ConnectButton.Custom>
       {({ account, chain, openConnectModal, mounted }) => {
@@ -54,8 +53,7 @@ export const RainbowKitCustomConnectButton: React.FC<RainbowKitCustomConnectButt
               }
               return (
                 <>
-
-                 <AddressInfoDropdown
+                  <AddressInfoDropdown
                     address={account.address as Address}
                     displayName={account.displayName}
                     ensAvatar={account.ensAvatar}
@@ -63,18 +61,18 @@ export const RainbowKitCustomConnectButton: React.FC<RainbowKitCustomConnectButt
                     blockExplorerAddressLink={blockExplorerAddressLink}
                   />
                   <div className="bg-gradient-to-r from-[#A864FF] text-xl to-[#E69FFF] flex items-center rounded-[5px] btn-sm px-6 py-2 gap-0 !h-auto">
-                  {username? 
-                    <div className="flex flex-row gap-4 items-center">
-                        <BiSolidUser/>
+                    {username ? (
+                      <div className="flex flex-row gap-4 items-center">
+                        <BiSolidUser />
                         <div className="">{username}</div>
-                    </div>
-                
-                    :
-                    <div className="cursor-pointer" onClick={goRegister}>Join Stormbit</div>
-                  
-                  }
-                </div>
-                <AddressQRCodeModal address={account.address as Address} modalId="qrcode-modal" />
+                      </div>
+                    ) : (
+                      <div className="cursor-pointer" onClick={goRegister}>
+                        Join Stormbit
+                      </div>
+                    )}
+                  </div>
+                  <AddressQRCodeModal address={account.address as Address} modalId="qrcode-modal" />
                 </>
               );
             })()}

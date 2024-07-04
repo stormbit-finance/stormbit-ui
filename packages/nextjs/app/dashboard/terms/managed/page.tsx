@@ -1,10 +1,11 @@
-import Page from "../page"
+import Page from "../page";
+
 function Managed() {
-    return (
-        <div className="h-full flex flex-col justify-center items-center">
-            <Page></Page>
-        </div>
-    )
+  return (
+    <div className="h-full flex flex-col justify-center items-center">
+      <Page></Page>
+    </div>
+  );
 }
 
-export default Managed
+export default Managed;

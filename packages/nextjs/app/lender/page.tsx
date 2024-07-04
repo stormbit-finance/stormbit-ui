@@ -100,32 +100,36 @@ function Page() {
         <div className="bg-[#2F2F2F] border border-[#444] rounded-[11px] mt-6 text-white w-full flex flex-col gap-7 p-6">
           <span className="text-[#A5A5A5] text-xl">Withdraw</span>
           <div className="flex gap-2">
-            <input type="text" className="w-4/5 bg-transparent text-white px-4 py-2 border border-[#444] rounded-[2px]" placeholder="Enter amount"></input>
-            <select
-              className="bg-transparent text-white px-4 py-2 border border-[#444] rounded-[2px]"
-            >
+            <input
+              type="text"
+              className="w-4/5 bg-transparent text-white px-4 py-2 border border-[#444] rounded-[2px]"
+              placeholder="Enter amount"
+            ></input>
+            <select className="bg-transparent text-white px-4 py-2 border border-[#444] rounded-[2px]">
               <option value="All">USDC</option>
               <option value="Pending">ETH</option>
               <option value="Executed">USDT</option>
               <option value="Repaying">STRK</option>
             </select>
           </div>
-            <Button backgroundColor="#D0C8FF">Withdraw</Button>
+          <Button backgroundColor="#D0C8FF">Withdraw</Button>
         </div>
         <div className="bg-[#2F2F2F] border border-[#444] rounded-[11px] mt-6 text-white w-full flex flex-col gap-7 p-6">
           <span className="text-[#A5A5A5] text-xl">Deposit</span>
           <div className="flex gap-2">
-            <input type="text" className="w-4/5 bg-transparent text-white px-4 py-2 border border-[#444] rounded-[2px]" placeholder="Enter amount"></input>
-            <select
-              className="bg-transparent text-white px-4 py-2 border border-[#444] rounded-[2px]"
-            >
+            <input
+              type="text"
+              className="w-4/5 bg-transparent text-white px-4 py-2 border border-[#444] rounded-[2px]"
+              placeholder="Enter amount"
+            ></input>
+            <select className="bg-transparent text-white px-4 py-2 border border-[#444] rounded-[2px]">
               <option value="All">USDC</option>
               <option value="Pending">ETH</option>
               <option value="Executed">USDT</option>
               <option value="Repaying">STRK</option>
             </select>
           </div>
-            <Button backgroundColor="#D0C8FF">Deposit</Button>
+          <Button backgroundColor="#D0C8FF">Deposit</Button>
         </div>
       </div>
     </div>

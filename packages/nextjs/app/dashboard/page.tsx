@@ -34,8 +34,8 @@ function Page() {
           <div className="mt-4">
             <span className="text-[14px] text-[#A4A4A4]">Total Earning</span>
             <div className="flex gap-3">
-              <span className="text-[#FAFF00] text-[14px]">{userData?.totalEarnings || 0.00}%</span>
-              <span className="text-[#2CFF74] text-[14px]">{userData?.earningsPercentage || 0.00}%</span>
+              <span className="text-[#FAFF00] text-[14px]">{userData?.totalEarnings || 0.0}%</span>
+              <span className="text-[#2CFF74] text-[14px]">{userData?.earningsPercentage || 0.0}%</span>
             </div>
           </div>
         </div>
@@ -43,26 +43,25 @@ function Page() {
       <div className="h-full flex flex-col gap-6">
         <span className="text-xl">Transactions</span>
         <div className="h-full w-full p-10 gap-6 flex flex-col bg-[#2F2F2F] border border-[#444C6A] rounded-[11px]">
-        {userData.transactions.length === 0 ? (
-              <div className="flex  justify-center items-center  text-[#A8B1C8] text-center">No data here</div>
-            ):
-        
-        (  userData.transactions.map((transaction, index) => (
-            <div className=" flex w-full justify-between items-center" key={index}>
-              <div className="flex items-center">
-                <Image width={40} height={40} className="" src="/icontransactions.svg" alt="transaction icon" />
-                <div className="ml-4">
-                  <div className="text-sm">{transaction?.type || ""}</div>
-                  <div className="text-xs text-[#858BA2]">06/14/2024 15:24 pm</div>
+          {userData.transactions.length === 0 ? (
+            <div className="flex  justify-center items-center  text-[#A8B1C8] text-center">No data here</div>
+          ) : (
+            userData.transactions.map((transaction, index) => (
+              <div className=" flex w-full justify-between items-center" key={index}>
+                <div className="flex items-center">
+                  <Image width={40} height={40} className="" src="/icontransactions.svg" alt="transaction icon" />
+                  <div className="ml-4">
+                    <div className="text-sm">{transaction?.type || ""}</div>
+                    <div className="text-xs text-[#858BA2]">06/14/2024 15:24 pm</div>
+                  </div>
+                </div>
+                <div className="flex gap-4 justify-center items-center">
+                  <span className="text-[#AE9FFD] text-xl">${transaction?.amount || 0.0}</span>
+                  <span className="text-sm">USD</span>
                 </div>
               </div>
-              <div className="flex gap-4 justify-center items-center">
-                <span className="text-[#AE9FFD] text-xl">${transaction?.amount|| 0.00}</span>
-                <span className="text-sm">USD</span>
-              </div>
-            </div>
-          )))
-        }
+            ))
+          )}
         </div>
       </div>
     </div>

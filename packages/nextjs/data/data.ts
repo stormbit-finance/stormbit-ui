@@ -398,6 +398,5 @@ export const userData: UserData = {
       interestRate: "4%",
       description: "Deposited $1,000.00 with a 4% interest rate",
     },
-
   ],
 };

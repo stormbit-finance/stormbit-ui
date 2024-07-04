@@ -2,6 +2,10 @@
 
 import React, { useState } from "react";
 import Borrower from "~~/components/Borrower/Borrower";
+import useUserLoans from "~~/hooks/gql/useUserLoansAggregate";
+import useUserTermCount from "~~/hooks/gql/useUserTermCount";
+import useUserTermDepositAggregate from "~~/hooks/gql/useUserTermDepositAggregate";
+import useUsername from "~~/hooks/gql/useUsername";
 
 function Page() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -10,6 +14,15 @@ function Page() {
   const handleSearch = () => {
     setShowResults(true);
   };
+  const { aggregatedLoans } = useUserLoans("0x2B7E4B80A1C217cCe8f749d5c4fF226AEB1c79DC");
+  const { aggregatedDeposits } = useUserTermDepositAggregate("0xDe3089d40F3491De794fBb1ECA109fAc36F889d0");
+  const { username } = useUsername("0xDe3089d40F3491De794fBb1ECA109fAc36F889d0");
+  const { termCount } = useUserTermCount("0xDe3089d40F3491De794fBb1ECA109fAc36F889d0");
+
+  console.log(aggregatedDeposits);
+  console.log(aggregatedLoans);
+  console.log(username);
+  console.log(termCount);
 
   return (
     <div className="pt-[100px] flex items-center justify-center min-h-[500px]">

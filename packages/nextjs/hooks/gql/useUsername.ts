@@ -1,9 +1,13 @@
-// import { useGraphClient } from "~~/hooks/gql";
 import { useQuery } from "@apollo/client";
 import { USERNAME_QUERY } from "~~/utils/gql";
+import { User } from "~~/utils/gql/types";
+
+interface UsernameQueryData {
+  user: Partial<User>;
+}
 
 const useUsername = (address: string | undefined) => {
-  const { loading, error, data } = useQuery(USERNAME_QUERY(address || ""), {
+  const { loading, error, data } = useQuery<UsernameQueryData>(USERNAME_QUERY(address || ""), {
     pollInterval: 3000,
   });
 

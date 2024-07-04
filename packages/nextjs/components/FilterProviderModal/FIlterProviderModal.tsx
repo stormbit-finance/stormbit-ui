@@ -90,7 +90,7 @@ const FilterProviderModal: React.FC<ModalProps> = ({ setIsModalOpen, provider, s
       </div>
       <div className="w-full flex items-center justify-center py-[20px]">
         <Button
-        backgroundColor="#D0C8FF"
+          backgroundColor="#D0C8FF"
           onClick={() => {
             setProvider(provider);
             setIsModalOpen();

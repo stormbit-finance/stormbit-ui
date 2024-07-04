@@ -186,7 +186,7 @@ input {
 
 .button-gradient {
   border: 1px solid #0f0f0f;
-  background: var(--purple-gradient-light, linear-gradient(90deg, #A864FF 0%, #E69EFF 100%));
+  background: var(--purple-gradient-light, linear-gradient(90deg, #a864ff 0%, #e69eff 100%));
   backdrop-filter: blur(21px);
 }
 /*.max-h-143px{*/
@@ -196,6 +196,6 @@ input {
   transform: rotate(-90deg);
 }
 
-.btn-transparent{
+.btn-transparent {
   background: linear-gradient(90deg, #252525 0%, #424242 100%);
 }
