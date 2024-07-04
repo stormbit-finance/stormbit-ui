@@ -14,6 +14,8 @@ import TermForm from "~~/components/TermForm/TermForm";
 
 // @ts-nocheck
 
+// @ts-nocheck
+
 const Page = () => {
   const [terms, setTerms] = useState<string[]>([]);
   const [showForm, setShowForm] = useState(false);
