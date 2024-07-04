@@ -5,6 +5,7 @@ import { ApolloProvider } from "@apollo/client";
 import { Space_Grotesk } from "@next/font/google";
 import { NextUIProvider } from "@nextui-org/react";
 import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 import { WagmiConfig } from "wagmi";
 import { Header } from "~~/components/Header";
@@ -41,16 +42,19 @@ const ScaffoldEthApp = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
+const queryClient = new QueryClient();
 export const ScaffoldEthAppWithProviders = ({ children }: { children: React.ReactNode }) => {
   const client = getGraphClient(appChains.chains[0].id);
   return (
     <NextUIProvider>
       <ApolloProvider client={client}>
         <WagmiConfig config={wagmiConfig}>
-          <ProgressBar />
-          <RainbowKitProvider chains={appChains.chains} avatar={BlockieAvatar}>
-            <ScaffoldEthApp>{children}</ScaffoldEthApp>
-          </RainbowKitProvider>
+          <QueryClientProvider client={queryClient}>
+            <ProgressBar />
+            <RainbowKitProvider chains={appChains.chains} avatar={BlockieAvatar}>
+              <ScaffoldEthApp>{children}</ScaffoldEthApp>
+            </RainbowKitProvider>
+          </QueryClientProvider>
         </WagmiConfig>
       </ApolloProvider>
     </NextUIProvider>

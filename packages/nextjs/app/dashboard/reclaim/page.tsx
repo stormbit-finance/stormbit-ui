@@ -6,9 +6,32 @@ import Image from "next/image";
 import { FaCheckCircle } from "react-icons/fa";
 import { FiArrowUpRight } from "react-icons/fi";
 import { IoIosCloseCircleOutline } from "react-icons/io";
+import { useAccount, useSignMessage } from "wagmi";
 import Button from "~~/components/Button/Button";
 import FilterProviderModal from "~~/components/FilterProviderModal/FIlterProviderModal";
 import ModalContainer from "~~/components/ModalContainer/ModalContainer";
+import useRequestProof from "~~/hooks/api/useRequestProof";
+import useSupportedProvider from "~~/hooks/api/useSupportedProvider";
+
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
 
 // @ts-nocheck
 
@@ -35,13 +58,19 @@ import ModalContainer from "~~/components/ModalContainer/ModalContainer";
 const Reclaim = () => {
   const providerData = useMemo(
     () => [
-      { name: "Binance", provider: "Binance", desc: "KYC", img: "/binance.svg" , zkproof:10},
-      { name: "OKX", provider: "OKX", desc: "KYC", img: "/okx.svg", zkproof:10 },
-      { name: "Github", provider: "Github", desc: "KYC", img: "/github.svg", zkproof:0 },
-      { name: "Stripe", provider: "Stripe", desc: "More than 1000 USDT in balance", img: "/stripe.svg" , zkproof:10},
-      { name: "LinkedIn Analytics", provider: "LinkedIn Analytics", desc: "Dashboard Analytics", img: "/linkedin.svg" , zkproof:10},
-      { name: "X Analytics", provider: "X Analytics", desc: "Dashboard Analytics", img: "/x.svg" , zkproof:10},
-      { name: "Custom", provider: "Custom", desc: "KYC", img: "/custom.svg", zkproof:10 },
+      { name: "Binance", provider: "Binance", desc: "KYC", img: "/binance.svg", zkproof: 10 },
+      { name: "OKX", provider: "OKX", desc: "KYC", img: "/okx.svg", zkproof: 10 },
+      { name: "Github", provider: "Github", desc: "KYC", img: "/github.svg", zkproof: 0 },
+      { name: "Stripe", provider: "Stripe", desc: "More than 1000 USDT in balance", img: "/stripe.svg", zkproof: 10 },
+      {
+        name: "LinkedIn Analytics",
+        provider: "LinkedIn Analytics",
+        desc: "Dashboard Analytics",
+        img: "/linkedin.svg",
+        zkproof: 10,
+      },
+      { name: "X Analytics", provider: "X Analytics", desc: "Dashboard Analytics", img: "/x.svg", zkproof: 10 },
+      { name: "Custom", provider: "Custom", desc: "KYC", img: "/custom.svg", zkproof: 10 },
     ],
     [],
   );
@@ -51,15 +80,18 @@ const Reclaim = () => {
     { name: "Stripe", provider: "Stripe", condition: "More than 1000 USDT in balance", img: "/stripe.svg" },
     { name: "Github", provider: "Github", condition: "KYC", img: "/github.svg" },
   ];
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [provider, setProvider] = useState("Filter");
+  const [copyStatus, setCopyStatus] = useState(false);
+  const [verifiedLink, setVerifiedLink] = useState("");
   const [providerList, setProviderList] = useState(providerData);
   const [selectedProvider, setSelectedProvider] = useState(null);
   const [verifiedProviders, setVerifiedProviders] = useState([]);
   const [verificationStatus, setVerificationStatus] = useState(null);
-
+  const account = useAccount();
+  const { data: signMessageData, signMessage, signMessageAsync } = useSignMessage();
+  const { data: supportedProvider } = useSupportedProvider();
   useEffect(() => {
     if (provider === "All" || provider === "Filter") {
       setProviderList(providerData);
@@ -68,22 +100,35 @@ const Reclaim = () => {
       setProviderList(providerData.filter(item => item.provider === provider));
     }
   }, [provider, providerData]);
-
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(verifiedLink);
+    setCopyStatus(true);
+  };
   const handleModalClick = event => {
     if (event.target === event.currentTarget) {
       setIsModalOpen(false);
       setVerificationStatus(null);
+      setCopyStatus(false);
     }
   };
+  const handleVerifySuccess = (data: string) => {
+    console.log(data);
+    setVerificationStatus("success");
+    setVerifiedLink(data.requestUrl);
+  };
+  const handleVerifyFailed = () => {
+    setVerificationStatus("failure");
+  };
 
-  const handleVerify = () => {
-    const isSuccess = Math.random() > 0.5;
-    if (isSuccess) {
-      setVerifiedProviders([...verifiedProviders, selectedProvider]);
-      setVerificationStatus("success");
-    } else {
-      setVerificationStatus("failure");
-    }
+  const { mutate: requestProof } = useRequestProof(handleVerifySuccess, handleVerifyFailed);
+
+  const handleVerify = async provider => {
+    const signature = await signMessageAsync({ message: `Request proof for provider with id ${provider.providerId}` });
+    requestProof({
+      providerId: provider?.providerId,
+      address: account?.address,
+      signature: signature,
+    });
   };
 
   return (
@@ -96,7 +141,7 @@ const Reclaim = () => {
         <div className="flex flex-col w-4/5 gap-4">
           <span className="text-xl">Verified</span>
           <div className="bg-[#2F2F2F] border border-[#444C6A] py-8 px-11 gap-5 flex flex-col">
-            {verifiedProviders.length === 0 ? (
+            {!verifiedProviders ? (
               <div className="text-[#A8B1C8] text-center">No data here</div>
             ) : (
               verifiedProviders.map((item, index) => (
@@ -116,18 +161,17 @@ const Reclaim = () => {
           </div>
 
           <span>Not Verified</span>
-
           <div className="bg-[#2F2F2F] border border-[#444C6A] py-8 px-11 gap-5 flex flex-col h-full">
-          {providers.length === 0 ? (
+            {!supportedProvider ? (
               <div className="text-[#A8B1C8] text-center">No data here</div>
             ) : (
-              providers.map((item, index) => (
+              supportedProvider.map((item, index) => (
                 <div className=" flex w-full justify-between items-center" key={index}>
                   <div className="flex items-center">
-                    <Image width={30} height={30} className="" src={`${item.img}`} alt="" />
+                    {/* <Image width={30} height={30} className="" src={`${item.img}`} alt="" /> */}
                     <div className="ml-4">
                       <div className="text-base">{item.name}</div>
-                      <div className="text-xs text-[#858BA2]">{item.condition}</div>
+                      <div className="text-xs text-[#858BA2]">{item.description}</div>
                     </div>
                   </div>
                   <Button
@@ -136,7 +180,6 @@ const Reclaim = () => {
                     onClick={() => {
                       setSelectedProvider(item);
                       setIsModalOpen(true);
-                      setVerificationStatus(null);
                     }}
                   >
                     Verify<FiArrowUpRight></FiArrowUpRight>
@@ -144,7 +187,6 @@ const Reclaim = () => {
                 </div>
               ))
             )}
-    
           </div>
         </div>
         <div className="w-2/5 flex flex-col items-center gap-[20px] py-[30px] bg-[#2F2F2F] border border-[#444C6A]">
@@ -194,10 +236,10 @@ const Reclaim = () => {
           <div className="bg-[#2F2F2F] w-[600px] h-[350px] flex justify-center items-center flex-col gap-4">
             {verificationStatus === null ? (
               <>
-                <Image src={selectedProvider?.img} alt="logo" width={60} height={60}></Image>
+                {/* <Image src={selectedProvider?.img} alt="logo" width={60} height={60}></Image> */}
                 <h2 className="text-xl text-white font-bold m-0">Verify {selectedProvider?.name}</h2>
-                <p className="text-[#858BA2] m-0">Conditions: {selectedProvider?.condition}</p>
-                <Button backgroundColor="#D0C8FF" onClick={handleVerify}>
+                <p className="text-[#858BA2] m-0">Conditions: {selectedProvider?.description}</p>
+                <Button backgroundColor="#D0C8FF" onClick={() => handleVerify(selectedProvider)}>
                   Request proof with signature
                 </Button>
               </>
@@ -206,8 +248,9 @@ const Reclaim = () => {
                 <FaCheckCircle size={60} color="green" />
                 <h2 className="text-xl text-white font-bold m-0">Verify Successfully</h2>
                 <p className="text-[#858BA2] m-0">You have completed the verification process.</p>
-                <div className="text-[#858BA2] m-0 bg-[#1F1F1F] p-2 rounded-md">
-                  <span className="text-white">http://verification-complete-link/1029381029231023...</span>
+                <div onClick={handleCopyLink} className="cursor-pointer text-[#858BA2] m-0 bg-[#1F1F1F] p-2 rounded-md">
+                  <span className=" text-white pr-4 ">{verifiedLink}</span>
+                  <span className="">{copyStatus ? "Link Copied" : "Copy Link"}</span>
                 </div>
               </>
             ) : (
