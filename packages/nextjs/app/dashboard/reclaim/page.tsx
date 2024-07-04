@@ -3,6 +3,7 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
+import { QRCodeSVG } from "qrcode.react";
 import { FaCheckCircle } from "react-icons/fa";
 import { FiArrowUpRight } from "react-icons/fi";
 import { IoIosCloseCircleOutline } from "react-icons/io";
@@ -12,6 +13,26 @@ import FilterProviderModal from "~~/components/FilterProviderModal/FIlterProvide
 import ModalContainer from "~~/components/ModalContainer/ModalContainer";
 import useRequestProof from "~~/hooks/api/useRequestProof";
 import useSupportedProvider from "~~/hooks/api/useSupportedProvider";
+
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
 
 // @ts-nocheck
 
@@ -255,12 +276,18 @@ const Reclaim = () => {
               </>
             ) : verificationStatus === "success" ? (
               <>
-                <FaCheckCircle size={60} color="green" />
+                {/* <FaCheckCircle size={60} color="green" /> */}
                 <h2 className="text-xl text-white font-bold m-0">Verify Successfully</h2>
-                <p className="text-[#858BA2] m-0">You have completed the verification process.</p>
-                <div onClick={handleCopyLink} className="cursor-pointer text-[#858BA2] m-0 bg-[#1F1F1F] p-2 rounded-md">
-                  <span className=" text-white pr-4 ">{verifiedLink}</span>
-                  <span className="">{copyStatus ? "Link Copied" : "Copy Link"}</span>
+                <p className="text-[#858BA2] m-0 mb-4">You have completed the verification process.</p>
+                <QRCodeSVG className="mb-4" value={verifiedLink} size={256} />
+                <div
+                  onClick={handleCopyLink}
+                  className="cursor-pointer  m-0 border border-[#6C757D]  rounded-md flex justify-center items-center"
+                >
+                  <div className=" text-white px-4 ">{verifiedLink}</div>
+                  <div className="bg-[#D0C8FF] rounded-r-md px-8 text-black py-2 self-center">
+                    {copyStatus ? "Link Copied" : "Copy"}
+                  </div>
                 </div>
               </>
             ) : (
