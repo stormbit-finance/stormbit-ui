@@ -11,6 +11,8 @@ import React, { useState } from "react";
 
 // @ts-nocheck
 
+// @ts-nocheck
+
 function Page() {
   const [filter, setFilter] = useState("All");
 

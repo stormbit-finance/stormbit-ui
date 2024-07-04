@@ -58,3 +58,13 @@ export const USER_TERM_COUNT_QUERY = (address: string) => {
       }
     `;
 };
+
+export const ADDRESS_BY_USERNAME_QUERY = (username: string) => {
+  return gql`
+      query {
+        users(where: { username: "${username}" }) {
+          id
+        }
+      }
+    `;
+};

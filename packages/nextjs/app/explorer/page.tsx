@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Borrower from "~~/components/Borrower/Borrower";
 import useUserLoans from "~~/hooks/gql/useUserLoansAggregate";
 import useUserTermCount from "~~/hooks/gql/useUserTermCount";
 import useUserTermDepositAggregate from "~~/hooks/gql/useUserTermDepositAggregate";
 import useUsername from "~~/hooks/gql/useUsername";
+import { getAddressByUsername } from "~~/utils/gql/helpers";
 
 function Page() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -24,6 +25,12 @@ function Page() {
   console.log(username);
   console.log(termCount);
 
+  useEffect(() => {
+    getAddressByUsername("0xquantum3labs", 421614).then(data => {
+      console.log("address fetched");
+      console.log(data);
+    });
+  }, []);
   return (
     <div className="pt-[100px] flex items-center justify-center min-h-[500px]">
       {!showResults && (
