@@ -18,4 +18,4 @@ async function requestProof(data: { providerId: string; address: string; signatu
   });
   return response.data;
 }
-export { getSupportedProvider, requestProof };
+export { getSupportedProvider, getVerifications, requestProof };

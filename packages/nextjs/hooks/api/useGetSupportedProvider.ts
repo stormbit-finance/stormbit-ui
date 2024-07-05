@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supportedProvider } from "~~/types/Provider";
 import { getSupportedProvider } from "~~/utils/api/reclaim";
 
-const useSupportedProvider = () => {
+const useGetSupportedProvider = () => {
   return useQuery({
     queryKey: ["supportedProvider"],
     queryFn: async (): Promise<supportedProvider | undefined> => {
@@ -14,4 +14,4 @@ const useSupportedProvider = () => {
   });
 };
 
-export default useSupportedProvider;
+export default useGetSupportedProvider;

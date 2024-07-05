@@ -12,7 +12,8 @@ import Button from "~~/components/Button/Button";
 import FilterProviderModal from "~~/components/FilterProviderModal/FIlterProviderModal";
 import ModalContainer from "~~/components/ModalContainer/ModalContainer";
 import useRequestProof from "~~/hooks/api/useRequestProof";
-import useSupportedProvider from "~~/hooks/api/useSupportedProvider";
+import useGetSupportedProvider from "~~/hooks/api/useGetSupportedProvider";
+import useGetVerification from "~~/hooks/api/useGetVerification";
 
 // @ts-nocheck
 
@@ -122,7 +123,9 @@ const Reclaim = () => {
   const [verificationStatus, setVerificationStatus] = useState(null);
   const account = useAccount();
   const { data: signMessageData, signMessage, signMessageAsync } = useSignMessage();
-  const { data: supportedProvider } = useSupportedProvider();
+  const { data: supportedProvider } = useGetSupportedProvider();
+  const { data: verifications } = useGetVerification(account?.address||"");
+
   useEffect(() => {
     if (provider === "All" || provider === "Filter") {
       setProviderList(providerData);
@@ -143,7 +146,6 @@ const Reclaim = () => {
     }
   };
   const handleVerifySuccess = (data: string) => {
-    console.log(data);
     setVerificationStatus("success");
     setVerifiedLink(data.requestUrl);
   };
@@ -172,21 +174,27 @@ const Reclaim = () => {
         <div className="flex flex-col w-4/5 gap-4">
           <span className="text-xl">Verified</span>
           <div className="bg-[#2F2F2F] border border-[#444C6A] py-8 px-11 gap-5 flex flex-col">
-            {!verifiedProviders ? (
+            {!verifications? (
               <div className="text-[#A8B1C8] text-center">No data here</div>
             ) : (
-              verifiedProviders.map((item, index) => (
-                <div className="flex justify-between" key={index}>
-                  <div className="flex flex-col text-sm">
-                    <span>
-                      {item.name} - {item.condition}
-                    </span>
-                    <span className="text-[#A8B1C8]">Verified just now</span>
-                  </div>
-                  <Button backgroundColor="#D0C8FF" size="small">
-                    Verify Again <FiArrowUpRight></FiArrowUpRight>
-                  </Button>
-                </div>
+               verifications.reclaimVerifications.map((item, index) => (
+                  item.count>0 && 
+                    (<div className="flex justify-between" key={index}>
+                    <div className="flex flex-col text-sm">
+                      <span>
+                        {item.provider.name} - {item.provider.description}
+                      </span>
+                      <span className="text-[#A8B1C8]">Verified just now</span>
+                    </div>
+                    <Button onClick={() => {
+                        setSelectedProvider(item.provider);
+                        setIsModalOpen(true);
+                      }} backgroundColor="#D0C8FF" size="small">
+                      Verify Again <FiArrowUpRight></FiArrowUpRight>
+                    </Button>
+                  </div>)
+                  
+            
               ))
             )}
           </div>
