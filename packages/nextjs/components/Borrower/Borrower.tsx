@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { FiArrowDownLeft } from "react-icons/fi";
 import { FiArrowUpRight } from "react-icons/fi";
 import { FiFileText } from "react-icons/fi";
@@ -24,7 +25,7 @@ interface borrowerProps {
 
 const Borrower : React.FC<borrowerProps> = ({verifications, username, address, aggregatedLoans, aggregatedDeposits, termCount }) => {
   const lastUpdated = verifications?
-  formatDistance(new Date(max(verifications?.reclaimVerifications?.map(item => parseISO(item.updatedAt)))), new Date(), {addSuffix:true}):''
+  formatDistance(new Date(max(verifications?.reclaimVerifications?.map(item => parseISO(item.updatedAt)))), new Date(), {addSuffix:true}):'-'
   const verificationTotal = verifications?verifications.reclaimVerifications?.reduce((sum, item) => sum + item.count, 0):0
   const [provider, setProvider] = useState([
     {
@@ -86,7 +87,11 @@ const Borrower : React.FC<borrowerProps> = ({verifications, username, address, a
     <div className="w-[800px] my-7">
       <div className="flex  justify-between">
         <div className="flex gap-6">
+          <div className="flex gap-2">
           <span className="text-2xl text-white">{username||"User"}</span>
+          {verificationTotal>0?<Image width={15} height={15} className="" src="/verified.svg"  alt="" />:<Image width={15} height={15} className="" src="/unverified.svg"  alt="" />}
+          </div>
+      
           <span className="flex py-1 px-5 justify-center items-center gap-4 border border-solid border-[#C398FF] rounded-[40px] text-white text-[14px]">
           {truncateDisplayAddress(address)}
             <IoCopy className="cursor-pointer" onClick={ ()=> navigator.clipboard.writeText(address)}></IoCopy>
@@ -103,21 +108,21 @@ const Borrower : React.FC<borrowerProps> = ({verifications, username, address, a
             <FiArrowDownLeft className="w-[30px] h-[30px text-white"></FiArrowDownLeft>
             <div className="text-white flex flex-col">
               <span className="text-sm text-white">Total Loans</span>
-              <span className="text-[#AE9FFD] text-sm">$ {parseFloat(aggregatedLoans).toFixed(2)}</span>
+              <span className="text-[#AE9FFD] text-sm">$ {aggregatedLoans? parseFloat(aggregatedLoans).toFixed(2):0.00}</span>
             </div>
           </div>
           <div className="py-2 px-4 flex gap-8 justify-center items-center bg-[#2F2F2F] rounded-[11px] border border-[#444C6A] w-[220px] h-[90px]">
             <FiArrowUpRight className="w-[30px] h-[30px text-white" />
             <div className="text-white flex flex-col">
               <span className="text-sm text-white">Total Deposited</span>
-              <span className="text-[#AE9FFD] text-sm">$ {parseFloat(aggregatedDeposits).toFixed(2)}</span>
+              <span className="text-[#AE9FFD] text-sm">$ {aggregatedDeposits? parseFloat(aggregatedDeposits).toFixed(2):0.00}</span>
             </div>
           </div>
           <div className="py-2 px-4 flex gap-8 justify-center items-center bg-[#2F2F2F] rounded-[11px] border border-[#444C6A] w-[220px] h-[90px]">
             <FiFileText className="w-[30px] h-[30px text-white" />
             <div className="text-white flex flex-col">
               <span className="text-sm text-white">Total Terms</span>
-              <span className="text-[#AE9FFD] text-sm">{termCount}</span>
+              <span className="text-[#AE9FFD] text-sm">{termCount? termCount:0}</span>
             </div>
           </div>
         </div>
