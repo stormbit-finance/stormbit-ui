@@ -11,7 +11,7 @@ const useUserTermCount = (address: string | undefined) => {
     pollInterval: 3000,
   });
 
-  const termCount = data ? data.user.terms?.length || 0 : 0;
+  const termCount = (data && data.user) ? data.user.terms?.length || 0 : 0;
 
   return {
     termCount,

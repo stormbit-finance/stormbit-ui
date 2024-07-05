@@ -7,29 +7,36 @@ import useUserTermCount from "~~/hooks/gql/useUserTermCount";
 import useUserTermDepositAggregate from "~~/hooks/gql/useUserTermDepositAggregate";
 import useUsername from "~~/hooks/gql/useUsername";
 import { getAddressByUsername } from "~~/utils/gql/helpers";
+import { useChainId } from 'wagmi'
+import { formatEther } from 'viem'
 
 function Page() {
+  const chainId = useChainId()
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchAddress, setSearchAddress] = useState("")
   const [showResults, setShowResults] = useState(false);
+// 0xDe3089d40F3491De794fBb1ECA109fAc36F889d0
+  const { aggregatedLoans } = useUserLoans(searchAddress);
+  const { aggregatedDeposits } = useUserTermDepositAggregate(searchAddress);
+  const { username } = useUsername(searchAddress);
+  const { termCount } = useUserTermCount(searchAddress);
+
+
 
   const handleSearch = () => {
+    if(searchQuery.startsWith('0x')){  //if search with address
+      setSearchAddress(searchQuery)
+    }
+    else{//if search with username
+      getAddressByUsername(searchQuery, chainId).then(data => {
+        setSearchAddress(data || '')
+      });
+    }
     setShowResults(true);
   };
-  const { aggregatedLoans } = useUserLoans("0x2B7E4B80A1C217cCe8f749d5c4fF226AEB1c79DC");
-  const { aggregatedDeposits } = useUserTermDepositAggregate("0xDe3089d40F3491De794fBb1ECA109fAc36F889d0");
-  const { username } = useUsername("0xDe3089d40F3491De794fBb1ECA109fAc36F889d0");
-  const { termCount } = useUserTermCount("0xDe3089d40F3491De794fBb1ECA109fAc36F889d0");
-
-  console.log(aggregatedDeposits);
-  console.log(aggregatedLoans);
-  console.log(username);
-  console.log(termCount);
 
   useEffect(() => {
-    getAddressByUsername("0xquantum3labs", 421614).then(data => {
-      console.log("address fetched");
-      console.log(data);
-    });
+
   }, []);
   return (
     <div className="pt-[100px] flex items-center justify-center min-h-[500px]">
@@ -44,7 +51,7 @@ function Page() {
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
               />
-              <button className="bg-[#D0C8FF] px-20 h-[47px] rounded-r-[8px] text-black" onClick={handleSearch}>
+              <button disabled={!searchQuery} className={`${!searchQuery? 'cursor-not-allowed':''} bg-[#D0C8FF] px-20 h-[47px] rounded-r-[8px] text-black`} onClick={handleSearch}>
                 Search
               </button>
             </div>
@@ -58,10 +65,6 @@ function Page() {
             <div className="flex flex-col justify-center items-center px-14 py-4 bg-[#2F2F2F] border border-solid border-[#444C6A] rounded-[11px] gap-2">
               <span className="text-sm text-white text-center">Unique Users Verified</span>
               <span className="text-[#AE9FFD] text-2xl">103</span>
-              <div className="flex text-xs text-white gap-4">
-                <span>6 lenders</span>
-                <span>97 borrowers</span>
-              </div>
             </div>
 
             <div className="flex flex-col justify-center items-center px-14 py-4 bg-[#2F2F2F] border border-solid border-[#444C6A] rounded-[11px] gap-2">
@@ -80,10 +83,18 @@ function Page() {
               type="text"
               className="bg-transparent border-none focus:outline-none w-[680px] px-4 text-white"
               value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              onKeyUp={(e) => {
+                if (e.key === 'Enter') {
+                  console.log(searchAddress)
+                  handleSearch();
+                }
+              }}
+              
             />
           </div>
           <div className="flex flex-col items-center">
-            <Borrower></Borrower>
+            <Borrower username={username || ''} address={searchAddress} termCount={termCount} aggregatedDeposits={formatEther(aggregatedDeposits.reduce((total, asset) => total + asset.assets, 0n))}  aggregatedLoans={formatEther(aggregatedLoans.reduce((total, asset) => total + asset.assets, 0n))}></Borrower>
           </div>
         </div>
       )}

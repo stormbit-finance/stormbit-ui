@@ -9,7 +9,7 @@ import { IoCopy } from "react-icons/io5";
 import { SiBinance } from "react-icons/si";
 import { SiWise } from "react-icons/si";
 import { SlUser } from "react-icons/sl";
-
+import { truncateDisplayAddress } from "~~/utils/scaffold-eth";
 const provider = [
   {
     icon: <SiBinance />,
@@ -44,16 +44,23 @@ const provider = [
     name: "Custom",
   },
 ];
+interface borrowerProps {
+  aggregatedLoans:string;
+  aggregatedDeposits:string;
+  address:string;
+  termCount:number
+  username:string;
 
-function Borrower() {
+}
+const Borrower : React.FC<borrowerProps> = ({username, address, aggregatedLoans, aggregatedDeposits, termCount }) => {
   return (
     <div className="w-[800px] my-7">
       <div className="flex  justify-between">
         <div className="flex gap-6">
-          <span className="text-2xl text-white">Rower wee</span>
+          <span className="text-2xl text-white">{username||"User"}</span>
           <span className="flex py-1 px-5 justify-center items-center gap-4 border border-solid border-[#C398FF] rounded-[40px] text-white text-[14px]">
-            0x2332..2324
-            <IoCopy></IoCopy>
+          {truncateDisplayAddress(address)}
+            <IoCopy className="cursor-pointer" onClick={ ()=> navigator.clipboard.writeText(address)}></IoCopy>
           </span>
         </div>
         <span className="text-white">
@@ -67,21 +74,21 @@ function Borrower() {
             <FiArrowDownLeft className="w-[30px] h-[30px text-white"></FiArrowDownLeft>
             <div className="text-white flex flex-col">
               <span className="text-sm text-white">Total Loans</span>
-              <span className="text-[#AE9FFD] text-sm">$ 9,099.00</span>
+              <span className="text-[#AE9FFD] text-sm">$ {parseFloat(aggregatedLoans).toFixed(2)}</span>
             </div>
           </div>
           <div className="py-2 px-4 flex gap-8 justify-center items-center bg-[#2F2F2F] rounded-[11px] border border-[#444C6A] w-[220px] h-[90px]">
             <FiArrowUpRight className="w-[30px] h-[30px text-white" />
             <div className="text-white flex flex-col">
               <span className="text-sm text-white">Total Deposited</span>
-              <span className="text-[#AE9FFD] text-sm">$ 9,099.00</span>
+              <span className="text-[#AE9FFD] text-sm">$ {parseFloat(aggregatedDeposits).toFixed(2)}</span>
             </div>
           </div>
           <div className="py-2 px-4 flex gap-8 justify-center items-center bg-[#2F2F2F] rounded-[11px] border border-[#444C6A] w-[220px] h-[90px]">
             <FiFileText className="w-[30px] h-[30px text-white" />
             <div className="text-white flex flex-col">
               <span className="text-sm text-white">Total Terms</span>
-              <span className="text-[#AE9FFD] text-sm">10</span>
+              <span className="text-[#AE9FFD] text-sm">{termCount}</span>
             </div>
           </div>
         </div>
