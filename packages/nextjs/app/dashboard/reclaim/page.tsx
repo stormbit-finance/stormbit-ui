@@ -4,6 +4,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { QRCodeSVG } from "qrcode.react";
+import { formatDistance, subDays } from "date-fns";
 import { FaCheckCircle } from "react-icons/fa";
 import { FiArrowUpRight } from "react-icons/fi";
 import { IoIosCloseCircleOutline } from "react-icons/io";
@@ -184,7 +185,7 @@ const Reclaim = () => {
                       <span>
                         {item.provider.name} - {item.provider.description}
                       </span>
-                      <span className="text-[#A8B1C8]">Verified just now</span>
+                      <span className="text-[#A8B1C8]">{formatDistance(new Date(item.updatedAt), new Date(), {addSuffix:true}) }</span>
                     </div>
                     <Button onClick={() => {
                         setSelectedProvider(item.provider);
