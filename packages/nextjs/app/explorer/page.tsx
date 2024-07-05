@@ -6,6 +6,7 @@ import useUserLoans from "~~/hooks/gql/useUserLoansAggregate";
 import useUserTermCount from "~~/hooks/gql/useUserTermCount";
 import useUserTermDepositAggregate from "~~/hooks/gql/useUserTermDepositAggregate";
 import useUsername from "~~/hooks/gql/useUsername";
+import useGetVerification from "~~/hooks/api/useGetVerification";
 import { getAddressByUsername } from "~~/utils/gql/helpers";
 import { useChainId } from 'wagmi'
 import { formatEther } from 'viem'
@@ -20,7 +21,7 @@ function Page() {
   const { aggregatedDeposits } = useUserTermDepositAggregate(searchAddress);
   const { username } = useUsername(searchAddress);
   const { termCount } = useUserTermCount(searchAddress);
-
+  const { data: verifications } = useGetVerification(searchAddress||"0x");
 
 
   const handleSearch = () => {
@@ -35,9 +36,7 @@ function Page() {
     setShowResults(true);
   };
 
-  useEffect(() => {
 
-  }, []);
   return (
     <div className="pt-[100px] flex items-center justify-center min-h-[500px]">
       {!showResults && (
@@ -86,7 +85,6 @@ function Page() {
               onChange={e => setSearchQuery(e.target.value)}
               onKeyUp={(e) => {
                 if (e.key === 'Enter') {
-                  console.log(searchAddress)
                   handleSearch();
                 }
               }}
@@ -94,7 +92,7 @@ function Page() {
             />
           </div>
           <div className="flex flex-col items-center">
-            <Borrower username={username || ''} address={searchAddress} termCount={termCount} aggregatedDeposits={formatEther(aggregatedDeposits.reduce((total, asset) => total + asset.assets, 0n))}  aggregatedLoans={formatEther(aggregatedLoans.reduce((total, asset) => total + asset.assets, 0n))}></Borrower>
+            <Borrower verifications={verifications} username={username || ''} address={searchAddress} termCount={termCount} aggregatedDeposits={formatEther(aggregatedDeposits.reduce((total, asset) => total + asset.assets, 0n))}  aggregatedLoans={formatEther(aggregatedLoans.reduce((total, asset) => total + asset.assets, 0n))}></Borrower>
           </div>
         </div>
       )}

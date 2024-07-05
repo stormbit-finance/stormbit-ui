@@ -1,58 +1,87 @@
-import { FaGithub } from "react-icons/fa";
-import { FaLinkedin } from "react-icons/fa";
-import { FaStripeS } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
+import React, { useEffect, useState } from "react";
 import { FiArrowDownLeft } from "react-icons/fi";
 import { FiArrowUpRight } from "react-icons/fi";
 import { FiFileText } from "react-icons/fi";
 import { IoCopy } from "react-icons/io5";
+import { FaGithub } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
+import { FaStripeS } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import { SiBinance } from "react-icons/si";
 import { SiWise } from "react-icons/si";
 import { SlUser } from "react-icons/sl";
+import { formatDistance, subDays, parseISO,max } from "date-fns";
 import { truncateDisplayAddress } from "~~/utils/scaffold-eth";
-const provider = [
-  {
-    icon: <SiBinance />,
-    name: "Binance",
-  },
-  {
-    icon: <SiBinance />,
-    name: "OKX",
-  },
-  {
-    icon: <FaGithub />,
-    name: "Github",
-  },
-  {
-    icon: <FaLinkedin />,
-    name: "LinkedIn Analytics",
-  },
-  {
-    icon: <FaXTwitter />,
-    name: "X",
-  },
-  {
-    icon: <FaStripeS />,
-    name: "Stripe",
-  },
-  {
-    icon: <SiWise />,
-    name: "Wise",
-  },
-  {
-    icon: <SlUser />,
-    name: "Custom",
-  },
-];
+
 interface borrowerProps {
   aggregatedLoans:string;
   aggregatedDeposits:string;
   address:string;
-  termCount:number
+  termCount:number;
   username:string;
-
+  verifications:any;
 }
-const Borrower : React.FC<borrowerProps> = ({username, address, aggregatedLoans, aggregatedDeposits, termCount }) => {
+
+const Borrower : React.FC<borrowerProps> = ({verifications, username, address, aggregatedLoans, aggregatedDeposits, termCount }) => {
+  const lastUpdated = verifications?
+  formatDistance(new Date(max(verifications?.reclaimVerifications?.map(item => parseISO(item.updatedAt)))), new Date(), {addSuffix:true}):''
+  const verificationTotal = verifications?verifications.reclaimVerifications?.reduce((sum, item) => sum + item.count, 0):0
+  const [provider, setProvider] = useState([
+    {
+      icon: <SiBinance />,
+      name: "Binance",
+      count:0
+      },
+      {
+      icon: <SiBinance />,
+      name: "OKX",
+      count:0
+      },
+      {
+      icon: <FaGithub />,
+      name: "Github",
+      count:0
+      },
+      {
+      icon: <FaLinkedin />,
+      name: "LinkedIn Analytics",
+      count:0
+      },
+      {
+      icon: <FaXTwitter />,
+      name: "X",
+      count:0
+      },
+      {
+      icon: <FaStripeS />,
+      name: "Stripe",
+      count:0
+      },
+      {
+      icon: <SiWise />,
+      name: "Wise",
+      count:0
+      },
+      {
+      icon: <SlUser />,
+      name: "Custom",
+      count:0
+      },
+    
+  ])
+  
+  useEffect(() => {
+    const updatedProviders = provider.map(p => ({ ...p, count: 0 }));
+    verifications?.reclaimVerifications?.forEach(item => {
+      const providerName = item.provider.name.toLowerCase();
+      provider.forEach((keyword,index) => {
+        if (providerName.includes(keyword.name.toLowerCase())) {
+          updatedProviders[index].count+=item.count;
+        }
+      });
+    });
+    setProvider(updatedProviders);
+  }, [verifications]);
   return (
     <div className="w-[800px] my-7">
       <div className="flex  justify-between">
@@ -98,11 +127,11 @@ const Borrower : React.FC<borrowerProps> = ({username, address, aggregatedLoans,
         <div className="py-8 px-4 flex gap-8 justify-center items-center bg-[#2F2F2F] rounded-[11px] border border-[#444C6A]">
           <div className="flex flex-col gap-2">
             <span className="text-[#9E9E9E] text-sm">Total verified</span>
-            <span className="text-white">20</span>
+            <span className="text-white">{verificationTotal}</span>
           </div>
           <div className="flex flex-col gap-2">
             <span className="text-[#9E9E9E] text-sm">Last zk-proof generated </span>
-            <span className="text-white">2 days ago</span>
+            <span className="text-white">{lastUpdated}</span>
           </div>
           <div className="flex flex-col gap-2">
             <span className="text-[#9E9E9E] text-sm">Trust score</span>
@@ -123,7 +152,7 @@ const Borrower : React.FC<borrowerProps> = ({username, address, aggregatedLoans,
             >
               {element.icon}
               <span>{element.name}</span>
-              <span>10</span>
+              <span>{element.count}</span>
             </div>
           ))}
         </div>
