@@ -230,14 +230,14 @@ const Reclaim = () => {
           </div>
         </div>
         <div className="w-2/5 flex flex-col items-center gap-[20px] py-[30px] bg-[#2F2F2F] border border-[#444C6A]">
-          <div className="flex justify-between w-full px-8">
-            <span className="text-2xl">Providers</span>
+          <div className="flex w-full px-8 justify-between items-center">
+            <span className="text-lg">Providers</span>
             <div>
               <button
                 onClick={() => {
                   setIsFilterOpen(true);
                 }}
-                className="bg-[#444444] text-white px-4 py-2 border border-[#444C6A] rounded-[7px]"
+                className="bg-[#444444] text-white text-[10px] px-4 py-2 border border-[#444C6A] rounded-[7px]"
               >
                 {provider} Provider
               </button>
@@ -255,7 +255,7 @@ const Reclaim = () => {
               <div className="flex items-center">
                 <Image width={30} height={30} className="" src={`${item.img}`} alt="" />
                 <div className="ml-4">
-                  <div className="text-xl">{item.name}</div>
+                  <div className="text-sm">{item.name}</div>
                 </div>
               </div>
               <span>{item?.zkproof || 0}</span>
