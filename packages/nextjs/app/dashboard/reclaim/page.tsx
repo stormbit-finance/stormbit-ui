@@ -10,6 +10,7 @@ import { FiArrowUpRight } from "react-icons/fi";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { useAccount, useSignMessage } from "wagmi";
 import Button from "~~/components/Button/Button";
+import Loading from "~~/components/Loading/Loading";
 import FilterProviderModal from "~~/components/FilterProviderModal/FIlterProviderModal";
 import ModalContainer from "~~/components/ModalContainer/ModalContainer";
 import useRequestProof from "~~/hooks/api/useRequestProof";
@@ -123,7 +124,7 @@ const Reclaim = () => {
   const [verifiedProviders, setVerifiedProviders] = useState([]);
   const [verificationStatus, setVerificationStatus] = useState(null);
   const account = useAccount();
-  const { data: signMessageData, signMessage, signMessageAsync } = useSignMessage();
+  const { data: signMessageData, signMessage, signMessageAsync, isLoading: isLoadingSignMessage } = useSignMessage();
   const { data: supportedProvider } = useGetSupportedProvider();
   const { data: verifications } = useGetVerification(account?.address||"");
 
@@ -154,9 +155,10 @@ const Reclaim = () => {
     setVerificationStatus("failure");
   };
 
-  const { mutate: requestProof } = useRequestProof(handleVerifySuccess, handleVerifyFailed);
+  const { mutate: requestProof, isLoading:isLoadingRequestProof } = useRequestProof(handleVerifySuccess, handleVerifyFailed);
 
   const handleVerify = async provider => {
+    
     const signature = await signMessageAsync({ message: `Request proof for provider with id ${provider.providerId}` });
     requestProof({
       providerId: provider?.providerId,
@@ -187,10 +189,13 @@ const Reclaim = () => {
                       </span>
                       <span className="text-[#A8B1C8]">{formatDistance(new Date(item.updatedAt), new Date(), {addSuffix:true}) }</span>
                     </div>
-                    <Button onClick={() => {
+                    <Button 
+                    backgroundColor={(isLoadingRequestProof||isLoadingSignMessage)?'#757A8D':'#D0C8FF' }
+                    size="small"
+                    onClick={() => {
                         setSelectedProvider(item.provider);
                         setIsModalOpen(true);
-                      }} backgroundColor="#D0C8FF" size="small">
+                      }} >
                       Verify Again <FiArrowUpRight></FiArrowUpRight>
                     </Button>
                   </div>)
@@ -215,7 +220,7 @@ const Reclaim = () => {
                     </div>
                   </div>
                   <Button
-                    backgroundColor="#D0C8FF"
+                    backgroundColor={(isLoadingRequestProof||isLoadingSignMessage)?'#757A8D':'#D0C8FF'}
                     size="small"
                     onClick={() => {
                       setSelectedProvider(item);
@@ -233,14 +238,15 @@ const Reclaim = () => {
           <div className="flex w-full px-8 justify-between items-center">
             <span className="text-lg">Providers</span>
             <div>
-              <button
+              <Button
                 onClick={() => {
                   setIsFilterOpen(true);
                 }}
-                className="bg-[#444444] text-white text-[10px] px-4 py-2 border border-[#444C6A] rounded-[7px]"
+                backgroundColor="#444444"
+                textColor="white"
               >
                 {provider} Provider
-              </button>
+              </Button>
             </div>
           </div>
 
@@ -279,8 +285,13 @@ const Reclaim = () => {
                 {/* <Image src={selectedProvider?.img} alt="logo" width={60} height={60}></Image> */}
                 <h2 className="text-xl text-white font-bold m-0">Verify {selectedProvider?.name}</h2>
                 <p className="text-[#858BA2] m-0">Conditions: {selectedProvider?.description}</p>
-                <Button backgroundColor="#D0C8FF" onClick={() => handleVerify(selectedProvider)}>
+
+                <Button 
+                backgroundColor={(isLoadingRequestProof||isLoadingSignMessage)?'#757A8D':'#D0C8FF'} 
+                disabled={isLoadingRequestProof || isLoadingSignMessage} 
+                onClick={() => handleVerify(selectedProvider)}>
                   Request proof with signature
+                  {(isLoadingRequestProof||isLoadingSignMessage)&&<Loading/>}
                 </Button>
               </>
             ) : verificationStatus === "success" ? (

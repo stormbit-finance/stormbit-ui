@@ -82,7 +82,7 @@ function Page() {
       {showResults && (
         <div className="w-full p-6 mt-4">
           <h1 className="text-white mb-11">Discover borrowers</h1>
-          <div className="border border-solid border-[#374B6D] rounded-[7px] w-full flex justify-between h-[47px] items-center mb-6">
+          <div className="border border-solid border-[#B5B8C4] rounded-[7px] w-full flex justify-between h-[47px] items-center mb-6">
             <input
               type="text"
               className="bg-transparent border-none focus:outline-none w-[680px] px-4 text-white"

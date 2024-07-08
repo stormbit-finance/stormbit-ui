@@ -105,7 +105,7 @@ const Borrower : React.FC<borrowerProps> = ({verifications, username, address, a
             <IoCopy className="cursor-pointer" onClick={ ()=> navigator.clipboard.writeText(address)}></IoCopy>
           </span>
         </div>
-        <span className="text-white">
+        <span className="text-white text-sm">
           Zk-proofs powered by <span>Reclaim</span>
         </span>
       </div>
