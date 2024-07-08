@@ -55,6 +55,14 @@ const FilterProviderModal: React.FC<ModalProps> = ({ setIsModalOpen, provider, s
             Github
           </div>
           <div
+            onClick={() => setProvider("Coinbase")}
+            className={`cursor-pointer hover:bg-[#3E3E3E] px-6 py-4 rounded-lg ${
+              provider === "Coinbase" ? "bg-[#3E3E3E]" : ""
+            }`}
+          >
+            Coinbase
+          </div>
+          <div
             onClick={() => setProvider("LinkedIn Analytics")}
             className={`cursor-pointer hover:bg-[#3E3E3E] px-6 py-4 rounded-lg ${
               provider === "LinkedIn Analytics" ? "bg-[#3E3E3E]" : ""

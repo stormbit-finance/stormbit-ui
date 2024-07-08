@@ -3,19 +3,23 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
-import { QRCodeSVG } from "qrcode.react";
 import { formatDistance, subDays } from "date-fns";
+import { QRCodeSVG } from "qrcode.react";
 import { FaCheckCircle } from "react-icons/fa";
 import { FiArrowUpRight } from "react-icons/fi";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { useAccount, useSignMessage } from "wagmi";
 import Button from "~~/components/Button/Button";
-import Loading from "~~/components/Loading/Loading";
 import FilterProviderModal from "~~/components/FilterProviderModal/FIlterProviderModal";
+import Loading from "~~/components/Loading/Loading";
 import ModalContainer from "~~/components/ModalContainer/ModalContainer";
-import useRequestProof from "~~/hooks/api/useRequestProof";
 import useGetSupportedProvider from "~~/hooks/api/useGetSupportedProvider";
 import useGetVerification from "~~/hooks/api/useGetVerification";
+import useRequestProof from "~~/hooks/api/useRequestProof";
+
+// @ts-nocheck
+
+// @ts-nocheck
 
 // @ts-nocheck
 
@@ -92,19 +96,14 @@ import useGetVerification from "~~/hooks/api/useGetVerification";
 const Reclaim = () => {
   const providerData = useMemo(
     () => [
-      { name: "Binance", provider: "Binance", desc: "KYC", img: "/binance.svg", zkproof: 10 },
-      { name: "OKX", provider: "OKX", desc: "KYC", img: "/okx.svg", zkproof: 10 },
-      { name: "Github", provider: "Github", desc: "KYC", img: "/github.svg", zkproof: 0 },
-      { name: "Stripe", provider: "Stripe", desc: "More than 1000 USDT in balance", img: "/stripe.svg", zkproof: 10 },
-      {
-        name: "LinkedIn Analytics",
-        provider: "LinkedIn Analytics",
-        desc: "Dashboard Analytics",
-        img: "/linkedin.svg",
-        zkproof: 10,
-      },
-      { name: "X Analytics", provider: "X Analytics", desc: "Dashboard Analytics", img: "/x.svg", zkproof: 10 },
-      { name: "Custom", provider: "Custom", desc: "KYC", img: "/custom.svg", zkproof: 10 },
+      { provider: "Binance", img: "/binance.svg", zkproof: 0 },
+      { provider: "OKX", img: "/okx.svg", zkproof: 0 },
+      { provider: "Github", img: "/github.svg", zkproof: 0 },
+      { provider: "Stripe", img: "/stripe.svg", zkproof: 0 },
+      { provider: "Coinbase", img: "/coinbase.svg", zkproof: 0 },
+      { provider: "LinkedIn Analytics", img: "/linkedin.svg", zkproof: 0 },
+      { provider: "X Analytics", img: "/x.svg", zkproof: 0 },
+      { provider: "Custom", img: "/custom.svg", zkproof: 0 },
     ],
     [],
   );
@@ -126,16 +125,20 @@ const Reclaim = () => {
   const account = useAccount();
   const { data: signMessageData, signMessage, signMessageAsync, isLoading: isLoadingSignMessage } = useSignMessage();
   const { data: supportedProvider } = useGetSupportedProvider();
-  const { data: verifications } = useGetVerification(account?.address||"");
+  const { data: verifications } = useGetVerification(account?.address || "");
 
   useEffect(() => {
-    if (provider === "All" || provider === "Filter") {
-      setProviderList(providerData);
-      return;
-    } else {
-      setProviderList(providerData.filter(item => item.provider === provider));
-    }
-  }, [provider, providerData]);
+    const updatedProviders = providerData.map(p => ({ ...p }));
+    verifications?.reclaimVerifications?.forEach(item => {
+      const providerName = item.provider.name.toLowerCase();
+      updatedProviders.forEach((keyword, index) => {
+        if (providerName.includes(keyword.provider.toLowerCase())) {
+          updatedProviders[index].zkproof += item.count;
+        }
+      });
+    });
+    setProviderList(updatedProviders);
+  }, [verifications]);
   const handleCopyLink = () => {
     navigator.clipboard.writeText(verifiedLink);
     setCopyStatus(true);
@@ -155,10 +158,12 @@ const Reclaim = () => {
     setVerificationStatus("failure");
   };
 
-  const { mutate: requestProof, isLoading:isLoadingRequestProof } = useRequestProof(handleVerifySuccess, handleVerifyFailed);
+  const { mutate: requestProof, isLoading: isLoadingRequestProof } = useRequestProof(
+    handleVerifySuccess,
+    handleVerifyFailed,
+  );
 
   const handleVerify = async provider => {
-    
     const signature = await signMessageAsync({ message: `Request proof for provider with id ${provider.providerId}` });
     requestProof({
       providerId: provider?.providerId,
@@ -177,31 +182,34 @@ const Reclaim = () => {
         <div className="flex flex-col w-4/5 gap-4">
           <span className="text-xl">Verified</span>
           <div className="bg-[#2F2F2F] border border-[#444C6A] py-8 px-11 gap-5 flex flex-col">
-            {!verifications? (
+            {!verifications ? (
               <div className="text-[#A8B1C8] text-center">No data here</div>
             ) : (
-               verifications.reclaimVerifications.map((item, index) => (
-                  item.count>0 && 
-                    (<div className="flex justify-between" key={index}>
-                    <div className="flex flex-col text-sm">
-                      <span>
-                        {item.provider.name} - {item.provider.description}
-                      </span>
-                      <span className="text-[#A8B1C8]">{formatDistance(new Date(item.updatedAt), new Date(), {addSuffix:true}) }</span>
+              verifications.reclaimVerifications.map(
+                (item, index) =>
+                  item.count > 0 && (
+                    <div className="flex justify-between" key={index}>
+                      <div className="flex flex-col text-sm">
+                        <span>
+                          {item.provider.name} - {item.provider.description}
+                        </span>
+                        <span className="text-[#A8B1C8]">
+                          {formatDistance(new Date(item.updatedAt), new Date(), { addSuffix: true })}
+                        </span>
+                      </div>
+                      <Button
+                        backgroundColor={isLoadingRequestProof || isLoadingSignMessage ? "#757A8D" : "#D0C8FF"}
+                        size="small"
+                        onClick={() => {
+                          setSelectedProvider(item.provider);
+                          setIsModalOpen(true);
+                        }}
+                      >
+                        Verify Again <FiArrowUpRight></FiArrowUpRight>
+                      </Button>
                     </div>
-                    <Button 
-                    backgroundColor={(isLoadingRequestProof||isLoadingSignMessage)?'#757A8D':'#D0C8FF' }
-                    size="small"
-                    onClick={() => {
-                        setSelectedProvider(item.provider);
-                        setIsModalOpen(true);
-                      }} >
-                      Verify Again <FiArrowUpRight></FiArrowUpRight>
-                    </Button>
-                  </div>)
-                  
-            
-              ))
+                  ),
+              )
             )}
           </div>
 
@@ -220,7 +228,7 @@ const Reclaim = () => {
                     </div>
                   </div>
                   <Button
-                    backgroundColor={(isLoadingRequestProof||isLoadingSignMessage)?'#757A8D':'#D0C8FF'}
+                    backgroundColor={isLoadingRequestProof || isLoadingSignMessage ? "#757A8D" : "#D0C8FF"}
                     size="small"
                     onClick={() => {
                       setSelectedProvider(item);
@@ -256,17 +264,31 @@ const Reclaim = () => {
               <div className="">zk proof generated</div>
             </div>
           </div>
-          {providerList.map((item, index) => (
-            <div className="py-4 px-6 flex w-full justify-between items-center" key={index}>
-              <div className="flex items-center">
-                <Image width={30} height={30} className="" src={`${item.img}`} alt="" />
-                <div className="ml-4">
-                  <div className="text-sm">{item.name}</div>
+          {provider === "All" || provider === ""
+            ? providerList.map((item, index) => (
+                <div className="py-4 px-6 flex w-full justify-between items-center" key={index}>
+                  <div className="flex items-center">
+                    <Image width={30} height={30} className="" src={`${item.img}`} alt="" />
+                    <div className="ml-4">
+                      <div className="text-sm">{item.provider}</div>
+                    </div>
+                  </div>
+                  <span>{item?.zkproof || 0}</span>
                 </div>
-              </div>
-              <span>{item?.zkproof || 0}</span>
-            </div>
-          ))}
+              ))
+            : providerList
+                .filter(item => item.provider === provider)
+                .map((item, index) => (
+                  <div className="py-4 px-6 flex w-full justify-between items-center" key={index}>
+                    <div className="flex items-center">
+                      <Image width={30} height={30} className="" src={`${item.img}`} alt="" />
+                      <div className="ml-4">
+                        <div className="text-sm">{item.provider}</div>
+                      </div>
+                    </div>
+                    <span>{item?.zkproof || 0}</span>
+                  </div>
+                ))}
         </div>
       </div>
       {isFilterOpen && (
@@ -279,19 +301,20 @@ const Reclaim = () => {
 
       {isModalOpen && (
         <ModalContainer onClick={handleModalClick}>
-          <div className="bg-[#2F2F2F] w-[600px] h-[350px] flex justify-center items-center flex-col gap-4">
+          <div className="bg-[#2F2F2</div>F] w-[600px] h-[350px] flex justify-center items-center flex-col gap-4">
             {verificationStatus === null ? (
               <>
                 {/* <Image src={selectedProvider?.img} alt="logo" width={60} height={60}></Image> */}
                 <h2 className="text-xl text-white font-bold m-0">Verify {selectedProvider?.name}</h2>
                 <p className="text-[#858BA2] m-0">Conditions: {selectedProvider?.description}</p>
 
-                <Button 
-                backgroundColor={(isLoadingRequestProof||isLoadingSignMessage)?'#757A8D':'#D0C8FF'} 
-                disabled={isLoadingRequestProof || isLoadingSignMessage} 
-                onClick={() => handleVerify(selectedProvider)}>
+                <Button
+                  backgroundColor={isLoadingRequestProof || isLoadingSignMessage ? "#757A8D" : "#D0C8FF"}
+                  disabled={isLoadingRequestProof || isLoadingSignMessage}
+                  onClick={() => handleVerify(selectedProvider)}
+                >
                   Request proof with signature
-                  {(isLoadingRequestProof||isLoadingSignMessage)&&<Loading/>}
+                  {(isLoadingRequestProof || isLoadingSignMessage) && <Loading />}
                 </Button>
               </>
             ) : verificationStatus === "success" ? (
