@@ -49,8 +49,13 @@ function Page() {
                 className="bg-transparent border-none focus:outline-none w-[680px] px-4"
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
+                onKeyUp={(e) => {
+                  if (e.key === 'Enter') {
+                    handleSearch();
+                  }
+                }}
               />
-              <button disabled={!searchQuery} className={`${!searchQuery? 'cursor-not-allowed':''} bg-[#D0C8FF] px-20 h-[47px] rounded-r-[8px] text-black`} onClick={handleSearch}>
+              <button onClick={handleSearch} disabled={!searchQuery} className={`${!searchQuery? 'cursor-not-allowed':''} bg-[#D0C8FF] px-20 h-[47px] rounded-r-[8px] text-black`} >
                 Search
               </button>
             </div>

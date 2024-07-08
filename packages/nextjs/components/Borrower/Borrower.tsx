@@ -9,6 +9,7 @@ import { FaLinkedin } from "react-icons/fa";
 import { FaStripeS } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { SiBinance } from "react-icons/si";
+import { TbBrandCoinbase } from "react-icons/tb";
 import { SiWise } from "react-icons/si";
 import { SlUser } from "react-icons/sl";
 import { formatDistance, subDays, parseISO,max } from "date-fns";
@@ -64,6 +65,11 @@ const Borrower : React.FC<borrowerProps> = ({verifications, username, address, a
       count:0
       },
       {
+        icon: <TbBrandCoinbase  />,
+        name: "Coinbase",
+        count:0
+        },
+      {
       icon: <SlUser />,
       name: "Custom",
       count:0
@@ -81,6 +87,8 @@ const Borrower : React.FC<borrowerProps> = ({verifications, username, address, a
         }
       });
     });
+
+
     setProvider(updatedProviders);
   }, [verifications]);
   return (
@@ -150,7 +158,7 @@ const Borrower : React.FC<borrowerProps> = ({verifications, username, address, a
       <div className="flex flex-col gap-6 mt-12">
         <span className="text-[#C398FF] text-bold">Verified Provider</span>
         <div className="w-full flex flex-wrap gap-4">
-          {provider.map((element, index) => (
+          {provider.filter(item=>item.count>0).map((element, index) => (
             <div
               className="text-white flex gap-2 bg-[#2F2F2F] border border-[#444C6A] items-center py-3 px-6 rounded-[11px]"
               key={index}
@@ -160,6 +168,11 @@ const Borrower : React.FC<borrowerProps> = ({verifications, username, address, a
               <span>{element.count}</span>
             </div>
           ))}
+          {provider.filter(item=>item.count>0).length==0 && (
+            <div className="text-[#9E9E9E] text-sm text-center py-8 bg-[#2F2F2F] rounded-[11px] border border-[#444C6A] w-full">
+              No data
+            </div>
+          )}
         </div>
       </div>
     </div>
