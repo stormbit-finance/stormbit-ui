@@ -3,25 +3,30 @@
 import React from "react";
 import Image from "next/image";
 import { AiOutlineDownload } from "react-icons/ai";
+import { formatEther } from "viem";
 import { useAccount } from "wagmi";
 import Button from "~~/components/Button/Button";
 import { userData } from "~~/data/data";
+import useUserTermDepositAggregate from "~~/hooks/gql/useUserTermDepositAggregate";
 import useUsername from "~~/hooks/gql/useUsername";
 
 function Page() {
   // TEST GRAPH QL QUERY
   const account = useAccount();
   const { username } = useUsername(account.address);
-
+  const { aggregatedDeposits } = useUserTermDepositAggregate(account.address);
   console.log(username);
   return (
     <div className="h-full flex flex-col gap-10 py-10 px-14">
       <div className="flex gap-12">
-        <div className="w-[410px] h-[198px] bg-[#2F2F2F] border border-[#444C6A] rounded-[11px] flex flex-col gap-8 p-8">
-          <span className="text-sm">Total Shares</span>
-          <span className="text-[#AE9FFD] text-2xl">${userData?.totalShares || 0}</span>
-          <div>
-            <Button backgroundColor="#AE9FFD">
+        <div className="w-[410px] h-[198px] bg-[#2F2F2F] border border-[#444C6A] rounded-[11px] p-8">
+          <div className=" flex flex-col gap-8 ">
+            <span className="text-sm">Total Shares</span>
+            <span className="text-[#AE9FFD] text-2xl">${userData?.totalShares || 0}</span>
+          </div>
+
+          <div className="pt-4">
+            <Button>
               Deposit <AiOutlineDownload />
             </Button>
           </div>
@@ -29,7 +34,14 @@ function Page() {
         <div className="w-[410px] h-[198px] bg-[#2F2F2F] border border-[#444C6A] rounded-[11px] p-8">
           <div className="flex flex-col gap-7">
             <span className="text-sm">Total Deposited</span>
-            <span className="text-[#AE9FFD] text-2xl">${userData?.totalDeposited || 0}</span>
+            <span className="text-[#AE9FFD] text-2xl">
+              $
+              {aggregatedDeposits
+                ? parseFloat(
+                    formatEther(aggregatedDeposits.reduce((total, asset) => total + asset.assets, 0n)),
+                  ).toFixed(2)
+                : 0.0}
+            </span>
           </div>
           <div className="mt-4">
             <span className="text-[14px] text-[#A4A4A4]">Total Earning</span>
