@@ -3,16 +3,23 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FaSearch } from "react-icons/fa";
 import Button from "~~/components/Button/Button";
 import LenderComponent from "~~/components/LenderComponent/LenderComponent";
 
 function Page() {
+  const router = useRouter();
+  const goCreateTerm = () => {
+    router.push("/createTerms");
+  };
   return (
     <div className="pt-[100px] w-full p-16 bg-[#252525]">
       <div className="flex justify-between my-8">
         <span className="text-white text-2xl">Discover lenders</span>
-        <Button backgroundColor="#D0C8FF">Create terms</Button>
+        <Button onClick={goCreateTerm} backgroundColor="#D0C8FF">
+          Create terms
+        </Button>
       </div>
       <div className="rounded-[11px] w-full btn-transparent flex gap-5 my-6">
         <Image src="/coins.png" alt="coins" width={200} height={112}></Image>

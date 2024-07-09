@@ -2,50 +2,56 @@ import React, { useState } from "react";
 import Button from "../Button/Button";
 
 interface TermFormProps {
-  onSubmit: (option: string, term: string) => void;
+  onSubmit: (hookAddress: string, comission: string) => void;
   onCancel: () => void;
 }
 
 const TermForm: React.FC<TermFormProps> = ({ onSubmit, onCancel }) => {
-  const [selectedOption, setSelectedOption] = useState("");
-  const [additionalInput, setAdditionalInput] = useState("");
+  const [selectedHook, setSelectedHook] = useState("");
+  const [comission, setComission] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(selectedOption, additionalInput);
+    onSubmit(selectedHook, comission);
   };
 
   return (
-    <div className="flex justify-center items-center h-full mx-24">
-      <form onSubmit={handleSubmit} className="flex flex-col gap-8 p-4 w-full">
-        <h2 className="text-center text-2xl mb-4">Create Terms</h2>
+    <div className="flex justify-center items-center h-full py-10 px-14">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-8 w-full max-w-[80%] text-white">
+        <h2 className="text-white text-center text-2xl mb-4">Create Terms</h2>
         <select
-          value={selectedOption}
-          onChange={e => setSelectedOption(e.target.value)}
-          className="p-4 px-6 border border-gray-300 bg-transparent rounded-[2px]"
+          value={selectedHook}
+          onChange={e => setSelectedHook(e.target.value)}
+          className="p-4 px-6 border  border-gray-300 bg-transparent rounded-[2px]"
         >
-          <option value="" disabled>
+          <option className="bg-[#2F2F2F]" value="" disabled>
             Select hooks
           </option>
-          <option value="Whitelist">Whitelist</option>
-          <option value="Blacklist">Blacklist</option>
-          <option value="Anti-money laundering">Anti-money laundering</option>
+          <option className="bg-[#2F2F2F]" value="0x4bF7D952b0adfbb0EA8C143f4Ea6834a9F3aDF2d">
+            Whitelist
+          </option>
+          <option className="bg-[#2F2F2F]" value="0x964d0f8a7c8b446d1725763316849B01d1B059e7">
+            Blacklist
+          </option>
+          <option className="bg-[#2F2F2F]" value="0x09b9fbE502fd1bb4DccA4261D3551694DF674611">
+            Anti-money laundering
+          </option>
         </select>
         <input
           type="text"
-          value={additionalInput}
-          onChange={e => setAdditionalInput(e.target.value)}
-          placeholder="Input commission"
+          value={comission}
+          onChange={e => setComission(e.target.value)}
+          placeholder="Input commission (%)"
           className="p-4 px-6 border border-gray-300 bg-transparent rounded-[2px]"
         />
-        <div className="flex flex-col gap-4 justify-center">
-          <Button backgroundColor="#D0C8FF" size="large">
+        <div className="flex flex-col gap-8 justify-center mt-8">
+          <button type="submit" className="bg-[#D0C8FF] px-4 py-4 rounded-[2px] text-sm text-black ">
             Create
-          </Button>
+          </button>
           <button
             type="button"
             onClick={onCancel}
-            className="bg-transparent text-[#D0C8FF] border border-[#D0C8FF] px-4 py-2 rounded-lg text-xs"
+            className="bg-transparent text-[#D0C8FF] border border-[#D0C8FF] px-4 py-4 rounded-[2px] text-sm"
           >
             Cancel
           </button>
