@@ -39,11 +39,7 @@ export const menuLinks: HeaderMenuLink[] = [
   },
 ];
 
-interface HeaderMenuLinksProps {
-  showLinks: boolean;
-}
-
-export const HeaderMenuLinks: React.FC<HeaderMenuLinksProps> = () => {
+export const HeaderMenuLinks = () => {
   const pathname = usePathname();
   return (
     <>
@@ -79,14 +75,6 @@ export const HeaderMenuLinks: React.FC<HeaderMenuLinksProps> = () => {
  * Site header
  */
 export const Header = () => {
-  const router = useRouter();
-  const [showMenuLinks, setShowMenuLinks] = useState(false);
-
-  const handleConnectSuccess = () => {
-    setShowMenuLinks(true);
-    router.push("/explorer");
-  };
-
   return (
     <div className="flex h-[100px] justify-center absolute top-0 z-40  w-full backdrop-blur-lg transition-colors duration-500 bg-[#f8fafc0f]/5">
       <div className="flex justify-between items-center min-h-0 lg:py-2 lg:px-6 text-white lg:static navbar sm:px-2 max-w-[1920px] w-full p-2">
@@ -100,11 +88,11 @@ export const Header = () => {
             </div>
           </Link>
           <ul className={`hidden lg:flex gap-8 px-1 text-xl`}>
-            <HeaderMenuLinks showLinks={showMenuLinks} />
+            <HeaderMenuLinks />
           </ul>
         </div>
         <div className="flex-grow gap-8 mr-4 navbar-end">
-          <RainbowKitCustomConnectButton onConnectSuccess={handleConnectSuccess} />
+          <RainbowKitCustomConnectButton />
 
           <FaucetButton />
         </div>

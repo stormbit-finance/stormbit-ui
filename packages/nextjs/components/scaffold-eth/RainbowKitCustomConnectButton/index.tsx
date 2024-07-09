@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { AddressInfoDropdown } from "./AddressInfoDropdown";
 import { AddressQRCodeModal } from "./AddressQRCodeModal";
@@ -5,26 +6,20 @@ import { WrongNetworkDropdown } from "./WrongNetworkDropdown";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { BiSolidUser } from "react-icons/bi";
 import { Address } from "viem";
-import useUsername from "~~/hooks/gql/useUsername";
 import { useAutoConnect } from "~~/hooks/scaffold-eth";
 import { useTargetNetwork } from "~~/hooks/scaffold-eth/useTargetNetwork";
 import { getBlockExplorerAddressLink } from "~~/utils/scaffold-eth";
 
-interface RainbowKitCustomConnectButtonProps {
-  onConnectSuccess?: () => void;
-}
+interface RainbowKitCustomConnectButtonProps {}
 
 /**
  * Custom Wagmi Connect Button (watch balance + custom design)
  */
-export const RainbowKitCustomConnectButton: React.FC<RainbowKitCustomConnectButtonProps> = ({ onConnectSuccess }) => {
+export const RainbowKitCustomConnectButton: React.FC<RainbowKitCustomConnectButtonProps> = ({}) => {
   useAutoConnect();
   const router = useRouter();
   const { targetNetwork } = useTargetNetwork();
 
-  const goRegister = () => {
-    router.push("/register");
-  };
   return (
     <ConnectButton.Custom>
       {({ account, chain, openConnectModal, mounted }) => {
@@ -32,7 +27,11 @@ export const RainbowKitCustomConnectButton: React.FC<RainbowKitCustomConnectButt
         const blockExplorerAddressLink = account
           ? getBlockExplorerAddressLink(targetNetwork, account.address)
           : undefined;
-        const { username } = useUsername(account?.address);
+        useEffect(() => {
+          if (connected) {
+            router.push("/explorer");
+          }
+        }, [connected]);
         return (
           <>
             {(() => {
@@ -53,6 +52,10 @@ export const RainbowKitCustomConnectButton: React.FC<RainbowKitCustomConnectButt
               }
               return (
                 <>
+                  <div className="px-4 py-2 rounded-[3px]  flex items-center gap-4 bg-[#333333]  text-xl ">
+                    <span>{chain.name}</span>
+                    <span>{account.displayBalance}</span>
+                  </div>
                   <AddressInfoDropdown
                     address={account.address as Address}
                     displayName={account.displayName}
@@ -60,18 +63,7 @@ export const RainbowKitCustomConnectButton: React.FC<RainbowKitCustomConnectButt
                     chainName={chain.name}
                     blockExplorerAddressLink={blockExplorerAddressLink}
                   />
-                  <div className="bg-gradient-to-r from-[#A864FF] text-xl to-[#E69FFF] flex items-center rounded-[5px] btn-sm px-6 py-2 gap-0 !h-auto">
-                    {username ? (
-                      <div className="flex flex-row gap-4 items-center">
-                        <BiSolidUser />
-                        <div className="">{username}</div>
-                      </div>
-                    ) : (
-                      <div className="cursor-pointer" onClick={goRegister}>
-                        Join Stormbit
-                      </div>
-                    )}
-                  </div>
+
                   <AddressQRCodeModal address={account.address as Address} modalId="qrcode-modal" />
                 </>
               );
