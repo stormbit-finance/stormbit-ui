@@ -18,8 +18,6 @@ import useRequestProof from "~~/hooks/api/useRequestProof";
 
 // @ts-nocheck
 
-// @ts-nocheck
-
 const Reclaim = () => {
   const providerData = useMemo(
     () => [
@@ -116,7 +114,7 @@ const Reclaim = () => {
                           {item.provider.name} - {item.provider.description}
                         </span>
                         <span className="text-[#A8B1C8]">
-                          {formatDistance(new Date(item.updatedAt), new Date(), { addSuffix: true })}
+                          {formatDistance(new Date(item?.updatedAt), new Date(), { addSuffix: true })}
                         </span>
                       </div>
                       <Button

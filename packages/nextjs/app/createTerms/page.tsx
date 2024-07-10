@@ -23,7 +23,7 @@ const Page = () => {
   const deployedContracts = contractData as GenericContractsDeclaration | null;
   const chainMetaData = deployedContracts?.[421614];
 
-  const { writeAsync: createTerm } = useScaffoldContractWrite({
+  const { writeAsync: createTerm, isLoading: createTermLoading } = useScaffoldContractWrite({
     contractName: "StormbitLendingManager",
     functionName: "createLendingTerm",
     args: [BigInt(commission), selectedHook],
@@ -65,7 +65,7 @@ const Page = () => {
 
   return (
     <div className="h-full w-full pt-[100px]  max-w-[1920px] ">
-      <TermForm onSubmit={handleAddTerm} onCancel={router.back} />
+      <TermForm createTermLoading={createTermLoading} onSubmit={handleAddTerm} onCancel={router.back} />
 
       {showConfirmModal && (
         <ModalContainer onClick={closeModalConfirmation}>
@@ -91,7 +91,10 @@ const Page = () => {
             <p className="text-[#858BA2] m-0 text-sm">Click the link below to view term</p>
             <div className="flex items-center m-4">
               <div className="cursor-pointer text-black border border-[#6C757D] py-3 px-6 underline rounded-l-lg">
-                <Link href={`lender/${term?.id}`}>{`http://localhost:3000/lender/${term?.id}`}</Link>
+                <Link
+                  className="text-white"
+                  href={`lender/${term?.id}`}
+                >{`http://localhost:3000/lender/${term?.id}`}</Link>
               </div>
 
               <button
