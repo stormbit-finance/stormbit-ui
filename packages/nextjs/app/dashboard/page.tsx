@@ -15,7 +15,7 @@ function Page() {
   const account = useAccount();
   const { username } = useUsername(account.address);
   const { aggregatedDeposits } = useUserTermDepositAggregate(account.address);
-  console.log(username);
+
   return (
     <div className="h-full flex flex-col gap-10 py-10 px-14">
       <div className="flex gap-12">

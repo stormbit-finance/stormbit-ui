@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { NetworkOptions } from "./NetworkOptions";
@@ -11,7 +11,6 @@ import {
   ArrowsRightLeftIcon,
   CheckCircleIcon,
   DocumentDuplicateIcon,
-  EllipsisVerticalIcon,
   QrCodeIcon,
 } from "@heroicons/react/24/outline";
 import useUsername from "~~/hooks/gql/useUsername";

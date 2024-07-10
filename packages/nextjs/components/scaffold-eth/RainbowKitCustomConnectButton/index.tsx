@@ -17,7 +17,6 @@ interface RainbowKitCustomConnectButtonProps {}
  */
 export const RainbowKitCustomConnectButton: React.FC<RainbowKitCustomConnectButtonProps> = ({}) => {
   useAutoConnect();
-  const router = useRouter();
   const { targetNetwork } = useTargetNetwork();
 
   return (
@@ -27,11 +26,7 @@ export const RainbowKitCustomConnectButton: React.FC<RainbowKitCustomConnectButt
         const blockExplorerAddressLink = account
           ? getBlockExplorerAddressLink(targetNetwork, account.address)
           : undefined;
-        useEffect(() => {
-          if (connected) {
-            // router.push("/explorer");
-          }
-        }, [connected]);
+
         return (
           <>
             {(() => {
@@ -42,7 +37,7 @@ export const RainbowKitCustomConnectButton: React.FC<RainbowKitCustomConnectButt
                     onClick={openConnectModal}
                     type="button"
                   >
-                    Launch App
+                    Connect
                   </button>
                 );
               }

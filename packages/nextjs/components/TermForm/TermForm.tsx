@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 
-// import { useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
-
 interface TermFormProps {
   onSubmit: (hookAddress: string, comission: string) => void;
   onCancel: () => void;
@@ -15,13 +13,6 @@ const TermForm: React.FC<TermFormProps> = ({ onSubmit, onCancel }) => {
     e.preventDefault();
     onSubmit(selectedHook, comission);
   };
-
-  // const createTerms = useScaffoldEventHistory({
-  //   contractName: "StormbitLendingManager",
-  //   eventName: "LendingTermCreated",
-  //   fromBlock: 0n,
-  // });
-  // console.log(createTerms);
 
   return (
     <div className="flex justify-center items-center h-full py-10 px-14">
