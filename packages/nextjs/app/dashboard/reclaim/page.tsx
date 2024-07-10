@@ -18,6 +18,8 @@ import useRequestProof from "~~/hooks/api/useRequestProof";
 
 // @ts-nocheck
 
+// @ts-nocheck
+
 const Reclaim = () => {
   const providerData = useMemo(
     () => [
@@ -241,7 +243,9 @@ const Reclaim = () => {
               <>
                 {/* <FaCheckCircle size={60} color="green" /> */}
                 <h2 className="text-xl text-white font-bold m-0">Verify Successfully</h2>
-                <p className="text-[#858BA2] m-0 mb-4">You have completed the verification process.</p>
+                <p className="text-[#858BA2] m-0 mb-4">
+                  Request succesfull complete your verification with your phone.
+                </p>
                 <QRCodeSVG className="mb-4" value={verifiedLink} size={256} />
                 <div
                   onClick={handleCopyLink}
