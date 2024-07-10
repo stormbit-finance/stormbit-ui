@@ -77,7 +77,6 @@ export const HeaderMenuLinks = () => {
 export const Header = () => {
   const pathname = usePathname();
   const router = useRouter();
-  console.log(pathname);
   return (
     <>
       {pathname === "/" ? (

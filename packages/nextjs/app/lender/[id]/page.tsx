@@ -1,9 +1,50 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
+import { useParams } from "next/navigation";
 import Button from "~~/components/Button/Button";
 import ColumnGraph from "~~/components/ColumnGraph/ColumnGraph";
 import { userData } from "~~/data/data";
+import useUsername from "~~/hooks/gql/useUsername";
+import { useScaffoldContractRead, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 function Page() {
+  const params = useParams();
+  const termId = BigInt(params.id.toString());
+  const [selectedWithdrawToken, setSelectedWithdrawToken] = useState("0xdAC17F958D2ee523a2206206994597C13D831ec7");
+  const [withdrawAmount, setWithdrawAmount] = useState("");
+  const [selectedDepositToken, setSelectedDepositToken] = useState("0xdAC17F958D2ee523a2206206994597C13D831ec7");
+  const [depositAmount, setDepositAmount] = useState("");
+
+  const { data: term } = useScaffoldContractRead({
+    contractName: "StormbitLendingManager",
+    functionName: "getLendingTerm",
+    args: [termId],
+  });
+
+  const { writeAsync: withdraw } = useScaffoldContractWrite({
+    contractName: "StormbitLendingManager",
+    functionName: "withdrawFromTerm",
+    args: [termId, selectedWithdrawToken, BigInt(withdrawAmount)],
+    onBlockConfirmation: txReceipt => {
+      console.log(txReceipt);
+    },
+    blockConfirmations: 0,
+  });
+
+  const { writeAsync: deposit } = useScaffoldContractWrite({
+    contractName: "StormbitLendingManager",
+    functionName: "depositToTerm",
+    args: [termId, selectedDepositToken, BigInt(depositAmount)],
+    onBlockConfirmation: txReceipt => {
+      console.log(txReceipt);
+    },
+    blockConfirmations: 0,
+  });
+
+  const { username: lenderName } = useUsername(term?.owner || "");
+
   const lender = [
     { name: "Total Deposit", value: "10,800.67", icon: "/icon-lender.svg" },
     { name: "Unique Depositors", value: "1237", icon: "/icon-depositor.svg" },
@@ -16,8 +57,11 @@ function Page() {
       <div className="w-3/5 pt-7 flex flex-col gap-8 px-4">
         <span className="text-3xl text-[#AD7AF3] font-bold">10% APR</span>
         <div className="flex justify-between">
-          {lender.map(element => (
-            <div className="bg-[#2F2F2F] border border-[#444] rounded-[11px] p-4 text-white flex gap-4 justify-center items-center">
+          {lender.map((element, index) => (
+            <div
+              key={index}
+              className="bg-[#2F2F2F] border border-[#444] rounded-[11px] p-4 text-white flex gap-4 justify-center items-center"
+            >
               <Image src={element.icon} alt="icon" width={40} height={40}></Image>
               <div className="flex flex-col gap-1">
                 <span className="text-[#959595] text-xs">{element.name}</span>
@@ -74,11 +118,11 @@ function Page() {
         <div className="bg-[#2F2F2F] border border-[#444] rounded-[11px] mt-10 text-white w-full p-6 flex flex-col gap-7">
           <div className="flex justify-between">
             <span className="text-[#A5A5A5] text-xl">Lender</span>
-            <span className="text-lg">yixuan.stormbit</span>
+            <span className="text-lg">{lenderName || "-"}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-[#A5A5A5] text-xl">Lender Commission</span>
-            <span className="text-[#AD7AF3] text-2xl">10%</span>
+            <span className="text-[#AD7AF3] text-2xl">{Number(term?.comission) || 0}%</span>
           </div>
         </div>
         <div className="bg-[#2F2F2F] border border-[#444] rounded-[11px] mt-6 text-white w-full h-[300px] flex flex-col gap-7">
@@ -102,34 +146,60 @@ function Page() {
           <div className="flex gap-2">
             <input
               type="text"
+              value={withdrawAmount}
+              onChange={e => setWithdrawAmount(e.target.value)}
               className="w-4/5 bg-transparent text-white px-4 py-2 border border-[#444] rounded-[2px]"
               placeholder="Enter amount"
             ></input>
-            <select className="bg-transparent text-white px-4 py-2 border border-[#444] rounded-[2px]">
-              <option value="All">USDC</option>
-              <option value="Pending">ETH</option>
-              <option value="Executed">USDT</option>
-              <option value="Repaying">STRK</option>
+            <select
+              value={selectedWithdrawToken}
+              onChange={e => setSelectedWithdrawToken(e.target.value)}
+              className="bg-transparent text-white px-4 py-2 border border-[#444] rounded-[2px]"
+            >
+              <option className="bg-[#2F2F2F]" value="0xdAC17F958D2ee523a2206206994597C13D831ec7">
+                USDT
+              </option>
+              <option className="bg-[#2F2F2F]" value="0xC18360217D8F7Ab5e7c516566761Ea12Ce7F9D72">
+                ETH
+              </option>
+              <option className="bg-[#2F2F2F]" value="0xCa14007Eff0dB1f8135f4C25B34De49AB0d42766">
+                STRK
+              </option>
             </select>
           </div>
-          <Button backgroundColor="#D0C8FF">Withdraw</Button>
+          <Button onClick={withdraw} backgroundColor="#D0C8FF">
+            Withdraw
+          </Button>
         </div>
         <div className="bg-[#2F2F2F] border border-[#444] rounded-[11px] mt-6 text-white w-full flex flex-col gap-7 p-6">
           <span className="text-[#A5A5A5] text-xl">Deposit</span>
           <div className="flex gap-2">
             <input
+              value={depositAmount}
+              onChange={e => setDepositAmount(e.target.value)}
               type="text"
               className="w-4/5 bg-transparent text-white px-4 py-2 border border-[#444] rounded-[2px]"
               placeholder="Enter amount"
             ></input>
-            <select className="bg-transparent text-white px-4 py-2 border border-[#444] rounded-[2px]">
-              <option value="All">USDC</option>
-              <option value="Pending">ETH</option>
-              <option value="Executed">USDT</option>
-              <option value="Repaying">STRK</option>
+            <select
+              value={selectedDepositToken}
+              onChange={e => setSelectedDepositToken(e.target.value)}
+              className="bg-transparent text-white px-4 py-2 border border-[#444] rounded-[2px]"
+            >
+              <option className="bg-[#2F2F2F]" value="0xdAC17F958D2ee523a2206206994597C13D831ec7">
+                USDT
+              </option>
+              <option className="bg-[#2F2F2F]" value="0xC18360217D8F7Ab5e7c516566761Ea12Ce7F9D72">
+                ETH
+              </option>
+              <option className="bg-[#2F2F2F]" value="0xCa14007Eff0dB1f8135f4C25B34De49AB0d42766">
+                STRK
+              </option>
             </select>
           </div>
-          <Button backgroundColor="#D0C8FF">Deposit</Button>
+          <Button onClick={deposit} backgroundColor="#D0C8FF">
+            Deposit
+          </Button>
         </div>
       </div>
     </div>

@@ -2,11 +2,11 @@
 
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FaSearch } from "react-icons/fa";
 import Button from "~~/components/Button/Button";
 import LenderComponent from "~~/components/LenderComponent/LenderComponent";
+import Loading from "~~/components/Loading/Loading";
 import { useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
 
 function Page() {
@@ -20,8 +20,6 @@ function Page() {
     eventName: "LendingTermCreated",
     fromBlock: 0n,
   });
-  console.log(terms);
-
   return (
     <>
       <div className="pt-[100px] w-full p-16 bg-[#252525]">
@@ -54,9 +52,15 @@ function Page() {
             <option value="Supply APY">Supply APY</option>
           </select>
         </div>
-        <Link href="/lender" className="w-full flex flex-wrap gap-2 mt-4 justify-center items-center">
-          <LenderComponent terms={terms} />
-        </Link>
+        <div className="w-full flex flex-wrap gap-2 mt-4 justify-center items-center">
+          {!terms && (
+            <div className="text-white flex gap-4">
+              Loading data <Loading />
+            </div>
+          )}
+          {terms && terms.length <= 0 && <div className="text-white">No data</div>}
+          {terms && terms.length > 0 && terms.map((item, index) => <LenderComponent term={item} key={index} />)}
+        </div>
       </div>
     </>
   );
