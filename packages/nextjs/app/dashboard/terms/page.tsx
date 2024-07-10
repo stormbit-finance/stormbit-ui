@@ -34,7 +34,7 @@ const Page = () => {
   return (
     <>
       {terms.length === 0 && (
-        <div className="h-screen flex flex-col justify-center items-center">
+        <div className="h-full flex flex-col pt-20 items-center">
           <p className="text-xl">No Terms Here</p>
           <button onClick={goCreateTerm} className="bg-[#D0C8FF] text-black px-12 py-2">
             Create Terms
