@@ -12,6 +12,26 @@ import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 // @ts-nocheck
 
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
+
+// @ts-nocheck
+
 const Page = () => {
   const [terms, setTerms] = useState<string[]>([]);
   const router = useRouter();

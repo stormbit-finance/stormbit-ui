@@ -19,80 +19,6 @@ import useRequestProof from "~~/hooks/api/useRequestProof";
 
 // @ts-nocheck
 
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
 const Reclaim = () => {
   const providerData = useMemo(
     () => [
@@ -264,7 +190,7 @@ const Reclaim = () => {
               <div className="">zk proof generated</div>
             </div>
           </div>
-          {provider === "All" || provider === "Filter" 
+          {provider === "All" || provider === "Filter"
             ? providerList.map((item, index) => (
                 <div className="py-4 px-6 flex w-full justify-between items-center" key={index}>
                   <div className="flex items-center">

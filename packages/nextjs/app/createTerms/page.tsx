@@ -1,33 +1,40 @@
-// @ts-nocheck
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FaCheckCircle } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import { decodeFunctionData } from "viem";
-import { useWaitForTransaction } from "wagmi";
+import { decodeEventLog } from "viem";
 import Button from "~~/components/Button/Button";
 import ModalContainer from "~~/components/ModalContainer/ModalContainer";
 import TermForm from "~~/components/TermForm/TermForm";
+import contractData from "~~/contracts/deployedContracts";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
-
-// @ts-nocheck
+import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 
 const Page = () => {
   const router = useRouter();
-  const [terms, setTerms] = useState<string[]>([]);
+  const [term, setTerm] = useState({ commission: 0n, id: 0, lender: "0x0" });
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [selectedHook, setSelectedHook] = useState("");
   const [commission, setCommission] = useState("");
+  const deployedContracts = contractData as GenericContractsDeclaration | null;
+  const chainMetaData = deployedContracts?.[421614];
 
-  const { writeAsync: createTerm, data: txReceipt } = useScaffoldContractWrite({
+  const { writeAsync: createTerm } = useScaffoldContractWrite({
     contractName: "StormbitLendingManager",
     functionName: "createLendingTerm",
     args: [BigInt(commission), selectedHook],
     value: BigInt(0),
     onBlockConfirmation: txReceipt => {
+      const event = decodeEventLog({
+        abi: chainMetaData?.StormbitLendingManager.abi || [],
+        data: txReceipt.logs[0].data,
+        topics: txReceipt.logs[0].topics,
+      });
+      setTerm(event?.args as { commission: bigint; id: number; lender: string });
       setShowSuccessModal(true);
     },
     blockConfirmations: 0,
@@ -43,16 +50,17 @@ const Page = () => {
     setShowConfirmModal(true);
   };
   const handleCopyLink = () => {
-    navigator.clipboard.writeText(`http://terms/detail?id=${termId}`);
-    alert("Link copied to clipboard!");
+    navigator.clipboard.writeText(`http://localhost:3000/lender/${term?.id}`);
   };
 
-  const closeModal = () => {
+  const closeModalConfirmation = () => {
     setShowConfirmModal(false);
   };
 
-  const closeModalS = () => {
-    setShowSuccessModal(false);
+  const closeModalSucess = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (event.target === event.currentTarget) {
+      setShowSuccessModal(false);
+    }
   };
 
   return (
@@ -60,7 +68,7 @@ const Page = () => {
       <TermForm onSubmit={handleAddTerm} onCancel={router.back} />
 
       {showConfirmModal && (
-        <ModalContainer onClick={closeModal}>
+        <ModalContainer onClick={closeModalConfirmation}>
           <div className="w-[510px]">
             <p className="text-center pb-8">Transaction Confirmation</p>
             <span className="text-[#6C757D]">Hooks</span>
@@ -75,25 +83,20 @@ const Page = () => {
           </div>
         </ModalContainer>
       )}
-
       {showSuccessModal && (
-        <ModalContainer onClick={closeModalS}>
+        <ModalContainer onClick={closeModalSucess}>
           <div className="p-4 rounded-lg flex flex-col items-center">
             <FaCheckCircle className="text-green-500 text-6xl mb-4" />
             <h2 className="text-lg">Terms Created Successfully</h2>
             <p className="text-[#858BA2] m-0 text-sm">Click the link below to view term</p>
             <div className="flex items-center m-4">
-              <a
-                href={`http://terms/detail?id=${1}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-black border border-[#6C757D] py-3 px-6 underline rounded-l-lg"
-              >
-                http://terms/detail?id={1}
-              </a>
+              <div className="cursor-pointer text-black border border-[#6C757D] py-3 px-6 underline rounded-l-lg">
+                <Link href={`lender/${term?.id}`}>{`http://localhost:3000/lender/${term?.id}`}</Link>
+              </div>
+
               <button
                 onClick={handleCopyLink}
-                className="bg-[#D0C8FF] text-white text-xs px-3 py-4 rounded-r-lg border border-[#D0C8FF]"
+                className="bg-[#D0C8FF] text-black text-xs px-6 py-4 rounded-r-lg border border-[#D0C8FF]"
               >
                 Copy
               </button>

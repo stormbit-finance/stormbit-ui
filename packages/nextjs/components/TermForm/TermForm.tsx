@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Button from "../Button/Button";
+import { useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
 
 interface TermFormProps {
   onSubmit: (hookAddress: string, comission: string) => void;
@@ -15,6 +16,13 @@ const TermForm: React.FC<TermFormProps> = ({ onSubmit, onCancel }) => {
     onSubmit(selectedHook, comission);
   };
 
+  // const createTerms = useScaffoldEventHistory({
+  //   contractName: "StormbitLendingManager",
+  //   eventName: "LendingTermCreated",
+  //   fromBlock: 0n,
+  // });
+  // console.log(createTerms);
+
   return (
     <div className="flex justify-center items-center h-full py-10 px-14">
       <form onSubmit={handleSubmit} className="flex flex-col gap-8 w-full max-w-[80%] text-white">
@@ -27,7 +35,7 @@ const TermForm: React.FC<TermFormProps> = ({ onSubmit, onCancel }) => {
           <option className="bg-[#2F2F2F]" value="" disabled>
             Select hooks
           </option>
-          <option className="bg-[#2F2F2F]" value="0x4bF7D952b0adfbb0EA8C143f4Ea6834a9F3aDF2d">
+          <option className="bg-[#2F2F2F]" value="0x964d0f8a7c8b446d1725763316849B01d1B059e3">
             Whitelist
           </option>
           <option className="bg-[#2F2F2F]" value="0x964d0f8a7c8b446d1725763316849B01d1B059e7">

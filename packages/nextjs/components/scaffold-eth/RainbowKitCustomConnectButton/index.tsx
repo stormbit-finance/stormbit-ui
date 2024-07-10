@@ -29,7 +29,7 @@ export const RainbowKitCustomConnectButton: React.FC<RainbowKitCustomConnectButt
           : undefined;
         useEffect(() => {
           if (connected) {
-            router.push("/explorer");
+            // router.push("/explorer");
           }
         }, [connected]);
         return (
