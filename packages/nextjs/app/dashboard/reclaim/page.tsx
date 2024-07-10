@@ -5,7 +5,6 @@ import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { formatDistance, subDays } from "date-fns";
 import { QRCodeSVG } from "qrcode.react";
-import { FaCheckCircle } from "react-icons/fa";
 import { FiArrowUpRight } from "react-icons/fi";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { useAccount, useSignMessage } from "wagmi";
@@ -16,80 +15,6 @@ import ModalContainer from "~~/components/ModalContainer/ModalContainer";
 import useGetSupportedProvider from "~~/hooks/api/useGetSupportedProvider";
 import useGetVerification from "~~/hooks/api/useGetVerification";
 import useRequestProof from "~~/hooks/api/useRequestProof";
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
 
 // @ts-nocheck
 
@@ -108,11 +33,6 @@ const Reclaim = () => {
     [],
   );
 
-  const providers = [
-    { name: "Binance", provider: "Binance", condition: "KYC", img: "/binance.svg" },
-    { name: "Stripe", provider: "Stripe", condition: "More than 1000 USDT in balance", img: "/stripe.svg" },
-    { name: "Github", provider: "Github", condition: "KYC", img: "/github.svg" },
-  ];
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [provider, setProvider] = useState("Filter");
@@ -123,7 +43,7 @@ const Reclaim = () => {
   const [verifiedProviders, setVerifiedProviders] = useState([]);
   const [verificationStatus, setVerificationStatus] = useState(null);
   const account = useAccount();
-  const { data: signMessageData, signMessage, signMessageAsync, isLoading: isLoadingSignMessage } = useSignMessage();
+  const { data: signMessageAsync, isLoading: isLoadingSignMessage } = useSignMessage();
   const { data: supportedProvider } = useGetSupportedProvider();
   const { data: verifications } = useGetVerification(account?.address || "");
 
@@ -264,7 +184,7 @@ const Reclaim = () => {
               <div className="">zk proof generated</div>
             </div>
           </div>
-          {provider === "All" || provider === "Filter" 
+          {provider === "All" || provider === "Filter"
             ? providerList.map((item, index) => (
                 <div className="py-4 px-6 flex w-full justify-between items-center" key={index}>
                   <div className="flex items-center">

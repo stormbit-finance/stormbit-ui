@@ -1,17 +1,6 @@
-// @ts-nocheck
 "use client";
 
 import React, { useState } from "react";
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
-
-// @ts-nocheck
 
 function Page() {
   const [filter, setFilter] = useState("All");
@@ -49,7 +38,7 @@ function Page() {
     },
   ];
 
-  const handleFilterChange = event => {
+  const handleFilterChange = (event: any) => {
     setFilter(event.target.value);
   };
 

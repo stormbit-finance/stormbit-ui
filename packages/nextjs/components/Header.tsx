@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { CiDesktopMouse1 } from "react-icons/ci";
 import { LuUsers2 } from "react-icons/lu";
 import { TbWorld } from "react-icons/tb";

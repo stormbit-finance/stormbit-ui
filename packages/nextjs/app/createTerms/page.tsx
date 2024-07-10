@@ -1,33 +1,30 @@
-// @ts-nocheck
 "use client";
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaCheckCircle } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import { decodeFunctionData } from "viem";
-import { useWaitForTransaction } from "wagmi";
+// import { decodeFunctionData } from "viem";
+// import { useWaitForTransaction } from "wagmi";
 import Button from "~~/components/Button/Button";
 import ModalContainer from "~~/components/ModalContainer/ModalContainer";
 import TermForm from "~~/components/TermForm/TermForm";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
-// @ts-nocheck
-
 const Page = () => {
   const router = useRouter();
-  const [terms, setTerms] = useState<string[]>([]);
+  // const [terms, setTerms] = useState<string[]>([]);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [selectedHook, setSelectedHook] = useState("");
   const [commission, setCommission] = useState("");
 
-  const { writeAsync: createTerm, data: txReceipt } = useScaffoldContractWrite({
+  const { writeAsync: createTerm } = useScaffoldContractWrite({
     contractName: "StormbitLendingManager",
     functionName: "createLendingTerm",
     args: [BigInt(commission), selectedHook],
     value: BigInt(0),
-    onBlockConfirmation: txReceipt => {
+    onBlockConfirmation: () => {
       setShowSuccessModal(true);
     },
     blockConfirmations: 0,

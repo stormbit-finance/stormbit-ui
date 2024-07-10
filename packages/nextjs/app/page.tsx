@@ -64,7 +64,7 @@ const Home: NextPage = () => {
             </div>
           </section>
 
-          <section className="relative flex justify-center items-center lg:py-[150px]  pt-[100px]  px-4 lg:px-0">
+          <section className="relative flex justify-center items-center lg:py-[150px] px-4 lg:px-0">
             <Image
               src="/reclaim-background.png"
               alt="icon"

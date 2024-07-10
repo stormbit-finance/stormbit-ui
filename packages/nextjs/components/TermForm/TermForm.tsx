@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Button from "../Button/Button";
 
 interface TermFormProps {
   onSubmit: (hookAddress: string, comission: string) => void;

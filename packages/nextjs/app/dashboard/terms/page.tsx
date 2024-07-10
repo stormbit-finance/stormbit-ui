@@ -1,16 +1,7 @@
-// @ts-nocheck
 "use client";
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { FaCheckCircle } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
-import Button from "~~/components/Button/Button";
-import ModalContainer from "~~/components/ModalContainer/ModalContainer";
-import TermForm from "~~/components/TermForm/TermForm";
-import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
-
-// @ts-nocheck
 
 const Page = () => {
   const [terms, setTerms] = useState<string[]>([]);
