@@ -5,7 +5,6 @@ import { formatEther } from "viem";
 import { useChainId } from "wagmi";
 import Borrower from "~~/components/Borrower/Borrower";
 import useGetVerification from "~~/hooks/api/useGetVerification";
-import useAllTerms from "~~/hooks/gql/useAllTerms";
 import useUserLoans from "~~/hooks/gql/useUserLoansAggregate";
 import useUserTermCount from "~~/hooks/gql/useUserTermCount";
 import useUserTermDepositAggregate from "~~/hooks/gql/useUserTermDepositAggregate";
@@ -17,17 +16,11 @@ function Page() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchAddress, setSearchAddress] = useState("");
   const [showResults, setShowResults] = useState(false);
-  // 0xDe3089d40F3491De794fBb1ECA109fAc36F889d0
   const { aggregatedLoans } = useUserLoans(searchAddress);
   const { aggregatedDeposits } = useUserTermDepositAggregate(searchAddress);
   const { username } = useUsername(searchAddress);
   const { termCount } = useUserTermCount(searchAddress);
   const { data: verifications } = useGetVerification(searchAddress || "0x");
-  const [first, setFirst] = useState(10);
-  const [skip, setSkip] = useState(0);
-  const { terms, aggregatedData, loading, error, loadMore } = useAllTerms(first, skip);
-
-  console.log(terms);
 
   const handleSearch = () => {
     if (searchQuery.startsWith("0x")) {

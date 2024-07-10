@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FaSearch } from "react-icons/fa";
 import Button from "~~/components/Button/Button";
 import LenderComponent from "~~/components/LenderComponent/LenderComponent";
 import Loading from "~~/components/Loading/Loading";
-import { useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
+import useAllTerms from "~~/hooks/gql/useAllTerms";
 
 function Page() {
   const router = useRouter();
@@ -15,11 +15,10 @@ function Page() {
     router.push("/createTerms");
   };
 
-  const { data: terms, isLoading: termsLoading } = useScaffoldEventHistory({
-    contractName: "StormbitLendingManager",
-    eventName: "LendingTermCreated",
-    fromBlock: 0n,
-  });
+  const [first, setFirst] = useState(10);
+  const [skip, setSkip] = useState(0);
+  const { terms, aggregatedData, loading, error, loadMore } = useAllTerms(first, skip);
+  console.log(aggregatedData);
   return (
     <>
       <div className="pt-[100px] w-full p-16 bg-[#252525]">
@@ -53,13 +52,15 @@ function Page() {
           </select>
         </div>
         <div className="w-full flex flex-wrap gap-2 mt-4 justify-center items-center">
-          {!terms && (
+          {!aggregatedData && (
             <div className="text-white flex gap-4">
               Loading data <Loading />
             </div>
           )}
-          {terms && terms.length <= 0 && <div className="text-white">No data</div>}
-          {terms && terms.length > 0 && terms.map((item, index) => <LenderComponent term={item} key={index} />)}
+          {aggregatedData && aggregatedData.length <= 0 && <div className="text-white">No data</div>}
+          {aggregatedData &&
+            aggregatedData.length > 0 &&
+            aggregatedData.map((item, index) => <LenderComponent term={item} key={index} />)}
         </div>
       </div>
     </>
