@@ -1,6 +1,6 @@
-import { useQuery } from "@apollo/client";
-import { ALL_TERMS_QUERY } from "~~/utils/gql";
-import { Term, TermAssetBalance, TermLoanBalance } from "~~/utils/gql/types";
+import { useQuery } from '@apollo/client';
+import { ALL_TERMS_QUERY } from '~~/utils/gql';
+import { Term, TermAssetBalance, TermLoanBalance } from '~~/utils/gql/types';
 
 interface TermsQueryData {
   terms: Term[];
@@ -14,7 +14,7 @@ interface TermsQueryVars {
 const useAllTerms = (first: number, skip: number) => {
   const { loading, error, data, fetchMore } = useQuery<TermsQueryData, TermsQueryVars>(ALL_TERMS_QUERY, {
     variables: { first, skip },
-    pollInterval: 3000, // Poll every 3 seconds
+    pollInterval: 3000,
     notifyOnNetworkStatusChange: true,
   });
 
