@@ -9,6 +9,7 @@ interface UsernameQueryData {
 const useUsername = (address: string | undefined) => {
   const { loading, error, data } = useQuery<UsernameQueryData>(USERNAME_QUERY(address || ""), {
     pollInterval: 3000,
+    notifyOnNetworkStatusChange: true,
   });
 
   return {

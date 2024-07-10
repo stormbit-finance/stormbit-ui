@@ -20,6 +20,8 @@ import useRequestProof from "~~/hooks/api/useRequestProof";
 
 // @ts-nocheck
 
+// @ts-nocheck
+
 const Reclaim = () => {
   const providerData = useMemo(
     () => [

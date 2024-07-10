@@ -12,6 +12,7 @@ const useUserTermDepositAggregate = (address: string | undefined) => {
     USER_TERM_DEPOSIT_AGGREGATE_QUERY(address || ""),
     {
       pollInterval: 3000,
+      notifyOnNetworkStatusChange: true,
     },
   );
 

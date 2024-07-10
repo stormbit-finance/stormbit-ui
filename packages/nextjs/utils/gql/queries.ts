@@ -68,3 +68,59 @@ export const ADDRESS_BY_USERNAME_QUERY = (username: string) => {
       }
     `;
 };
+
+export const ALL_LOANS_QUERY = gql`
+  query GetLoans($first: Int!, $skip: Int!) {
+    loans(first: $first, skip: $skip) {
+      id
+      borrower {
+        id
+        username
+      }
+      token {
+        id
+        vault
+        createdAt
+      }
+      assets
+      repayAssets
+      deadlineAllocate
+    }
+  }
+`;
+
+export const ALL_TERMS_QUERY = gql`
+  query GetTerms($first: Int!, $skip: Int!) {
+    terms(first: $first, skip: $skip) {
+      id
+      lender {
+        id
+        username
+      }
+      comission
+      assetBalances {
+        id
+        asset {
+          id
+          vault
+          createdAt
+          totalShares
+        }
+        shares
+      }
+      loanBalances {
+        id
+        loan {
+          id
+          token {
+            id
+            vault
+            createdAt
+          }
+          assets
+        }
+        assets
+      }
+    }
+  }
+`;

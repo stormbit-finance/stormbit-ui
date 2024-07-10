@@ -8,12 +8,15 @@ export interface Term {
   id: string;
   lender: User;
   comission: string;
+  assetBalances: TermAssetBalance[];
+  loanBalances: TermLoanBalance[];
 }
 
 export interface Asset {
   id: string;
   vault: string;
   createdAt: string;
+  totalShares: string;
 }
 
 export interface UserAssetBalance {
@@ -30,6 +33,20 @@ export interface UserTermAssetBalance {
   term: Term;
   asset: Asset;
   shares: string;
+}
+
+export interface TermAssetBalance {
+  id: string;
+  term: Term;
+  asset: Asset;
+  shares: string;
+}
+
+export interface TermLoanBalance {
+  id: string;
+  term: Term;
+  loan: Loan;
+  assets: string;
 }
 
 export interface Loan {

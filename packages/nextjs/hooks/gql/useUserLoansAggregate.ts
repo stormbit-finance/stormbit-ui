@@ -9,6 +9,7 @@ interface UserLoansQueryData {
 const useUserLoansAggregate = (address: string | undefined) => {
   const { loading, error, data } = useQuery<UserLoansQueryData>(USER_LOANS_AGGREGATE_QUERY(address || ""), {
     pollInterval: 3000,
+    notifyOnNetworkStatusChange: true,
   });
 
   const aggregateLoans = (loans: Partial<Loan>[]) => {

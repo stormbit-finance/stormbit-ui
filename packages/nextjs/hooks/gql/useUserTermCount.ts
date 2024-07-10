@@ -9,9 +9,10 @@ interface UserTermsQueryData {
 const useUserTermCount = (address: string | undefined) => {
   const { loading, error, data } = useQuery<UserTermsQueryData>(USER_TERM_COUNT_QUERY(address || ""), {
     pollInterval: 3000,
+    notifyOnNetworkStatusChange: true,
   });
 
-  const termCount = (data && data.user) ? data.user.terms?.length || 0 : 0;
+  const termCount = data && data.user ? data.user.terms?.length || 0 : 0;
 
   return {
     termCount,
