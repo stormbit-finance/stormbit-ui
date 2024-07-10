@@ -1,41 +1,40 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { formatEther } from "viem";
+import { useChainId } from "wagmi";
 import Borrower from "~~/components/Borrower/Borrower";
+import useGetVerification from "~~/hooks/api/useGetVerification";
 import useUserLoans from "~~/hooks/gql/useUserLoansAggregate";
 import useUserTermCount from "~~/hooks/gql/useUserTermCount";
 import useUserTermDepositAggregate from "~~/hooks/gql/useUserTermDepositAggregate";
 import useUsername from "~~/hooks/gql/useUsername";
-import useGetVerification from "~~/hooks/api/useGetVerification";
 import { getAddressByUsername } from "~~/utils/gql/helpers";
-import { useChainId } from 'wagmi'
-import { formatEther } from 'viem'
 
 function Page() {
-  const chainId = useChainId()
+  const chainId = useChainId();
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchAddress, setSearchAddress] = useState("")
+  const [searchAddress, setSearchAddress] = useState("");
   const [showResults, setShowResults] = useState(false);
-// 0xDe3089d40F3491De794fBb1ECA109fAc36F889d0
+  // 0xDe3089d40F3491De794fBb1ECA109fAc36F889d0
   const { aggregatedLoans } = useUserLoans(searchAddress);
   const { aggregatedDeposits } = useUserTermDepositAggregate(searchAddress);
   const { username } = useUsername(searchAddress);
   const { termCount } = useUserTermCount(searchAddress);
-  const { data: verifications } = useGetVerification(searchAddress||"0x");
-
+  const { data: verifications } = useGetVerification(searchAddress || "0x");
 
   const handleSearch = () => {
-    if(searchQuery.startsWith('0x')){  //if search with address
-      setSearchAddress(searchQuery)
-    }
-    else{//if search with username
+    if (searchQuery.startsWith("0x")) {
+      //if search with address
+      setSearchAddress(searchQuery);
+    } else {
+      //if search with username
       getAddressByUsername(searchQuery, chainId).then(data => {
-        setSearchAddress(data || '')
+        setSearchAddress(data || "");
       });
     }
     setShowResults(true);
   };
-
 
   return (
     <div className="pt-[100px] flex items-center justify-center min-h-[500px]">
@@ -49,13 +48,19 @@ function Page() {
                 className="bg-transparent border-none focus:outline-none w-[680px] px-4"
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                onKeyUp={(e) => {
-                  if (e.key === 'Enter') {
+                onKeyUp={e => {
+                  if (e.key === "Enter") {
                     handleSearch();
                   }
                 }}
               />
-              <button onClick={handleSearch} disabled={!searchQuery} className={`${!searchQuery? 'cursor-not-allowed':''} bg-[#D0C8FF] px-20 h-[47px] rounded-r-[8px] text-black`} >
+              <button
+                onClick={handleSearch}
+                disabled={!searchQuery}
+                className={`${
+                  !searchQuery ? "cursor-not-allowed" : ""
+                } bg-[#D0C8FF] px-20 h-[47px] rounded-r-[8px] text-black`}
+              >
                 Search
               </button>
             </div>
@@ -88,16 +93,22 @@ function Page() {
               className="bg-transparent border-none focus:outline-none w-[680px] px-4 text-white"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              onKeyUp={(e) => {
-                if (e.key === 'Enter') {
+              onKeyUp={e => {
+                if (e.key === "Enter") {
                   handleSearch();
                 }
               }}
-              
             />
           </div>
           <div className="flex flex-col items-center">
-            <Borrower verifications={verifications} username={username || ''} address={searchAddress} termCount={termCount} aggregatedDeposits={formatEther(aggregatedDeposits.reduce((total, asset) => total + asset.assets, 0n))}  aggregatedLoans={formatEther(aggregatedLoans.reduce((total, asset) => total + asset.assets, 0n))}></Borrower>
+            <Borrower
+              verifications={verifications}
+              username={username || ""}
+              address={searchAddress}
+              termCount={termCount}
+              aggregatedDeposits={formatEther(aggregatedDeposits.reduce((total, asset) => total + asset.assets, 0n))}
+              aggregatedLoans={formatEther(aggregatedLoans.reduce((total, asset) => total + asset.assets, 0n))}
+            ></Borrower>
           </div>
         </div>
       )}

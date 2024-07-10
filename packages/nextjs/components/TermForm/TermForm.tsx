@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Button from "../Button/Button";
-import { useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
+
+// import { useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
 
 interface TermFormProps {
   onSubmit: (hookAddress: string, comission: string) => void;
