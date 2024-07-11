@@ -18,7 +18,6 @@ function Page() {
   const [first] = useState(10);
   const [skip] = useState(0);
   const { aggregatedData } = useAllTerms(first, skip);
-  console.log(aggregatedData);
   return (
     <>
       <div className="pt-[100px] w-full p-16 bg-[#252525]">

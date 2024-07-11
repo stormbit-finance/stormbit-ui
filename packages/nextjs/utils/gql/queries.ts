@@ -26,6 +26,66 @@ export const USER_LOANS_AGGREGATE_QUERY = (address: string) => {
   `;
 };
 
+export const TERM_QUERY = (id: string, address: string) => {
+  return gql`
+    query {
+      term(id: "${id}"){
+        id
+        lender {
+          id
+          username
+        }
+        comission
+        assetBalances {
+          id
+          asset {
+            id
+            vault
+            createdAt
+            totalShares
+          }
+          shares
+        }
+        loanBalances {
+          id
+          loan {
+            id
+            token {
+              id
+              vault
+              createdAt
+            }
+            assets
+          }
+          assets
+        }
+      }
+
+      userTermAssetBalances(where:{ term: "${id}"}) {
+        user {
+          id
+          username
+        }
+        shares
+        asset {
+          id
+        }
+      }
+
+      userAssetBalances(where: { user:"${address.toLowerCase()}" }) {
+        user {
+          username
+        }
+        shares
+        assets
+        asset {
+          id
+        }
+      }
+    }
+  `;
+};
+
 export const USER_TERM_DEPOSIT_AGGREGATE_QUERY = (address: string) => {
   return gql`
     query {
