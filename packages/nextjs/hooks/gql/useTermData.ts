@@ -27,8 +27,9 @@ const useTermData = (id: string | undefined, address: string | undefined) => {
       }
       return acc;
     }, {});
+
     const userTermAssets = userTermAssetBalances
-      .filter(item => item?.user?.id === address)
+      .filter(item => item?.user?.id.toLowerCase() === address?.toLowerCase())
       .reduce((acc: any[], termDeposit: Partial<UserTermAssetBalance>) => {
         const token = termDeposit.asset?.id;
         const userAssetBalance = token ? assetBalanceMap[token] : undefined;
