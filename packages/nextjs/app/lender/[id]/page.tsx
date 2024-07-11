@@ -3,12 +3,11 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { formatDistance } from "date-fns";
+import { format } from "date-fns";
 import { formatEther } from "viem";
 import { useAccount } from "wagmi";
 import Button from "~~/components/Button/Button";
 import ColumnGraph from "~~/components/ColumnGraph/ColumnGraph";
-import { userData } from "~~/data/data";
 import { Token } from "~~/data/token";
 import useTermData from "~~/hooks/gql/useTermData";
 import { useScaffoldContractWrite, useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
@@ -106,7 +105,9 @@ function Page() {
                   <Image width={40} height={40} className="" src="/icontransactions.svg" alt="transaction icon" />
                   <div className="ml-4">
                     <div className="text-sm">{event?.log?.eventName || "Unknown"}</div>
-                    <div className="text-xs text-[#858BA2]">06/14/2024 15:24 pm</div>
+                    <div className="text-xs text-[#858BA2]">
+                      {format(new Date(Number(event?.block?.timestamp) * 1000), "dd/MM/yyyy HH:mm:ss") || ""}
+                    </div>
                   </div>
                 </div>
                 <div className="flex gap-4 justify-center items-center">
