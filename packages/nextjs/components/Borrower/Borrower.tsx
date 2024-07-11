@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { formatDistance, max, parseISO, subDays } from "date-fns";
+import { formatDistance, max, parseISO } from "date-fns";
 import { FaGithub } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { FaStripeS } from "react-icons/fa";
@@ -76,7 +76,7 @@ const Borrower: React.FC<BorrowerProps> = ({
     });
 
     setProvider(updatedProviders);
-  }, [verifications]);
+  }, [verifications, provider]);
 
   return (
     <div className="w-[800px] my-7">

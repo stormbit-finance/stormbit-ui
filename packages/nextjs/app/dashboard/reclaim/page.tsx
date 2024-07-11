@@ -1,9 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
-import { formatDistance, subDays } from "date-fns";
+import { formatDistance } from "date-fns";
 import { QRCodeSVG } from "qrcode.react";
 import { FiArrowUpRight } from "react-icons/fi";
 import { IoIosCloseCircleOutline } from "react-icons/io";
@@ -16,10 +15,24 @@ import useGetSupportedProvider from "~~/hooks/api/useGetSupportedProvider";
 import useGetVerification from "~~/hooks/api/useGetVerification";
 import useRequestProof from "~~/hooks/api/useRequestProof";
 
-// @ts-nocheck
+interface Provider {
+  provider: string;
+  img: string;
+  zkproof: number;
+}
 
-const Reclaim = () => {
-  const providerData = useMemo(
+interface Verification {
+  provider: { name: string; description: string };
+  count: number;
+  updatedAt: string;
+}
+
+interface ReclaimVerification {
+  reclaimVerifications: Verification[];
+}
+
+const Reclaim: React.FC = () => {
+  const providerData: Provider[] = useMemo(
     () => [
       { provider: "Binance", img: "/binance.svg", zkproof: 0 },
       { provider: "OKX", img: "/okx.svg", zkproof: 0 },
@@ -39,11 +52,11 @@ const Reclaim = () => {
   const [copyStatus, setCopyStatus] = useState(false);
   const [verifiedLink, setVerifiedLink] = useState("");
   const [providerList, setProviderList] = useState(providerData);
-  const [selectedProvider, setSelectedProvider] = useState(null);
-  const [verifiedProviders, setVerifiedProviders] = useState([]);
-  const [verificationStatus, setVerificationStatus] = useState(null);
+  const [selectedProvider, setSelectedProvider] = useState<Provider | null>(null);
+  const [verificationStatus, setVerificationStatus] = useState<string | null>(null);
+
   const account = useAccount();
-  const { data: signMessageAsync, isLoading: isLoadingSignMessage } = useSignMessage();
+  const { signMessageAsync, isLoading: isLoadingSignMessage } = useSignMessage();
   const { data: supportedProvider } = useGetSupportedProvider();
   const { data: verifications } = useGetVerification(account?.address || "");
 
@@ -58,22 +71,26 @@ const Reclaim = () => {
       });
     });
     setProviderList(updatedProviders);
-  }, [verifications]);
+  }, [verifications, providerData]);
+
   const handleCopyLink = () => {
     navigator.clipboard.writeText(verifiedLink);
     setCopyStatus(true);
   };
-  const handleModalClick = event => {
+
+  const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget) {
       setIsModalOpen(false);
       setVerificationStatus(null);
       setCopyStatus(false);
     }
   };
-  const handleVerifySuccess = (data: string) => {
+
+  const handleVerifySuccess = (data: { requestUrl: string }) => {
     setVerificationStatus("success");
     setVerifiedLink(data.requestUrl);
   };
+
   const handleVerifyFailed = () => {
     setVerificationStatus("failure");
   };
@@ -83,10 +100,10 @@ const Reclaim = () => {
     handleVerifyFailed,
   );
 
-  const handleVerify = async provider => {
-    const signature = await signMessageAsync({ message: `Request proof for provider with id ${provider.providerId}` });
+  const handleVerify = async (provider: Provider) => {
+    const signature = await signMessageAsync({ message: `Request proof for provider with id ${provider.provider}` });
     requestProof({
-      providerId: provider?.providerId,
+      providerId: provider.provider,
       address: account?.address,
       signature: signature,
     });

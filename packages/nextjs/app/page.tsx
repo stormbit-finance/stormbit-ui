@@ -75,10 +75,10 @@ const Home: NextPage = () => {
             <div className="z-40 max-w-[1920px] w-full flex-col justify-center flex items-center gap-[20px]">
               <h2 className="lg:text-5xl text-white text-2xl">Reclaim Protocol</h2>
               <div className="max-w-[1200px] text-white text-center text-sm lg:text-lg">
-                Reclaim Protocol creates digital signatures, known as zero knowledge proof, of users' identity and
+                Reclaim Protocol creates digital signatures, known as zero knowledge proof, of users&#39; identity and
                 reputation on any website. These digital signatures are computed completely on the client side. Meaning,
                 it is private and secure. When the user shares this proof with your app, you can be certain that its
-                authenticity and integrity haven't been compromised.
+                authenticity and integrity haven&#39;t been compromised.
               </div>
               <div className="lg:pt-[80px] pt-[20px] grid grid-rows-2 gap-5 ">
                 <div className="text-sm lg:text-lg text-white grid justify-center  grid-cols-2 gap-10">

@@ -24,7 +24,7 @@ import { useRouter } from "next/navigation";
 // @ts-nocheck
 
 const Page = () => {
-  const [terms, setTerms] = useState<string[]>([]);
+  const [terms] = useState<string[]>([]);
   const router = useRouter();
 
   const goCreateTerm = () => {

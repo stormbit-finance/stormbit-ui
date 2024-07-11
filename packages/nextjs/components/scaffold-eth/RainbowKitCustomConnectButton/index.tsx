@@ -1,21 +1,18 @@
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { AddressInfoDropdown } from "./AddressInfoDropdown";
 import { AddressQRCodeModal } from "./AddressQRCodeModal";
 import { WrongNetworkDropdown } from "./WrongNetworkDropdown";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { BiSolidUser } from "react-icons/bi";
 import { Address } from "viem";
 import { useAutoConnect } from "~~/hooks/scaffold-eth";
 import { useTargetNetwork } from "~~/hooks/scaffold-eth/useTargetNetwork";
 import { getBlockExplorerAddressLink } from "~~/utils/scaffold-eth";
 
-interface RainbowKitCustomConnectButtonProps {}
+// interface RainbowKitCustomConnectButtonProps {}
 
 /**
  * Custom Wagmi Connect Button (watch balance + custom design)
  */
-export const RainbowKitCustomConnectButton: React.FC<RainbowKitCustomConnectButtonProps> = ({}) => {
+export const RainbowKitCustomConnectButton = ({}) => {
   useAutoConnect();
   const { targetNetwork } = useTargetNetwork();
 

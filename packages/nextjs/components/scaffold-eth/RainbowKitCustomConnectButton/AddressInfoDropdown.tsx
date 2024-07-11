@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { NetworkOptions } from "./NetworkOptions";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { IoEllipsisVertical } from "react-icons/io5";
-import { Address, useAccount, useConnect, useDisconnect } from "wagmi";
+import { Address, useAccount, useDisconnect } from "wagmi";
 import {
   ArrowLeftOnRectangleIcon,
   ArrowTopRightOnSquareIcon,
@@ -14,7 +14,6 @@ import {
   QrCodeIcon,
 } from "@heroicons/react/24/outline";
 import useUsername from "~~/hooks/gql/useUsername";
-// import { BlockieAvatar } from "~~/components/scaffold-eth";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
 import { getTargetNetworks } from "~~/utils/scaffold-eth";
 
@@ -28,15 +27,9 @@ type AddressInfoDropdownProps = {
   ensAvatar?: string;
 };
 
-export const AddressInfoDropdown = ({
-  address,
-  chainName,
-  displayName,
-  blockExplorerAddressLink,
-}: AddressInfoDropdownProps) => {
+export const AddressInfoDropdown = ({ address, displayName, blockExplorerAddressLink }: AddressInfoDropdownProps) => {
   const { disconnect } = useDisconnect();
   const [addressCopied, setAddressCopied] = useState(false);
-
   const [selectingNetwork, setSelectingNetwork] = useState(false);
   const dropdownRef = useRef<HTMLDetailsElement>(null);
   const closeDropdown = () => {

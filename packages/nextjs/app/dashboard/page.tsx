@@ -8,12 +8,13 @@ import { useAccount } from "wagmi";
 import Button from "~~/components/Button/Button";
 import { userData } from "~~/data/data";
 import useUserTermDepositAggregate from "~~/hooks/gql/useUserTermDepositAggregate";
-import useUsername from "~~/hooks/gql/useUsername";
+
+// import useUsername from "~~/hooks/gql/useUsername";
 
 function Page() {
   // TEST GRAPH QL QUERY
   const account = useAccount();
-  const { username } = useUsername(account.address);
+  // const { username } = useUsername(account.address);
   const { aggregatedDeposits } = useUserTermDepositAggregate(account.address);
 
   return (

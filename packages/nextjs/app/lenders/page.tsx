@@ -15,9 +15,9 @@ function Page() {
     router.push("/createTerms");
   };
 
-  const [first, setFirst] = useState(10);
-  const [skip, setSkip] = useState(0);
-  const { terms, aggregatedData, loading, error, loadMore } = useAllTerms(first, skip);
+  const [first] = useState(10);
+  const [skip] = useState(0);
+  const { aggregatedData } = useAllTerms(first, skip);
   console.log(aggregatedData);
   return (
     <>
