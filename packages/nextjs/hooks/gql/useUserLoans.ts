@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { USER_LOANS_AGGREGATE_QUERY } from "~~/utils/gql";
+import { USER_LOANS_QUERY } from "~~/utils/gql";
 import { Loan } from "~~/utils/gql/types";
 
 interface LoansQueryData {
@@ -7,7 +7,7 @@ interface LoansQueryData {
 }
 
 const useUserLoans = (first: number, skip: number, address: string) => {
-  const { loading, error, data, fetchMore } = useQuery<LoansQueryData>(USER_LOANS_AGGREGATE_QUERY(address || ""), {
+  const { loading, error, data, fetchMore } = useQuery<LoansQueryData>(USER_LOANS_QUERY(address || ""), {
     variables: { first, skip },
     pollInterval: 3000, // Poll every 3 seconds
     notifyOnNetworkStatusChange: true,

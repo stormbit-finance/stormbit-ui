@@ -6,7 +6,7 @@ interface UserLoansQueryData {
   loans: Partial<Loan>[];
 }
 
-const useUserLoansAggregate = (address: string | undefined) => {
+const useUserLoansAggregateAssets = (address: string | undefined) => {
   const { loading, error, data } = useQuery<UserLoansQueryData>(USER_LOANS_AGGREGATE_QUERY(address || ""), {
     pollInterval: 3000,
     notifyOnNetworkStatusChange: true,
@@ -32,13 +32,13 @@ const useUserLoansAggregate = (address: string | undefined) => {
     }));
   };
 
-  const aggregatedData = data ? aggregateLoans(data.loans) : [];
+  const aggregatedLoanAsset = data ? aggregateLoans(data.loans) : [];
 
   return {
-    aggregatedLoans: aggregatedData,
+    aggregatedLoanAsset,
     loading,
     error,
   };
 };
 
-export default useUserLoansAggregate;
+export default useUserLoansAggregateAssets;

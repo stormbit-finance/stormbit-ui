@@ -104,7 +104,7 @@ function Page() {
                 <div className="flex items-center">
                   <Image width={40} height={40} className="" src="/icontransactions.svg" alt="transaction icon" />
                   <div className="ml-4">
-                    <div className="text-sm">{event?.log?.eventName || "Unknown"}</div>
+                    <div className="text-sm">{event?.log?.eventName || "Unknown event"}</div>
                     <div className="text-xs text-[#858BA2]">
                       {format(new Date(Number((event as any)?.block?.timestamp) * 1000), "dd/MM/yyyy HH:mm:ss") || ""}
                     </div>
@@ -159,7 +159,7 @@ function Page() {
             <input
               type="text"
               value={withdrawAmount}
-              onChange={e => setWithdrawAmount(e.target.value)}
+              onChange={e => /^\d*$/.test(e.target.value) && setWithdrawAmount(e.target.value)}
               className="w-4/5 bg-transparent text-white px-4 py-2 border border-[#444] rounded-[2px]"
               placeholder="Enter amount"
             ></input>
@@ -175,7 +175,11 @@ function Page() {
               ))}
             </select>
           </div>
-          <Button onClick={withdraw} backgroundColor="#D0C8FF">
+          <Button
+            backgroundColor={!withdrawAmount ? "#757A8D" : "#D0C8FF"}
+            disabled={!withdrawAmount}
+            onClick={withdraw}
+          >
             Withdraw
           </Button>
         </div>
@@ -184,7 +188,7 @@ function Page() {
           <div className="flex gap-2">
             <input
               value={depositAmount}
-              onChange={e => setDepositAmount(e.target.value)}
+              onChange={e => /^\d*$/.test(e.target.value) && setDepositAmount(e.target.value)}
               type="text"
               className="w-4/5 bg-transparent text-white px-4 py-2 border border-[#444] rounded-[2px]"
               placeholder="Enter amount"
@@ -201,7 +205,7 @@ function Page() {
               ))}
             </select>
           </div>
-          <Button onClick={deposit} backgroundColor="#D0C8FF">
+          <Button backgroundColor={!depositAmount ? "#757A8D" : "#D0C8FF"} disabled={!depositAmount} onClick={deposit}>
             Deposit
           </Button>
         </div>

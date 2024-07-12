@@ -31,7 +31,18 @@ export const USER_LOANS_AGGREGATE_QUERY = (address: string) => {
     }
   `;
 };
-
+export const USER_LOANS_QUERY = (address: string) => {
+  return gql`
+  query {
+    loans(where: { borrower: "${address.toLowerCase()}" }) {
+      assets
+      repayAssets
+      deadlineAllocate
+     
+    }
+  }
+`;
+};
 export const TERM_QUERY = (id: string, address: string) => {
   return gql`
     query {

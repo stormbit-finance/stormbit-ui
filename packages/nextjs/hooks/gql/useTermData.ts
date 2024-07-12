@@ -19,7 +19,7 @@ const useTermData = (id: string | undefined, address: string | undefined) => {
     userTermAssetBalances: Partial<UserTermAssetBalance>[],
     userAssetBalances: Partial<UserAssetBalance>[],
   ) => {
-    //userTermAssetBalances is filter by term id
+    //userTermAssetBalances is filter by term id and get every user
     //userAssetBalances is filter by connected user id
     const uniqueDepositor = userTermAssetBalances.filter(item => parseInt(item?.shares || "") > 0).length;
     const termAssets = term.assetBalances.map(item => ({

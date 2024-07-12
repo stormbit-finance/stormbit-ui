@@ -7,7 +7,7 @@ interface UserTermDepositAggregateQueryData {
   userAssetBalances: Partial<UserAssetBalance>[];
 }
 
-const useUserTermDepositAggregate = (address: string | undefined) => {
+const useUserTermDepositAggregateAssets = (address: string | undefined) => {
   const { loading, error, data } = useQuery<UserTermDepositAggregateQueryData>(
     USER_TERM_DEPOSIT_AGGREGATE_QUERY(address || ""),
     {
@@ -50,13 +50,15 @@ const useUserTermDepositAggregate = (address: string | undefined) => {
     }));
   };
 
-  const aggregatedData = data ? aggregateDeposits(data.userTermAssetBalances, data.userAssetBalances) : [];
-
+  const aggregatedDepositAsset = data ? aggregateDeposits(data.userTermAssetBalances, data.userAssetBalances) : [];
+  const totalShares =
+    data?.userAssetBalances.reduce((acc, balance) => acc + BigInt(balance.shares || 0), BigInt(0)) || BigInt(0);
   return {
-    aggregatedDeposits: aggregatedData,
+    aggregatedDepositAsset,
+    totalShares,
     loading,
     error,
   };
 };
 
-export default useUserTermDepositAggregate;
+export default useUserTermDepositAggregateAssets;

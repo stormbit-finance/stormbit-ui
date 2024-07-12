@@ -5,9 +5,9 @@ import { formatEther } from "viem";
 import { useChainId } from "wagmi";
 import Borrower from "~~/components/Borrower/Borrower";
 import useGetVerification from "~~/hooks/api/useGetVerification";
-import useUserLoans from "~~/hooks/gql/useUserLoansAggregate";
+import useUserLoansAggregateAssets from "~~/hooks/gql/useUserLoansAggregateAssets";
 import useUserTermCount from "~~/hooks/gql/useUserTermCount";
-import useUserTermDepositAggregate from "~~/hooks/gql/useUserTermDepositAggregate";
+import useUserTermDepositAggregateAssets from "~~/hooks/gql/useUserTermDepositAggregateAssets";
 import useUsername from "~~/hooks/gql/useUsername";
 import { getAddressByUsername } from "~~/utils/gql/helpers";
 
@@ -16,8 +16,8 @@ function Page() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchAddress, setSearchAddress] = useState("");
   const [showResults, setShowResults] = useState(false);
-  const { aggregatedLoans } = useUserLoans(searchAddress);
-  const { aggregatedDeposits } = useUserTermDepositAggregate(searchAddress);
+  const { aggregatedLoanAsset } = useUserLoansAggregateAssets(searchAddress);
+  const { aggregatedDepositAsset } = useUserTermDepositAggregateAssets(searchAddress);
   const { username } = useUsername(searchAddress);
   const { termCount } = useUserTermCount(searchAddress);
   const { data: verifications } = useGetVerification(searchAddress || "0x");
@@ -105,8 +105,10 @@ function Page() {
               username={username || ""}
               address={searchAddress}
               termCount={termCount}
-              aggregatedDeposits={formatEther(aggregatedDeposits.reduce((total, asset) => total + asset.assets, 0n))}
-              aggregatedLoans={formatEther(aggregatedLoans.reduce((total, asset) => total + asset.assets, 0n))}
+              aggregatedDeposits={formatEther(
+                aggregatedDepositAsset.reduce((total, asset) => total + asset.assets, 0n),
+              )}
+              aggregatedLoans={formatEther(aggregatedLoanAsset.reduce((total, asset) => total + asset.assets, 0n))}
             ></Borrower>
           </div>
         </div>
