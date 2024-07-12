@@ -16,11 +16,17 @@ export const USER_LOANS_AGGREGATE_QUERY = (address: string) => {
     query {
       loans(where: { borrower: "${address.toLowerCase()}" }) {
         id
-        assets
-        repayAssets
+        borrower {
+          id
+          username
+        }
         token {
           id
         }
+        assets
+        repayAssets
+        deadlineAllocate
+       
       }
     }
   `;
