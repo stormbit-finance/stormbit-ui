@@ -82,10 +82,10 @@ function Page() {
             <span>Shares</span>
           </div>
           <div>
-            {termData?.termAssets.map(item => {
+            {termData?.termAssets.map((item, index) => {
               const tokenInfo = Token.find(token => token.address === item.assetId);
               return (
-                <div className="flex justify-between p-6 px-8">
+                <div key={index} className="flex justify-between p-6 px-8">
                   <div className="flex gap-3">
                     <Image src={tokenInfo?.img || ""} alt="eth" width={25} height={25}></Image>
                     <span>{tokenInfo?.name} </span>
@@ -106,7 +106,7 @@ function Page() {
                   <div className="ml-4">
                     <div className="text-sm">{event?.log?.eventName || "Unknown"}</div>
                     <div className="text-xs text-[#858BA2]">
-                      {format(new Date(Number(event?.block?.timestamp) * 1000), "dd/MM/yyyy HH:mm:ss") || ""}
+                      {format(new Date(Number((event as any)?.block?.timestamp) * 1000), "dd/MM/yyyy HH:mm:ss") || ""}
                     </div>
                   </div>
                 </div>

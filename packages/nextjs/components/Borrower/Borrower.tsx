@@ -11,6 +11,7 @@ import { SiWise } from "react-icons/si";
 import { SiBinance } from "react-icons/si";
 import { SlUser } from "react-icons/sl";
 import { TbBrandCoinbase } from "react-icons/tb";
+import { verifications } from "~~/utils/api/types";
 import { truncateDisplayAddress } from "~~/utils/scaffold-eth";
 
 interface Verification {
@@ -27,9 +28,7 @@ interface BorrowerProps {
   address: string;
   termCount: number;
   username: string;
-  verifications: {
-    reclaimVerifications: Verification[];
-  };
+  verifications: verifications | undefined;
 }
 
 const Borrower: React.FC<BorrowerProps> = ({
@@ -42,7 +41,7 @@ const Borrower: React.FC<BorrowerProps> = ({
 }) => {
   const lastUpdated = verifications
     ? formatDistance(
-        new Date(max(verifications.reclaimVerifications.map((item: Verification) => parseISO(item.updatedAt)))),
+        new Date(max(verifications?.reclaimVerifications.map((item: Verification) => parseISO(item.updatedAt)))),
         new Date(),
         { addSuffix: true },
       )
