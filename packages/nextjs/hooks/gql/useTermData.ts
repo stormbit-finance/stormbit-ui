@@ -9,7 +9,7 @@ interface UserTermQueryData {
 }
 
 const useTermData = (id: string | undefined, address: string | undefined) => {
-  const { loading, error, data } = useQuery<UserTermQueryData>(TERM_QUERY(id || "", address || ""), {
+  const { data } = useQuery<UserTermQueryData>(TERM_QUERY(id || "", address || ""), {
     pollInterval: 3000,
     notifyOnNetworkStatusChange: true,
   });
@@ -19,8 +19,14 @@ const useTermData = (id: string | undefined, address: string | undefined) => {
     userTermAssetBalances: Partial<UserTermAssetBalance>[],
     userAssetBalances: Partial<UserAssetBalance>[],
   ) => {
+    //userTermAssetBalances is filter by term id
+    //userAssetBalances is filter by connected user id
     const uniqueDepositor = userTermAssetBalances.filter(item => parseInt(item?.shares || "") > 0).length;
-    const assetBalanceMap = userAssetBalances.reduce((acc: any, balance: Partial<UserAssetBalance>) => {
+    const termAssets = term.assetBalances.map(item => ({
+      shares: BigInt(item.shares || 0),
+      assetId: item.asset.id,
+    }));
+    const userAssetBalanceMap = userAssetBalances.reduce((acc: any, balance: Partial<UserAssetBalance>) => {
       const token = balance.asset?.id;
       if (token) {
         acc[token] = balance;
@@ -28,17 +34,16 @@ const useTermData = (id: string | undefined, address: string | undefined) => {
       return acc;
     }, {});
 
+    // userTermAssets is to find connected user asset mapping
     const userTermAssets = userTermAssetBalances
       .filter(item => item?.user?.id.toLowerCase() === address?.toLowerCase())
       .reduce((acc: any[], termDeposit: Partial<UserTermAssetBalance>) => {
         const token = termDeposit.asset?.id;
-        const userAssetBalance = token ? assetBalanceMap[token] : undefined;
-
+        const userAssetBalance = token ? userAssetBalanceMap[token] : undefined;
         if (userAssetBalance && userAssetBalance.shares && BigInt(userAssetBalance.shares) > BigInt(0)) {
           const assetValue =
             (BigInt(termDeposit.shares || "0") * BigInt(userAssetBalance.assets || "0")) /
-            BigInt(userAssetBalance.shares);
-
+            BigInt(userAssetBalance.asset.totalShares || "0");
           const existingToken = acc.find(item => item.token === token);
 
           if (existingToken) {
@@ -55,11 +60,6 @@ const useTermData = (id: string | undefined, address: string | undefined) => {
 
         return acc;
       }, []);
-
-    const termAssets = term.assetBalances.map(item => ({
-      shares: BigInt(item.shares || 0),
-      assetId: item.asset.id,
-    }));
 
     const totalDeposit = term.assetBalances.reduce((acc: bigint, balance: TermAssetBalance) => {
       const totalShares = BigInt(balance.asset.totalShares || 0);

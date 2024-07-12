@@ -147,7 +147,7 @@ function Page() {
                   <span>{tokenInfo?.name}</span>
                 </div>
                 <span>{formatEther(item?.shares || 0)}</span>
-                <span>$ {formatEther(item?.assetValue || 0)}</span>
+                <span>$ {parseFloat(formatEther(item?.assetValue || 0))?.toFixed(2)}</span>
               </div>
             );
           })}

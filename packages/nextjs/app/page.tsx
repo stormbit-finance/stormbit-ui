@@ -11,7 +11,7 @@ const Home: NextPage = () => {
     <>
       <div className="bg-[#070817] pt-[100px] ">
         <div className="flex flex-col lg:gap-20 mb-[250px] bg-landing gap-10">
-          <section className="flex items-center justify-center lg:py-[150px] relative py-[30px] ">
+          <section className="flex items-center justify-center  lg:py-[200px] relative py-[30px] ">
             <GridBackground numRows={9} numCols={30} />
             <div className="lg:max-w-[1920px] flex items-center flex-col justify-center w-full ">
               <div className="lg:flex-row items-center lg:justify-around w-full px-4 justify-center flex flex-col">
@@ -29,7 +29,7 @@ const Home: NextPage = () => {
               </div>
             </div>
           </section>
-          <section className=" flex flex-col items-center justify-center lg:gap-20 w-full lg:h-[520px] lg:py-[150px] px-4 gap-5 lg:px-0 py-[100px]">
+          {/* <section className=" flex flex-col items-center justify-center lg:gap-20 w-full lg:h-[520px] lg:py-[150px] px-4 gap-5 lg:px-0 py-[100px]">
             <div className="max-w-[1500px]  flex items-center flex-col-reverse justify-between w-full lg:gap-20 lg:flex-row gap-10">
               <div className="flex flex-col gap-2">
                 <span className="lg:text-start text-center px-8 text-lg text-white">About The</span>
@@ -41,7 +41,7 @@ const Home: NextPage = () => {
               </div>
               <Image src="/asset-landing.svg" alt="icon" width={200} height={50} className="bg-transparent w-[30%] " />
             </div>
-          </section>
+          </section> */}
           <section className="flex flex-col items-center  py-[100px] lg:py-[150px] px-4 lg:px-0">
             <div className="max-w-[1920px] w-full flex-col flex items-center gap-[20px]">
               <h2 className="lg:text-5xl text-white text-2xl">Core Technology</h2>

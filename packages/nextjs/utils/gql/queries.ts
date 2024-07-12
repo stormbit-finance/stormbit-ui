@@ -53,16 +53,6 @@ export const TERM_QUERY = (id: string, address: string) => {
           shares
         }
         loanBalances {
-          id
-          loan {
-            id
-            token {
-              id
-              vault
-              createdAt
-            }
-            assets
-          }
           assets
         }
       }
@@ -86,6 +76,7 @@ export const TERM_QUERY = (id: string, address: string) => {
         assets
         asset {
           id
+          totalShares
         }
       }
     }
