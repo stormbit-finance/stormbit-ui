@@ -64,7 +64,7 @@ const Page = () => {
   };
 
   return (
-    <div className="h-full w-full pt-[100px]  max-w-[1920px] ">
+    <div className="flex justify-center items-center h-full w-full pt-[100px]">
       <TermForm createTermLoading={createTermLoading} onSubmit={handleAddTerm} onCancel={router.back} />
 
       {showConfirmModal && (

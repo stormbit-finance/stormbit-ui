@@ -16,7 +16,7 @@ const TermForm: React.FC<TermFormProps> = ({ onSubmit, onCancel, createTermLoadi
   };
 
   return (
-    <div className="flex justify-center items-center h-full py-10 px-14">
+    <div className="flex justify-center w-full max-w-[1920px] h-full py-10 px-14">
       <form onSubmit={handleSubmit} className="flex flex-col gap-8 w-full max-w-[80%] text-white">
         <h2 className="text-white text-center text-2xl mb-4">Create Terms</h2>
         <select
