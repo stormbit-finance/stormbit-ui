@@ -14,21 +14,13 @@ import ModalContainer from "~~/components/ModalContainer/ModalContainer";
 import useGetSupportedProvider from "~~/hooks/api/useGetSupportedProvider";
 import useGetVerification from "~~/hooks/api/useGetVerification";
 import useRequestProof from "~~/hooks/api/useRequestProof";
+import { requestProofSuccessArgs } from "~~/hooks/api/useRequestProof";
+import { supportedProvider } from "~~/utils/api/types";
 
 interface Provider {
   provider: string;
   img: string;
   zkproof: number;
-}
-
-interface Verification {
-  provider: { name: string; description: string };
-  count: number;
-  updatedAt: string;
-}
-
-interface ReclaimVerification {
-  reclaimVerifications: Verification[];
 }
 
 const Reclaim: React.FC = () => {
@@ -52,7 +44,7 @@ const Reclaim: React.FC = () => {
   const [copyStatus, setCopyStatus] = useState(false);
   const [verifiedLink, setVerifiedLink] = useState("");
   const [providerList, setProviderList] = useState(providerData);
-  const [selectedProvider, setSelectedProvider] = useState<Provider | null>(null);
+  const [selectedProvider, setSelectedProvider] = useState<supportedProvider | null>(null);
   const [verificationStatus, setVerificationStatus] = useState<string | null>(null);
 
   const account = useAccount();
@@ -65,7 +57,12 @@ const Reclaim: React.FC = () => {
     verifications?.reclaimVerifications?.forEach(item => {
       const providerName = item.provider.name.toLowerCase();
       updatedProviders.forEach((keyword, index) => {
-        if (providerName.includes(keyword.provider.toLowerCase())) {
+        if (
+          keyword.provider
+            .toLowerCase()
+            .split(" ")
+            .every(part => providerName.includes(part))
+        ) {
           updatedProviders[index].zkproof += item.count;
         }
       });
@@ -86,7 +83,7 @@ const Reclaim: React.FC = () => {
     }
   };
 
-  const handleVerifySuccess = (data: { requestUrl: string }) => {
+  const handleVerifySuccess = (data: requestProofSuccessArgs) => {
     setVerificationStatus("success");
     setVerifiedLink(data.requestUrl);
   };
@@ -100,11 +97,11 @@ const Reclaim: React.FC = () => {
     handleVerifyFailed,
   );
 
-  const handleVerify = async (provider: Provider) => {
-    const signature = await signMessageAsync({ message: `Request proof for provider with id ${provider.provider}` });
+  const handleVerify = async (provider: supportedProvider | null) => {
+    const signature = await signMessageAsync({ message: `Request proof for provider with id ${provider?.providerId}` });
     requestProof({
-      providerId: provider.provider,
-      address: account?.address,
+      providerId: provider?.providerId.toString() || "",
+      address: account?.address || "",
       signature: signature,
     });
   };
@@ -119,7 +116,9 @@ const Reclaim: React.FC = () => {
         <div className="flex flex-col w-4/5 gap-4">
           <span className="text-xl">Verified</span>
           <div className="bg-[#2F2F2F] border border-[#444C6A] py-8 px-11 gap-5 flex flex-col">
-            {!verifications ? (
+            {!verifications ||
+            verifications?.reclaimVerifications?.length == 0 ||
+            verifications?.reclaimVerifications?.every(item => item.count === 0) ? (
               <div className="text-[#A8B1C8] text-center">No data here</div>
             ) : (
               verifications.reclaimVerifications.map(
@@ -135,10 +134,15 @@ const Reclaim: React.FC = () => {
                         </span>
                       </div>
                       <Button
-                        backgroundColor={isLoadingRequestProof || isLoadingSignMessage ? "#757A8D" : "#D0C8FF"}
+                        disabled={isLoadingRequestProof || isLoadingSignMessage || !account.address}
+                        backgroundColor={
+                          isLoadingRequestProof || isLoadingSignMessage || !account.address ? "#757A8D" : "#D0C8FF"
+                        }
                         size="small"
                         onClick={() => {
-                          setSelectedProvider(item.provider);
+                          const selectedProvider =
+                            supportedProvider?.find(provider => provider.name === item.provider.name) || null;
+                          setSelectedProvider(selectedProvider);
                           setIsModalOpen(true);
                         }}
                       >
@@ -165,7 +169,10 @@ const Reclaim: React.FC = () => {
                     </div>
                   </div>
                   <Button
-                    backgroundColor={isLoadingRequestProof || isLoadingSignMessage ? "#757A8D" : "#D0C8FF"}
+                    disabled={isLoadingRequestProof || isLoadingSignMessage || !account.address}
+                    backgroundColor={
+                      isLoadingRequestProof || isLoadingSignMessage || !account.address ? "#757A8D" : "#D0C8FF"
+                    }
                     size="small"
                     onClick={() => {
                       setSelectedProvider(item);
@@ -241,13 +248,25 @@ const Reclaim: React.FC = () => {
           <div className="bg-[#2F2F2</div>F] w-[600px] h-[350px] flex justify-center items-center flex-col gap-4">
             {verificationStatus === null ? (
               <>
-                {/* <Image src={selectedProvider?.img} alt="logo" width={60} height={60}></Image> */}
-                <h2 className="text-xl text-white font-bold m-0">Verify {selectedProvider?.name}</h2>
-                <p className="text-[#858BA2] m-0">Conditions: {selectedProvider?.description}</p>
+                <Image
+                  src={
+                    providerData.find(item =>
+                      item.provider
+                        .toLowerCase()
+                        .split(" ")
+                        .every(part => selectedProvider?.name.toLowerCase().includes(part)),
+                    )?.img || ""
+                  }
+                  alt="logo"
+                  width={60}
+                  height={60}
+                ></Image>
+                <h2 className="text-xl text-white font-bold m-0">Verify {selectedProvider?.name || ""}</h2>
+                <p className="text-[#858BA2] m-0">Conditions: {selectedProvider?.description || ""}</p>
 
                 <Button
                   backgroundColor={isLoadingRequestProof || isLoadingSignMessage ? "#757A8D" : "#D0C8FF"}
-                  disabled={isLoadingRequestProof || isLoadingSignMessage}
+                  disabled={isLoadingRequestProof || isLoadingSignMessage || !account.address}
                   onClick={() => handleVerify(selectedProvider)}
                 >
                   Request proof with signature
@@ -257,10 +276,8 @@ const Reclaim: React.FC = () => {
             ) : verificationStatus === "success" ? (
               <>
                 {/* <FaCheckCircle size={60} color="green" /> */}
-                <h2 className="text-xl text-white font-bold m-0">Verify Successfully</h2>
-                <p className="text-[#858BA2] m-0 mb-4">
-                  Request succesfull complete your verification with your phone.
-                </p>
+                <h2 className="text-xl text-white font-bold m-0">Verify</h2>
+                <p className="text-[#858BA2] m-0 mb-4">Request verification with your phone</p>
                 <QRCodeSVG className="mb-4" value={verifiedLink} size={256} />
                 <div
                   onClick={handleCopyLink}

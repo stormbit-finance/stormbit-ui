@@ -1,7 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
 import { requestProof } from "~~/utils/api/reclaim";
 
-const useRequestProof = (onSuccess: (data: string) => void, onError: (err: string) => void) => {
+export interface requestProofSuccessArgs {
+  requestUrl: string;
+}
+
+const useRequestProof = (onSuccess: (data: requestProofSuccessArgs) => void, onError: (err: string) => void) => {
   return useMutation({
     mutationFn: requestProof,
     onSuccess: onSuccess,

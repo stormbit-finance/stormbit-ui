@@ -6,12 +6,12 @@ interface ButtonProps {
   backgroundColor?: string;
   textColor?: string;
   onClick?: () => void;
-  disabled?: false;
+  disabled?: boolean;
 }
 
 const Button = ({
   children,
-  disabled,
+  disabled = false,
   size = "small",
   backgroundColor = "#D0C8FF",
   textColor = "black",
