@@ -84,7 +84,7 @@ function Page() {
       )}
 
       {showResults && (
-        <div className="w-full p-6 mt-4">
+        <div className="w-full p-6 mt-4 max-w-[1800px]">
           <h1 className="text-white mb-11">Discover borrowers</h1>
           <div className="border border-solid border-[#B5B8C4] rounded-[7px] w-full flex justify-between h-[47px] items-center mb-6">
             <input

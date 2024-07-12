@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { formatDistance, max, parseISO } from "date-fns";
-import { FaGithub } from "react-icons/fa";
-import { FaLinkedin } from "react-icons/fa";
-import { FaStripeS } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaStripeS } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FiArrowDownLeft, FiArrowUpRight, FiFileText } from "react-icons/fi";
 import { IoCopy } from "react-icons/io5";
-import { SiWise } from "react-icons/si";
-import { SiBinance } from "react-icons/si";
+import { SiBinance, SiWise } from "react-icons/si";
 import { SlUser } from "react-icons/sl";
 import { TbBrandCoinbase } from "react-icons/tb";
-import { verifications } from "~~/utils/api/types";
 import { truncateDisplayAddress } from "~~/utils/scaffold-eth";
 
 interface Verification {
@@ -28,7 +24,9 @@ interface BorrowerProps {
   address: string;
   termCount: number;
   username: string;
-  verifications: verifications | undefined;
+  verifications?: {
+    reclaimVerifications: Verification[];
+  };
 }
 
 const Borrower: React.FC<BorrowerProps> = ({
@@ -41,7 +39,7 @@ const Borrower: React.FC<BorrowerProps> = ({
 }) => {
   const lastUpdated = verifications
     ? formatDistance(
-        new Date(max(verifications?.reclaimVerifications.map((item: Verification) => parseISO(item.updatedAt)))),
+        new Date(max(verifications.reclaimVerifications.map((item: Verification) => parseISO(item.updatedAt)))),
         new Date(),
         { addSuffix: true },
       )
@@ -67,7 +65,7 @@ const Borrower: React.FC<BorrowerProps> = ({
     const updatedProviders = provider.map(p => ({ ...p, count: 0 }));
     verifications?.reclaimVerifications.forEach((item: Verification) => {
       const providerName = item.provider.name.toLowerCase();
-      provider.forEach((keyword, index) => {
+      updatedProviders.forEach((keyword, index) => {
         if (providerName.includes(keyword.name.toLowerCase())) {
           updatedProviders[index].count += item.count;
         }
@@ -75,7 +73,7 @@ const Borrower: React.FC<BorrowerProps> = ({
     });
 
     setProvider(updatedProviders);
-  }, [verifications, provider]);
+  }, [verifications]);
 
   return (
     <div className="w-[800px] my-7">
