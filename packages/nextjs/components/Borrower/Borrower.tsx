@@ -71,9 +71,14 @@ const Borrower: React.FC<BorrowerProps> = ({
         }
       });
     });
+    const hasChanges = updatedProviders.some(
+      (updatedProvider, index) => updatedProvider.count !== provider[index].count,
+    );
 
-    setProvider(updatedProviders);
-  }, [verifications]);
+    if (hasChanges) {
+      setProvider(updatedProviders);
+    }
+  }, [verifications, provider]);
 
   return (
     <div className="w-[800px] my-7">
