@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import type { NextPage } from "next";
@@ -9,7 +10,21 @@ import { dataTechnology } from "~~/data/data";
 
 const Home: NextPage = () => {
   const router = useRouter();
+  const texts = ["Stormbit", "Lenders", "Borrowers", "Depositors"];
+  const [currentText, setCurrentText] = useState(0);
+  const [fade, setFade] = useState(true);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFade(false);
+      setTimeout(() => {
+        setCurrentText(prevText => (prevText + 1) % texts.length);
+        setFade(true);
+      }, 1000);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
   return (
     <>
       <div className="bg-[#070817] pt-[100px] ">
@@ -46,8 +61,53 @@ const Home: NextPage = () => {
             </div>
             <GridBackground numRows={9} numCols={30} />
           </section>
+          <section className="relative flex justify-center items-center lg:py-[150px] px-4 lg:px-0">
+            <Image
+              src="/reclaim-background.png"
+              alt="icon"
+              width={1500}
+              height={1500}
+              className=" absolute top-[50%] left-[50%] translate-x-[-50%]"
+            />
+            <div className="z-40 max-w-[1920px] w-full flex-col justify-center flex items-center gap-[25px]">
+              <div className="lg:text-5xl text-white text-2xl w-full flex justify-center item-center ">
+                <div className="w-[65%] lg:w-[33%] relative ">
+                  Bringing Trust to{" "}
+                  <div
+                    className={` text-gradient left-[200px]  lg:left-[400px] top-0 absolute fade ${
+                      fade ? "fade-in" : "fade-out"
+                    } `}
+                  >
+                    {texts[currentText]}
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-row gap-4 text-white">
+                <Image alt="icon" width={20} height={20} className="" src={"/z-proof-purple.svg"}></Image>
+                <div className="text-[#D0C8FF]  flex flex-row gap-2 items-center">ZK Proof powered by Reclaim</div>
+              </div>
 
-          <section className="flex flex-col items-center  py-[100px] lg:py-[150px] px-4 lg:px-0">
+              <div className="lg:pt-[80px] pt-[20px] grid grid-rows-2 gap-5 ">
+                <div className="text-sm lg:text-xl text-white grid justify-center  grid-cols-2 gap-48">
+                  <div className="flex gap-5">
+                    <Image src="/checkmark.svg" alt="icon" width={20} height={20} className="" /> Onboarding and Loyalty
+                  </div>
+                  <div className="flex gap-5">
+                    <Image src="/checkmark.svg" alt="icon" width={20} height={20} className="" /> KYC
+                  </div>
+                </div>
+                <div className="text-sm lg:text-xl text-white grid justify-center grid-cols-2 gap-48">
+                  <div className="flex gap-5">
+                    <Image src="/checkmark.svg" alt="icon" width={20} height={20} className="" /> Financial statements
+                  </div>
+                  <div className="flex gap-5">
+                    <Image src="/checkmark.svg" alt="icon" width={20} height={20} className="" /> Social Reputation
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section className="flex flex-col items-center  py-[100px] lg:py-[300px] px-4 lg:px-0">
             <div className="max-w-[1920px] w-full flex-col flex items-center gap-[20px]">
               <h2 className="lg:text-5xl text-white text-2xl">Core Technology</h2>
               <div className="flex flex-wrap justify-center lg:gap-20  gap-10 max-w-[1400px] mx-auto lg:pt-[80px] pt-[20px]">
@@ -65,53 +125,6 @@ const Home: NextPage = () => {
                     </div>
                   </div>
                 ))}
-              </div>
-            </div>
-          </section>
-
-          <section className="relative flex justify-center items-center lg:py-[150px] px-4 lg:px-0">
-            <Image
-              src="/reclaim-background.png"
-              alt="icon"
-              width={1500}
-              height={1500}
-              className=" absolute top-[50%] left-[50%] translate-x-[-50%]"
-            />
-            <div className="z-40 max-w-[1920px] w-full flex-col justify-center flex items-center gap-[25px]">
-              <h2 className="lg:text-5xl text-white text-2xl">Bringing Trust to Stormbit</h2>
-              <div className="max-w-[1200px] text-white text-center text-sm lg:text-lg">
-                Stormbit uses Zk-Proofs for KYC, ensuring complete user privacy as all digital signatures are computed
-                exclusively on the client side, guaranteeing security and confidentiality.
-              </div>
-              <div className="flex flex-row gap-4 text-white">
-                <Image alt="icon" width={30} height={30} className="" src={"/reclaim-black.svg"}></Image>
-                <div className="flex flex-row gap-2 items-center">
-                  <div> ZK Proof powered by</div>
-                  <div className=" text-[#9135F5] font-bold">Reclaim</div>
-                </div>
-              </div>
-
-              <div className="lg:pt-[80px] pt-[20px] grid grid-rows-2 gap-5 ">
-                <div className="text-sm lg:text-lg text-white grid justify-center  grid-cols-2 gap-10">
-                  <div className="flex gap-5">
-                    {" "}
-                    <Image src="/checkmark.svg" alt="icon" width={20} height={20} className="" /> Onboarding and Loyalty
-                  </div>
-                  <div className="flex gap-5">
-                    {" "}
-                    <Image src="/checkmark.svg" alt="icon" width={20} height={20} className="" /> KYC
-                  </div>
-                </div>
-                <div className="text-sm lg:text-lg text-white grid justify-center grid-cols-2 gap-10">
-                  <div className="flex gap-5">
-                    {" "}
-                    <Image src="/checkmark.svg" alt="icon" width={20} height={20} className="" /> Onchain Attestations
-                  </div>
-                  <div className="flex gap-5">
-                    {" "}
-                    <Image src="/checkmark.svg" alt="icon" width={20} height={20} className="" /> Proof of Personhood
-                  </div>
-                </div>
               </div>
             </div>
           </section>
