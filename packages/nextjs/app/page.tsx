@@ -1,18 +1,20 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import type { NextPage } from "next";
 import { Footer } from "~~/components/Footer";
 import GridBackground from "~~/components/GridBackground/GridBackground";
 import { dataTechnology } from "~~/data/data";
 
 const Home: NextPage = () => {
+  const router = useRouter();
+
   return (
     <>
       <div className="bg-[#070817] pt-[100px] ">
         <div className="flex flex-col lg:gap-20 mb-[250px] bg-landing gap-10">
-          <section className="flex items-center justify-center  lg:py-[200px] relative py-[30px] ">
-            <GridBackground numRows={9} numCols={30} />
+          <section className=" flex items-center justify-center  lg:py-[200px] relative py-[30px] ">
             <div className="lg:max-w-[1920px] flex items-center flex-col justify-center w-full ">
               <div className="lg:flex-row items-center lg:justify-around w-full px-4 justify-center flex flex-col">
                 <div className="flex flex-col justify-center items-center">
@@ -25,23 +27,26 @@ const Home: NextPage = () => {
                       First p2p incentivized lending protocol.
                     </p>
                   </div>
+                  <div className="z-20 flex flex-row gap-10 mt-8 text-xl">
+                    <button
+                      onClick={() => router.push("/dashboard/reclaim")}
+                      className="z-99 cursor-pointer bg-[#D0C8FF] rounded-[2px] px-24 py-4 text-black"
+                    >
+                      Reclaim
+                    </button>
+                    <button
+                      onClick={() => router.push("/lenders")}
+                      className="cursor-pointer border border-[#D0C8FF] rounded-[2px] text-[#D0C8FF] px-24 py-4"
+                    >
+                      Explore
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
+            <GridBackground numRows={9} numCols={30} />
           </section>
-          {/* <section className=" flex flex-col items-center justify-center lg:gap-20 w-full lg:h-[520px] lg:py-[150px] px-4 gap-5 lg:px-0 py-[100px]">
-            <div className="max-w-[1500px]  flex items-center flex-col-reverse justify-between w-full lg:gap-20 lg:flex-row gap-10">
-              <div className="flex flex-col gap-2">
-                <span className="lg:text-start text-center px-8 text-lg text-white">About The</span>
-                <span className="lg:text-start text-center px-8 font-bold text-3xl text-white">Stormbit</span>
-                <span className="max-w-[770px] w-full text-white  text-sm lg:text-lg lg:text-start text-center px-8">
-                  Stormbit is an advanced peer-to-peer lending platform that seamlessly integrates traditional financial
-                  systems with innovative cryptocurrency markets.
-                </span>
-              </div>
-              <Image src="/asset-landing.svg" alt="icon" width={200} height={50} className="bg-transparent w-[30%] " />
-            </div>
-          </section> */}
+
           <section className="flex flex-col items-center  py-[100px] lg:py-[150px] px-4 lg:px-0">
             <div className="max-w-[1920px] w-full flex-col flex items-center gap-[20px]">
               <h2 className="lg:text-5xl text-white text-2xl">Core Technology</h2>
@@ -72,14 +77,20 @@ const Home: NextPage = () => {
               height={1500}
               className=" absolute top-[50%] left-[50%] translate-x-[-50%]"
             />
-            <div className="z-40 max-w-[1920px] w-full flex-col justify-center flex items-center gap-[20px]">
-              <h2 className="lg:text-5xl text-white text-2xl">Reclaim Protocol</h2>
+            <div className="z-40 max-w-[1920px] w-full flex-col justify-center flex items-center gap-[25px]">
+              <h2 className="lg:text-5xl text-white text-2xl">Bringing Trust to Stormbit</h2>
               <div className="max-w-[1200px] text-white text-center text-sm lg:text-lg">
-                Reclaim Protocol creates digital signatures, known as zero knowledge proof, of users&#39; identity and
-                reputation on any website. These digital signatures are computed completely on the client side. Meaning,
-                it is private and secure. When the user shares this proof with your app, you can be certain that its
-                authenticity and integrity haven&#39;t been compromised.
+                Stormbit uses Zk-Proofs for KYC, ensuring complete user privacy as all digital signatures are computed
+                exclusively on the client side, guaranteeing security and confidentiality.
               </div>
+              <div className="flex flex-row gap-4 text-white">
+                <Image alt="icon" width={30} height={30} className="" src={"/reclaim-black.svg"}></Image>
+                <div className="flex flex-row gap-2 items-center">
+                  <div> ZK Proof powered by</div>
+                  <div className=" text-[#9135F5] font-bold">Reclaim</div>
+                </div>
+              </div>
+
               <div className="lg:pt-[80px] pt-[20px] grid grid-rows-2 gap-5 ">
                 <div className="text-sm lg:text-lg text-white grid justify-center  grid-cols-2 gap-10">
                   <div className="flex gap-5">
