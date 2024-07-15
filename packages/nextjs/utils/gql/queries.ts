@@ -10,7 +10,19 @@ export const USERNAME_QUERY = (address: string) => {
     }
   `;
 };
-
+export const USER_ASSET_BALANCE_QUERY = (address: string) => {
+  return gql`
+  query {
+    userAssetBalance(id: "${address.toLowerCase()}") {
+      asset{
+        id
+      }
+      assets
+      shares
+    }
+  }
+`;
+};
 export const USER_LOANS_AGGREGATE_QUERY = (address: string) => {
   return gql`
     query {
@@ -78,7 +90,6 @@ export const TERM_QUERY = (id: string, address: string) => {
           id
         }
       }
-
       userAssetBalances(where: { user:"${address.toLowerCase()}" }) {
         user {
           username

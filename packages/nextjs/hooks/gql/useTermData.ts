@@ -43,7 +43,7 @@ const useTermData = (id: string | undefined, address: string | undefined) => {
         if (userAssetBalance && userAssetBalance.shares && BigInt(userAssetBalance.shares) > BigInt(0)) {
           const assetValue =
             (BigInt(termDeposit.shares || "0") * BigInt(userAssetBalance.assets || "0")) /
-            BigInt(userAssetBalance.asset.totalShares || "0");
+            BigInt(userAssetBalance.shares || "0");
           const existingToken = acc.find(item => item.token === token);
 
           if (existingToken) {

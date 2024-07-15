@@ -15,6 +15,7 @@ import useGetSupportedProvider from "~~/hooks/api/useGetSupportedProvider";
 import useGetVerification from "~~/hooks/api/useGetVerification";
 import useRequestProof from "~~/hooks/api/useRequestProof";
 import { requestProofSuccessArgs } from "~~/hooks/api/useRequestProof";
+import useUsername from "~~/hooks/gql/useUsername";
 import { supportedProvider } from "~~/utils/api/types";
 
 interface Provider {
@@ -49,6 +50,7 @@ const Reclaim: React.FC = () => {
 
   const account = useAccount();
   const { signMessageAsync, isLoading: isLoadingSignMessage } = useSignMessage();
+  const { username } = useUsername(account.address);
   const { data: supportedProvider } = useGetSupportedProvider();
   const { data: verifications } = useGetVerification(account?.address || "");
 
@@ -134,9 +136,11 @@ const Reclaim: React.FC = () => {
                         </span>
                       </div>
                       <Button
-                        disabled={isLoadingRequestProof || isLoadingSignMessage || !account.address}
+                        disabled={!username || isLoadingRequestProof || isLoadingSignMessage || !account.address}
                         backgroundColor={
-                          isLoadingRequestProof || isLoadingSignMessage || !account.address ? "#757A8D" : "#D0C8FF"
+                          !username || isLoadingRequestProof || isLoadingSignMessage || !account.address
+                            ? "#757A8D"
+                            : "#D0C8FF"
                         }
                         size="small"
                         onClick={() => {
@@ -169,9 +173,11 @@ const Reclaim: React.FC = () => {
                     </div>
                   </div>
                   <Button
-                    disabled={isLoadingRequestProof || isLoadingSignMessage || !account.address}
+                    disabled={!username || isLoadingRequestProof || isLoadingSignMessage || !account.address}
                     backgroundColor={
-                      isLoadingRequestProof || isLoadingSignMessage || !account.address ? "#757A8D" : "#D0C8FF"
+                      !username || isLoadingRequestProof || isLoadingSignMessage || !account.address
+                        ? "#757A8D"
+                        : "#D0C8FF"
                     }
                     size="small"
                     onClick={() => {

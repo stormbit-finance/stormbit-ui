@@ -11,6 +11,7 @@ function Layout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const account = useAccount();
   const { username } = useUsername(account.address);
+  console.log(username);
 
   const handleButtonClick = (route: string) => {
     router.push(`/dashboard/${route}`);
@@ -29,13 +30,17 @@ function Layout({ children }: { children: React.ReactNode }) {
                     username ? "visible" : "hidden"
                   } border border-white rounded-full p-2 px-3 text-center text-sm`}
                 >
-                  {" "}
                   {username?.slice(0, 1)}
                 </span>
-                <span className="text-xl">{username || "Please login"}</span>
+                {username && <span className="text-xl">{username}</span>}
+                {!username && (
+                  <span onClick={() => router.push("/register")} className="text-xl cursor-pointer">
+                    Please register
+                  </span>
+                )}
               </div>
             )}
-            <span className="text-[#AD7AF3] font-bold">${userData?.currentBalance || 0.0}</span>
+            <span className="text-[#AD7AF3] font-bold">${0.0}</span>
             <span className="text-[#C8C8C8] text-sm">Net Worth</span>
           </div>
           <ButtonLayout active={pathname === "/dashboard"} onClick={() => handleButtonClick("/")}>
