@@ -24,7 +24,7 @@ const Home: NextPage = () => {
     }, 2000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [texts.length]);
   return (
     <>
       <div className="bg-[#070817] pt-[100px] ">
