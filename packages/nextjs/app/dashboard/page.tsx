@@ -1,153 +1,108 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { BsTwitterX } from "react-icons/bs";
-import { FiSearch } from "react-icons/fi";
-import { GoArrowUpRight } from "react-icons/go";
-import { IoCopy } from "react-icons/io5";
-import { SlSocialLinkedin } from "react-icons/sl";
+import { format } from "date-fns";
+import { AiOutlineDownload } from "react-icons/ai";
+import { formatEther } from "viem";
+import { useAccount } from "wagmi";
 import Button from "~~/components/Button/Button";
+import { userData } from "~~/data/data";
+import useUserAssetBalance from "~~/hooks/gql/useUserAssetBalance";
+import useUserTermDepositAggregateAssets from "~~/hooks/gql/useUserTermDepositAggregateAssets";
+import { useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
 
 function Page() {
-  const providerData = [
-    {
-      provider: "Binance",
-      logo: "/binance.svg",
-      proofs: 10,
-    },
-    {
-      provider: "OKX",
-      logo: "/okx.svg",
-      proofs: 10,
-    },
-    {
-      provider: "Github",
-      logo: "/github.svg",
-      proofs: 10,
-    },
-    {
-      provider: "LinkedIn Analytics",
-      logo: "/linkedin.svg",
-      proofs: 10,
-    },
-    {
-      provider: "X Analytics",
-      logo: "/x.svg",
-      proofs: 10,
-    },
-    {
-      provider: "Stripe",
-      logo: "/stripe.svg",
-      proofs: 10,
-    },
-    {
-      provider: "Wise",
-      logo: "/wise.svg",
-      proofs: 10,
-    },
-    {
-      provider: "Custom",
-      logo: "/custom.svg",
-      proofs: 10,
-    },
-  ];
+  // TEST GRAPH QL QUERY
+  const account = useAccount();
+  const [eventHistory, setEventHistory] = useState<any>([]);
+  const { totalDeposit } = useUserTermDepositAggregateAssets(account.address);
+  const { totalShares } = useUserAssetBalance(account.address);
+
+  const { data: termCreatedHistory } = useScaffoldEventHistory({
+    contractName: "StormbitLendingManager",
+    eventName: "LendingTermCreated",
+    fromBlock: 0n,
+  });
+  const { data: termDepositedHistory } = useScaffoldEventHistory({
+    contractName: "StormbitLendingManager",
+    eventName: "DepositToTerm",
+    fromBlock: 0n,
+  });
+  const { data: termWithdrawHistory } = useScaffoldEventHistory({
+    contractName: "StormbitLendingManager",
+    eventName: "WithdrawFromTerm",
+    fromBlock: 0n,
+  });
+
+  useEffect(() => {
+    const filterTermCreated =
+      termCreatedHistory?.filter(item => item.args.lender?.toLowerCase() === account.address?.toLowerCase()) || [];
+    const filterTermDeposited =
+      termDepositedHistory?.filter(item => item.args.user?.toLowerCase() === account.address?.toLowerCase()) || [];
+    const filterTermWithdraw =
+      termWithdrawHistory?.filter(item => item.args.user?.toLowerCase() === account.address?.toLowerCase()) || [];
+    const aggregatedEvent: any[] = [...filterTermCreated, ...filterTermDeposited, ...filterTermWithdraw];
+    setEventHistory(aggregatedEvent);
+  }, [termCreatedHistory, termDepositedHistory, termWithdrawHistory, account.address]);
 
   return (
-    <div className="flex justify-center items-center py-[30px]">
-      <div className="max-w-[1380px] w-full  flex flex-col  items-center gap-[20px] pt-[30px] min-h-[800px]">
-        <div className=" w-full  flex justify-between gap-2 text-white">
-          <div className="flex rounded-2xl border border-solid border-[#6C757D] py-[10px] px-[30px] items-center text-[#6C757D] w-[80%]">
-            <FiSearch />
-            <input
-              placeholder="Search by address ..."
-              className="px-4 py-2 bg-transparent border-none focus:outline-none w-full"
-            />
-            <span>⌘K</span>
+    <div className="h-full flex flex-col gap-10 py-10 px-14">
+      <div className="flex gap-12">
+        <div className="w-[410px] h-[198px] bg-[#2F2F2F] border border-[#444C6A] rounded-[11px] p-8">
+          <div className=" flex flex-col gap-8 ">
+            <span className="text-sm">Total Shares</span>
+            <span className="text-[#AE9FFD] text-2xl">{formatEther(totalShares) || 0}</span>
           </div>
-          <Button>Find Trust Score</Button>
+
+          <div className="pt-4">
+            <Button
+              backgroundColor={!account || !account.address ? "#757A8D" : "#D0C8FF"}
+              disabled={!account || !account.address}
+            >
+              Deposit <AiOutlineDownload />
+            </Button>
+          </div>
         </div>
-
-        <div className=" w-full flex justify-between items-center  p-4">
-          <div className="flex items-center gap-4">
-            <div className="text-3xl font-semibold">Ryan Modesto</div>
-            <div className="px-7 py-2 bg-[#1A1A31] rounded-full">0xb9df...9811F</div>
-            <div className="w-10 h-10 flex items-center justify-center rounded-full bg-[#1A1A31]">
-              <IoCopy />
-            </div>
+        <div className="w-[410px] h-[198px] bg-[#2F2F2F] border border-[#444C6A] rounded-[11px] p-8">
+          <div className="flex flex-col gap-7">
+            <span className="text-sm">Total Deposited</span>
+            <span className="text-[#AE9FFD] text-2xl">${totalDeposit || 0.0}</span>
           </div>
-
-          <div className="flex gap-2 items-center mt-2 space-x-2">
-            <div className="w-10 h-10 flex items-center justify-center rounded-full bg-[#1A1A31]">
-              <SlSocialLinkedin />
-            </div>
-            <div className="w-10 h-10 flex items-center justify-center rounded-full bg-[#1A1A31]">
-              <BsTwitterX />
+          <div className="mt-4">
+            <span className="text-[14px] text-[#A4A4A4]">Total Earning</span>
+            <div className="flex gap-3">
+              <span className="text-[#FAFF00] text-[14px]">{userData?.totalEarnings || 0.0}%</span>
+              <span className="text-[#2CFF74] text-[14px]">{userData?.earningsPercentage || 0.0}%</span>
             </div>
           </div>
         </div>
-        <div className="my-10 flex gap-4 w-full">
-          <div className=" w-[600px] border border-[#1A1A31] rounded-lg flex flex-col gap-6 px-8 py-14 justify-center ">
-            <div className="text-2xl font-bold">Overview</div>
-            <div className="flex justify-between text-xl">
-              <div className="">Your trust score</div>
-              <div className="">72%</div>
-            </div>
-            <div className="flex justify-between text-xl ">
-              <div className="">
-                <div className="pb-2">Last zk-proof generated</div>
-
-                <div className="flex gap-4">
-                  <Image width={20} height={20} className="cursor-pointer" src="/reclaim.svg" alt="" />
-                  <div className="text-sm text-[#A8B1C8]">
-                    Zk-proofs powered by <b>Reclaim</b>
+      </div>
+      <div className="h-full flex flex-col gap-6">
+        <span className="text-xl">Transactions</span>
+        <div className="h-full w-full p-10 gap-6 flex flex-col bg-[#2F2F2F] border border-[#444C6A] rounded-[11px]">
+          {!eventHistory ||
+            (eventHistory.length == 0 && <div className="text-[#A8B1C8] text-center">No data here</div>)}
+          {eventHistory &&
+            eventHistory?.map((event: any, index: number) => (
+              <div className=" flex w-full justify-between items-center" key={index}>
+                <div className="flex items-center">
+                  <Image width={40} height={40} className="" src="/icontransactions.svg" alt="transaction icon" />
+                  <div className="ml-4">
+                    <div className="text-sm">{event?.log?.eventName || "Unknown event"}</div>
+                    <div className="text-xs text-[#858BA2]">
+                      {" "}
+                      {format(new Date(Number((event as any)?.block?.timestamp) * 1000), "dd/MM/yyyy HH:mm:ss") || ""}
+                    </div>
                   </div>
                 </div>
+                <div className="flex gap-4 justify-center items-center">
+                  {/* <span className="text-[#AE9FFD] text-xl">${transaction?.amount || 0.0}</span>
+                  <span className="text-sm">USD</span> */}
+                </div>
               </div>
-              <div className="self-center">15/02/2024</div>
-            </div>
-          </div>
-          <div className=" w-[600px] border border-[#1A1A31] rounded-lg flex flex-col gap-6 px-8 py-14 justify-center ">
-            <div className="text-2xl font-bold">Providers</div>
-            <div className="flex justify-between text-xl">
-              <div className="">Total providers</div>
-              <div className="">3</div>
-            </div>
-            <div className="flex justify-between  text-xl ">
-              <div className="">Total verified providers</div>
-              <div className="">1</div>
-            </div>
-          </div>
+            ))}
         </div>
-
-        <div className="w-full grid grid-cols-3 justify-stretch gap-4 py-2 text-lg text-[#A8B1C8] ">
-          <span className="">Provider</span>
-          <span className=" text-center">Total zk proof generated</span>
-          <span className=" text-center">Actions</span>
-        </div>
-
-        {providerData.map((item, index) => (
-          <>
-            <div key={index} className="w-full grid grid-cols-3 justify-stretch gap-4 py-2 ">
-              <div className="flex gap-4 items-center text-xl">
-                <Image width={50} height={50} className="cursor-pointer" src={`${item.logo}`} alt="" />
-                {item.provider}
-              </div>
-              <div className="w-[80%] mx-auto text-center py-4 bg-[#0F0F1C]">
-                <div className="text-xl pb-6">{item.proofs}</div>
-                <div className="text-gray-500 text-sm">Last zk-proof generated 15/02/2024</div>
-              </div>
-              <div className="flex items-center mx-auto">
-                <button className="flex items-center gap-2 px-8 py-3 bg-transparent text-white border border-[#374B6D] text-base  rounded-full transition">
-                  Go Verify
-                  <span>
-                    <GoArrowUpRight />
-                  </span>
-                </button>
-              </div>
-            </div>
-          </>
-        ))}
       </div>
     </div>
   );

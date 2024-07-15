@@ -4,17 +4,26 @@ interface ButtonProps {
   children: any;
   size?: "small" | "large";
   backgroundColor?: string;
+  textColor?: string;
   onClick?: () => void;
+  disabled?: boolean;
 }
 
-const Button = ({ children, size = "small", backgroundColor = "#9135F5", onClick }: ButtonProps) => {
+const Button = ({
+  children,
+  disabled = false,
+  size = "small",
+  backgroundColor = "#D0C8FF",
+  textColor = "black",
+  onClick,
+}: ButtonProps) => {
   const isSmall = size === "small";
   return (
     <button
       onClick={onClick}
-      className={`text-white text-base flex justify-center items-center gap-2 bg-[${backgroundColor}] base_button__${
-        isSmall ? "small" : "large"
-      }`}
+      disabled={disabled}
+      style={{ backgroundColor: backgroundColor, color: textColor }}
+      className={`text-sm flex justify-center items-center gap-2 base_button__${isSmall ? "small" : "large"}`}
     >
       {children}
     </button>

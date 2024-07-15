@@ -1,4 +1,4 @@
-import { defineChain } from "viem";
+// import { defineChain } from "viem";
 import * as chains from "viem/chains";
 
 export type ScaffoldConfig = {
@@ -10,31 +10,31 @@ export type ScaffoldConfig = {
   walletAutoConnect: boolean;
 };
 
-const etherlinkTestnet = defineChain({
-  id: 128_123,
-  name: "Etherlink Testnet",
-  network: "etherlinkTestnet",
-  nativeCurrency: {
-    decimals: 18,
-    name: "Tez",
-    symbol: "XTZ",
-  },
-  rpcUrls: {
-    default: { http: ["https://node.ghostnet.etherlink.com"] },
-    public: { http: ["https://node.ghostnet.etherlink.com"] },
-  },
-  blockExplorers: {
-    default: {
-      name: "Etherlink Testnet",
-      url: "https://testnet-explorer.etherlink.com",
-    },
-  },
-  testnet: true,
-});
+// const etherlinkTestnet = defineChain({
+//   id: 128_123,
+//   name: "Etherlink Testnet",
+//   network: "etherlinkTestnet",
+//   nativeCurrency: {
+//     decimals: 18,
+//     name: "Tez",
+//     symbol: "XTZ",
+//   },
+//   rpcUrls: {
+//     default: { http: ["https://node.ghostnet.etherlink.com"] },
+//     public: { http: ["https://node.ghostnet.etherlink.com"] },
+//   },
+//   blockExplorers: {
+//     default: {
+//       name: "Etherlink Testnet",
+//       url: "https://testnet-explorer.etherlink.com",
+//     },
+//   },
+//   testnet: true,
+// });
 
 const scaffoldConfig = {
   // The networks on which your DApp is live
-  targetNetworks: [etherlinkTestnet, chains.sepolia],
+  targetNetworks: [chains.arbitrumSepolia],
 
   // The interval at which your front-end polls the RPC servers for new data
   // it has no effect if you only target the local network (default is 4000)

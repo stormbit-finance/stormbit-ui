@@ -1,22 +1,19 @@
-"use client";
-
-// @refresh reset
-import { Balance } from "../Balance";
 import { AddressInfoDropdown } from "./AddressInfoDropdown";
 import { AddressQRCodeModal } from "./AddressQRCodeModal";
 import { WrongNetworkDropdown } from "./WrongNetworkDropdown";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { Address } from "viem";
-import { useAutoConnect, useNetworkColor } from "~~/hooks/scaffold-eth";
+import { useAutoConnect } from "~~/hooks/scaffold-eth";
 import { useTargetNetwork } from "~~/hooks/scaffold-eth/useTargetNetwork";
 import { getBlockExplorerAddressLink } from "~~/utils/scaffold-eth";
+
+// interface RainbowKitCustomConnectButtonProps {}
 
 /**
  * Custom Wagmi Connect Button (watch balance + custom design)
  */
-export const RainbowKitCustomConnectButton = () => {
+export const RainbowKitCustomConnectButton = ({}) => {
   useAutoConnect();
-  const networkColor = useNetworkColor();
   const { targetNetwork } = useTargetNetwork();
 
   return (
@@ -33,11 +30,11 @@ export const RainbowKitCustomConnectButton = () => {
               if (!connected) {
                 return (
                   <button
-                    className="text-[#ffffff] lg:py-3 lg:px-6 border border-solid border-[#ffffff] rounded-[7px] lg:text-xl py-1 px-2 text-sm"
+                    className="text-[#C398FF] lg:py-3 lg:px-6 border border-solid border-[#C398FF] rounded-[5px] lg:text-xl py-1 px-2 text-sm"
                     onClick={openConnectModal}
                     type="button"
                   >
-                    Connect Wallet
+                    Connect
                   </button>
                 );
               }
@@ -45,21 +42,20 @@ export const RainbowKitCustomConnectButton = () => {
               if (chain.unsupported || chain.id !== targetNetwork.id) {
                 return <WrongNetworkDropdown />;
               }
-
               return (
                 <>
-                  <div className="flex flex-col items-center mr-1">
-                    <Balance address={account.address as Address} className="h-auto min-h-0 text-xl" />
-                    <span className="text-xl" style={{ color: networkColor }}>
-                      {chain.name}
-                    </span>
+                  <div className="px-4 py-2 rounded-[3px]  flex items-center gap-4 bg-[#333333]  text-xl ">
+                    <span>{chain.name}</span>
+                    <span>{account.displayBalance}</span>
                   </div>
                   <AddressInfoDropdown
                     address={account.address as Address}
                     displayName={account.displayName}
                     ensAvatar={account.ensAvatar}
+                    chainName={chain.name}
                     blockExplorerAddressLink={blockExplorerAddressLink}
                   />
+
                   <AddressQRCodeModal address={account.address as Address} modalId="qrcode-modal" />
                 </>
               );

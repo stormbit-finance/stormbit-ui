@@ -2,7 +2,7 @@ import React, { ReactNode, useEffect } from "react";
 
 interface ModalContainerProps {
   children: ReactNode;
-  onClick: (event: React.MouseEvent<HTMLDivElement>) => void;
+  onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 const ModalContainer: React.FC<ModalContainerProps> = ({ children, onClick }) => {

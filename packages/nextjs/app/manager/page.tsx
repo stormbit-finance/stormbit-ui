@@ -8,7 +8,7 @@ import { lenders, loans } from "~~/data/data";
 const Manager: NextPage = () => {
   return (
     <>
-      <div className="flex flex-col items-center ">
+      <div className="pt-[100px] flex flex-col items-center ">
         <div className="max-w-[1200px] w-full px-[30px] ">
           <div className="flex flex-col gap-12">
             <div className="container-total">

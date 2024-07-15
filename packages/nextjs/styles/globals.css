@@ -11,7 +11,7 @@
 
 body {
   min-height: 100vh;
-  background: #070817;
+  background: #252525;
 }
 
 h1,
@@ -156,8 +156,8 @@ input {
   display: flex;
   flex-direction: column;
   height: fit-content;
-  border-radius: 5px;
-  background: #19192b;
+  border: 1px solid #2f2f2f;
+  background: #2f2f2f;
   padding-block: 2rem;
   padding-inline: 2rem;
   z-index: 1;
@@ -186,7 +186,7 @@ input {
 
 .button-gradient {
   border: 1px solid #0f0f0f;
-  background: linear-gradient(90deg, #8700ff -8.16%, #c398ff 108.74%);
+  background: var(--purple-gradient-light, linear-gradient(90deg, #a864ff 0%, #e69eff 100%));
   backdrop-filter: blur(21px);
 }
 /*.max-h-143px{*/
@@ -194,4 +194,19 @@ input {
 /*}*/
 .transform-text {
   transform: rotate(-90deg);
+}
+
+.btn-transparent {
+  background: linear-gradient(90deg, #252525 0%, #424242 100%);
+}
+
+.fade {
+  transition: opacity 1s;
+}
+.fade-in {
+  opacity: 1;
+}
+
+.fade-out {
+  opacity: 0;
 }

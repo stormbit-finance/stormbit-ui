@@ -1,12 +1,9 @@
 .base_button__small {
-  padding-block: 14px;
-  padding-inline: 24px;
-  border-radius: 7px;
+  padding: 10px 20px;
+  border-radius: 3px;
 }
 
 .base_button__large {
-  width: 490px;
-  padding: 16px 33px;
-  border: none;
+  padding: 10px 24px;
   border-radius: 8px;
 }

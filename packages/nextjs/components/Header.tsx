@@ -1,15 +1,12 @@
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { CiDesktopMouse1, CiWallet } from "react-icons/ci";
-import { LiaDotCircleSolid } from "react-icons/lia";
+import { usePathname, useRouter } from "next/navigation";
+import { CiDesktopMouse1 } from "react-icons/ci";
+import { LuUsers2 } from "react-icons/lu";
+import { TbWorld } from "react-icons/tb";
 import { TfiBook } from "react-icons/tfi";
 import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
-
-// import { parseEther } from "viem";
-// import { useAccount } from "wagmi";
-// import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
-// import useFormattedBalance from "~~/hooks/scaffold-eth/useFormattedBalance";
 
 type HeaderMenuLink = {
   label: string;
@@ -20,9 +17,14 @@ type HeaderMenuLink = {
 
 export const menuLinks: HeaderMenuLink[] = [
   {
-    label: "pools",
-    href: "/pools",
-    icon: <LiaDotCircleSolid />,
+    label: "explorer",
+    href: "/explorer",
+    icon: <TbWorld />,
+  },
+  {
+    label: "lenders",
+    href: "/lenders",
+    icon: <LuUsers2 />,
   },
   {
     label: "dashboard",
@@ -30,12 +32,7 @@ export const menuLinks: HeaderMenuLink[] = [
     icon: <CiDesktopMouse1 />,
   },
   {
-    label: "portfolio",
-    href: "/portfolio",
-    icon: <CiWallet />,
-  },
-  {
-    label: "ecosystem",
+    label: "docs",
     href: "https://stormbit.gitbook.io/stormbit",
     icon: <TfiBook />,
     external: true,
@@ -44,7 +41,6 @@ export const menuLinks: HeaderMenuLink[] = [
 
 export const HeaderMenuLinks = () => {
   const pathname = usePathname();
-
   return (
     <>
       {menuLinks.map(({ label, href, icon, external }) => {
@@ -79,44 +75,47 @@ export const HeaderMenuLinks = () => {
  * Site header
  */
 export const Header = () => {
-  // const account = useAccount();
-
-  // const { writeAsync: mintDAI } = useScaffoldContractWrite({
-  //   contractName: "tDAI",
-  //   functionName: "mint",
-  //   args: [account.address, parseEther("1000")],
-  // });
-
-  // const { writeAsync: mintETH } = useScaffoldContractWrite({
-  //   contractName: "tETH",
-  //   functionName: "mint",
-  //   args: [account.address, parseEther("1000")],
-  // });
-
-  // const { writeAsync: mintBTC } = useScaffoldContractWrite({
-  //   contractName: "tBTC",
-  //   functionName: "mint",
-  //   args: [account.address, parseEther("1000")],
-  // });
-
-  // const balanceDai = useFormattedBalance("tDAI", account);
-  // const balanceBtc = useFormattedBalance("tBTC", account);
-  // const balanceEth = useFormattedBalance("tETH", account);
-
-  // console.log(balanceDai,balanceBtc,balanceEth)
-
+  const pathname = usePathname();
+  const router = useRouter();
   return (
     <>
-      <div className="z-10 w-full shadow-md bg-header">
-        <div className="flex items-center justify-center">
-          <div className="flex justify-between items-center min-h-0 lg:p-6 text-white lg:static navbar sm:px-2 max-w-[1920px] w-full p-2">
+      {pathname === "/" ? (
+        <div className="flex h-[100px] justify-center absolute top-0 z-40  w-full backdrop-blur-lg transition-colors duration-500 bg-[#f8fafc0f]/5">
+          <div className="flex justify-between items-center min-h-0 lg:py-2 lg:px-6 text-white lg:static navbar sm:px-2 max-w-[1920px] w-full p-2">
             <div className="flex gap-3 items-center">
-              <Link href="/" passHref className="gap-2 ml-4 mr-6 flex shrink-0">
-                <div className="flex">
+              <Link href="/" passHref className="flex ml-4 mr-6">
+                <div>
                   <Image src="/logo.png" alt="logo" width={50} height={50} priority className="lg:w-[80px]" />
                 </div>
+                <div className="flex justify-center items-center">
+                  <span className="text-xs bg-[#FFEB80] px-4 py-1 rounded-[7px] text-black">Beta</span>
+                </div>
               </Link>
-              <ul className="hidden lg:flex gap-8 px-1 text-xl">
+            </div>
+            <div className="flex-grow gap-8 mr-4 navbar-end">
+              <button
+                className="text-[#C398FF] lg:py-3 lg:px-6 border border-solid border-[#C398FF] rounded-[5px] lg:text-xl py-1 px-2 text-sm"
+                onClick={() => router.push("/lenders")}
+                type="button"
+              >
+                Launch app
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="flex h-[100px] justify-center absolute top-0 z-40  w-full backdrop-blur-lg transition-colors duration-500 bg-[#f8fafc0f]/5">
+          <div className="flex justify-between items-center min-h-0 lg:py-2 lg:px-6 text-white lg:static navbar sm:px-2 max-w-[1920px] w-full p-2">
+            <div className="flex gap-3 items-center">
+              <Link href="/" passHref className="flex ml-4 mr-6">
+                <div>
+                  <Image src="/logo.png" alt="logo" width={50} height={50} priority className="lg:w-[80px]" />
+                </div>
+                <div className="flex justify-center items-center">
+                  <span className="text-xs bg-[#FFEB80] px-4 py-1 rounded-[7px] text-black">Beta</span>
+                </div>
+              </Link>
+              <ul className={`hidden lg:flex gap-8 px-1 text-xl`}>
                 <HeaderMenuLinks />
               </ul>
             </div>
@@ -126,7 +125,7 @@ export const Header = () => {
             </div>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 };

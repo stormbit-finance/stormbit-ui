@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   421614: {
     MockToken: {
-      address: "0x39a50b0462F66A37aa1Af762Dd5c5b3131647d6D",
+      address: "0xB3252D806b7dce7D7f6e4bb2702E1b6580751987",
       abi: [
         {
           inputs: [
@@ -365,7 +365,7 @@ const deployedContracts = {
       },
     },
     StormbitAssetManager: {
-      address: "0x89B02aa3Ad8Af52Fc62244d7b1902dE5B291684b",
+      address: "0x4A5c226719b9d5feF6b5eD86A23FfF8a39C940C1",
       abi: [
         {
           inputs: [
@@ -804,7 +804,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     StormbitLendingManager: {
-      address: "0x6BA3F65f41F4A40884Dd38d9C1dBAe4C8aF3c618",
+      address: "0xA4122DA72d54E024D4d321F80bFa61AF413144C5",
       abi: [
         {
           inputs: [
@@ -1480,7 +1480,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     StormbitLoanManager: {
-      address: "0x78102e9277437E2Aecf31cC0C141e952CEAd6f5B",
+      address: "0xFE03B020e4FA709560179d87310630D05eBB200E",
       abi: [
         {
           inputs: [
@@ -2111,7 +2111,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     StormbitRegistry: {
-      address: "0xB45dbe61e39189a9cc1E553e031b423A0e0cD222",
+      address: "0x3be7a57BB9EC3f9207B40a81442c7854aB1A3f19",
       abi: [
         {
           inputs: [
