@@ -1,4 +1,5 @@
 import { useQuery } from "@apollo/client";
+import { formatEther } from "viem";
 import { USER_TERM_DEPOSIT_AGGREGATE_QUERY } from "~~/utils/gql";
 import { UserAssetBalance, UserTermAssetBalance } from "~~/utils/gql/types";
 
@@ -51,11 +52,13 @@ const useUserTermDepositAggregateAssets = (address: string | undefined) => {
   };
 
   const aggregatedDepositAsset = data ? aggregateDeposits(data.userTermAssetBalances, data.userAssetBalances) : [];
-  const totalShares =
-    data?.userAssetBalances.reduce((acc, balance) => acc + BigInt(balance.shares || 0), BigInt(0)) || BigInt(0);
+  const totalDeposit = parseFloat(
+    formatEther(aggregatedDepositAsset.reduce((total, asset) => total + asset.assets, 0n)),
+  ).toFixed(2);
   return {
+    terms: data?.userTermAssetBalances,
     aggregatedDepositAsset,
-    totalShares,
+    totalDeposit,
     loading,
     error,
   };

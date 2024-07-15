@@ -17,7 +17,7 @@ function Page() {
   const [searchAddress, setSearchAddress] = useState("");
   const [showResults, setShowResults] = useState(false);
   const { aggregatedLoanAsset } = useUserLoansAggregateAssets(searchAddress);
-  const { aggregatedDepositAsset } = useUserTermDepositAggregateAssets(searchAddress);
+  const { totalDeposit } = useUserTermDepositAggregateAssets(searchAddress);
   const { username } = useUsername(searchAddress);
   const { termCount } = useUserTermCount(searchAddress);
   const { data: verifications } = useGetVerification(searchAddress || "0x");
@@ -105,9 +105,7 @@ function Page() {
               username={username || ""}
               address={searchAddress}
               termCount={termCount}
-              aggregatedDeposits={formatEther(
-                aggregatedDepositAsset.reduce((total, asset) => total + asset.assets, 0n),
-              )}
+              aggregatedDeposits={totalDeposit}
               aggregatedLoans={formatEther(aggregatedLoanAsset.reduce((total, asset) => total + asset.assets, 0n))}
             ></Borrower>
           </div>

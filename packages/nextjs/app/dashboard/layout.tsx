@@ -11,7 +11,6 @@ function Layout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const account = useAccount();
   const { username } = useUsername(account.address);
-  console.log(username);
 
   const handleButtonClick = (route: string) => {
     router.push(`/dashboard/${route}`);

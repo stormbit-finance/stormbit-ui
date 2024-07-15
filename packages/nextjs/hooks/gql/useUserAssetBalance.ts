@@ -3,7 +3,7 @@ import { USER_ASSET_BALANCE_QUERY } from "~~/utils/gql";
 import { UserAssetBalance } from "~~/utils/gql/types";
 
 interface UserAssetBalanceQueryData {
-  assetBalance: Partial<UserAssetBalance>;
+  userAssetBalances: Partial<UserAssetBalance>[];
 }
 
 const useUserAssetBalance = (address: string | undefined) => {
@@ -12,8 +12,12 @@ const useUserAssetBalance = (address: string | undefined) => {
     notifyOnNetworkStatusChange: true,
   });
 
+  const totalShares =
+    data?.userAssetBalances?.reduce((acc, balance) => acc + BigInt(balance.shares || 0), BigInt(0)) || BigInt(0);
+
   return {
-    assetBalance: data?.assetBalance,
+    userAssetBalances: data,
+    totalShares,
     loading,
     error,
   };
