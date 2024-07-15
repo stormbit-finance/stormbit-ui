@@ -14,6 +14,8 @@ const nextConfig = {
     config.externals.push("pino-pretty", "lokijs", "encoding");
     return config;
   },
+  // standalone mode
+  output: "standalone",
 };
 
 module.exports = nextConfig;
