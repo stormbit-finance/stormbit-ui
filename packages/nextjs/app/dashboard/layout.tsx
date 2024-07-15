@@ -3,7 +3,6 @@
 import { usePathname, useRouter } from "next/navigation";
 import { useAccount } from "wagmi";
 import ButtonLayout from "~~/components/ButtonLayout/ButtonLayout";
-import { userData } from "~~/data/data";
 import useUsername from "~~/hooks/gql/useUsername";
 
 function Layout({ children }: { children: React.ReactNode }) {
@@ -11,7 +10,9 @@ function Layout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const account = useAccount();
   const { username } = useUsername(account.address);
+  console.log(account.address);
 
+  console.log(username);
   const handleButtonClick = (route: string) => {
     router.push(`/dashboard/${route}`);
   };
@@ -21,24 +22,21 @@ function Layout({ children }: { children: React.ReactNode }) {
       <div className="h-full max-w-[1920px] w-full flex ">
         <div className="min-h-screen max-h-full flex flex-col gap-[14px] text-white pt-[30px]  max-w-[320px] w-full items-center text-2xl bg-[#2D2D2D]">
           <div className="flex flex-col gap-4 my-12">
-            {!userData.username && "Login Required"}
-            {userData.username && (
-              <div className="flex gap-2 justify-center items-center">
-                <span
-                  className={`${
-                    username ? "visible" : "hidden"
-                  } border border-white rounded-full p-2 px-3 text-center text-sm`}
-                >
-                  {username?.slice(0, 1)}
-                </span>
-                {username && <span className="text-xl">{username}</span>}
-                {!username && (
-                  <span onClick={() => router.push("/register")} className="text-xl cursor-pointer">
-                    Please register
+            <div className="flex gap-2 justify-center items-center">
+              {username && (
+                <div>
+                  <span className={"border border-white rounded-full mr-4 p-2 px-3 text-center text-sm"}>
+                    {username?.slice(0, 1)}
                   </span>
-                )}
-              </div>
-            )}
+                  <span className="text-xl">{username}</span>
+                </div>
+              )}
+              {!username && (
+                <span onClick={() => router.push("/register")} className="text-xl cursor-pointer">
+                  Please register
+                </span>
+              )}
+            </div>
             <span className="text-[#AD7AF3] font-bold">${0.0}</span>
             <span className="text-[#C8C8C8] text-sm">Net Worth</span>
           </div>
