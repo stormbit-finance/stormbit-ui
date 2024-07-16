@@ -12,7 +12,7 @@ export const Token: token[] = [
   },
   {
     name: "ETH",
-    img: "/eth1.png",
+    img: "/ETH.png",
     address: "",
   },
   {
