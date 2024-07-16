@@ -7,7 +7,6 @@ import { AiOutlineDownload } from "react-icons/ai";
 import { formatEther } from "viem";
 import { useAccount } from "wagmi";
 import Button from "~~/components/Button/Button";
-import { userData } from "~~/data/data";
 import useUserAssetBalance from "~~/hooks/gql/useUserAssetBalance";
 import useUserTermDepositAggregateAssets from "~~/hooks/gql/useUserTermDepositAggregateAssets";
 import { useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
@@ -72,8 +71,8 @@ function Page() {
           <div className="mt-4">
             <span className="text-[14px] text-[#A4A4A4]">Total Earning</span>
             <div className="flex gap-3">
-              <span className="text-[#FAFF00] text-[14px]">{userData?.totalEarnings || 0.0}%</span>
-              <span className="text-[#2CFF74] text-[14px]">{userData?.earningsPercentage || 0.0}%</span>
+              <span className="text-[#FAFF00] text-[14px]">{0.0}%</span>
+              <span className="text-[#2CFF74] text-[14px]">{0.0}%</span>
             </div>
           </div>
         </div>

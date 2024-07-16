@@ -84,7 +84,7 @@ const Home: NextPage = () => {
               </div>
               <div className="flex flex-row gap-4 text-white">
                 <Image alt="icon" width={20} height={20} className="" src={"/z-proof-purple.svg"}></Image>
-                <div className="text-[#D0C8FF]  flex flex-row gap-2 items-center">ZK Proof powered by Reclaim</div>
+                <div className="text-[#D0C8FF]  flex flex-row gap-2 items-center">Zk-proofs powered by Reclaim</div>
               </div>
 
               <div className="lg:pt-[80px] pt-[20px] grid grid-rows-2 gap-5 ">
@@ -117,7 +117,7 @@ const Home: NextPage = () => {
                     className="flex flex-col items-center justify-center lg:max-w-[400px] max-w-[250px] lg:gap-16 gap-5 lg:min-h-[470px] w-full border border-solid border-white rounded-[12px] lg:py-12 px-[10px] py-6"
                   >
                     <div>
-                      <Image src={element.icon} alt="icon" width={58} height={73} className="lg:w-[108px]" />
+                      <Image src={element.icon} alt="icon" width={90} height={90} />
                     </div>
                     <div className="flex flex-col items-center justify-center gap-6 text-white lg:max-w-[367px] max-w-[167px]">
                       <span className="lg:text-2xl font-bold text-center text-white text-lg">{element.name}</span>
