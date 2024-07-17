@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { formatDistance } from "date-fns";
 import { QRCodeSVG } from "qrcode.react";
 import { FiArrowUpRight } from "react-icons/fi";
@@ -15,7 +16,7 @@ import useGetSupportedProvider from "~~/hooks/api/useGetSupportedProvider";
 import useGetVerification from "~~/hooks/api/useGetVerification";
 import useRequestProof from "~~/hooks/api/useRequestProof";
 import { requestProofSuccessArgs } from "~~/hooks/api/useRequestProof";
-// import useUsername from "~~/hooks/gql/useUsername";
+import useUsername from "~~/hooks/gql/useUsername";
 import { supportedProvider } from "~~/utils/api/types";
 
 interface Provider {
@@ -47,10 +48,10 @@ const Reclaim: React.FC = () => {
   const [providerList, setProviderList] = useState(providerData);
   const [selectedProvider, setSelectedProvider] = useState<supportedProvider | null>(null);
   const [verificationStatus, setVerificationStatus] = useState<string | null>(null);
-
+  const router = useRouter();
   const account = useAccount();
   const { signMessageAsync, isLoading: isLoadingSignMessage } = useSignMessage();
-  // const { username } = useUsername(account.address);
+  const { username } = useUsername(account.address);
   const { data: supportedProvider } = useGetSupportedProvider();
   const { data: verifications } = useGetVerification(account?.address || "");
 
@@ -109,31 +110,68 @@ const Reclaim: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-center items-center py-[30px] flex-col gap-10">
-      <div className="flex justify-end w-full pr-20 gap-4">
-        <Image src="/z-proof.svg" alt="icon" width={15} height={15}></Image>
-        <span className="text-[#98E6FF]">Zk-proofs powered by Reclaim</span>
-      </div>
-      <div className="flex gap-8 w-full px-14">
-        <div className="flex flex-col w-4/5 gap-4">
-          <span className="text-xl">Verified</span>
-          <div className="bg-[#2F2F2F] border border-[#444C6A] py-8 px-11 gap-5 flex flex-col">
-            {!verifications ||
-            verifications?.reclaimVerifications?.length == 0 ||
-            verifications?.reclaimVerifications?.every(item => item.count === 0) ? (
-              <div className="text-[#A8B1C8] text-center">No data here</div>
-            ) : (
-              verifications.reclaimVerifications.map(
-                (item, index) =>
-                  item.count > 0 && (
-                    <div className="flex justify-between" key={index}>
-                      <div className="flex flex-col text-sm">
-                        <span>
-                          {item.provider.name} - {item.provider.description}
-                        </span>
-                        <span className="text-[#A8B1C8]">
-                          {formatDistance(new Date(item?.updatedAt), new Date(), { addSuffix: true })}
-                        </span>
+    <>
+      {username && (
+        <div className="flex justify-center items-center py-[30px] flex-col gap-10">
+          <div className="flex justify-end w-full pr-20 gap-4">
+            <Image src="/z-proof.svg" alt="icon" width={15} height={15}></Image>
+            <span className="text-[#98E6FF]">Zk-proofs powered by Reclaim</span>
+          </div>
+          <div className="flex gap-8 w-full px-14">
+            <div className="flex flex-col w-4/5 gap-4">
+              <span className="text-xl">Verified</span>
+              <div className="bg-[#2F2F2F] border border-[#444C6A] py-8 px-11 gap-5 flex flex-col">
+                {!verifications ||
+                verifications?.reclaimVerifications?.length == 0 ||
+                verifications?.reclaimVerifications?.every(item => item.count === 0) ? (
+                  <div className="text-[#A8B1C8] text-center">No data here</div>
+                ) : (
+                  verifications.reclaimVerifications.map(
+                    (item, index) =>
+                      item.count > 0 && (
+                        <div className="flex justify-between" key={index}>
+                          <div className="flex flex-col text-sm">
+                            <span>
+                              {item.provider.name} - {item.provider.description}
+                            </span>
+                            <span className="text-[#A8B1C8]">
+                              {formatDistance(new Date(item?.updatedAt), new Date(), { addSuffix: true })}
+                            </span>
+                          </div>
+                          <Button
+                            disabled={isLoadingRequestProof || isLoadingSignMessage || !account.address}
+                            backgroundColor={
+                              isLoadingRequestProof || isLoadingSignMessage || !account.address ? "#757A8D" : "#D0C8FF"
+                            }
+                            size="small"
+                            onClick={() => {
+                              const selectedProvider =
+                                supportedProvider?.find(provider => provider.name === item.provider.name) || null;
+                              setSelectedProvider(selectedProvider);
+                              setIsModalOpen(true);
+                            }}
+                          >
+                            Verify Again <FiArrowUpRight></FiArrowUpRight>
+                          </Button>
+                        </div>
+                      ),
+                  )
+                )}
+              </div>
+
+              <span>Not Verified</span>
+              <div className="bg-[#2F2F2F] border border-[#444C6A] py-8 px-11 gap-5 flex flex-col h-full">
+                {!supportedProvider ? (
+                  <div className="text-[#A8B1C8] text-center">No data here</div>
+                ) : (
+                  supportedProvider.map((item, index) => (
+                    <div className=" flex w-full justify-between items-center" key={index}>
+                      <div className="flex items-center">
+                        {/* <Image width={30} height={30} className="" src={`${item.img}`} alt="" /> */}
+                        <div className="ml-4">
+                          <div className="text-base">{item.name}</div>
+                          <div className="text-xs text-[#858BA2]">{item.description}</div>
+                        </div>
                       </div>
                       <Button
                         disabled={isLoadingRequestProof || isLoadingSignMessage || !account.address}
@@ -142,166 +180,143 @@ const Reclaim: React.FC = () => {
                         }
                         size="small"
                         onClick={() => {
-                          const selectedProvider =
-                            supportedProvider?.find(provider => provider.name === item.provider.name) || null;
-                          setSelectedProvider(selectedProvider);
+                          setSelectedProvider(item);
                           setIsModalOpen(true);
                         }}
                       >
-                        Verify Again <FiArrowUpRight></FiArrowUpRight>
+                        Verify<FiArrowUpRight></FiArrowUpRight>
                       </Button>
                     </div>
-                  ),
-              )
-            )}
-          </div>
-
-          <span>Not Verified</span>
-          <div className="bg-[#2F2F2F] border border-[#444C6A] py-8 px-11 gap-5 flex flex-col h-full">
-            {!supportedProvider ? (
-              <div className="text-[#A8B1C8] text-center">No data here</div>
-            ) : (
-              supportedProvider.map((item, index) => (
-                <div className=" flex w-full justify-between items-center" key={index}>
-                  <div className="flex items-center">
-                    {/* <Image width={30} height={30} className="" src={`${item.img}`} alt="" /> */}
-                    <div className="ml-4">
-                      <div className="text-base">{item.name}</div>
-                      <div className="text-xs text-[#858BA2]">{item.description}</div>
-                    </div>
-                  </div>
+                  ))
+                )}
+              </div>
+            </div>
+            <div className="w-2/5 flex flex-col items-center gap-[20px] py-[30px] bg-[#2F2F2F] border border-[#444C6A]">
+              <div className="flex w-full px-8 justify-between items-center">
+                <span className="text-lg">Providers</span>
+                <div>
                   <Button
-                    disabled={isLoadingRequestProof || isLoadingSignMessage || !account.address}
-                    backgroundColor={
-                      isLoadingRequestProof || isLoadingSignMessage || !account.address ? "#757A8D" : "#D0C8FF"
-                    }
-                    size="small"
                     onClick={() => {
-                      setSelectedProvider(item);
-                      setIsModalOpen(true);
+                      setIsFilterOpen(true);
                     }}
+                    backgroundColor="#444444"
+                    textColor="white"
                   >
-                    Verify<FiArrowUpRight></FiArrowUpRight>
+                    {provider} Provider
                   </Button>
                 </div>
-              ))
-            )}
-          </div>
-        </div>
-        <div className="w-2/5 flex flex-col items-center gap-[20px] py-[30px] bg-[#2F2F2F] border border-[#444C6A]">
-          <div className="flex w-full px-8 justify-between items-center">
-            <span className="text-lg">Providers</span>
-            <div>
-              <Button
-                onClick={() => {
-                  setIsFilterOpen(true);
-                }}
-                backgroundColor="#444444"
-                textColor="white"
-              >
-                {provider} Provider
-              </Button>
-            </div>
-          </div>
+              </div>
 
-          <div className="w-full border-y-1 border-[#374B6D] text-white py-7 px-4  bg-[#3E3E3E]">
-            <div className="flex items-center justify-between">
-              <div className="flex-1">Name</div>
-              <div className="">zk proof generated</div>
+              <div className="w-full border-y-1 border-[#374B6D] text-white py-7 px-4  bg-[#3E3E3E]">
+                <div className="flex items-center justify-between">
+                  <div className="flex-1">Name</div>
+                  <div className="">zk proof generated</div>
+                </div>
+              </div>
+              {provider === "All" || provider === "Filter"
+                ? providerList.map((item, index) => (
+                    <div className="py-4 px-6 flex w-full justify-between items-center" key={index}>
+                      <div className="flex items-center">
+                        <Image width={30} height={30} className="" src={`${item.img}`} alt="" />
+                        <div className="ml-4">
+                          <div className="text-sm">{item.provider}</div>
+                        </div>
+                      </div>
+                      <span>{item?.zkproof || 0}</span>
+                    </div>
+                  ))
+                : providerList
+                    .filter(item => item.provider === provider)
+                    .map((item, index) => (
+                      <div className="py-4 px-6 flex w-full justify-between items-center" key={index}>
+                        <div className="flex items-center">
+                          <Image width={30} height={30} className="" src={`${item.img}`} alt="" />
+                          <div className="ml-4">
+                            <div className="text-sm">{item.provider}</div>
+                          </div>
+                        </div>
+                        <span>{item?.zkproof || 0}</span>
+                      </div>
+                    ))}
             </div>
           </div>
-          {provider === "All" || provider === "Filter"
-            ? providerList.map((item, index) => (
-                <div className="py-4 px-6 flex w-full justify-between items-center" key={index}>
-                  <div className="flex items-center">
-                    <Image width={30} height={30} className="" src={`${item.img}`} alt="" />
-                    <div className="ml-4">
-                      <div className="text-sm">{item.provider}</div>
-                    </div>
-                  </div>
-                  <span>{item?.zkproof || 0}</span>
-                </div>
-              ))
-            : providerList
-                .filter(item => item.provider === provider)
-                .map((item, index) => (
-                  <div className="py-4 px-6 flex w-full justify-between items-center" key={index}>
-                    <div className="flex items-center">
-                      <Image width={30} height={30} className="" src={`${item.img}`} alt="" />
-                      <div className="ml-4">
-                        <div className="text-sm">{item.provider}</div>
+          {isFilterOpen && (
+            <FilterProviderModal
+              provider={provider}
+              setProvider={(provider: string) => setProvider(provider)}
+              setIsModalOpen={() => setIsFilterOpen(false)}
+            />
+          )}
+
+          {isModalOpen && (
+            <ModalContainer onClick={handleModalClick}>
+              <div className="bg-[#2F2F2</div>F] w-[600px] h-[350px] flex justify-center items-center flex-col gap-4">
+                {verificationStatus === null ? (
+                  <>
+                    <Image
+                      src={
+                        providerData.find(item =>
+                          item.provider
+                            .toLowerCase()
+                            .split(" ")
+                            .every(part => selectedProvider?.name.toLowerCase().includes(part)),
+                        )?.img || ""
+                      }
+                      alt="logo"
+                      width={60}
+                      height={60}
+                    ></Image>
+                    <h2 className="text-xl text-white font-bold m-0">Verify {selectedProvider?.name || ""}</h2>
+                    <p className="text-[#858BA2] m-0">Conditions: {selectedProvider?.description || ""}</p>
+
+                    <Button
+                      backgroundColor={isLoadingRequestProof || isLoadingSignMessage ? "#757A8D" : "#D0C8FF"}
+                      disabled={isLoadingRequestProof || isLoadingSignMessage || !account.address}
+                      onClick={() => handleVerify(selectedProvider)}
+                    >
+                      Request proof with signature
+                      {(isLoadingRequestProof || isLoadingSignMessage) && <Loading />}
+                    </Button>
+                  </>
+                ) : verificationStatus === "success" ? (
+                  <>
+                    {/* <FaCheckCircle size={60} color="green" /> */}
+                    <h2 className="text-xl text-white font-bold m-0">Verify</h2>
+                    <p className="text-[#858BA2] m-0 mb-4">Request verification with your phone</p>
+                    <QRCodeSVG className="mb-4" value={verifiedLink} size={256} />
+                    <div
+                      onClick={handleCopyLink}
+                      className="cursor-pointer  m-0 border border-[#6C757D]  rounded-md flex justify-center items-center"
+                    >
+                      <div className=" text-white px-4 ">{verifiedLink}</div>
+                      <div className="bg-[#D0C8FF] rounded-r-md px-8 text-black py-2 self-center">
+                        {copyStatus ? "Link Copied" : "Copy"}
                       </div>
                     </div>
-                    <span>{item?.zkproof || 0}</span>
-                  </div>
-                ))}
+                  </>
+                ) : (
+                  <>
+                    <IoIosCloseCircleOutline size={60} color="red" />
+                    <h2 className="text-xl text-white font-bold m-0">Verify Failed</h2>
+                    <p className="text-[#858BA2] m-0">Please try again or choose a different verification option</p>
+                  </>
+                )}
+              </div>
+            </ModalContainer>
+          )}
         </div>
-      </div>
-      {isFilterOpen && (
-        <FilterProviderModal
-          provider={provider}
-          setProvider={(provider: string) => setProvider(provider)}
-          setIsModalOpen={() => setIsFilterOpen(false)}
-        />
       )}
-
-      {isModalOpen && (
-        <ModalContainer onClick={handleModalClick}>
-          <div className="bg-[#2F2F2</div>F] w-[600px] h-[350px] flex justify-center items-center flex-col gap-4">
-            {verificationStatus === null ? (
-              <>
-                <Image
-                  src={
-                    providerData.find(item =>
-                      item.provider
-                        .toLowerCase()
-                        .split(" ")
-                        .every(part => selectedProvider?.name.toLowerCase().includes(part)),
-                    )?.img || ""
-                  }
-                  alt="logo"
-                  width={60}
-                  height={60}
-                ></Image>
-                <h2 className="text-xl text-white font-bold m-0">Verify {selectedProvider?.name || ""}</h2>
-                <p className="text-[#858BA2] m-0">Conditions: {selectedProvider?.description || ""}</p>
-
-                <Button
-                  backgroundColor={isLoadingRequestProof || isLoadingSignMessage ? "#757A8D" : "#D0C8FF"}
-                  disabled={isLoadingRequestProof || isLoadingSignMessage || !account.address}
-                  onClick={() => handleVerify(selectedProvider)}
-                >
-                  Request proof with signature
-                  {(isLoadingRequestProof || isLoadingSignMessage) && <Loading />}
-                </Button>
-              </>
-            ) : verificationStatus === "success" ? (
-              <>
-                {/* <FaCheckCircle size={60} color="green" /> */}
-                <h2 className="text-xl text-white font-bold m-0">Verify</h2>
-                <p className="text-[#858BA2] m-0 mb-4">Request verification with your phone</p>
-                <QRCodeSVG className="mb-4" value={verifiedLink} size={256} />
-                <div
-                  onClick={handleCopyLink}
-                  className="cursor-pointer  m-0 border border-[#6C757D]  rounded-md flex justify-center items-center"
-                >
-                  <div className=" text-white px-4 ">{verifiedLink}</div>
-                  <div className="bg-[#D0C8FF] rounded-r-md px-8 text-black py-2 self-center">
-                    {copyStatus ? "Link Copied" : "Copy"}
-                  </div>
-                </div>
-              </>
-            ) : (
-              <>
-                <IoIosCloseCircleOutline size={60} color="red" />
-                <h2 className="text-xl text-white font-bold m-0">Verify Failed</h2>
-                <p className="text-[#858BA2] m-0">Please try again or choose a different verification option</p>
-              </>
-            )}
-          </div>
-        </ModalContainer>
+      {!username && (
+        <div className="pt-[10%] flex justify-center items-center  flex-col ">
+          <Image src="/userNotFound.svg" alt="icon" width={80} height={80}></Image>
+          <div className="pt-10 font-bold text-xl">User Not Registred</div>
+          <div className="py-4 text-[#858BA2] ">You need to register to be able to generate zk-proofs</div>
+          <Button size="small" onClick={() => router.push("/register")}>
+            Register now
+          </Button>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 

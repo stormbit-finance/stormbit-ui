@@ -16,8 +16,7 @@ function Page() {
   const account = useAccount();
   const [eventHistory, setEventHistory] = useState<any>([]);
   const { totalDeposit } = useUserTermDepositAggregateAssets(account.address);
-  const { totalShares } = useUserAssetBalance(account.address);
-
+  const { totalShares, totalAssetAmount } = useUserAssetBalance(account.address);
   const { data: termCreatedHistory } = useScaffoldEventHistory({
     contractName: "StormbitLendingManager",
     eventName: "LendingTermCreated",
@@ -48,13 +47,19 @@ function Page() {
   return (
     <div className="h-full flex flex-col gap-10 py-10 px-14">
       <div className="flex gap-12">
-        <div className="w-[50%] h-[198px] bg-[#2F2F2F] border border-[#444C6A] rounded-[11px] p-8">
+        <div className="w-[33%] h-[180px] bg-[#2F2F2F] border border-[#444C6A] rounded-[11px] p-8">
+          <div className="flex flex-col gap-7">
+            <span className="text-sm">Net Worth</span>
+            <span className="text-[#AE9FFD] text-2xl">${formatEther(totalAssetAmount) || 0.0}</span>
+          </div>
+        </div>
+        <div className="w-[33%] h-[180px] flex flex-row gap-2 justify-between bg-[#2F2F2F] border border-[#444C6A] rounded-[11px] p-8">
           <div className=" flex flex-col gap-8 ">
             <span className="text-sm">Total Shares</span>
             <span className="text-[#AE9FFD] text-2xl">{formatEther(totalShares) || 0}</span>
           </div>
 
-          <div className="pt-4">
+          <div className="self-end">
             <Button
               backgroundColor={!account || !account.address ? "#757A8D" : "#D0C8FF"}
               disabled={!account || !account.address}
@@ -63,18 +68,11 @@ function Page() {
             </Button>
           </div>
         </div>
-        <div className="w-[50%] h-[198px] bg-[#2F2F2F] border border-[#444C6A] rounded-[11px] p-8">
+        <div className="w-[33%] h-[180px] bg-[#2F2F2F] border border-[#444C6A] rounded-[11px] p-8">
           <div className="flex flex-col gap-7">
             <span className="text-sm">Total Deposited</span>
             <span className="text-[#AE9FFD] text-2xl">${totalDeposit || 0.0}</span>
           </div>
-          {/* <div className="mt-4">
-            <span className="text-[14px] text-[#A4A4A4]">Total Earning</span>
-            <div className="flex gap-3">
-              <span className="text-[#FAFF00] text-[14px]">{0.0}%</span>
-              <span className="text-[#2CFF74] text-[14px]">{0.0}%</span>
-            </div>
-          </div> */}
         </div>
       </div>
       <div className="h-full flex flex-col gap-6">
