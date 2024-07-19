@@ -94,11 +94,11 @@ export const Header = () => {
             </div>
             <div className="flex-grow gap-8 mr-4 navbar-end">
               <button
-                className="text-[#C398FF] lg:py-3 lg:px-6 border border-solid border-[#C398FF] rounded-[5px] lg:text-xl py-1 px-2 text-sm"
+                className="text-black lg:py-3 lg:px-6  bg-[#D0C8FF] rounded-[5px] lg:text-xl py-1 px-2 text-sm"
                 onClick={() => router.push("/lenders")}
                 type="button"
               >
-                Launch app
+                Launch app →
               </button>
             </div>
           </div>

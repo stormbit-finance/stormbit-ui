@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import type { NextPage } from "next";
 import { Footer } from "~~/components/Footer";
 import GridBackground from "~~/components/GridBackground/GridBackground";
-import { dataTechnology } from "~~/data/data";
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -45,8 +44,9 @@ const Home: NextPage = () => {
                   <div className="z-20 flex flex-row gap-10 mt-8 text-xl">
                     <button
                       onClick={() => router.push("/dashboard/reclaim")}
-                      className="z-99 cursor-pointer bg-[#D0C8FF] rounded-[2px] px-24 py-4 text-black"
+                      className="flex flex-row gap-2 items-center z-99 cursor-pointer bg-[#D0C8FF] rounded-[2px] px-24 py-4 text-black"
                     >
+                      <Image alt="icon" width={20} height={20} className="" src={"/z-proof-purple.svg"}></Image>
                       Reclaim
                     </button>
                     <button
@@ -107,24 +107,34 @@ const Home: NextPage = () => {
               </div>
             </div>
           </section>
+          <section className="flex justify-center flex-col items-center py-[100px] lg:py-[300px] px-4 lg:px-0">
+            <h2 className="pb-32 lg:text-5xl text-white text-2xl">
+              Our <span className="text-gradient">Providers</span>
+            </h2>
+            <Image src="/landing-providers.svg" alt="icon" width={1300} height={100} className="" />
+          </section>
           <section className="flex flex-col items-center  py-[100px] lg:py-[300px] px-4 lg:px-0">
-            <div className="max-w-[1920px] w-full flex-col flex items-center gap-[20px]">
-              <h2 className="lg:text-5xl text-white text-2xl">Core Technology</h2>
-              <div className="flex flex-wrap justify-center lg:gap-20  gap-10 max-w-[1400px] mx-auto lg:pt-[80px] pt-[20px]">
-                {dataTechnology.map(element => (
-                  <div
-                    key={element.name}
-                    className="flex flex-col items-center justify-center lg:max-w-[400px] max-w-[250px] lg:gap-16 gap-5 lg:min-h-[470px] w-full border border-solid border-white rounded-[12px] lg:py-12 px-[10px] py-6"
-                  >
-                    <div>
-                      <Image src={element.icon} alt="icon" width={90} height={90} />
-                    </div>
-                    <div className="flex flex-col items-center justify-center gap-6 text-white lg:max-w-[367px] max-w-[167px]">
-                      <span className="lg:text-2xl font-bold text-center text-white text-lg">{element.name}</span>
-                      <span className="lg:text-lg font-medium text-center text-sm">{element.description}</span>
-                    </div>
+            <div className="max-w-[1920px] w-full flex-col flex items-center gap-20">
+              <h2 className="lg:text-5xl text-white text-2xl pb-20">
+                Core <span className="text-gradient">Technology</span>
+              </h2>
+              <div className="flex flex-row gap-4 justify-center items-center max-w-[50%]">
+                <div className="text-white flex flex-col gap-4">
+                  <div className="text-xl font-bold ">Vault Management by Stormbit DAO</div>
+                  <div className="max-w-[80%] text-[#ACACAC]">
+                    Vaults are managed by Stormbit DAO. Stormbit Vaults are unique and hold a specific asset (USDT, DAI)
                   </div>
-                ))}
+                </div>
+                <Image alt="icon" width={300} height={300} src="/vault.svg" />
+              </div>
+              <div className="flex flex-row gap-4 justify-center items-center max-w-[50%]">
+                <Image alt="icon" width={300} height={300} src="/customLending.svg" />
+                <div className="text-white flex flex-col gap-4">
+                  <div className="text-xl text-right font-bold">Custom Lending Terms</div>
+                  <div className="max-w-[80%] self-end text-right text-[#ACACAC]">
+                    Financial operations managed by a lender who assess loan applications and allocate funds
+                  </div>
+                </div>
               </div>
             </div>
           </section>
