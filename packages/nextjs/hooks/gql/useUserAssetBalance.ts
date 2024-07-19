@@ -15,9 +15,12 @@ const useUserAssetBalance = (address: string | undefined) => {
   const totalShares =
     data?.userAssetBalances?.reduce((acc, balance) => acc + BigInt(balance.shares || 0), BigInt(0)) || BigInt(0);
 
+  const totalAssetAmount =
+    data?.userAssetBalances?.reduce((acc, balance) => acc + BigInt(balance.assets || 0), BigInt(0)) || BigInt(0);
+  console.log(data);
   return {
-    userAssetBalances: data,
     totalShares,
+    totalAssetAmount,
     loading,
     error,
   };

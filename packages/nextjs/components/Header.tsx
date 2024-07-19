@@ -81,7 +81,7 @@ export const Header = () => {
     <>
       {pathname === "/" ? (
         <div className="flex h-[100px] justify-center absolute top-0 z-40  w-full backdrop-blur-lg transition-colors duration-500 bg-[#f8fafc0f]/5">
-          <div className="flex justify-between items-center min-h-0 lg:py-2 lg:px-6 text-white lg:static navbar sm:px-2 max-w-[1920px] w-full p-2">
+          <div className="flex justify-between items-center min-h-0 lg:py-2 lg:px-6 text-white lg:static navbar sm:px-2 max-w-[1920px]  xl:max-w-full w-full p-2">
             <div className="flex gap-3 items-center">
               <Link href="/" passHref className="flex ml-4 mr-6">
                 <div>
@@ -94,18 +94,18 @@ export const Header = () => {
             </div>
             <div className="flex-grow gap-8 mr-4 navbar-end">
               <button
-                className="text-[#C398FF] lg:py-3 lg:px-6 border border-solid border-[#C398FF] rounded-[5px] lg:text-xl py-1 px-2 text-sm"
+                className="text-black lg:py-3 lg:px-6  bg-[#D0C8FF] rounded-[5px] lg:text-xl py-1 px-2 text-sm"
                 onClick={() => router.push("/lenders")}
                 type="button"
               >
-                Launch app
+                Launch app →
               </button>
             </div>
           </div>
         </div>
       ) : (
         <div className="flex h-[100px] justify-center absolute top-0 z-40  w-full backdrop-blur-lg transition-colors duration-500 bg-[#f8fafc0f]/5">
-          <div className="flex justify-between items-center min-h-0 lg:py-2 lg:px-6 text-white lg:static navbar sm:px-2 max-w-[1920px] w-full p-2">
+          <div className="flex justify-between items-center min-h-0 lg:py-2 lg:px-6 text-white lg:static navbar sm:px-2 max-w-[1920px] xl:max-w-full  w-full p-2">
             <div className="flex gap-3 items-center">
               <Link href="/" passHref className="flex ml-4 mr-6">
                 <div>

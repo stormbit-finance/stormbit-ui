@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { NetworkOptions } from "./NetworkOptions";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { IoEllipsisVertical } from "react-icons/io5";
@@ -38,11 +37,7 @@ export const AddressInfoDropdown = ({ address, displayName, blockExplorerAddress
   };
   useOutsideClick(dropdownRef, closeDropdown);
   const account = useAccount();
-  const router = useRouter();
   const { username } = useUsername(account?.address);
-  const goRegister = () => {
-    router.push("/register");
-  };
 
   return (
     <>
@@ -64,13 +59,7 @@ export const AddressInfoDropdown = ({ address, displayName, blockExplorerAddress
         <ul tabIndex={0} className="dropdown-content menu z-[2] p-2 mt-2 bg-[#2F2F2F]  gap-1">
           <NetworkOptions hidden={!selectingNetwork} />
           <li className={selectingNetwork ? "hidden" : ""}>
-            {username == "noname" ? (
-              <div className="font-bold cursor-pointer" onClick={goRegister}>
-                Join Stormbit
-              </div>
-            ) : (
-              <div className="">{username}</div>
-            )}
+            <div className="">{username || ""}</div>
           </li>
           <li className={selectingNetwork ? "hidden" : ""}>
             {addressCopied ? (

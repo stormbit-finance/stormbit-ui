@@ -1,7 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useAccount } from "wagmi";
+import { ArrowLeftOnRectangleIcon } from "@heroicons/react/24/outline";
 import ButtonLayout from "~~/components/ButtonLayout/ButtonLayout";
 import useUsername from "~~/hooks/gql/useUsername";
 
@@ -10,35 +12,31 @@ function Layout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const account = useAccount();
   const { username } = useUsername(account.address);
-  console.log(account.address);
 
-  console.log(username);
   const handleButtonClick = (route: string) => {
     router.push(`/dashboard/${route}`);
   };
 
   return (
     <div className="h-full pt-[100px]  flex justify-center ">
-      <div className="h-full max-w-[1920px] w-full flex ">
-        <div className="min-h-screen max-h-full flex flex-col gap-[14px] text-white pt-[30px]  max-w-[320px] w-full items-center text-2xl bg-[#2D2D2D]">
-          <div className="flex flex-col gap-4 my-12">
-            <div className="flex gap-2 justify-center items-center">
-              {username && (
-                <div>
-                  <span className={"border border-white rounded-full mr-4 p-2 px-3 text-center text-sm"}>
-                    {username?.slice(0, 1)}
-                  </span>
-                  <span className="text-xl">{username}</span>
-                </div>
-              )}
-              {!username && (
-                <span onClick={() => router.push("/register")} className="text-xl cursor-pointer">
+      <div className="h-full max-w-[1920px] xl:max-w-full w-full flex ">
+        <div className="min-h-screen max-h-full flex flex-col gap-[14px] text-white pt-[30px]  max-w-[320px] w-full  text-2xl bg-[#2D2D2D]">
+          <div>
+            {username && (
+              <div className="px-10  py-10   flex flex-row gap-6">
+                <Image width={15} height={15} className="" src="/profile.svg" alt="profile icon" />
+                <span className="text-xl">{username}</span>
+              </div>
+            )}
+
+            {!username && (
+              <div className="px-10 text-[#D0C8FF] flex py-10 w-full flex-row  gap-2 text-xl cursor-pointer ">
+                <div className="" onClick={() => router.push("/register")}>
                   Please register
-                </span>
-              )}
-            </div>
-            <span className="text-[#AD7AF3] font-bold">${0.0}</span>
-            <span className="text-[#C8C8C8] text-sm">Net Worth</span>
+                </div>
+                <ArrowLeftOnRectangleIcon className="w-6 h-6 ml-2 sm:ml-0" />
+              </div>
+            )}
           </div>
           <ButtonLayout active={pathname === "/dashboard"} onClick={() => handleButtonClick("/")}>
             Dashboard
@@ -53,7 +51,7 @@ function Layout({ children }: { children: React.ReactNode }) {
             Loans
           </ButtonLayout>
         </div>
-        <div className="h-full flex flex-col gap-8 bg-[#252525] w-full text-white">{children}</div>
+        <div className="min-h-screen max-h-full flex flex-col gap-8 bg-[#252525] w-full text-white">{children}</div>
       </div>
     </div>
   );

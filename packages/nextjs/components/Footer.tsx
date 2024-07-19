@@ -1,15 +1,13 @@
 import React from "react";
+import Image from "next/image";
 
 export const Footer = () => {
   return (
     <div className="lg:py-6 lg:px-14 lg:mb-0 bg-black text-[#F1F3F4] py-4 px-4">
-      <div className="mx-auto max-w-[1920px] flex justify-items-start lg:gap-[40px] flex-col-reverse lg:flex-row gap-[20px]">
-        <div className="flex flex-col items-center justify-center gap-[10px]">
-          <span className="lg:text-2xl font-bold text-lg">StormBit</span>
-          <div className="lg:text-[13px] flex gap-[5px] text-xs">
-            <span>2024</span>
-            <span> @StormBit</span>
-          </div>
+      <div className="mx-auto max-w-[1920px] flex justify-items-start lg:gap-[80px] flex-col-reverse lg:flex-row gap-[20px]">
+        <div className="flex  items-center justify-center gap-[10px]">
+          <Image src="/logo.png" alt="logo" width={40} height={40} priority className="" />
+          <span className="font-bold text-xl"> Stormbit</span>
         </div>
         <div>
           <p className="lg:text-[13px] max-w-[1067px] text-xs lg:text-start text-center m-0 lg:m-auto">

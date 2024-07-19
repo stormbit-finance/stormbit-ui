@@ -67,10 +67,6 @@ input {
   margin-top: 50px;
 }
 
-.height-market {
-  height: fit-content;
-}
-
 .bg-landing {
   background: url("/bg-landing.png");
   background-position: top;
@@ -79,30 +75,12 @@ input {
   z-index: 1;
 }
 
-.bg-landing-banner-2 {
-  background: rgb(7, 8, 23);
-  background: linear-gradient(22deg, rgba(7, 8, 23, 1) 66%, rgba(122, 72, 181, 0.22) 90%);
-}
-
-.extensions {
-  border-radius: 9px;
-  border: 4.373px solid rgba(255, 255, 255, 0.2);
-  background: linear-gradient(226deg, rgba(107, 107, 107, 0.4) 0%, rgba(35, 35, 35, 0.4) 98.6%);
-  backdrop-filter: blur(26.238304138183594px);
-}
-
 .credit {
   background: linear-gradient(154deg, rgba(121, 117, 131, 0.2) 5.35%, rgba(54, 53, 103, 0.2) 83.85%),
     rgba(49, 48, 54, 0.3);
   stroke-width: 2px;
   stroke: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(7px);
-}
-
-.container-explorer {
-  border-radius: 20px;
-  background-image: url("/bg-documentation.png");
-  background-size: cover;
 }
 
 .container-total {
