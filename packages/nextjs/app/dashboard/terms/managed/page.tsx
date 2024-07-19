@@ -2,7 +2,7 @@ import Page from "../page";
 
 function Managed() {
   return (
-    <div className="h-full flex flex-col justify-center items-center">
+    <div className="flex flex-col gap-8 h-full text-white">
       <Page></Page>
     </div>
   );

@@ -23,7 +23,7 @@ function Layout({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <div className="h-full max-w-[1920px] w-full flex flex-col px-9">
+    <div className="h-full max-w-[1920px] xl:max-w-full w-full flex flex-col px-9">
       <div className="flex text-white pt-[30px] max-h-full max-w-[320px] w-full items-center text-lg">
         <button
           onClick={() => handleButtonClick("/dashboard/terms", "Deposited")}
