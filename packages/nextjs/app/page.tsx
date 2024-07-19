@@ -114,7 +114,7 @@ const Home: NextPage = () => {
             <Image src="/landing-providers.svg" alt="icon" width={1300} height={100} className="" />
           </section>
           <section className="flex flex-col items-center  py-[100px] lg:py-[300px] px-4 lg:px-0">
-            <div className="max-w-[1920px] w-full flex-col flex items-center gap-20">
+            <div className="max-w-[1920px] w-full flex-col flex items-center gap-24">
               <h2 className="lg:text-5xl text-white text-2xl pb-20">
                 Core <span className="text-gradient">Technology</span>
               </h2>

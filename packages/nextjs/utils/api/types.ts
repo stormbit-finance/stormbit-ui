@@ -6,6 +6,13 @@ export interface supportedProvider {
   name: string;
   description: string;
 }
+
+export interface reclaimStats {
+  totalProofs: number;
+  uniqueUsersVerified: number;
+  totalProviders: number;
+}
+
 export interface reclaimVerifications {
   count: number;
   provider: {
