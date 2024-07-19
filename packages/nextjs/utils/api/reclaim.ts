@@ -2,6 +2,12 @@ import api from ".";
 import { requestProofSuccessArgs } from "~~/hooks/api/useRequestProof";
 import { supportedProvider } from "~~/utils/api/types";
 import { verifications } from "~~/utils/api/types";
+import { reclaimStats } from "~~/utils/api/types";
+
+async function getReclaimStats(): Promise<reclaimStats> {
+  const response = await api.get("reclaim/stats");
+  return response.data;
+}
 
 async function getSupportedProvider(): Promise<supportedProvider[]> {
   const response = await api.get("reclaim/supported-providers");
@@ -24,4 +30,4 @@ async function requestProof(data: {
   });
   return response.data;
 }
-export { getSupportedProvider, getVerifications, requestProof };
+export { getSupportedProvider, getVerifications, requestProof, getReclaimStats };

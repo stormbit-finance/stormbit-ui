@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { formatEther } from "viem";
 import { useChainId } from "wagmi";
 import Borrower from "~~/components/Borrower/Borrower";
+import useGetReclaimStats from "~~/hooks/api/useGetRelcaimStats";
 import useGetVerification from "~~/hooks/api/useGetVerification";
 import useUserLoansAggregateAssets from "~~/hooks/gql/useUserLoansAggregateAssets";
 import useUserTermCount from "~~/hooks/gql/useUserTermCount";
@@ -21,6 +22,7 @@ function Page() {
   const { username } = useUsername(searchAddress);
   const { termCount } = useUserTermCount(searchAddress);
   const { data: verifications } = useGetVerification(searchAddress || "0x");
+  const { data: reclaimStats } = useGetReclaimStats();
 
   const handleSearch = () => {
     if (searchQuery.startsWith("0x")) {
@@ -67,17 +69,17 @@ function Page() {
           <div className="flex gap-8">
             <div className="flex flex-col justify-center items-center px-14 py-4 bg-[#2F2F2F] border border-solid border-[#444C6A] rounded-[11px] gap-2">
               <span className="text-sm text-white text-center">Proofs Generated</span>
-              <span className="text-[#AE9FFD] text-2xl">1025</span>
+              <span className="text-[#AE9FFD] text-2xl">{reclaimStats?.totalProofs || 0}</span>
             </div>
 
             <div className="flex flex-col justify-center items-center px-14 py-4 bg-[#2F2F2F] border border-solid border-[#444C6A] rounded-[11px] gap-2">
               <span className="text-sm text-white text-center">Unique Users Verified</span>
-              <span className="text-[#AE9FFD] text-2xl">103</span>
+              <span className="text-[#AE9FFD] text-2xl">{reclaimStats?.uniqueUsersVerified || 0}</span>
             </div>
 
             <div className="flex flex-col justify-center items-center px-14 py-4 bg-[#2F2F2F] border border-solid border-[#444C6A] rounded-[11px] gap-2">
               <span className="text-sm text-white">Providers</span>
-              <span className="text-[#AE9FFD] text-2xl">15</span>
+              <span className="text-[#AE9FFD] text-2xl">{reclaimStats?.totalProviders || 0}</span>
             </div>
           </div>
         </div>
