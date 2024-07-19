@@ -9,8 +9,6 @@ import useUserTermDepositAggregateAssets from "~~/hooks/gql/useUserTermDepositAg
 const Page = () => {
   const account = useAccount();
   const { terms } = useUserTermDepositAggregateAssets(account.address);
-  console.log(terms);
-  // const [terms] = useState<string[]>([]);
   const router = useRouter();
   const pathname = usePathname();
   const goCreateTerm = () => {
@@ -21,10 +19,10 @@ const Page = () => {
     return item.term?.lender.id === account.address;
   });
   return (
-    <>
+    <div className="">
       {!terms ||
         (terms.length === 0 && (
-          <div className="h-full flex flex-col pt-20 items-center">
+          <div className="pt-[10%] flex justify-center items-center  flex-col">
             <p className="text-xl">No Terms Here</p>
             <button onClick={goCreateTerm} className="bg-[#D0C8FF] text-black px-12 py-2">
               Create Terms
@@ -32,7 +30,7 @@ const Page = () => {
           </div>
         ))}
       {isManagePage && (
-        <div className="flex flex-col items-center">
+        <div className="pt-10 flex flex-col items-center">
           {filteredTerms &&
             filteredTerms.length > 0 &&
             filteredTerms.map((item, index) => {
@@ -40,11 +38,11 @@ const Page = () => {
             })}
         </div>
       )}
-      {isManagePage && (!filteredTerms || filteredTerms.length <= 0) && (
-        <div className="mt-[10%] text-[#A8B1C8] text-center">No data here</div>
+      {terms && terms.length > 0 && isManagePage && (!filteredTerms || filteredTerms.length <= 0) && (
+        <div className="pt-[10%]  text-[#A8B1C8] text-center">No data here</div>
       )}
-      {!isManagePage && (
-        <div className="flex flex-col items-center">
+      {terms && terms.length > 0 && !isManagePage && (
+        <div className="pt-10 flex flex-col items-center">
           {terms &&
             terms.length > 0 &&
             terms.map((item, index) => {
@@ -52,10 +50,10 @@ const Page = () => {
             })}
         </div>
       )}
-      {!isManagePage && (!terms || terms.length <= 0) && (
-        <div className="mt-[10%] text-[#A8B1C8] text-center">No data here</div>
+      {terms && terms.length > 0 && !isManagePage && (!terms || terms.length <= 0) && (
+        <div className="pt-[10%]  text-[#A8B1C8] text-center">No data here</div>
       )}
-    </>
+    </div>
   );
 };
 

@@ -12,6 +12,7 @@ function Layout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const account = useAccount();
   const { username } = useUsername(account.address);
+  console.log(username);
 
   const handleButtonClick = (route: string) => {
     router.push(`/dashboard/${route}`);
@@ -29,7 +30,7 @@ function Layout({ children }: { children: React.ReactNode }) {
               </div>
             )}
 
-            {!username && (
+            {(!username || username == "noname") && (
               <div className="px-10 text-[#D0C8FF] flex py-10 w-full flex-row  gap-2 text-xl cursor-pointer ">
                 <div className="" onClick={() => router.push("/register")}>
                   Please register
