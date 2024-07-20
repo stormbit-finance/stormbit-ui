@@ -88,7 +88,7 @@ const Home: NextPage = () => {
               </div>
 
               <div className="lg:pt-[80px] pt-[20px] grid grid-rows-2 gap-5 ">
-                <div className="text-sm lg:text-xl text-white grid justify-center  grid-cols-2 gap-48">
+                <div className="text-sm lg:text-2xl text-white grid justify-center  grid-cols-2 gap-48">
                   <div className="flex gap-5">
                     <Image src="/checkmark.svg" alt="icon" width={20} height={20} className="" /> Onboarding and Loyalty
                   </div>
@@ -96,7 +96,7 @@ const Home: NextPage = () => {
                     <Image src="/checkmark.svg" alt="icon" width={20} height={20} className="" /> KYC
                   </div>
                 </div>
-                <div className="text-sm lg:text-xl text-white grid justify-center grid-cols-2 gap-48">
+                <div className="text-sm lg:text-2xl text-white grid justify-center grid-cols-2 gap-48">
                   <div className="flex gap-5">
                     <Image src="/checkmark.svg" alt="icon" width={20} height={20} className="" /> Financial statements
                   </div>
@@ -118,21 +118,31 @@ const Home: NextPage = () => {
               <h2 className="lg:text-5xl text-white text-2xl pb-20">
                 Core <span className="text-gradient">Technology</span>
               </h2>
-              <div className="flex flex-row gap-4 justify-center items-center max-w-[50%]">
+              <div className="py-20 flex flex-row gap-4 justify-center items-center max-w-[50%]">
                 <div className="text-white flex flex-col gap-4">
-                  <div className="text-xl font-bold ">Vault Management by Stormbit DAO</div>
-                  <div className="max-w-[80%] text-[#ACACAC]">
-                    Vaults are managed by Stormbit DAO. Stormbit Vaults are unique and hold a specific asset (USDT, DAI)
+                  <div className="text-gradient font-bold text-base">Designed for the 99%</div>
+                  <div className="text-4xl font-bold ">Efficient Asset Management</div>
+                  <div className="text-xl max-w-[80%] font-semibold text-[#A1A1A1]">
+                    Stormbit&apos;s asset vaults deliver secure, high-yield investments with instant interest, combining
+                    DeFi and P2P lending for maximum gains and risk management through Stormbit and Insurance Vaults.
                   </div>
+                  <button
+                    onClick={() => router.push("/lenders")}
+                    className="mt-10 font-semibold w-[30%] cursor-pointer bg-[#D0C8FF] rounded-full  py-2 text-black"
+                  >
+                    Explore Vaults
+                  </button>
                 </div>
                 <Image alt="icon" width={300} height={300} src="/vault.svg" />
               </div>
-              <div className="flex flex-row gap-4 justify-center items-center max-w-[50%]">
+              <div className="py-20 flex flex-row gap-4 justify-center items-center max-w-[50%]">
                 <Image alt="icon" width={300} height={300} src="/customLending.svg" />
                 <div className="text-white flex flex-col gap-4">
-                  <div className="text-xl text-right font-bold">Custom Lending Terms</div>
-                  <div className="max-w-[80%] self-end text-right text-[#ACACAC]">
-                    Financial operations managed by a lender who assess loan applications and allocate funds
+                  <div className="text-4xl text-right font-bold">Seamless Lending Process</div>
+                  <div className="text-xl max-w-[80%] self-end text-right text-[#A1A1A1]">
+                    Lenders manage financial operations, assessing loan applications and allocating funds, with terms
+                    including lender fees and hooks. Inspired by Uniswap v4, Stormbit’s modular design efficiently
+                    connects depositors&apos; capital with borrowers&apos; loans.
                   </div>
                 </div>
               </div>
