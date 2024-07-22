@@ -111,7 +111,7 @@ const Home: NextPage = () => {
             <Image src="/landing-providers.svg" alt="icon" width={1300} height={100} className="hidden lg:block" />
             <Image src="/landing-providers-phone.svg" alt="icon" width={450} height={460} className="block lg:hidden" />
           </section>
-          <section className="flex flex-col items-center  pb-40 lg:py-[150px] px-4 lg:px-0">
+          <section className="flex flex-col items-center  py-40 lg:py-[150px] px-4 lg:px-0">
             <div className="max-w-[1920px] w-full flex-col flex items-center  lg:gap-24">
               <h2 className="font-bold text-3xl lg:text-5xl text-white pb-20 lg:pb-32">
                 Core <span className="text-gradient">Technology</span>
