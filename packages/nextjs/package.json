@@ -27,6 +27,7 @@
     "antd": "^5.15.2",
     "blo": "~1.0.1",
     "daisyui": "~4.4.19",
+    "file-saver": "^2.0.5",
     "framer-motion": "^11.0.12",
     "graphql": "^16.9.0",
     "next": "~14.0.4",
@@ -50,6 +51,7 @@
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "~4.1.1",
+    "@types/file-saver": "^2",
     "@types/node": "^17.0.45",
     "@types/nprogress": "^0",
     "@types/react": "^18.0.21",
