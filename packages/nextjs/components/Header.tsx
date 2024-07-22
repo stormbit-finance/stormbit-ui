@@ -41,6 +41,11 @@ export const menuLinks: HeaderMenuLink[] = [
 
 export const HeaderMenuLinks = () => {
   const pathname = usePathname();
+  const router = useRouter();
+  const handleClick = (e: any, href: string) => {
+    e.preventDefault();
+    router.push(href);
+  };
   return (
     <>
       {menuLinks.map(({ label, href, icon, external }) => {
@@ -57,12 +62,13 @@ export const HeaderMenuLinks = () => {
                 {icon} {label}
               </Link>
             ) : (
-              <Link
+              <a
                 href={href}
+                onClick={e => handleClick(e, href)}
                 className={`flex items-center gap-[5px] ${isActive ? "text-[#A24DFF]" : "text-[#ffffff]"}`}
               >
                 {icon} {label}
-              </Link>
+              </a>
             )}
           </li>
         );
