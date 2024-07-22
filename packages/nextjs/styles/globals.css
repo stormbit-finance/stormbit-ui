@@ -75,6 +75,14 @@ input {
   z-index: 1;
 }
 
+.brandkit-landing {
+  background: url("/brandkit-background.png");
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 1;
+}
+
 .credit {
   background: linear-gradient(154deg, rgba(121, 117, 131, 0.2) 5.35%, rgba(54, 53, 103, 0.2) 83.85%),
     rgba(49, 48, 54, 0.3);
