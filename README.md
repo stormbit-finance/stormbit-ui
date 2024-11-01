@@ -10,7 +10,7 @@
   <img src="https://img.shields.io/twitter/follow/StormbitX?style=social" alt="Follow on X"/>
 </p>
 
-<h1 align="center">Stormbit: Empowering Inclusive Finance ( v1 ) </h1>
+<h1 align="center">Stormbit: Empowering Inclusive Finance ( v0 ) </h1>
 
 <p align="center">Stormbit is an advanced peer-to-peer lending platform that seamlessly integrates traditional financial systems with innovative cryptocurrency markets. Utilizing blockchain technology, Stormbit offers unique lending options such as undercollateralized, NFT-backed, and fully customizable loans. Our mission is to make financial services accessible to all, empowering underrepresented communities through decentralized finance (DeFi).</p>
 
