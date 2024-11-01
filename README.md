@@ -13,7 +13,7 @@
   <img src="https://img.shields.io/badge/monorepo%20on%20-scaffoldETH-purple" alt="monorepo scaffoldETH"/>
 </p>
 
-<h1 align="center">Stormbit: Empowering Inclusive Finance (v1)</h1>
+<h1 align="center">Stormbit: Empowering Inclusive Finance (v0)</h1>
 
 <p align="center">Stormbit is a peer-to-peer lending platform integrating traditional finance with crypto markets, offering undercollateralized and NFT-backed loans through blockchain technology.</p>
 
