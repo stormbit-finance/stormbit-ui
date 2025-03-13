@@ -1,6 +1,6 @@
 <p align="center">⚠️ OUTDATED DOCUMENTATION - THIS VERSION IS NO LONGER MAINTAINED ⚠️</p>
 
-<p align="center">⚡ NEW REPOSITORIES ARE PRIVATE - FOR ACCESS PLEASE CONTACT: mehdi@quantum3labs.com ⚡</p>
+<p align="center">⚡ NEW REPOSITORIES ARE PRIVATE - FOR ACCESS PLEASE CONTACT: contact@quantum3labs.com ⚡</p>
 
 <p align="center">
   <a href="https://stormbit.finance">
